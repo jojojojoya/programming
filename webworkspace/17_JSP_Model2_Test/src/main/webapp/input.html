@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!--
+	
+	Test Model2 MVC 패턴 방식으로 구현
+	- 값 뭉쳐보내기 
+
+	결과페이지
+	-회원정보확인 
+	이름 : 00
+	나이 : 00
+	성별 : 00
+	관심사 : 00/00
+	
+-->
+<form action="HC" method="post">
+	<div> 관심사 리스트 </div>
+	<div> 회원 이름: <input name="name"></div>
+	<div> 나이: <input name= "age"></div>
+	<div> 성별: <input name="gen" 
+	type="radio" value="male"> 남 <input name="gen"  type="radio" value="female"> 여 </div>
+	<div>
+	<label> <input type="checkbox" name="inter" value="sports"/>  운동	</label>		
+	<label> <input type="checkbox" name="inter" value="cook"/>  요리	</label>		
+	<label> <input type="checkbox" name="inter" value="dev"/>  개발	</label>		
+		
+		
+	</div>
+	<button>확인</button>	
+	
+</form>
+</body>
+</html>

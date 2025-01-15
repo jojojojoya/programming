@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>BMI 검사</title>
+	<link rel="stylesheet" href="calc.css" />
+	<script type="text/javascript" src="vaildCheck.js"> </script>
+	<script type="text/javascript" src="check.js"> </script>
+
+
+</head>
+
+<body>
+	<form id="myForm"
+	action="calc.jsp"
+	method="post" enctype="multipart/form-data">
+		<div class="bmi-container">
+			<div class="bmi-header">BMI 검사</div>
+			<div class="bmi-body">
+				<label>이름<input name="name" type="text" /></label>
+				<label>키<input name="height" type="text" /></label>
+				<label>체중<input name="weight" type="text" /></label>
+				<label>사진<input name="imgFile" type="file" /></label>
+				<button class="bmi-button"
+				type="button" onclick="check()"
+			 	>계산</button>
+			</div>
+		<!-- type = "button"은 동작하지 않음-->
+		</div>
+	</form>
+</body>
+
+</html>
+
+</body>
+
+</html>
