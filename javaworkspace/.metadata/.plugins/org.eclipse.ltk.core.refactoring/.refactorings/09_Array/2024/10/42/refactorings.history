@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;ArrayMain05&apos; to &apos;AMain05&apos;&#x0D;&#x0A;- Original project: &apos;09_Array&apos;&#x0D;&#x0A;- Original element: &apos;ArrayMain05&apos;&#x0D;&#x0A;- Renamed element: &apos;AMain05&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ArrayMain05&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{ArrayMain05.java[ArrayMain05" matchStrategy="1" name="AMain05" qualified="false" references="true" similarDeclarations="false" stamp="1729224055652" textual="false" version="1.0"/>
+</session>

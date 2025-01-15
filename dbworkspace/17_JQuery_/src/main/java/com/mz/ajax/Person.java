@@ -1,0 +1,43 @@
+package com.mz.ajax;
+
+import com.google.gson.Gson;
+
+public class Person {
+	private String name;
+	private int age;
+	
+	
+	public Person() {
+	}
+	public Person(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", age=" + age + "]";
+	}
+	
+	
+	public String toJSON() { //얘는 내가 만든거
+		Gson gson = new Gson(); 
+		return gson.toJson(this); // 얘는 원래 있는거 
+		
+	}
+	
+	
+
+}

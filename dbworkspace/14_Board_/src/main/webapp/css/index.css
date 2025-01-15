@@ -1,0 +1,56 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'SokchoBadaBatang';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/SokchoBadaBatang.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: 'SokchoBadaBatang';
+margin: 0;
+padding: 0;
+}
+
+a {
+text-decoration: none;
+color: black;
+}
+
+a:hover {
+color: gold;
+}
+
+.container {
+width: 100vw;
+min-height: 99vh;
+
+}
+
+.container>div {
+border-bottom: 2px solid;
+width: 100%;
+text-align: center;
+font-size: 19pt;
+}
+
+.title {
+height: 50px;
+padding-top: 15px;
+font-size: 23pt;
+}
+
+.menu {
+padding-top:5px;
+height: 35px;
+display: flex;
+justify-content: space-evenly;
+}
+
+.menu>div {
+display: inline-block;
+}
+
+.content {
+padding-top: 5px;
+min-height: 800px;
+}

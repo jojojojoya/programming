@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	$(function(){
+			// b1에 이벤트 
+			// 마우스를 올릴때마다 메뉴가 위 아래로 보였다 안보였다.
+			let action = false;
+			$("#b1").mouseover(function(){
+			if(action){
+			$("#menu").css('top',"-100px")
+			} else {
+			$("#menu").css('top',"0px")}
+				action = !action;
+	});
+	
+	//$(선택자).animate(스타일[지속시간][시간당 속도함수][콜백함수])
+	
+	$("#b2").click(function(){
+		$("#menu").animate({
+			'width' : '1000px',
+			'font-size' : '30pt'
+		},2000, "linear",function(){
+			
+			
+		});
+		
+		
+		
+	})
+				
+			
+		$("#b3").click(function(){
+			let aa = $("#menu").css("right")
+			aa = aa.replace("px","");
+			if(aa > 250) {
+		
+			$("#menu").animate({'margin-left' : '+=500px'},300, "swing", function(){
+			})
+		}	else {
+			
+			$("#menu").css("margin-left","0px");
+		}
+		})	
+		})	
+				
+			
+</script>
+<style type="text/css">
+	#menu{
+	position: fixed;
+	top: -100px;
+	left: -150px;
+	transition: all 0.2s ease-out;
+	}
+	
+</style>
+</head>
+<body>
+	<button id ="b1">>></button> 
+	<button id ="b2">▶</button> 
+	<button id ="b3">▷</button> 
+	 <table border="1"  style="width: 700px; height: 60px;" id = "menu">
+		 <tr>
+			 <td>A</td>
+			 <td>B</td>
+			 <td>C</td>
+		 </tr>
+	 </table>
+</body>
+</html>

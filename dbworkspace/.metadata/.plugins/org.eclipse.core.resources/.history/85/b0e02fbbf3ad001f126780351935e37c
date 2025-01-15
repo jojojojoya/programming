@@ -1,0 +1,42 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+public class BMIMain3 {
+	
+		static Scanner sc = new Scanner(System.in);
+		String name;
+		double height;
+		double weight;
+		double bmi;
+		String status;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String[] statusTbl = {"","저체중", "정상", "과체중", "비만","고도비만"};
+		
+		public static void main(String[] args) {
+			BMIMain3 bmiProgram = new BMIMain3();
+try {
+	bmiProgram.con = ConnectionMain.connect();
+	
+	while (true) {
+		bmiProgram.showUI();
+		
+	}
+} catch (Exception e) {
+	e.printStackTrace();
+}			
+		
+private void showUI {
+	System.out.println("---BMI---");
+	System.out.println("1. 검사");
+	System.out.println("2. 조회");
+	System.out.println("3. 종료");
+	System.out.println("---------");
+	System.out.println("선택 : ");
+	
+}
+	}
+   }

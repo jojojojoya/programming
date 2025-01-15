@@ -1,0 +1,102 @@
+@charset "UTF-8";
+@charset "UTF-8";
+
+.movie-container {
+display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+    width: 70%;
+    flex-wrap: wrap;
+}
+
+.movie-wrap {
+border: 1px solid;
+    border-radius: 10px;
+    width: 220px;
+    height: 320px;
+    margin: 50px;
+}
+.movie-btn{
+background-color: white;
+border-radius: 5px;
+}
+.movie-img>img {
+width: 80%;
+}
+
+.movie-img {
+height: 80%;
+}
+
+.movie-title {
+    font-size: 16pt;
+    height: 25px;
+    padding: 5px;
+    border-bottom: 1px solid;}
+
+.movie-actor {
+    padding: 5px;
+    font-size: 13pt;
+}
+
+.movie-detail {
+border: 2px solid;
+width: 500px;
+}
+
+.movie-detail>div {
+border-bottom: 1px dotted;
+padding: 20px;
+display: flex;
+}
+
+.movie-detail img {
+max-width: 400px;
+margin: 0 auto;
+}
+/* movie reg */
+.movie-reg {
+border: 2px solid;
+width: 500px;
+}
+
+.movie-reg>div {
+display: flex;
+}
+.movie-reg > div > div:nth-child(1){
+width: 150px;
+}
+.movie-reg>div:nth-last-child(1){
+display: flex;
+justify-content: center;
+}
+
+.col-1 {
+width: 25%;
+border-right: 1px solid;
+}
+.col-2 {
+width: 75%;
+text-align: center;
+}
+.pn{
+width: 100px;
+height: 50px;
+font-size: 20pt;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* 흔들림 클래스 */
+.shake {
+    animation: shake 0.5s;
+    border-width:5px;
+    border-color: gray;
+    color: gray;
+}

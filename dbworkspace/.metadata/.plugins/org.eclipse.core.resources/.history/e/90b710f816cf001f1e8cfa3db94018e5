@@ -1,0 +1,218 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Cute Page</title>
+<style>
+/* 공통 스타일 */
+body {
+    font-family: 'Comic Sans MS', Arial, sans-serif;
+    background-color: #E8F1FD; /* 부드러운 하늘색 배경 */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #4A6585; /* 어두운 대표 컬러 */
+    margin: 0;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 18px;
+    color: #7193BD; /* 대표 컬러 */
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* 헤더, 푸터 스타일 */
+.header, .footer {
+    background-color: #FF8BA7; /* 귀여운 핑크색 */
+    color: white;
+    text-align: center;
+    line-height: 100px;
+    font-size: 26px;
+    font-weight: bold;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav {
+    background-color: #FFD6E8; /* 부드러운 핑크색 */
+    color: #4A6585;
+    text-align: center;
+    line-height: 70px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+/* 콘텐츠 스타일 */
+.content {
+    margin: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-field {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #B6CFFB; /* 파스텔 블루 */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-circle img {
+    border-radius: 50%;
+    border: 5px solid #7193BD; /* 대표 컬러 */
+    width: 150px;
+    height: 150px;
+}
+
+button {
+    background-color: #FF8BA7; /* 귀여운 핑크 */
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #FFB4C9; /* 더 밝은 핑크 */
+    transform: scale(1.05);
+}
+
+/* 리스트 제목 스타일 */
+.review-list, .reservation-list, .like-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.review-list h2, .reservation-list h2, .like-list h2 {
+    color: #FF8BA7; /* 귀여운 강조 색상 */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.review-comment, .reserv-place-list, .like-place-list {
+    margin-top: 20px;
+}
+
+.review-comment {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #E0E0E0;
+    font-size: 16px;
+}
+
+.review-comment span {
+    color: #7193BD; /* 대표 컬러로 강조 */
+    font-size: 20px;
+}
+
+.reserv-place-list img, .like-place-list img {
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 가로 리스트 정렬 */
+.reserv-place-list-field, .like-place-list-field {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.reserv-place-list-field::-webkit-scrollbar,
+.like-place-list-field::-webkit-scrollbar {
+    display: none; /* 스크롤바 숨김 */
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">🍭 My Cute Page 🍭</div>
+        <div class="nav">✨ Navigation Bar ✨</div>
+        <div class="content">
+            <div class="mypage">
+                <h1>MyPage</h1>
+                <h2>내 프로필</h2>
+            </div>
+            <hr>
+
+            <!-- 프로필 섹션 -->
+            <div class="profile">
+                <div class="profile-field">
+                    <div class="profile-circle">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpgDevrlkGRc_wQ5fcoY3WZPh42yBUJhVPNA&s" alt="profile-img">
+                    </div>
+                    <span>
+                        <h2>대식가 비숑(ID) 님 🎀</h2>
+                        00 러버 비숑 님, 오늘은 어떤 맛집을 찾아볼까요? 🍫
+                    </span>
+                    <div>
+                        <button>내 프로필 수정 🛠️</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 리뷰 리스트 -->
+            <div class="review-list">
+                <h2>작성한 맛리뷰 📝</h2>
+                <div>
+                    <h3>더보기 ></h3>
+                </div>
+            </div>
+            <hr>
+
+            <div class="review-comment">
+                <span>🦀🍴</span> [ 맛리뷰 예시 ] 가게명 / 제목 or 텍스트 일부 / 게시일
+            </div>
+
+            <!-- 예약 리스트 -->
+            <div class="reservation-list">
+                <h2>예약한 가게 📅</h2>
+                <div>
+                    <h3>더보기 ></h3>
+                </div>
+            </div>
+            <hr>
+
+            <div class="reserv-place-list-field">
+                <div class="reserv-place-list">
+                    <img src="https://mblogthumb-phinf.pstatic.net/MjAxODA3MDVfNDAg/MDAxNTMwNzU3MjEyNjQ0.RNprD67cJ2AOWI2GmRVprWVv7qtNI-d3WsN-XhRLTLIg.hpd6lxFA6mkoZ-78fN-zmiLtxAv9H3iP_Jxs6bF7XCEg.PNG.witchstudio/image.png?type=w800" alt="place-name">
+                    <h2>예약한 가게명</h2>
+                </div>
+            </div>
+        </div>
+        <div class="footer">🍰 Footer 🍰</div>
+    </div>
+</body>
+</html>
+
+

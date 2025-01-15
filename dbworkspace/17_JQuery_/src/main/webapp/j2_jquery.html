@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+// jQuery(document).ready(function ttt(){
+// 	alert(11)
+// })
+		// 레디. main처럼 사용 (문서 body의 내용이 로드가 되어야 그걸 읽어올 수 있으니까)
+		// $(선택자).이벤트(콜백함수)
+		// css선택자
+		// 콜백함수 - 이벤트에 연결이 되어서 그 이벤트가 발생하면 자동으로 호출. 
+		
+//		$(document).ready(function () {
+//			alert(22)
+			
+//		})
+
+	$(function() {
+		const h1El = $('#hh');
+//		alert(h1El.text());
+	
+		$(h1El).click(function(){
+			alert('wow!');
+			
+		})
+		
+		$("#btn1").click(function(){
+			alert('btn1 clicked');
+		})
+	
+		$(".btn2").click(function(){
+			
+			alert('oh!!')
+			
+			
+			
+		})
+	});
+	
+	
+		
+</script>"
+</head>
+<body>
+
+	<h1 id ="hh" onclick="tt()"> ㅎㅅㅎ </h1>
+	<button id = "btn1">zzz</button>
+	<button class="btn2">hhh</button>
+	<button class="btn2">ㅇㅇㅇ</button>
+
+
+</body>
+
+</html>

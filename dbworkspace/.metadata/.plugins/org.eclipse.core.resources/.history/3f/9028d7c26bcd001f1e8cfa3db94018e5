@@ -1,0 +1,22 @@
+package com.mz.ajax;
+
+public class Human {
+	
+	private int p_no;
+	private String p_name;
+	private int p_age;
+	
+	public Human() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public Human(int p_no, String p_name, int p_age) {
+		super();
+		this.p_no = p_no;
+		this.p_name = p_name;
+		this.p_age = p_age;
+	}
+	
+
+}
