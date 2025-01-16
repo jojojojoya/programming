@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;cos.jar&apos; to &apos;WEB-INF&apos;&#x0D;&#x0A;- Original project: &apos;06_FileUpload&apos;&#x0D;&#x0A;- Destination element: &apos;WEB-INF&apos;&#x0D;&#x0A;- Original element: &apos;cos.jar&apos;" description="Copy file" element1="src/main/webapp/WEB-INF/lib/cos.jar" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1733710430574" target="/11_JSP_BMI/src/main/webapp/WEB-INF" units="0" version="1.0"/>
+</session>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+/*
+request
+1. <a> 클릭 - GET 요청
+2. <form> 속 <button> 클릭 - get, post 요청
+3. JS = location.href='' 클릭 - GET 요청
+	
+*/	
+
+function go(){ 
+	location.href='second.jsp?a=10&b=20';
+}
+</script>
+
+<body>
+<h1>first page</h1>
+
+<a href="second.jsp?a=10&b=20" onclick="go()">10이랑 20 더하기</a>
+<form action="second.jsp" >
+	a <input name="a">
+	b <input name="b">
+	<button>계산</button>
+</form>
+
+<h2 onclick="go()"> 5 + 10 더하기! </h2>
+
+
+
+</body>
+</html>

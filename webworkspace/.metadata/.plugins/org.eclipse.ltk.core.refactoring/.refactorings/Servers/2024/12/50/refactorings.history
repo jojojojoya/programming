@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;calc.jsp&apos; to &apos;Servers&apos;" description="Move &apos;calc.jsp&apos; to &apos;Servers&apos;" destination="/Servers" element1="/11_JSP_BMI/src/main/webapp/WEB-INF/calc.jsp" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1733705763056" updateReferences="true"/>
+</session>
