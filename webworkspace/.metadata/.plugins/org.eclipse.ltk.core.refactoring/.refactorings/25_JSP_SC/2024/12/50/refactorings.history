@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename type &apos;com.mz.sc.thirdC&apos; to &apos;ThirdC&apos;&#x0D;&#x0A;- Original project: &apos;25_JSP_SC&apos;&#x0D;&#x0A;- Original element: &apos;com.mz.sc.thirdC&apos;&#x0D;&#x0A;- Renamed element: &apos;com.mz.sc.ThirdC&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;thirdC&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java&lt;com.mz.sc{thirdC.java[thirdC" matchStrategy="1" name="ThirdC" qualified="false" references="true" similarDeclarations="false" stamp="1734057378558" textual="false" version="1.0"/>
-</session>
