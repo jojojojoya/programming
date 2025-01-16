@@ -1,9 +1,0 @@
-package poly;
-
-public class Sender {
-	
-	public void interface sendMessage() {
-		System.out.println("환영합니다.");
-	}
-	
-}

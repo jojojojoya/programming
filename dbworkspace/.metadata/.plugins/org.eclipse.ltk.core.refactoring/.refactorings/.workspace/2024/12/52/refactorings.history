@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;13_LoginSystem_,z&apos; to &apos;13_LoginSystem_mz&apos;" description="Rename resource &apos;13_LoginSystem_,z&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/13_LoginSystem_,z" name="13_LoginSystem_mz" stamp="1735220043866" updateReferences="true"/>
-</session>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;ConnectionMain.java&apos; to &apos;07_DB_WEB/src/main/java/com.mz.dbweb&apos;&#x0D;&#x0A;- Original project: &apos;07_BMI&apos;&#x0D;&#x0A;- Destination element: &apos;07_DB_WEB/src/main/java/com.mz.dbweb&apos;&#x0D;&#x0A;- Original element: &apos;ConnectionMain.java&apos;" description="Copy compilation unit" destination="=07_DB_WEB/src\/main\/java&lt;com.mz.dbweb" element1="/src&lt;{ConnectionMain.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1734076495343" units="1" version="1.0"/>
-</session>
