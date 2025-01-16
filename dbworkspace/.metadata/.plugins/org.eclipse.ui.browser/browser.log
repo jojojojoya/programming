@@ -1,0 +1,123 @@
+
+12월 16, 2024 11:54:44.19 NEW SESSION
+12월 16, 2024 11:54:44.20 [31908:19000:1216/115444.177:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 16, 2024 11:54:44.59 Created TensorFlow Lite XNNPACK delegate for CPU.
+12월 16, 2024 11:55:08.62 [31908:19000:1216/115508.625:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 16, 2024 11:56:07.50 [31908:19000:1216/115607.506:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 16, 2024 11:57:59.24 [31908:19000:1216/115759.246:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 16, 2024 12:00:53.01 [31908:19000:1216/120053.012:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 16, 2024 12:06:23.11 [31908:19000:1216/120623.115:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 16, 2024 13:10:09.88 [31908:38024:1216/131009.882:ERROR:interface_endpoint_client.cc(725)] Message 0 rejected by interface blink.mojom.WidgetHost
+12월 16, 2024 17:30:34.28 [31908:38024:1216/173034.287:ERROR:device_event_log_impl.cc(201)] [17:30:34.287] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 16, 2024 17:31:55.89 [31908:38024:1216/173155.894:ERROR:device_event_log_impl.cc(201)] [17:31:55.894] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 16, 2024 18:11:24.45 [31908:19000:1216/181124.457:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 16, 2024 18:38:10.11 [31908:19000:1216/183810.115:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 16, 2024 19:11:15.39 [31908:19000:1216/191115.395:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 16, 2024 21:11:41.04 [31908:19000:1216/195135.329:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 16, 2024 21:11:41.15 [31908:19000:1216/211141.151:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -7
+12월 16, 2024 22:55:33.24 [31908:19000:1216/225533.236:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 17, 2024 09:46:56.42 [31908:35676:1217/094656.420:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_TIMED_OUT)
+12월 17, 2024 09:46:56.56 [31908:19000:1217/094656.563:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -109
+12월 17, 2024 09:47:23.29 [31908:19000:1217/094723.283:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 17, 2024 09:47:23.30 [31908:13820:1217/094723.307:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+12월 17, 2024 09:47:44.48 [31908:19000:1217/094744.486:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 17, 2024 09:47:44.50 [31908:13820:1217/094744.500:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NETWORK_CHANGED)
+12월 17, 2024 09:47:46.53 [31908:13820:1217/094746.539:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_INTERNET_DISCONNECTED)
+12월 17, 2024 09:47:46.98 [31908:38024:1217/094746.988:ERROR:device_event_log_impl.cc(201)] [09:47:46.987] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 09:47:59.89 [31908:19000:1217/094759.898:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 17, 2024 09:47:59.90 [31908:13820:1217/094759.900:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+12월 17, 2024 09:48:04.91 [31908:19000:1217/094804.915:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 17, 2024 09:48:04.92 [31908:9916:1217/094804.920:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+12월 17, 2024 09:48:21.41 [31908:19000:1217/094821.418:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 17, 2024 09:48:51.21 [31908:19000:1217/094851.213:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 17, 2024 09:49:06.23 [31908:38024:1217/094906.231:ERROR:device_event_log_impl.cc(201)] [09:49:06.231] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 09:49:34.32 [31908:19000:1217/094934.325:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 17, 2024 09:51:32.53 [31908:19000:1217/095132.538:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 17, 2024 09:54:47.56 [31908:19000:1217/095447.567:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 17, 2024 10:01:06.19 [31908:38024:1217/100106.196:ERROR:device_event_log_impl.cc(201)] [10:01:06.196] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 10:02:39.27 [31908:19000:1217/100239.278:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 17, 2024 10:15:20.83 [31908:38024:1217/101520.828:ERROR:interface_endpoint_client.cc(725)] Message 0 rejected by interface blink.mojom.WidgetHost
+12월 17, 2024 10:17:38.39 [31908:38024:1217/101738.391:ERROR:interface_endpoint_client.cc(725)] Message 0 rejected by interface blink.mojom.WidgetHost
+12월 17, 2024 10:19:29.33 [31908:38024:1217/101929.337:ERROR:interface_endpoint_client.cc(725)] Message 0 rejected by interface blink.mojom.WidgetHost
+12월 17, 2024 10:34:21.51 [31908:38024:1217/103421.515:ERROR:interface_endpoint_client.cc(725)] Message 0 rejected by interface blink.mojom.WidgetHost
+12월 17, 2024 11:00:05.75 [31908:38024:1217/110005.753:ERROR:device_event_log_impl.cc(201)] [11:00:05.753] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 12:09:14.88 [31908:38024:1217/120914.888:ERROR:device_event_log_impl.cc(201)] [12:09:14.888] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 13:19:41.97 [31908:19000:1217/131941.977:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 17, 2024 13:21:43.13 [31908:19000:1217/132143.128:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 17, 2024 14:42:07.14 [31908:19000:1217/144207.145:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -7
+12월 17, 2024 14:44:15.09 [31908:38024:1217/144415.093:ERROR:device_event_log_impl.cc(201)] [14:44:15.092] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 15:01:11.31 [31908:38024:1217/150111.313:ERROR:device_event_log_impl.cc(201)] [15:01:11.314] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 15:27:14.58 [31908:38024:1217/152714.582:ERROR:device_event_log_impl.cc(201)] [15:27:14.581] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 17:34:28.63 [31908:38024:1217/173428.633:ERROR:device_event_log_impl.cc(201)] [17:34:28.634] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 19:48:53.64 [31908:38024:1217/194853.643:ERROR:device_event_log_impl.cc(201)] [19:48:53.644] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 17, 2024 19:49:23.51 [31908:19000:1217/194923.514:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 17, 2024 19:54:08.12 [31908:19000:1217/195408.121:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 17, 2024 19:56:44.10 [31908:19000:1217/195644.100:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 18, 2024 09:36:48.73 [31908:19000:1218/093648.737:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -109
+12월 18, 2024 09:36:49.06 [31908:25408:1218/093649.068:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+12월 18, 2024 09:37:01.38 [31908:19000:1218/093701.386:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 18, 2024 09:37:23.97 [31908:19000:1218/093723.974:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 18, 2024 09:38:14.47 [31908:19000:1218/093814.477:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 18, 2024 09:39:55.28 [31908:19000:1218/093955.277:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 18, 2024 09:42:45.19 [31908:19000:1218/094245.199:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 18, 2024 09:43:29.89 [31908:38024:1218/094329.892:ERROR:device_event_log_impl.cc(201)] [09:43:29.893] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 18, 2024 09:49:27.24 [31908:19000:1218/094927.242:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 18, 2024 09:54:00.60 [31908:19000:1218/095400.600:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 18, 2024 11:09:31.16 [31908:19000:1218/110931.164:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 18, 2024 12:01:03.53 [31908:38024:1218/120103.528:ERROR:interface_endpoint_client.cc(725)] Message 0 rejected by interface blink.mojom.WidgetHost
+12월 18, 2024 13:25:35.84 [31908:19000:1218/132535.830:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 18, 2024 13:25:38.03 [31908:19000:1218/132538.037:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -106
+12월 18, 2024 13:25:38.58 [31908:38024:1218/132538.578:ERROR:device_event_log_impl.cc(201)] [13:25:38.575] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 18, 2024 13:26:30.02 [31908:19712:1218/132630.024:ERROR:cpu_probe_win.cc(134)] PdhGetFormattedCounterValue failed: Error (0x13D) while retrieving error. (0x800007D6)
+12월 18, 2024 14:32:08.90 [31908:38024:1218/143208.904:ERROR:device_event_log_impl.cc(201)] [14:32:08.904] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+12월 18, 2024 15:48:49.65 [31908:19000:1218/154849.652:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 18, 2024 15:52:59.71 [31908:19000:1218/155259.716:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 18, 2024 16:16:37.24 [31908:19000:1218/161637.240:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 18, 2024 16:35:50.25 [31908:19000:1218/163550.252:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 18, 2024 16:44:39.27 [31908:19000:1218/164439.268:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 18, 2024 17:51:46.47 [31908:19000:1218/175146.469:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 18, 2024 19:50:38.08 [31908:19000:1218/195038.077:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 18, 2024 19:52:05.82 [31908:19000:1218/195205.825:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -109
+12월 19, 2024 01:03:21.83 [31908:19000:1219/010321.830:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 01:03:44.16 [31908:19000:1219/010344.164:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 01:04:03.18 [31908:19000:1219/010403.188:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 19, 2024 03:00:48.27 [31908:19000:1219/030048.272:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -7
+12월 19, 2024 09:43:55.83 [31908:19000:1219/094355.834:ERROR:registration_request.cc(274)] Registration URL fetching failed.
+12월 19, 2024 09:43:58.21 [31908:19000:1219/094358.211:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -106
+12월 19, 2024 09:43:58.21 [31908:25408:1219/094358.213:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_INTERNET_DISCONNECTED)
+12월 19, 2024 09:44:10.40 [31908:19000:1219/094410.407:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 19, 2024 09:44:17.80 [31908:19000:1219/094417.806:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 19, 2024 09:44:23.04 [31908:19000:1219/094423.047:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 19, 2024 09:44:23.05 [31908:13820:1219/094423.049:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NETWORK_CHANGED)
+12월 19, 2024 09:44:37.29 [31908:13820:1219/094437.296:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_INTERNET_DISCONNECTED)
+12월 19, 2024 09:44:49.46 [31908:13820:1219/094449.460:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_INTERNET_DISCONNECTED)
+12월 19, 2024 09:45:20.24 [31908:19712:1219/094520.246:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_INTERNET_DISCONNECTED)
+12월 19, 2024 09:45:27.88 [31908:19000:1219/094527.881:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 19, 2024 09:45:27.96 [31908:31168:1219/094527.964:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+12월 19, 2024 09:45:30.15 [31908:19000:1219/094530.158:ERROR:connection_factory_impl.cc(434)] Failed to connect to MCS endpoint with error -105
+12월 19, 2024 09:45:44.03 [31908:19000:1219/094544.030:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 09:49:37.26 [31908:19000:1219/094937.262:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 09:56:10.53 [31908:19000:1219/095610.535:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 13:03:21.74 [31908:19000:1219/130321.737:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 13:03:51.87 [31908:19000:1219/130351.870:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 13:04:50.23 [31908:19000:1219/130450.229:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 13:06:11.20 [31908:19000:1219/130611.147:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 13:09:50.00 [31908:19000:1219/130950.005:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 13:16:23.89 [31908:19000:1219/131623.892:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 19, 2024 13:45:04.12 [31908:19000:1219/134504.125:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+12월 19, 2024 13:46:11.14 [31908:19712:1219/134611.147:ERROR:get_updates_processor.cc(267)] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NETWORK_IO_SUSPENDED)
+12월 19, 2024 13:55:42.30 [31908:38024:1219/135542.270:ERROR:interface_endpoint_client.cc(725)] Message 0 rejected by interface blink.mojom.WidgetHost
+12월 19, 2024 13:55:42.31 [31908:38024:1219/135542.271:ERROR:interface_endpoint_client.cc(725)] Message 1 rejected by interface blink.mojom.WidgetHost
+12월 19, 2024 13:55:42.31 [31908:38024:1219/135542.283:ERROR:interface_endpoint_client.cc(725)] Message 0 rejected by interface blink.mojom.WidgetHost
+12월 19, 2024 13:55:42.32 [31908:38024:1219/135542.283:ERROR:interface_endpoint_client.cc(725)] Message 1 rejected by interface blink.mojom.WidgetHost
+12월 19, 2024 13:55:42.32 [31908:38024:1219/135542.293:ERROR:interface_endpoint_client.cc(725)] Message 0 rejected by interface blink.mojom.WidgetHost
+
+12월 30, 2024 09:39:06.15 NEW SESSION
+12월 30, 2024 09:39:06.16 [10104:41980:1230/093906.151:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 30, 2024 09:39:06.71 Created TensorFlow Lite XNNPACK delegate for CPU.
+12월 30, 2024 09:39:33.78 [10104:41980:1230/093933.783:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 30, 2024 09:40:24.70 [10104:41980:1230/094024.708:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 30, 2024 09:42:20.31 [10104:41980:1230/094220.312:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 30, 2024 09:45:07.67 [10104:41980:1230/094507.677:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 30, 2024 09:51:39.15 [10104:41980:1230/095139.158:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+12월 30, 2024 18:37:10.83 [10104:27120:1230/183710.829:ERROR:device_event_log_impl.cc(201)] [18:37:10.829] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)

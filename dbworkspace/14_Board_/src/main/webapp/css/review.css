@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+.review-container {
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.review-container>div {
+	width: 65%;
+	border-bottom: 3px solid;
+}
+
+.review-title {
+	font-size: 22pt;
+	padding: 15px;
+	border-bottom: 3px solid;
+	position: relative;
+}
+
+.review-title>a {
+	position: absolute;
+	right: 10px;
+}
+
+.review-row {
+	display: flex;
+	height: 53px;
+	padding: 3px;
+	align-items: center;
+	border-bottom: 1px dotted;
+}
+
+.review-row:hover {
+	background-color: #fff5e8;
+}
+
+.review-row>div>span:hover {
+	cursor: pointer;
+}
+
+.review-row>div:nth-child(1) {
+	width: 70%;
+	border-right: 1px solid;
+}
+
+.review-row>div:nth-child(2) {
+	width: 30%;
+}
+
+/* review reg */
+.review-wrap {
+	display: flex;
+	justify-content: center;
+	margin-top: 100px;
+}
+
+.review-wrap>div {
+	width: 500px;
+	border: 1px solid;
+	height: 520px;
+	box-shadow: 1px 1px 5px black;
+}
+
+.review-wrap>div>div:nth-child(1) {
+	display: flex;
+	padding: 10px;
+	height: 35px;
+}
+
+.review-reg-col {
+	width: 25%;
+}
+
+.review-reg-col2 {
+	width: 75%;	
+}
+
+.review-reg-col2 > input{
+	width: 90%;
+	height: 25px;
+	font-size: 18pt;
+}
+.review-reg-col2 > textarea{
+	width: 90%;
+	height: 350px;
+	resize: none;
+	border-radius: 5px;
+	font-size: 20pt;
+}
+.review-wrap>div>div:nth-child(2) {
+	display: flex;
+	padding: 10px;
+}
+
+.review-reg-btn{
+	width: 30%;
+	background-color: white;
+	height: 40px;
+	font-size: 18pt;
+}

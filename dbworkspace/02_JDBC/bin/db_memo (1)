@@ -1,0 +1,46 @@
+-------------- 빈 껍데기
+Connection
+Statement
+ResultSet
+-------------- 실제 구동코드는 드라이버 (ojdbc.jar)
+
+
+1. Driver 로드 (객체화) - 생략가능 (connection때 드라이버 오토로 잡아줌)
+Class.forName("oracle.jdbc.driver.OracleDriver");
+
+2. 연결 객체 얻기
+Connection con = DriverManager.getConnection(url, id, pw);
+
+3. 실행 도구 생성
+Statement st = con.createStatement();
+
+4. 결과 얻기
+ResultSet rs = st.executeQuery(sql문);
+
+rs.next();
+
+
+----------------------------------
+oracle cloud.
+ojdcb8.jar			cert,core,pki		 jar 4개.
+
+jdbc:oracle:thin:@DB202204301707_high?TNS_ADMIN=D:/lmj(night 802)/Wallet_DB202204301707
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

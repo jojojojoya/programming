@@ -1,0 +1,196 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+
+
+
+
+</head>
+<body>
+	<div class="container">
+		<div class="header">header</div>
+		<div class="nav">nav</div>
+		<div class="content">
+
+			<div class="mypage" style="border: none;">
+				<h1>MyPage</h1>
+				<h2>내 프로필</h2>
+			</div>
+			<hr>
+
+
+
+			<div class="profile">
+
+				<div class="profile-field" style="border: none;">
+					<div class="profile-circle" style="border: none;">
+						<img
+							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpgDevrlkGRc_wQ5fcoY3WZPh42yBUJhVPNA&s"
+							alt="profile-img">
+					</div>
+					<div style="border: none; align-content: baseline; margin-left: 30px">
+					<span>
+						<h2>대식가 비숑(ID) 님 (🖐🏻'-' )</h2> 00 러버 비숑 님, 오늘은 어떤 맛집을 찾아볼까요? 🍫͜
+						(ᵔ ̮ ᵔ)›
+					</span>
+					</div>
+					<div style="border: none; margin-left: auto; align-content: center;" >
+							<input type="button" value="프로필 수정">
+					</div>
+				</div>
+			</div>
+
+			<br> <br>
+
+			<div class="review-list" style="border: none;">
+				<h2 style="margin-inline-end: auto;">작성한 맛리뷰</h2>
+				<div style="border: none;">
+					<h3> <a href="http://localhost/18_KHH_Test/ReviewsPage.jsp" > 더보기 ></a></h3>
+				</div>
+			</div>
+			<hr>
+
+			<div class="review-comment" style="border: none;">
+				<span>🦀🍴</span> [ 맛리뷰 예시 ] 가게명 / 제목 or 텍스트 일부 / 게시일
+			</div>
+			<div class="review-comment" style="border: none;">
+				<span>🦀🍴</span> 홋카이도넘버원 (北海道ナンバーワン) | 찾았습니다. 존맛탱 홍게집....! 홍게 속살이 꽉
+				차있는 숨은 골목 .. | 2025.01.10
+			</div>
+			<div class="review-comment" style="border: none;">
+				<span>🦀🍴</span> 우유빙수 (ミルクかき氷) | 산처럼 쌓인 우유 빙수가 인상적인 디저트 맛집입니다. 만족만족
+				대만족! | 2025.01.10
+			</div>
+
+			<br> <br>
+
+			<div class="reservation-list" style="border: none;">
+				<h2 style="margin-inline-end: auto;">예약한 가게</h2>
+				<div style="border: none;">
+					<h3> <a href="http://localhost/18_KHH_Test/ReservationPage.jsp"> 더보기 > </a></h3>
+				</div>
+			</div>
+			<hr>
+			<br>
+
+
+
+			<div class="reserv-place-list-field">
+
+				<div class="reserv-place-list">
+					<img
+						src="https://mblogthumb-phinf.pstatic.net/MjAxODA3MDVfNDAg/MDAxNTMwNzU3MjEyNjQ0.RNprD67cJ2AOWI2GmRVprWVv7qtNI-d3WsN-XhRLTLIg.hpd6lxFA6mkoZ-78fN-zmiLtxAv9H3iP_Jxs6bF7XCEg.PNG.witchstudio/image.png?type=w800"
+						alt="place-name">
+					<div style="border: none;">
+						<h2>예약한 가게명</h2>
+					</div>
+					<div style="border: none;">
+						<h3>예약일시 / 예약 인원</h3>
+					</div>
+				</div>
+
+
+				<div class="reserv-place-list">
+					<img src="https://kr.savorjapan.com/gg/content_image/t0283_017.jpg"
+						alt="place-name">
+					<div style="border: none;">
+						<h2>무라카미 하코다테 본점</h2>
+					</div>
+					<div style="border: none;">
+						<h3>2025.01.27 15:00 / 3명</h3>
+					</div>
+				</div>
+
+
+				<div class="reserv-place-list">
+					<img src="https://kr.savorjapan.com/gg/content_image/t0283_005.jpg"
+						alt="place-name">
+					<div style="border: none;">
+						<h2>라멘 삿포로 이치류안</h2>
+					</div>
+					<div style="border: none;">
+						<h3>2025.01.11 19:00 / 1명</h3>
+					</div>
+				</div>
+
+				<div class="reserv-place-list">
+					<img src="https://kr.savorjapan.com/gg/content_image/t0283_015.jpg"
+						alt="place-name">
+					<div style="border: none;">
+						<h2>해산물 로바타야키</h2>
+					</div>
+					<div style="border: none;">
+						<h3>2025.02.11 15:00 / 1명</h3>
+					</div>
+				</div>
+
+
+			</div>
+
+			<br> <br>
+
+
+
+			<div class="like-list" style="border: none;">
+
+				<h2 style="margin-inline-end: auto;">좋아요한 가게</h2>
+				<div style="border: none;">
+					<h3><a href="http://localhost/18_KHH_Test/LikeListPage.jsp"> 더보기 ></a></h3>
+				</div>
+			</div>
+			<hr>
+			<br>
+
+
+			<div class="like-place-list-field">
+				<div class="like-place-list">
+					<img
+						src="https://mblogthumb-phinf.pstatic.net/MjAxODA3MDVfNDAg/MDAxNTMwNzU3MjEyNjQ0.RNprD67cJ2AOWI2GmRVprWVv7qtNI-d3WsN-XhRLTLIg.hpd6lxFA6mkoZ-78fN-zmiLtxAv9H3iP_Jxs6bF7XCEg.PNG.witchstudio/image.png?type=w800"
+						alt="place-name">
+					<div style="border: none;">
+						<h2><span>🍴</span> 좋아한 가게명</h2>
+					</div>
+				</div>
+
+
+				<div class="like-place-list">
+					<img src="https://kr.savorjapan.com/gg/content_image/t0283_017.jpg"
+						alt="place-name">
+					<div style="border: none;">
+						<h2><span>🍴</span> 무라카미 하코다테 본점</h2>
+					</div>
+				</div>
+
+
+				<div class="like-place-list">
+					<img src="https://kr.savorjapan.com/gg/content_image/t0283_005.jpg"
+						alt="place-name">
+					<div style="border: none;">
+						<h2><span>🍴</span> 라멘 삿포로 이치류안</h2>
+					</div>
+				</div>
+
+				<div class="like-place-list">
+					<img src="https://kr.savorjapan.com/gg/content_image/t0283_015.jpg"
+						alt="place-name">
+					<div style="border: none;">
+						<h2><span>🍴</span> 해산물 로바타야키</h2>
+					</div>
+				</div>
+
+
+			</div>
+
+
+
+		</div>
+		<div class="footer">footer</div>
+	</div>
+</body>
+</html>
