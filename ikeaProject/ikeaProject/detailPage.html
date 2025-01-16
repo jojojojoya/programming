@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>인형 - IKEA</title>
+    <link rel="stylesheet" href="stylesheet_hm.css" />
+    <link rel="stylesheet" href="detailPage.css" />
+    <link rel="logo" href="이케아.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+  <style>
+      .swiper {
+        width: 95%;
+    height: 70%;
+    align-items: end;
+    padding-left: 80px; }
+  
+      .swiper-slide {
+        display: block;
+        flex-direction: column;
+        align-items:baseline;
+        justify-content:first baseline;
+        position: relative;
+      }
+  
+      .swiper-slide img {
+  max-width: 100%;
+  max-height: 500px; /* 고정된 최대 높이 */
+  object-fit: cover; /* 비율 유지 */
+}
+
+
+    /* 비교 토글 스타일 */
+    .toggle-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 60px;
+      margin-left: 1970px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 25px;
+    }
+
+    .toggle-switch input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      content: "";
+      position: absolute;
+      height: 19px;
+      width: 19px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2f2e2e;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(25px);
+    }
+
+    .product-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .swiper-button-next,
+.swiper-button-prev {
+  width: 40px; /* 버튼 너비 고정 */
+  height: 40px; /* 버튼 높이 고정 */
+  background-color: black; /* 버튼 배경색 */
+  border-radius: 50%; /* 버튼을 원형으로 유지 */
+  color: white; /* 화살표 색상 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px; /* 화살표 크기 */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* 크기 변화 방지 */
+}
+
+/* 버튼에 hover 상태에서도 크기 유지 */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: gray; /* 버튼 hover 색상 변경 */
+  transform: scale(1); /* 크기 변화 방지 */
+}
+
+/* 버튼 active 상태에서도 크기 유지 */
+.swiper-button-next:active,
+.swiper-button-prev:active {
+  transform: scale(1); /* 크기 변화 방지 */
+}
+
+    /* 비교 체크박스 */
+    .compare-overlay {
+  position: absolute;
+  top: -45px; /* 이미지 컨테이너 내 적절한 위치 */
+  left: -10px; /* 이미지 컨테이너 내 적절한 위치 */
+  display: flex; /* Flexbox 활성화 */
+  align-items: center; /* 세로 정렬 중앙 */
+  justify-content: center; /* 내부 요소의 수평 정렬 */
+  gap: 5px; /* 요소 간 간격 */
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.compare-overlay input[type="checkbox"] {
+  width: 25px; /* 체크박스 크기 조정 */
+  height: 25px;
+}
+
+.comparison-bar {
+  margin-top: 20px; /* 상단과 간격 조정 */
+    margin-top: 20px;
+    width: 1911px;
+    margin-left: 200px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding-top: 13px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 1px solid #ccc;
+  text-align: right;
+}
+
+
+
+.comparison-list img {
+  width: 80px;
+  margin-right: 20px;
+}
+.selected-items {
+  display: flex;
+  gap: 10px;
+}
+
+.selected-items img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.compare-button {
+  background-color: #000;
+  color: #fff;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  
+}
+
+
+
+.compare-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+    </style>
+
+  </head>
+
+  <body>
+    
+     <!-- 헤더 -->
+      <div class="h_container" style="color: white">
+        <!-- 언어선택버튼 -->
+        <div id="lang_select" style="padding: 15px 0px;">
+          <button class="modal_btn" type="button">
+            <img class="h_img" src="./ikeaAssets/www.ikea.com/ba221c01.png">
+            <span>&nbsp</span>
+            <span class="modal_btn_txt">KR | 한국어&nbsp</span>
+          </button>
+        </div>
+        
+        <!-- 우편번호 입력버튼 -->
+        <div id="modal_wrapper_pc">
+          <div id="postal_code" style="padding: 15px 0px">
+            <button type="button" class="modal_btn" id="postal_code_btn">
+              <img class="h_img" src="./ikeaAssets/www.ikea.com/f4df1395.png">
+              <span>&nbsp</span>
+              <span class="modal_btn_txt">우편 번호 입력</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal_overlay" id="postal_code_overlay"></div>
+
+        <!-- 매장선택버튼 -->
+        <div id="choose_store">
+          <div style="padding: 15px 0px">
+            <button type="button" class="modal_btn">
+              <img class="h_img" src="./ikeaAssets/www.ikea.com/ec7c7151.png">
+              <span>&nbsp</span>
+              <span class="modal_btn_txt">매장 선택</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    
+      <!-- 우편번호 슬라이딩 모달 -->
+      <div class="modal_window_pc" id="">
+        <div class="modal_body_pc" id="">
+          <!-- 슬라이딩 메뉴 닫기 버튼 -->
+          <div class="close_modal_img_wrapper">
+            <a href="">
+              <img class="close_modal_img" src="./ikeaAssets/www.ikea.com/e49f98ad.png">
+            </a>
+          </div>
+          <div class="modal_body_pc_inner">
+            <div>
+              <h2>현재 위치 사용</h2>
+              <br>
+              <p>내 위치로 배송 가능여부 및 재고 정보를 확인하세요</p>
+              <br>
+            </div>
+            <div class="modal_inner_btn">
+              <button id="modal_inner_btn" type="button" onclick="openPostalCode()" style="border: none; color:white; background-color: transparent;">우편 번호 찾기</button>
+            </div>
+            <div>
+              <br>
+              <p>이 서비스를 제공하기 위해 쿠키를 사용합니다. 쿠키 사용 방식에 대한 자세한 내용은 정책에서 확인하세요. 위치는 공유되지 않습니다.</p>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- navigation menu -->
+      <div class="nav_bar">
+        <div id="nav_mainIcon">
+          <a href="main.html">
+            <img src="https://www.ikea.com/global/assets/logos/brand/ikea.svg">&nbsp&nbsp
+          </a>
+        </div>
+
+        <!-- 검색창 -->
+        <div class="search_wrapper">
+          <div id="search_box" style="position: relative" >
+            <div class="search_box_inner">
+              <img class="glass" id="glass" src="./ikeaAssets/www.ikea.com/4297063b.png" />
+              <input class="search_box_input"
+              type="search" placeholder="검색어 입력"/>
+              <img class="camera" id="camera" src="./ikeaAssets/www.ikea.com/ada85900.png" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측버튼 4개 -->
+        <div class="nav_img_wrapper">
+          <div class="nav_subIcon">
+            <div>
+              <a class="a_login" href="">
+                <img class="img_mypage" style="width: 35px; height: 35px" src="./ikeaAssets/www.ikea.com/137be782.png" >
+                <span class="" style="padding-bottom: 5px;">Hej! 로그인 하기</span>
+              </a>
+            </div>
+
+            <!-- 페이버릿 아이콘 -->
+            <div class="nav_subIcon">
+              <a href="favourite.html">
+                <img class="nav_img favourite" src="./ikeaAssets/www.ikea.com/d6949042.png">
+              </a>
+            </div>
+
+            <!-- 장바구니 아이콘 -->
+            <div class="nav_subIcon">
+              <a href="shoppingCart.html">
+                <img class="nav_img shoppingCart" src="./ikeaAssets/www.ikea.com/e98778b2.png">
+              </a>
+            </div>
+
+            <!-- 햄버거 메뉴 아이콘 -->
+            <div class="nav_subIcon">
+              <button type="button" class="modal_btn_ham">
+                <img class="nav_img menu" src="./ikeaAssets/www.ikea.com/2ffc52c3.png">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 왼쪽 슬라이딩 메뉴 -->
+      <aside class="left_sidebar">
+        <!-- 검색창 영역 -->
+        <div class="sidebar_search_box">
+          <div class="sidebar_search_box_inner">
+            <input class="sidebar_search_box_input"
+              type="search" placeholder="검색"/>
+          </div>
+        </div>
+        <br><br>
+
+        <!-- 사이드바 메뉴 -->
+        <div class="sidebarMenu_wrapper">
+          <ul class="menu first">
+            <li><a class="sidebar_menu_item" href="detailPage.html"><span>모든 제품</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+            <li><a class="sidebar_menu_item" href=""><span>공간별 쇼핑하기</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+            <li><a class="sidebar_menu_item" href=""><span>특별한 가격</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+          </ul>
+          <br>
+          <ul class="menu second">
+            <li><a class="sidebar_menu_item" href=""><span>새로운 소식</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+            <li><a class="sidebar_menu_item" href=""><span>아이디어</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+            <li><a class="sidebar_menu_item" href=""><span>플래닝&체크 서비스</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+          </ul>
+          <br>
+          <ul class="menu aux">
+            <li><a href="">매장안내</a></li>
+            <li><a href="">레스토랑 & 카페</a></li>
+            <li><a href="">쉽고 편한 전화주문, 헤이오더</a></li>
+            <li><a style="color:blue" href="live.html">IKEA Live</a></li>
+            <li><a href="">IKEA Family 멤버십</a></li>
+            <li><a href="">IKEA For Business</a></li>
+            <li><a href="">고객 서비스</a></li>
+            <li><a href="">배송 조회</a></li>
+            <li><a href="">내 프로필</a></li>
+          </ul>
+          <br>
+        </div>
+        <!-- 사이드바 메뉴 -->
+
+        <!-- 사이드바 바텀 -->
+        <div class="phone-order" style="background-color: lightgray;">
+          <span>쉽고 편한 전화주문, 헤이오더</span>
+        </div>
+        <!-- 사이드바 바텀 -->
+      </aside>
+      <!-- 왼쪽 슬라이딩 메뉴 -->
+
+  <div class="sj_body">
+    <div class="container-navbar">
+      <div class="navbar-sub">
+        <div>
+        <img  src="./ikeaAssets/430c40516e9d5abe.png" alt="">
+        <span style="color: black; font-weight: bold;">모든 제품</span></div>
+        <span></span>
+        <div>
+          <img src="./ikeaAssets/445c16cad592ac6e.png" alt="">
+        <span style="color: rgb(113, 112, 112);font-weight: bold;">공간별 쇼핑하기</span></div>
+        <span style="color: rgb(113, 112, 112);font-weight: bold;">특별한 가격</span>
+        <span style="color: rgb(113, 112, 112);font-weight: bold;">새로운 소식</span>
+        <span style="color: rgb(113, 112, 112);font-weight: bold;">아이디어</span>
+        <span style="color: rgb(113, 112, 112);font-weight: bold;">플래닝&체크 서비스</span>
+        <span style="color: rgb(113, 112, 112);font-weight: bold;">더 보기</span>
+      </div>
+    </div>
+
+    <div class="progress-container-top">
+      <div class="progress-container3">
+        <div class="progress-bar3">
+          <div class="progress-fill3"></div>
+        </div>
+      </div>
+    </div>
+    
+    <br />
+    <!-- Product Categories Navigation -->
+    
+    <div class="itemlist-container">
+    <div class="itemlist">
+        <img style="height: 50px;" src="./ikeaAssets/화면 캡처 2024-11-13 172113.png" alt="" class="itemlistLogo" />
+        <div>
+          <img style="height: 100px;" src="https://www.ikea.com/global/assets/range-categorisation/images/product/soft-toys-18740.jpeg?imwidth=160" alt="인형">
+          <span style="margin: 32px;">인형</span></div>
+          <div style=" border-left: 2px solid rgb(216, 214, 214); height: 150px; ">
+                  </div>
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/toy-storage-20474/">
+                      <img style="height: 100px;" src="https://www.ikea.com/global/assets/range-categorisation/images/product/toy-storage-20474.jpeg?imwidth=160" alt="장난감 수납">
+                    </a>
+                    <span style="margin: 5px;">장난감 수납</span></div>
+                
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/arts-crafts-18735/">
+                      <img style="height: 100px;" src="https://www.ikea.com/global/assets/range-categorisation/images/product/arts-crafts-18735.jpeg?imwidth=160" alt="미술/만들기">
+                    </a> <span style="margin: 5px;">미술/만들기</span>
+                    </div>
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/role-play-18737/">
+                    <img style="height: 100px; margin-right: -10px;" src="https://www.ikea.com/global/assets/range-categorisation/images/product/role-play-18737.jpeg?imwidth=160" alt="역할놀이">
+                    <span style="margin: 17px;">역할놀이</span> </div>
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/physical-play-18736/">
+                    <img style="height: 100px; margin-left: -20px;"  src="https://www.ikea.com/global/assets/range-categorisation/images/product/physical-play-18736.jpeg?imwidth=160" alt="신체발달놀이">
+                </a><span style="margin: -9px;">신체발달놀이</span>
+                </div>
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/wooden-toys-18738/">
+                    <img style="height: 100px;"  src="https://www.ikea.com/global/assets/range-categorisation/images/product/wooden-toys-18738.jpeg?imwidth=160" alt="나무장난감">
+                </a><span style="margin: 5px;">나무장난감</span></div>
+                
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/play-tents-20484/">
+                    <img  style="height: 100px;"  src="https://www.ikea.com/global/assets/range-categorisation/images/product/play-tents-20484.jpeg?imwidth=160" alt="놀이용텐트">
+                </a><span style="margin: 5px;">놀이용텐트</span>
+            </div>
+                
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/family-card-games-42921/">
+                      <img style="height: 100px;" src="https://www.ikea.com/global/assets/range-categorisation/images/product/family-card-games-42921.jpeg?imwidth=160" alt="퍼즐/카드놀이">
+                    </a><span style="margin: 5px;">퍼즐/카드놀이</span></div>
+         
+    </div>
+    </div>
+    
+    </div>
+    </div>
+  </div>
+
+
+    
+    <div class="container-notice">
+    <div class="notice2">
+      <div class="notice44">
+        <div class="noticement">
+          <img style="height: 40px;" src="./ikeaAssets/화면 캡처 2024-11-13 164040.png" alt="" />
+          <a
+          href="https://www.ikea.com/kr/ko/offers/family-offers/?filters=f-subcategories%3A18730"
+          >
+          포근한 겨울을 위한 필수템. 최대 20% 할인 중인 어린이 텍스타일 제품을
+          바로 확인해보세요!</a
+          >
+        </div>
+  </div>
+  </div>
+  </div>
+    <br />
+    <br />
+    
+    
+    <div class="dollIntro">
+        <h1 style="user-select:auto; font-size: 38px;">인형 </h1> 
+      <p style="user-select: auto; font-size: 12px;">
+        IKEA의 봉제인형을 만나보세요! 아이들을 안아주고 편안하게 해주며
+        이야기를 잘 들어주며 재미와 장난기가 가득한 최고의 친구들이랍니다. 물론
+        어린이 IKEA의 최우선 순위인 안전, 품질, 내구성에 관한 종합적 테스트도 모두
+        통과했어요. 
+      </p>
+      <br><br>
+      <p style="font-size: 12px;">54개 항목</p>
+    </div>
+    
+
+  </div>
+
+
+</div>
+    </div>
+    </div>
+    
+  <div class="toggle-container">
+    <label class="toggle-switch">
+      <input type="checkbox" 
+      id="compareToggle">
+      <span class="slider"></span>
+    </label>
+    <span style="margin-left: -90px; font-size: 14px;">비교</span>
+    </div>
+  
+    
+    <div class="formclass">
+      <div class="filter-menu">
+        <div class="filter-item">
+          <span>정렬</span>
+       <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>   
+        </div>
+        <div class="filter-item">
+          <span class="bsbutton-click"> <a href="bestsellerPage.html">
+            베스트셀러</a></span>
+        </div>
+        <div class="filter-item">
+          <span>가격</span>
+          <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="filter-item">
+          <span>유형</span>
+          <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="filter-item">
+          <span>온라인상에서 이용 가능</span>
+        </div>
+        <div class="filter-item">
+          <span>색상</span>
+          <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="filter-item">
+          <span>마지막 기회</span>
+        </div>
+        <div class="filter-item">
+          <span>고객 점수</span>
+          <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="filter-item">
+          <span>신제품</span>
+        </div>
+        <div class="filter-item">
+          <span>특징</span>
+          <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="filter-item">
+          <span>특별가</span>
+        </div>
+        <div class="filter-item">
+          <span>권장 연령</span>
+          <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="filter-item">
+          <span>모든 필터</span>
+          <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    width="24"
+    height="24"
+  >
+    <rect x="3" y="6" width="14" height="2" rx="1" />
+    <circle cx="20" cy="7" r="1" />
+    <rect x="7" y="11" width="10" height="2" rx="1" />
+    <circle cx="4" cy="12" r="1" />
+    <rect x="11" y="16" width="6" height="2" rx="1" />
+    <circle cx="8" cy="17" r="1" />
+  </svg>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="comparison-bar" id="comparisonBar" style="display: none;">
+      <div class="comparison-list"></div>
+      <div>
+        <button class="compare-button" id="compareButton">제품 비교</button>
+      </div>
+    </div>
+    <br>
+    <div class="container-line"> 
+    <div class="container-basic-line"> </div>
+  </div>
+  <div class="top-itemcontainer">
+  </div>
+
+    
+      <!-- 상품 리스트 -->
+      <div class="products">
+        <div class="product-item">
+     
+          <div class="image-container">
+            <img src="https://www.ikea.com/kr/ko/images/products/djungelskog-soft-toy-orangutan__0710167_pe727369_s5.jpg?f=xxs" alt="Default Image" >
+            <img src="https://www.ikea.com/kr/ko/images/products/djungelskog-soft-toy-orangutan__1208781_pe908805_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+            <div class="compare-overlay">
+              <input style="position: relative; margin-top: 9px;" type="checkbox">
+              <span style="margin-top: 9px;"
+              >비교</span>
+            </div></div>
+          <span class="itemstag">
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;"> DJUNGELSKOG 융엘스코그  </span>
+            <span> 봉제인형 </span>
+          </span>
+          <span class="pricetag">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 12,900</span>
+          </span>
+          <div class="star5-rating">
+            <div class="stars5-full"></div>
+            <div class="star5-light"></div>
+        </div>(54)
+   
+          <div class="item-checkin-hart">
+            <img style="height: 41px;"
+            src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+
+  
+              </div>
+          </div>
+        </div>
+        </div>
+        <div class="product-item">
+          <div class="image-container">
+            <p class="topseller">베스트셀러</p>
+            <img src="https://www.ikea.com/kr/ko/images/products/gosig-golden-soft-toy-dog-golden-retriever__0710169_pe727372_s5.jpg?f=xxs" alt="Toy 2">
+            <img src="https://www.ikea.com/kr/ko/images/products/gosig-golden-soft-toy-dog-golden-retriever__1208773_pe908801_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+            <div class="compare-overlay">
+              <input style="position: relative; margin-top: -7px;" type="checkbox">
+              <span style="margin-top: -2px;"
+              >비교</span>
+            </div></div>
+          <span class="itemstag">
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;"> GOSIG GOLDEN 고시그 골덴 </span>
+            <span style="padding-bottom: 10px;"
+            > 봉제인형,70 cm </span>
+          </span>
+          <span class="pricetag">
+      <span style="display: inline-flex; padding-right: 10px; padding-left: 10px; padding-bottom: 4px;
+        background-color: rgba(255, 220, 22, 0.968); border-right: 5px solid red; border-bottom: 5px solid red;">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 19,900</span>
+          </span>
+          </span>
+          <div class="star5-rating">
+            <div class="stars5-full"></div>
+            <div class="star5-light"></div>
+        </div>(180)
+          <div class="item-checkin-hart">
+            <img style="height: 41px;"
+            src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+          </div>
+        </div>
+        </div>
+        <div class="product-item">
+          <div class="image-container">
+          <img onclick="window.location.href='product.html'" style="cursor: pointer" 
+          src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1298838_pe936323_s5.jpg?f=xxs" alt="Toy 3">
+          <img onclick="window.location.href='product.html'" style="cursor: pointer" 
+          src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372229_ph200408_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+          <div class="compare-overlay">
+            <input style="position: relative; margin-top: 9px;" type="checkbox">
+            <span style="margin-top: 9px;"
+            >비교</span>
+          </div></div>
+          <span class="itemstag">
+            <span style="margin-bottom: -20px; color: red; font-weight: bold;">New</span>
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SKOGSDUVA 스콕스두바 </span>
+            <span> 인형2종,45 cm </span>
+          </span>
+          <span class="pricetag">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 19,900</span>
+          </span>
+          <div class="star5-rating">
+            <div class="stars5-full"></div>
+            <div class="star5-light"></div>
+        </div>(1)
+          <div class="item-checkin-hart">
+            <img style="height: 41px;"
+            src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+          </div>
+        </div>
+        </div>
+        <div class="product-item">
+          <div class="image-container">
+            <p class="topseller">베스트셀러</p>
+            <img src="https://www.ikea.com/kr/ko/images/products/djungelskog-soft-toy-brown-bear__0710168_pe727370_s5.jpg?f=xxs" alt="Toy 4">
+            <img src="https://www.ikea.com/kr/ko/images/products/djungelskog-soft-toy-brown-bear__1158437_pe888123_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+            <div class="compare-overlay">
+              <input style="position: relative; margin-top: -7px;" type="checkbox">
+              <span style="margin-top: -3px;"
+              >비교</span>
+            </div></div>
+          <span class="itemstag">
+            <span style="margin-bottom: -20px; color: rgb(19, 125, 255); font-weight: bold;">IKEA Family 특별가</span>
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;"> DJUNGELSKOG 융엘스코그  </span>
+            <span style="padding-bottom: 10px;"> 봉제인형 </span>
+          </span>
+          <span class="pricetag">
+              <span style="display: inline-flex; padding-right: 10px; padding-left: 10px; padding-bottom: 4px;
+                background-color: rgba(255, 220, 22, 0.968); border-right: 5px solid red; border-bottom: 5px solid red;">
+                    <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+                    <span style="font-weight: bold; font-size: 35px;"> 5,900</span>
+                  </span>
+                  </span>
+          <div class="star-rating">
+            <div class="stars-full"></div>
+            <div class="stars-half"></div>
+            </div>(51)
+
+          <div class="item-checkin-hart">
+            <img style="height: 41px;"
+            src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+          </div>
+          </div>
+          </div>
+        </div>
+        </div>
+        </div>  
+        <br>
+        <div class="container-line"> 
+          <div class="container-basic-line"> </div>
+      
+      
+      <!--
+      1번째 아이템리스트 오와리
+      -->
+
+      <br>
+      <br>
+      <div class="products">
+        <div class="product-item">
+          <div class="image-container">
+            <img src="https://www.ikea.com/kr/ko/images/products/gosig-golden-soft-toy-dog-golden-retriever__0710164_pe727367_s5.jpg?f=xxs" alt="Toy 5">
+            <img src="https://www.ikea.com/kr/ko/images/products/gosig-golden-soft-toy-dog-golden-retriever__1208797_pe908824_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+            <div class="compare-overlay">
+              <input type="checkbox">
+              <span>비교</span>
+            </div></div>
+            <span class="itemstag">
+              
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;"> GOSIG GOLDEN 고시그 골덴  </span>
+            <span> 봉제인형, 40 cm </span>
+          </span>
+          <span class="pricetag">
+       
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 9,900</span>
+
+          </span>
+          <div class="star5-rating">
+            <div class="stars5-full"></div>
+            <div class="star5-light"></div>
+        </div>(124)
+          <div class="item-checkin-hart">
+            <img style="height: 41px;"
+            src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+          </div>
+        </div>
+        </div>
+        <div class="product-item">
+          <div class="image-container">
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-hedgehog-beige__1302013_pe937606_s5.jpg?f=xxs" alt="Toy 5">
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-hedgehog-beige__1372201_ph200469_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+            <div class="compare-overlay">
+              <input type="checkbox">
+              <span>비교</span>
+            </div></div>
+          <span class="itemstag">
+            <span style="margin-bottom: -20px; color: red; font-weight: bold;">New</span>
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SKOGSDUVA 스콕스두바 </span>
+            <span> 봉제인형,21 cm </span>
+          </span>
+          <span class="pricetag">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 12,900</span>
+          </span>
+          <div class="star-rating">
+            <div class="stars4-full"></div>
+            <div class="stars-half"></div>
+            </div>(2)
+          <div class="item-checkin-hart">
+            <img style="height: 41px;"
+            src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+          </div>
+        </div>
+        </div>
+        <div class="product-item">
+          <div class="image-container">
+            
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-arctic-fox-white__1301072_pe937605_s5.jpg?f=xxs" alt="Toy 5">
+            
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-arctic-fox-white__1372208_ph200406_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+            <div class="compare-overlay">
+              <input type="checkbox">
+              <span>비교</span>
+            </div></div>
+            <span class="itemstag">
+            <span style="margin-bottom: -20px; color: red; font-weight: bold;">New</span>
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SKOGSDUVA 스콕스두바 </span>
+            <span> 봉제인형,60 cm </span>
+          </span>
+          <span class="pricetag">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 19,900</span>
+          </span>
+          <p style="margin-top: 30px;"></p>
+          <div class="item-checkin-hart">
+            <img style="height: 41px;"
+            src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+          </div>
+        </div>
+        </div>
+
+
+        <div class="product-item">
+          <div class="image-container">
+        
+          <img src="https://www.ikea.com/kr/ko/images/products/blahaj-soft-toy-shark__0710175_pe727378_s5.jpg?f=xxs" alt="Toy 5">
+          <img src="https://www.ikea.com/kr/ko/images/products/blahaj-soft-toy-shark__1143962_pe881669_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+          <div class="compare-overlay">
+            <input type="checkbox">
+            <span>비교</span>
+          </div></div>
+          <span class="itemstag">
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">BLÅHAJ 블로하이 </span>
+            <span> 봉제인형,100 cm </span>
+          </span>
+          <span class="pricetag">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 24,900</span>
+          </span>
+          <div class="star-rating">
+            <div class="stars-full"></div>
+            <div class="stars-half"></div>
+            </div>(42)
+          <div class="item-checkin-hart">
+            <img style="height: 41px;"
+            src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+          </div>
+        </div>
+        </div>
+        </div>
+          
+          <br>
+          <div class="container-basic-line"> </div>
+  <!-- 2번째 아이템리스트 오와리-->
+<br>
+<br>
+<br>
+
+<div class="products">
+  <div class="product-item">
+    <div class="image-container">
+      <img src="https://www.ikea.com/kr/ko/images/products/aftonsparv-soft-toy-alien-green__1185115_pe898265_s5.jpg?f=xxs" alt="Toy 5">
+      <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+      <span class="itemstag">
+      <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;"> AFTONSPARV 아프톤스파르브
+       </span>
+      <span> 봉제인형, 34 cm</span>
+    </span>
+    <span class="pricetag">
+      <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+      <span style="font-weight: bold; font-size: 35px;"> 9,900</span>
+    </span>
+    <div class="star5-rating">
+      <div class="stars5-full"></div>
+      <div class="star5-light"></div>
+  </div>(8)
+    <div class="item-checkin-hart">
+      <img style="height: 41px;"
+      src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+      <div class="heart-container">
+        <div class="heart">
+        </div>
+        </div>
+  </div> 
+  </div> 
+<div class="product-item">
+    <div class="image-container">
+      <img src="https://www.ikea.com/kr/ko/images/products/knorrig-soft-toy-pig-pink__0710181_pe727384_s5.jpg?f=xxs" alt="Toy 5">
+      <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+    <span class="itemstag">
+      <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">KNORRIG 크노리그 </span>
+      <span> 봉제인형 </span>
+    </span>
+    <span class="pricetag">
+      <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+      <span style="font-weight: bold; font-size: 35px;"> 9,900</span>
+    </span>
+    <div class="star5-rating">
+      <div class="stars5-full"></div>
+      <div class="star5-light"></div>
+  </div>(15)
+    <div class="item-checkin-hart">
+      <img style="height: 41px;"
+      src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+      <div class="heart-container">
+        <div class="heart">
+        </div>
+        </div>
+  </div> 
+  </div> 
+
+  <div class="product-item">
+    <div class="image-container">
+      <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-lynx-orange-brown__1298839_pe936324_s5.jpg?f=xxs" alt="Toy 5">
+      <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+      <span class="itemstag">
+      <span style="margin-bottom: -20px; color: red; font-weight: bold;">New</span>
+      <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SKOGSDUVA 스콕스두바 </span>
+      <span style="padding-bottom: 10px;"> 봉제인형,63 cm </span>
+    </span>
+    <span class="pricetag">
+        <span style="display: inline-flex; padding-right: 10px; padding-left: 10px; padding-bottom: 4px;
+          background-color: rgba(255, 220, 22, 0.968); border-right: 5px solid red; border-bottom: 5px solid red;">
+              <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+              <span style="font-weight: bold; font-size: 35px;"> 19,900</span>
+            </span>
+            </span>
+    <p style="margin-top: 30px;"></p>
+    <div class="item-checkin-hart">
+      <img style="height: 41px;"
+      src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+      <div class="heart-container">
+        <div class="heart">
+        </div>
+        </div>
+  </div> 
+  </div> 
+
+  <div class="product-item">
+    <div class="image-container">
+    <img src="https://www.ikea.com/kr/ko/images/products/lilleplutt-soft-toy-cat-grey-white__0216164_pe371748_s5.jpg?f=xxs" alt="Toy 5">
+    <div class="compare-overlay">
+      <input type="checkbox">
+      <span>비교</span>
+    </div></div>
+    <span class="itemstag">
+      <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">LILLEPLUTT 릴레플루트
+   </span>
+      <span> 봉제인형 </span>
+    </span>
+    <span class="pricetag">
+      <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+      <span style="font-weight: bold; font-size: 35px;"> 7,900</span>
+    </span>
+    <div class="star-rating">
+      <div class="stars-full"></div>
+      <div class="stars-half"></div>
+      </div>(24)
+    <div class="item-checkin-hart">
+      <img style="height: 41px;"
+      src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+      <div class="heart-container">
+        <div class="heart">
+        </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+<div class="container-basic-line"> </div>
+    
+ 
+
+ <!-- 3번째 아이템리스트 오와리-->
+ <br>
+ <br>
+ <br>
+ 
+ <div class="products">
+   <div class="product-item">
+     <div class="image-container">
+       <img src="https://www.ikea.com/kr/ko/images/products/djungelskog-soft-toy-tiger__0710187_pe727390_s5.jpg?f=xxs" alt="Toy 5">
+       <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+       <span class="itemstag">
+       <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">DJUNGELSKOG 융엘스코그
+        </span>
+       <span> 봉제인형</span>
+     </span>
+     <span class="pricetag">
+       <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+       <span style="font-weight: bold; font-size: 35px;"> 24,900</span>
+     </span>
+     <div class="star5-rating">
+       <div class="stars5-full"></div>
+       <div class="star5-light"></div>
+   </div>(12)
+     <div class="item-checkin-hart">
+       <img style="height: 41px;"
+       src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+       <div class="heart-container">
+        <div class="heart">
+        </div>
+    </div>
+  </div>
+  </div>
+   <div class="product-item">
+     <div class="image-container">
+       <img src="https://www.ikea.com/kr/ko/images/products/famnig-hjaerta-cushion-red__0710297_pe727447_s5.jpg?f=xxs" alt="Toy 5">
+       <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+     <span class="itemstag">
+       <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">FAMNIG HJÄRTA 팜니그 예르타
+ </span>
+       <span> 쿠션, 40x101 cm </span>
+     </span>
+     <span class="pricetag">
+       <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+       <span style="font-weight: bold; font-size: 35px;"> 9,900</span>
+     </span>
+     <div class="star-rating">
+      <div class="stars-full"></div>
+      <div class="stars-half"></div>
+      </div>(6)
+     <div class="item-checkin-hart">
+       <img style="height: 41px;"
+       src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+       <div class="heart-container">
+        <div class="heart">
+        </div>
+    </div>
+  </div>
+  </div>
+   <div class="product-item">
+     <div class="image-container">
+       <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-mini-bumblebee-black-yellow__1302022_pe937611_s5.jpg?f=xxs" alt="Toy 5">
+       <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+       <span class="itemstag">
+       <span style="margin-bottom: -20px; color: red; font-weight: bold;">New</span>
+       <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SKOGSDUVA 스콕스두바 </span>
+       <span> 봉제인형,8 cm </span>
+     </span>
+     <span class="pricetag">
+       <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+       <span style="font-weight: bold; font-size: 35px;"> 3,900</span>
+     </span>
+    </span>
+    <div class="star5-rating">
+      <div class="stars5-full"></div>
+      <div class="star5-light"></div>
+  </div>(1)
+     <div class="item-checkin-hart">
+       <img style="height: 41px;"
+       src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+       <div class="heart-container">
+        <div class="heart">
+        </div>
+    </div>
+  </div>
+  </div>
+   <div class="product-item">
+     <div class="image-container">
+     <img src="https://www.ikea.com/kr/ko/images/products/blavingad-5-piece-soft-toy-set-ocean-animals-mixed-colours__1094204_pe863332_s5.jpg?f=xxs" alt="Toy 5">
+     <div class="compare-overlay">
+      <input type="checkbox">
+      <span>비교</span>
+    </div></div>
+     <span class="itemstag">
+       <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">BLÅVINGAD 블로빙아드
+    </span>
+       <span> 봉제인형5종</span>
+     </span>
+     <span class="pricetag">
+       <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+       <span style="font-weight: bold; font-size: 35px;"> 24,900</span>
+     </span>
+     <div class="star-rating">
+       <div class="stars-full"></div>
+       <div class="stars-half"></div>
+       </div>(12)
+     <div class="item-checkin-hart">
+       <img style="height: 41px;"
+       src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+       <div class="heart-container">
+        <div class="heart">
+        </div>
+    </div>
+  </div>
+  </div>
+ </div>
+
+    
+ 
+ <div class="container-basic-line"> </div>
+    
+ 
+ 
+ <!-- 4번째 아이템리스트 오와리-->
+ <br>
+ <br>
+ <br>
+ 
+ <div class="products">
+   <div class="product-item">
+     <div class="image-container">
+       <img src="https://www.ikea.com/kr/ko/images/products/snuttig-soft-toy-white-polar-bear__1232514_pe916544_s5.jpg?f=xxs" alt="Toy 5">
+       <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+       <span class="itemstag">
+       <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SNUTTIG 스누티그
+        </span>
+       <span>   봉제인형, 29 cm</span>
+     </span>
+     <span class="pricetag">
+       <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+       <span style="font-weight: bold; font-size: 35px;"> 9,900</span>
+     </span>
+     <div class="star5-rating">
+       <div class="stars5-full"></div>
+       <div class="star5-light"></div>
+   </div>(5)
+     <div class="item-checkin-hart">
+       <img style="height: 41px;"
+       src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+       <div class="heart-container">
+        <div class="heart">
+        </div>
+    </div>
+  </div>
+  </div>
+   <div class="product-item">
+     <div class="image-container">
+       <img src="https://www.ikea.com/kr/ko/images/products/djungelskog-soft-toy-lion__0710172_pe727375_s5.jpg?f=xxs" alt="Toy 5">
+       <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+     <span class="itemstag">
+       <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">DJUNGELSKOG 융엘스코그
+ </span>
+       <span> 봉제인형</span>
+     </span>
+     <span class="pricetag">
+       <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+       <span style="font-weight: bold; font-size: 35px;"> 24,900</span>
+     </span>
+     <div class="star-rating">
+      <div class="stars-full"></div>
+      <div class="stars-half"></div>
+      </div>(6)
+     <div class="item-checkin-hart">
+       <img style="height: 41px;"
+       src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+       <div class="heart-container">
+        <div class="heart">
+        </div>
+    </div>
+  </div>
+  </div>
+   <div class="product-item">
+     <div class="image-container">
+       <img src="https://www.ikea.com/kr/ko/images/products/blavingad-soft-toy-turtle-green__1088892_pe861306_s5.jpg?f=xxs" alt="Toy 5">
+       <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+       <span class="itemstag">
+       <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">BLÅVINGAD 블로빙아드 </span>
+       <span>  봉제인형, 44 cm</span>
+     </span>
+     <span class="pricetag">
+       <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+       <span style="font-weight: bold; font-size: 35px;"> 12,900</span>
+     </span>
+    </span>
+    <div class="star-rating">
+      <div class="stars-full"></div>
+      <div class="stars-half"></div>
+      </div>(8)
+     <div class="item-checkin-hart">
+       <img style="height: 41px;"
+       src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+       <div class="heart-container">
+        <div class="heart">
+        </div>
+    </div>
+  </div>
+  </div>
+   <div class="product-item">
+     <div class="image-container">
+     <img src="https://www.ikea.com/kr/ko/images/products/aftonsparv-soft-toy-spaceship-multicolour__1185159_pe898289_s5.jpg?f=xxs" alt="Toy 5">
+     <div class="compare-overlay">
+      <input type="checkbox">
+      <span>비교</span>
+    </div></div>
+     <span class="itemstag">
+       <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">AFTONSPARV 아프톤스파르브
+    </span>
+       <span> 봉제인형</span>
+     </span>
+     <span class="pricetag">
+       <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+       <span style="font-weight: bold; font-size: 35px;"> 19,900</span>
+     </span>
+
+     <div class="item-checkin-hart">
+       <img style="height: 41px;"
+       src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+       <div class="heart-container">
+        <div class="heart">
+        </div>
+    </div>
+  </div>
+  </div>
+  </div>
+    
+ 
+ <div class="container-basic-line"> </div>
+  <!-- 5번째 아이템리스트 오와리-->
+  <br>
+  <br>
+  <br>
+  
+  <div class="products">
+    <div class="product-item">
+      <div class="image-container">
+        <img src="https://www.ikea.com/kr/ko/images/products/titta-djur-finger-puppet-mixed-colours__0714444_pe730093_s5.jpg?f=xxs" alt="Toy 5">
+        <div class="compare-overlay">
+          <input type="checkbox">
+          <span>비교</span>
+        </div></div>
+        <span class="itemstag">
+        <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">TITTA DJUR 티타 유르
+         </span>
+        <span> 손가락인형</span>
+      </span>
+      <span class="pricetag">
+        <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+        <span style="font-weight: bold; font-size: 35px;"> 9,900</span>
+      </span>
+      <div class="star5-rating">
+        <div class="stars5-full"></div>
+        <div class="star5-light"></div>
+    </div>(15)
+      <div class="item-checkin-hart">
+        <img style="height: 41px;"
+        src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+        <div class="heart-container">
+          <div class="heart">
+          </div>
+      </div>
+    </div>
+    </div>
+    <div class="product-item">
+      <div class="image-container">
+        <img src="https://www.ikea.com/kr/ko/images/products/sparka-soft-toy-football-mini-blue-red__0981411_pe815355_s5.jpg?f=xxs" alt="Toy 5">
+        <div class="compare-overlay">
+          <input type="checkbox">
+          <span>비교</span>
+        </div></div>
+      <span class="itemstag">
+        <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SPARKA 스파르카
+  </span>
+        <span> 봉제인형</span>
+      </span>
+      <span class="pricetag">
+        <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+        <span style="font-weight: bold; font-size: 35px;"> 3,900</span>
+      </span>
+      <div class="star5-rating">
+        <div class="stars5-full"></div>
+        <div class="star5-light"></div>
+    </div>(8)
+      <div class="item-checkin-hart">
+        <img style="height: 41px;"
+        src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+        <div class="heart-container">
+          <div class="heart">
+          </div>
+      </div>
+    </div>
+    </div>
+    <div class="product-item">
+      <div class="image-container">
+        <img src="https://www.ikea.com/kr/ko/images/products/blavingad-cushion-penguin-shaped-black-white__1088050_pe861028_s5.jpg?f=xxs" alt="Toy 5">
+        <div class="compare-overlay">
+          <input type="checkbox">
+          <span>비교</span>
+        </div></div>
+        <span class="itemstag">
+        <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">BLÅVINGAD 블로빙아드 </span>
+        <span>쿠션, 40x32 cm</span>
+      </span>
+      <span class="pricetag">
+        <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+        <span style="font-weight: bold; font-size: 35px;"> 14,900</span>
+      </span>
+     </span>
+      <div class="item-checkin-hart">
+        <img style="height: 41px;"
+        src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+        <div class="heart-container">
+          <div class="heart">
+          </div>
+      </div>
+    </div>
+    </div>
+    <div class="product-item">
+      <div class="image-container">
+      <img src="https://www.ikea.com/kr/ko/images/products/sparka-soft-toy-football-black-white__0981434_pe815368_s5.jpg?f=xxs" alt="Toy 5">
+      <div class="compare-overlay">
+        <input type="checkbox">
+        <span>비교</span>
+      </div></div>
+      <span class="itemstag">
+        <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SPARKA 스파르카
+     </span>
+        <span> 봉제인형</span>
+      </span>
+      <span class="pricetag">
+        <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+        <span style="font-weight: bold; font-size: 35px;"> 5,900</span>
+      </span>
+      <div class="star5-rating">
+        <div class="stars5-full"></div>
+        <div class="star5-light"></div>
+    </div>(5)
+      <div class="item-checkin-hart">
+        <img style="height: 41px;"
+        src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+        <div class="heart-container">
+          <div class="heart">
+          </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+     
+  
+  <div class="container-basic-line"> </div>
+
+
+          <div class="progress-container2">
+
+            <div class="progress-container">
+              <br>
+              <br>
+              <p class="progress-text">24 / 54개의 결과 표시</p>
+              <br>
+              <div class="progress-bar">
+         <div class="progress-fill"></div>
+         
+        </div>
+        </div>
+      
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="see-more-container">
+      <button class="see-more-results">더 보기</button>
+    </div>
+    
+    <br>
+    
+      
+      
+      <div class="pickIntro">
+        <h1 style="user-select:auto; font-size: 32px;">추천 제품</h1> 
+      </div>
+
+
+      
+              <!--  
+              스와이퍼의 css는 절대값이다 변경을 위해서는 각 스타일 태그마다 뒤에 !important 선언을 해줄 필요가 있음
+              vscode에서와 라이브된 개발자툴에서 클래스명이 다른 경우가 허다해, 개발자툴도 직접 확인해줄 필요 있음  
+              -->
+      <!-- 하단 추천제품 슬라이드 이미지 -->
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+                <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-hedgehog-beige__1302013_pe937606_s5.jpg?f=xxs" alt="Toy 5">
+                <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-hedgehog-beige__1372201_ph200469_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+              <span class="itemstag">
+                <span style="margin-bottom: -20px; color: red; font-weight: bold;">New</span>
+                <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SKOGSDUVA 스콕스두바 </span>
+                <span> 봉제인형,21 cm </span>
+              </span>
+              <span class="pricetag">
+                <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+                <span style="font-weight: bold; font-size: 35px;"> 12,900</span>
+              </span>
+              <div class="star-rating">
+                <div class="stars4-full"></div>
+                <div class="stars-half"></div>
+                </div>(2)
+              <div class="item-checkin-hart">
+                <img src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+                <div class="heart-container">
+                  <div class="heart">
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://www.ikea.com/kr/ko/images/products/gosig-golden-soft-toy-dog-golden-retriever__0710169_pe727372_s5.jpg?f=xxs" alt="Toy 2">
+            <img src="https://www.ikea.com/kr/ko/images/products/gosig-golden-soft-toy-dog-golden-retriever__1208773_pe908801_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+          <span class="itemstag">
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;"> GOSIG GOLDEN 고시그 골덴 </span>
+            <span> 봉제인형,70 cm </span>
+          </span>
+          <span class="pricetag">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 19,900</span>
+          </span>
+          <div class="star5-rating">
+            <div class="stars5-full"></div>
+            <div class="star5-light"></div>
+        </div>(180)
+          <div class="item-checkin-hart">
+            <img src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+              </div>
+              </div>
+              </div>
+
+      
+          <div class="swiper-slide">
+            <img src="https://www.ikea.com/kr/ko/images/products/djungelskog-soft-toy-brown-bear__0710168_pe727370_s5.jpg?f=xxs" alt="Toy 4">
+            <img src="https://www.ikea.com/kr/ko/images/products/djungelskog-soft-toy-brown-bear__1158437_pe888123_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+          <span class="itemstag">
+            <span style="margin-bottom: -20px; color: rgb(19, 125, 255); font-weight: bold;">IKEA Family 특별가</span>
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;"> DJUNGELSKOG 융엘스코그  </span>
+            <span> 봉제인형 </span>
+          </span>
+          <span class="pricetag">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 23,900</span>
+          </span>
+          <div class="star-rating">
+            <div class="stars-full"></div>
+            <div class="stars-half"></div>
+            </div>(51)
+            <div class="item-checkin-hart">
+              <img src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+              <div class="heart-container">
+                <div class="heart">
+                </div>
+                </div>
+                </div>
+                </div>
+  
+                
+          <div class="swiper-slide">
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-arctic-fox-white__1301072_pe937605_s5.jpg?f=xxs" alt="Toy 5">
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-arctic-fox-white__1372208_ph200406_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+            <span class="itemstag">
+            <span style="margin-bottom: -20px; color: red; font-weight: bold;">New</span>
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SKOGSDUVA 스콕스두바 </span>
+            <span> 봉제인형,60 cm </span>
+          </span>
+          <span class="pricetag">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 19,900</span>
+          </span>
+          <p style="margin-top: 30px;"></p>
+          <div class="item-checkin-hart">
+            <img src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+              </div>
+              </div>
+              </div>
+        
+        <div class="swiper-slide">
+          <img src="https://www.ikea.com/kr/ko/images/products/gosig-golden-soft-toy-dog-golden-retriever__0710164_pe727367_s5.jpg?f=xxs" alt="Toy 5">
+          <img src="https://www.ikea.com/kr/ko/images/products/gosig-golden-soft-toy-dog-golden-retriever__1208797_pe908824_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+          <span class="itemstag">
+          <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;"> GOSIG GOLDEN 고시그 골덴  </span>
+          <span> 봉제인형, 40 cm </span>
+        </span>
+        <span class="pricetag">
+          <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+          <span style="font-weight: bold; font-size: 35px;"> 9,900</span>
+        </span>
+        <div class="star5-rating">
+          <div class="stars5-full"></div>
+          <div class="star5-light"></div>
+      </div>(124)
+      <div class="item-checkin-hart">
+        <img src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+        <div class="heart-container">
+          <div class="heart">
+          </div>
+          </div>
+          </div>
+          </div>
+
+
+
+  
+          <div class="swiper-slide">
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1298838_pe936323_s5.jpg?f=xxs" alt="Toy 3">
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372229_ph200408_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+            <span class="itemstag">
+              <span style="margin-bottom: -20px; color: red; font-weight: bold;">New</span>
+              <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SKOGSDUVA 스콕스두바 </span>
+              <span> 인형2종,45 cm </span>
+            </span>
+            <span class="pricetag">
+              <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+              <span style="font-weight: bold; font-size: 35px;"> 19,900</span>
+            </span>
+            <div class="star5-rating">
+              <div class="stars5-full"></div>
+              <div class="star5-light"></div>
+          </div>(1)
+            <div class="item-checkin-hart">
+              <img style="height: 41px;"
+              src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+              <div class="heart-container">
+                <div class="heart">
+                </div>
+            </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-hedgehog-beige__1302013_pe937606_s5.jpg?f=xxs" alt="Toy 5">
+            <img src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-hedgehog-beige__1372201_ph200469_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+          <span class="itemstag">
+            <span style="margin-bottom: -20px; color: red; font-weight: bold;">New</span>
+            <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">SKOGSDUVA 스콕스두바 </span>
+            <span> 봉제인형,21 cm </span>
+          </span>
+          <span class="pricetag">
+            <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+            <span style="font-weight: bold; font-size: 35px;"> 12,900</span>
+          </span>
+          <div class="star-rating">
+            <div class="stars4-full"></div>
+            <div class="stars-half"></div>
+            </div>(2)
+          <div class="item-checkin-hart">
+            <img style="height: 41px;"
+            src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+            <div class="heart-container">
+              <div class="heart">
+              </div>
+          </div>
+        </div>
+        </div>
+          <div class="swiper-slide">
+            <img src="https://www.ikea.com/kr/ko/images/products/blahaj-soft-toy-shark__0710175_pe727378_s5.jpg?f=xxs" alt="Toy 5">
+            <img src="https://www.ikea.com/kr/ko/images/products/blahaj-soft-toy-shark__1143962_pe881669_s5.jpg?f=xxs" alt="Hover Image" class="hover-image">
+            <span class="itemstag">
+              <span style="font-weight: bold; margin-top: 30px; margin-bottom: 7px;">BLÅHAJ 블로하이 </span>
+              <span> 봉제인형,100 cm </span>
+            </span>
+            <span class="pricetag">
+              <span style="font-size: 12px; margin-top: 10px;"> ￦</span>  
+              <span style="font-weight: bold; font-size: 35px;"> 24,900</span>
+            </span>
+            <div class="star-rating">
+              <div class="stars-full"></div>
+              <div class="stars-half"></div>
+              </div>(42)
+            <div class="item-checkin-hart">
+              <img style="height: 41px;left: 0;"
+              src="./ikeaAssets/이케아 장바구니 로고.png" alt="" />
+              <div class="heart-container">
+                <div class="heart">
+                </div>
+            </div>
+          </div>
+          </div>
+          </div>
+        <div 
+        class="swiper-button-prev"></div>
+        <div 
+        class="swiper-button-next"></div>
+
+          <div class="swiper-scrollbar"></div>
+      </div>
+    
+      <!-- Swiper JS -->
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+      <!-- Initialize Swiper -->
+      <script>
+    
+var swiper = new Swiper(".mySwiper", {
+  slidesPerView: 4,
+  centeredSlides: false,
+  slidesPerGroupSkip: 1,
+  grabCursor: true,
+  keyboard: {
+    enabled: true,
+  },
+  breakpoints: {
+    769: {
+      slidesPerView: 4,
+      slidesPerGroup: 4,
+    },
+  },
+  scrollbar: {
+    el: ".swiper-scrollbar",
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+});
+
+// 슬라이드 상태에 따라 화살표 표시 제어
+swiper.on("slideChange", function () {
+  const prevButton = document.querySelector(".swiper-button-prev");
+  const nextButton = document.querySelector(".swiper-button-next");
+
+  // 첫 번째 슬라이드
+  if (swiper.activeIndex === 0) {
+    prevButton.style.display = "none"; // 왼쪽 화살표 숨김
+  } else {
+    prevButton.style.display = "block"; // 왼쪽 화살표 표시
+  }
+
+  // 마지막 슬라이드
+  if (
+    swiper.activeIndex ===
+    swiper.slides.length - swiper.params.slidesPerView
+  ) {
+    nextButton.style.display = "none"; // 오른쪽 화살표 숨김
+  } else {
+    nextButton.style.display = "block"; // 오른쪽 화살표 표시
+  }
+});
+
+// 초기 상태 설정
+if (swiper.activeIndex === 0) {
+  document.querySelector(".swiper-button-prev").style.display = "none";
+}
+
+  // 최대 선택 가능한 아이템 수
+const MAX_ITEMS = 2;
+
+// 선택된 제품 데이터 저장
+let selectedItems = [];
+
+// 비교 영역 DOM 요소
+const selectedItemsContainer = document.querySelector(".selected-items");
+const compareButton = document.querySelector(".compare-button");
+      </script>
+
+    <!-- ================================== -->
+    <br>
+    <br>
+    <br>
+    <br>
+      <div class="categoryIntro">
+        <h1 style="user-select:auto; font-size: 32px;">관련 카테고리</h1> 
+      </div>
+
+
+
+  <div>
+    <div class="bottom-itemlist">
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/toy-storage-20474/">
+                      <img style="height: 120px;" src="https://www.ikea.com/global/assets/range-categorisation/images/toy-storage-20474.jpeg?imwidth=400" alt="장난감 수납">
+                    </a>
+                    <span style="margin: 5px;">장난감 수납</span></div>
+                
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/arts-crafts-18735/">
+                      <img style="height: 120px;" src="https://www.ikea.com/global/assets/range-categorisation/images/arts-crafts-18735.jpeg?imwidth=400" alt="미술/만들기">
+                    </a> <span style="margin: 5px;">미술/만들기</span>
+                    </div>
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/role-play-18737/">
+                    <img style="height: 120px; margin-right: -33px;" src="https://www.ikea.com/global/assets/range-categorisation/images/role-play-18737.jpeg?imwidth=400" alt="역할놀이">
+                    <span style="margin: 5px;">역할놀이</span> </div>
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/physical-play-18736/">
+                    <img style="height: 120px;"  src="https://www.ikea.com/global/assets/range-categorisation/images/physical-play-18736.jpeg?imwidth=400" alt="신체발달놀이">
+                </a><span style="margin: 5px;">신체발달놀이</span>
+                </div>
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/wooden-toys-18738/">
+                    <img style="height: 120px;"  src="https://www.ikea.com/global/assets/range-categorisation/images/wooden-toys-18738.jpeg?imwidth=400" alt="나무장난감">
+                </a><span style="margin: 5px;">나무장난감</span></div>
+                
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/play-tents-20484/">
+                    <img  style="height: 120px;"  src="https://www.ikea.com/global/assets/range-categorisation/images/play-tents-20484.jpeg?imwidth=400" alt="놀이용텐트">
+                </a><span style="margin: 5px;">놀이용텐트</span>
+            </div>
+                
+                <div>
+                    <a href="https://www.ikea.com/kr/ko/cat/family-card-games-42921/">
+                      <img style="height: 120px;" src="https://www.ikea.com/global/assets/range-categorisation/images/family-card-games-42921.jpeg?imwidth=400" alt="퍼즐/카드놀이">
+                    </a><span style="margin: 5px;">퍼즐/카드놀이</span></div>
+          </div>
+    </div>
+    </div>
+</div>
+</div>
+    <script src="main.js"></script>
+    <script src="detailPage.js"></script>
+
+  </body>
+  </html>
