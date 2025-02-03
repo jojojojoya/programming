@@ -1,0 +1,234 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/*!* 기본 스타일 *!
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', 'Helvetica', 'Verdana', sans-serif; !* 고딕체 설정 *!
+}*/
+
+/* 컨테이너 설정 */
+/*.container {*/
+/*    background-color: #fff;*/
+/*    color: #000;*/
+/*    width: 100vw; !* 전체 화면 너비 *!*/
+/*    height: 100vh; !* 전체 화면 높이 *!*/
+/*}*/
+
+/* 헤더 스타일 */
+/*.header {*/
+/*    height: 6vh; !* 화면 비율로 높이 설정 *!*/
+/*    background-color: #000;*/
+/*    color: #fff;*/
+/*    text-align: center;*/
+/*    line-height: 6vh;*/
+/*}*/
+
+/*!* 네비게이션 바 스타일 *!*/
+/*.nav {*/
+/*    height: 5vh; !* 화면 비율로 높이 설정 *!*/
+/*    background-color: #333;*/
+/*    color: #fff;*/
+/*    text-align: center;*/
+/*    line-height: 5vh;*/
+/*}*/
+
+/*
+!* 콘텐츠 영역 *!
+.content {
+    margin-top: 6vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    height: auto;
+    border: none;
+}
+
+!* 푸터 스타일 *!
+.footer {
+    height: 10vh; !* 화면 비율로 높이 설정 *!
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 10vh;
+}
+*/
+
+/*!* 마이페이지 *!
+.mypage h1 {
+    font-size: 2vw; !* 화면 너비에 비례한 글씨 크기 *!
+    color: #000;
+
+    margin: 1vh 0;
+}*/
+
+
+/* 좋아요한 가게 리스트 */
+.reservation-list {
+    display: flex;
+    justify-content: flex-start;
+    margin: 1vh 0;
+}
+
+.reservation-list h2 {
+    font-size: 1.5vw; /* 화면 너비에 비례한 글씨 크기 */
+    font-weight: bold;
+    color: #333;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+}
+.reservation-place-list h1{
+    text-align: left;
+}
+/* 가게 리스트 스타일 */
+.reservation-place-list-field {
+    display: flex;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px; /* vh 대신 px 사용 */
+    padding: 10px; /* vh 대신 px 사용 */
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    width: 99%;
+}
+
+.reservation-place-list {
+    width: 800px;
+    display: contents;
+    align-items: center;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+}
+.reservation-place-list h1{
+    margin: 0;
+    color : rgb(70, 44, 32);
+}
+.reservation-place-list img {
+    margin-top: 45px;
+    width: 200px; /* 고정 크기 */
+    height: 200px; /* 고정 크기 */
+    border-radius: 5px;
+    margin-left: 60px;
+    margin-right: 60px; /* vw 대신 px 사용 */
+}
+.reservation-place-list-btn{
+    width: 132px;
+}
+/*!* 가게 정보 텍스트 *!
+.reservation-place-list div {
+    text-align: left;
+}*/
+
+.reservation-place-list h1 {
+    font-size: 20px; /* vw 대신 px 사용 */
+    color: #333;
+}
+
+.reservation-place-list p {
+    font-size: 14px; /* vw 대신 px 사용 */
+    color: #333;
+}
+
+/* 버튼 스타일 */
+input[type="button"] {
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 150px;
+    height: 35px;
+    font-size: 17px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+
+input[type="button"]:hover {
+    background-color: rgb(70, 44, 32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 3px rgb(205, 187, 173) solid;
+    width: 150px;
+    height: 35px;
+    font-size: 17px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(205, 187, 173);
+}
+
+
+/* 페이지 번호 */
+.bottom-list-num {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    text-align: center;
+    margin: 1vh 0;
+    margin-top: 100px;
+}
+.bottom-list-num a{
+    font-size: 20px;
+    text-decoration: none;
+    color: rgb(70, 44, 32);
+}
+.bottom-list-num a:hover{
+    font-size: 20px;
+    text-decoration: none;
+    color: rgb(198,177,0);
+}
+.bottom-list-num h2 {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    font-size: 1.5vw; /* 화면 너비에 비례한 글씨 크기 */
+    font-weight: bold;
+    color: rgb(70, 44, 32);
+}
+
+/* 돌아가기 버튼 */
+.bottom-return-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.bottom-return-btn input[type="button"] {
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+
+.bottom-return-btn input[type="button"]:hover {
+    background-color: rgb(70, 44, 32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(205, 187, 173) solid;
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(205, 187, 173);
+}

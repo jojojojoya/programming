@@ -1,0 +1,148 @@
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 100px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA', serif;
+    color: rgb(70, 44, 32);
+}
+
+body {
+    margin: 0;
+}
+
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+header {
+    margin-top: 0px;
+    background-color: rgb(205, 187, 173);
+    color: white;
+    height: 85px;
+    cursor: pointer;
+    line-height: 70px; /* 텍스트를 수직 가운데 정렬하려면 추가 */
+    text-align: center; /* 텍스트를 가운데 정렬하려면 추가 */
+}
+
+header img {
+    width: 120px;
+}
+
+.header-container:hover nav {
+    max-height: 100px; /* Adjust based on content */
+}
+
+nav {
+    background-color: rgb(160, 134, 122);
+    font-weight: bold;
+    color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    color: white;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    padding: 10px 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA', serif;
+}
+
+nav ul li a:hover {
+    color: rgb(70, 44, 32);
+}
+
+.content {
+    padding-top: 190px;
+    padding-bottom: 190px;
+    margin-left: 100px;
+    margin-right: 100px;
+    height: auto;
+}
+
+.fixed-nav {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.btn-page-top {
+    display: block;
+}
+
+.btn-page-top-span {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5DEB3;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA', serif;
+}
+
+.btn-page-top-span:hover {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5DEB3;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA', serif;
+    color: white;
+}
+
+.footer {
+    font-style: normal;
+    font-family: 'BMJUA', serif;
+    text-align: center;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    background-color: rgb(160, 134, 122);
+    height: 150px;
+    color: white;
+}
+.footer a{
+    text-decoration: none;
+    color: white;
+}

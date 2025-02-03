@@ -1,0 +1,126 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* 공통 설정 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'BMJUA',serif;
+    box-sizing: border-box;
+    color: #333;
+    overflow-y: auto;
+    overflow-x: hidden;
+    line-height: 1.5;
+    width: 100%;
+    text-align: left;
+    background-color: #F6F5F0; /* 배경색 추가 */
+}
+
+h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+    font-family: 'BMJUA', sans-serif; /* 요청한 폰트 적용 */
+}
+
+/* 헤더 스타일 */
+/*.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(205, 187, 173); !* 요청된 배경색 *!
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}*/
+/*
+.header img {
+    width: 120px;
+    height: 80px;
+}
+
+.header h1 a {
+    text-decoration: none;
+    color: rgb(70, 44, 32); !* 요청된 텍스트 색상 *!
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.header-container:hover nav {
+    max-height: 100px; !* 네비게이션 확장 *!
+}
+
+.global-nav {
+    display: flex; !* Flexbox를 사용하여 가로 정렬 *!
+    justify-content: center; !* 콘텐츠를 중앙 정렬 *!
+    align-items: center; !* 수직 중앙 정렬 *!
+    background-color: rgb(160, 134, 122); !* 네비게이션 배경색 *!
+    padding: 10px 0; !* 상하 여백 추가 *!
+    margin-bottom: 20px; !* 하단 간격을 1/3 수준으로 줄임 *!
+}
+
+.global-nav ul {
+    list-style-type: none; !* 리스트 스타일 제거 *!
+    margin: 0; !* 기본 여백 제거 *!
+    padding: 0; !* 기본 패딩 제거 *!
+    display: flex; !* Flexbox로 가로 정렬 *!
+    gap: 20px; !* 메뉴 항목 간격 *!
+}
+
+.global-nav li {
+    padding: 0 10px; !* 좌우 여백 추가 *!
+}
+
+.global-nav li a {
+    color: white; !* 텍스트 색상 *!
+    text-decoration: none; !* 밑줄 제거 *!
+    font-size: 1.2em; !* 텍스트 크기 *!
+    font-family: 'BMJUA', sans-serif; !* 요청된 폰트 적용 *!
+    transition: color 0.3s ease; !* 호버 효과 부드럽게 *!
+}
+
+.global-nav li a:hover {
+    color: rgb(70, 44, 32); !* 호버 시 텍스트 색상 *!
+}*/
+
+
+/* 콘텐츠 */
+/*.content {
+    padding: 20px;
+    margin: 60px auto 0; !* 기존 190px에서 60px로 간격 축소 *!
+    width: 90%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}*/
+
+/* 버튼 및 기타 */
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #E08F90;
+}
+
+/* 특정 a 태그만 비활성화 */
+.no-action {
+    pointer-events: none; /* 클릭 및 호버 이벤트 비활성화 */
+    color: gray; /* 시각적으로 비활성화 표시 */
+    text-decoration: none; /* 밑줄 제거 */
+    cursor: default; /* 기본 커서 표시 */
+}
+
+

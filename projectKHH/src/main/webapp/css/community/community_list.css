@@ -1,0 +1,246 @@
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+h1{
+    text-align: center;
+    margin-bottom: 100px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.title {
+    border: none;
+}
+.search_div {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    margin-bottom: 30px;
+}
+
+.count_item {
+    padding-top: 30px;
+    font-size: 18px;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+    height: 35px;
+    width: 8%;
+}
+.content_upload{
+    width: 45%;
+    padding-left: 10px;
+}
+.content_upload button{
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 100px;
+    height: 40px;
+    font-size: 13pt;
+    font-family: 'BMJUA',serif;
+    font-weight: 70;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+.content_upload button:hover{
+    background-color: rgb(70, 44, 32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(205, 187, 173) solid;
+    width: 100px;
+    height: 40px;
+    font-size: 13pt;
+    font-family: 'BMJUA',serif;
+    font-weight: 70;
+    font-style: normal;
+    color: rgb(205, 187, 173);
+}
+.search_item {
+    display: flex;
+    height: 40px;
+    width: 47%;
+    padding-left: 5px;
+}
+.search_select{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+}
+.search_select label{
+    font-size: 20px;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.select_title{
+    width: 20%;
+    padding-top: 10px;
+    padding-left: 23px;
+}
+.select_select{
+    width: 80%;
+    padding-left: 0px;
+}
+.search_select select{
+    margin-top: 3.3px;
+    width: 170px;
+    height: 35px;
+    border-radius: 13px;
+    border: 3px rgb(70, 44, 32) solid;
+    padding-left: 10px;
+    font-size: 18px;
+    font-family: 'BMJUA',serif;
+    font-weight: 70;
+    font-style: normal;
+}
+.search_item input {
+    margin-top: 3.3px;
+    padding-left: 10px;
+    margin-right: 10px;
+    width: 260px;
+    height: 35px;
+    font-size: 18px;
+    font-family: 'BMJUA',serif;
+    font-weight: 70;
+    font-style: normal;
+    border-radius: 13px;
+    border: 3px rgb(70, 44, 32) solid;
+}
+
+.search_item button {
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 100px;
+    height: 40px;
+    font-size: 13pt;
+    font-family: 'BMJUA',serif;
+    font-weight: 70;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+.search_item button:hover {
+    background-color: rgb(70, 44, 32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(205, 187, 173) solid;
+    width: 100px;
+    height: 40px;
+    font-size: 13pt;
+    font-family: 'BMJUA',serif;
+    font-weight: 70;
+    font-style: normal;
+    color: rgb(205, 187, 173);
+}
+.board_div{
+    background-color: #E9E2DC;
+    border-radius: 15px;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+.board_title{
+    display: flex;
+    height: 60px;
+}
+.title_title{
+    width: 970px;
+    text-align: center;
+    font-size: 23px;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.title_nickname{
+    width: 300px;
+    text-align: center;
+    font-size: 23px;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.title_date{
+    width: 200px;
+    text-align: center;
+    font-size: 23px;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.title_readcnt{
+    width: 180px;
+    text-align: center;
+    font-size: 23px;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.board_data{
+    border-bottom: 3px white dotted;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+}
+.data_title{
+    padding-left: 50px;
+    width: 970px;
+    font-size: 20px;
+}
+.data_title a{
+    text-decoration: none;
+    color: black;
+    font-family: 'BMJUA',serif;
+    font-weight: 10;
+}
+.data_title a:hover{
+    text-decoration: none;
+    color: rgb(198,177,0);
+    font-family: 'BMJUA',serif;
+    font-weight: 10;
+}
+.data_nickname{
+    width: 300px;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+}
+.data_date{
+    width: 200px;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+}
+.data_readcnt{
+    width: 180px;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+}
+.page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.page_div {
+    margin-top: 50px;
+    width: 50%;
+    height: 100px;
+}
