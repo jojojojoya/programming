@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
+
+/* 전체 배경 */
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #f5f0ea;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 🟢 전체 컨테이너 (왼쪽 + 오른쪽) */
+.container {
+    width: 1440px;
+    height: 90vh;
+    background-color: #fff3e7;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔵 왼쪽 컨테이너 (사이드바 + 달 로고) */
+.left-container {
+    width: 149px;
+    background-color: #FFF3E7; /* 오른쪽 배경과 통일 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    position: relative;
+}
+
+/* 🌙 달 로고 */
+.sidebar-logo {
+    position: absolute;
+    top: 3px;  /* 🔽 아래로 이동 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;  /* ⬇️ 크기 줄이기 */
+    height: 120px;
+}
+
+/* 🟣 사이드바 */
+.sidebar {
+        width: 70px;
+        padding: 20px 10px;
+        border-radius: 15px;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px; /* 🟢 버튼 사이의 간격을 늘림 (15px → 25px) */
+        margin-top: 88px;
+    }
+
+/* 🔵 사이드바 버튼 */
+.sidebar-btn {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* 버튼 내부 아이콘 */
+.sidebar-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 🔵 버튼 호버 효과 */
+.sidebar-btn:hover {
+    transform: scale(1.1);
+}
+
+/* 🟠 오른쪽 컨테이너 (헤더바 + 콘텐츠) */
+.right-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🟣 헤더 바 */
+.header-bar {
+    width: 100%;
+    height: 100px;
+    background-color: #D2C4D6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* 브랜드 타이틀 (중앙 정렬) */
+.brand-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #3D2C2E;
+    font-family: 'Inknut Antiqua', serif;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 🟡 우측 상단 아이콘 */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    right: 90px; /* 기존보다 왼쪽으로 */
+    position: absolute;
+}
+
+/* 헤더 버튼 */
+.header-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* 버튼 내부 아이콘 */
+.header-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* 프로필 이미지 */
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+/* 🟡 메인 콘텐츠 */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+}

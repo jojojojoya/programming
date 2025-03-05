@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
 
-    <title> KOYOI </title>
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/index2.css">
 </head>
 <body>
 
 <!-- 전체 컨테이너 -->
 <div class="container">
     <header class="header-bar">
-        <h1 class="logo">
-            <img class="logo-icon" src="/static/imgsource/logo.png" alt="로고 아이콘">
+        <!-- 로고 & 브랜드명 -->
+        <div class="logo-container">
+            <img class="logo-icon" src="/static/imgsource/logo.png" alt="KOYOI 로고">
+        </div>
 
-        </h1>
-        <!-- 우측 상단 헤더 아이콘 컨테이너 -->
+        <!-- 우측 상단 아이콘 -->
         <div class="header-icons">
             <button class="header-btn">
                 <img src="/static/imgsource/chat.png" alt="채팅">
@@ -30,19 +30,14 @@
             </button>
             <img class="profile-img" src="/static/imgsource/testprofile.png" alt="프로필">
         </div>
-
     </header>
 
     <!-- 메인 콘텐츠 영역 -->
     <main class="content">
-        <button type="button" style="width: 100px" onclick="location.href='/detail-sidebar'"></button>
+        <button type="button" style="width: 100px" onclick="location.href='/detail-sidebar2'"></button>
+
         <p>메인 콘텐츠 영역</p>
     </main>
-    <div class="bbiyak">
-        <img src="/static/imgsource/bbiyak.png">
-    </div>
-    <!-- 파도 추가 -->
-    <div class="wave-container"></div>
 
 
 </div>

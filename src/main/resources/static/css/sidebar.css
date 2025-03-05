@@ -122,31 +122,6 @@ body {
 }
 
 
-/* 사이드바 */
-.sidebar {
-    position: absolute;
-    left: 20px;
-    top: 100px;
-    width: 150px;
-    background: #e6d7f1;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.sidebar-btn {
-    width: 100%;
-    padding: 10px;
-    background: #ffffff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: left;
-}
 
 /* 메인 콘텐츠 */
 .content {
@@ -166,8 +141,9 @@ body {
 }
 
 .logo-icon {
-    height: 350px;
-    width: 350px;
+    height: 150px;
+    width: 150px;
+    margin-left: 30px;
 }
 
 /* 파도 효과 컨테이너 */
@@ -188,7 +164,7 @@ body {
     height: 180%;
     bottom: -10px;
     left: -81px;
-     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23D2C4D6" fill-opacity="1" d="M0,256L80,245.3C160,235,320,213,480,208C640,203,800,213,960,218.7C1120,224,1280,224,1360,229.3L1440,235L1440,320L0,320Z"></path></svg>');
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23D2C4D6" fill-opacity="1" d="M0,256L80,245.3C160,235,320,213,480,208C640,203,800,213,960,218.7C1120,224,1280,224,1360,229.3L1440,235L1440,320L0,320Z"></path></svg>');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -229,4 +205,45 @@ body {
     width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
     height: 100%;
     object-fit: contain; /* 이미지 비율 유지하며 맞춤 */
+}
+
+
+
+/* 사이드바 */
+.sidebar {
+    position: absolute;
+    left: 73px;
+    top: 183px;
+    width: 51px;
+    padding: 11px;
+    /*    background-color: #d1c3d5; 없는게 더 예쁨*/
+    border-radius: 15px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 🔵 사이드바 버튼 스타일 */
+.sidebar-btn {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-bottom: 15px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* 🔵 버튼 내부 아이콘 크기 */
+.sidebar-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 🔵 버튼 호버 효과 */
+.sidebar-btn:hover {
+    transform: scale(1.1);
 }

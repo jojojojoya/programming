@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
+
+/* 전체 배경 */
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #f5f0ea;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 🟢 전체 컨테이너 */
+.container {
+    width: 1440px;
+    height: 90vh;
+    background-color: #fff3e7;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🟠 왼쪽 컨테이너 (사이드바) */
+.left-container {
+    width: 60px;
+    background-color: #FFF3E7; /* 오른쪽과 동일 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+    position: relative;
+    border-right: 1px solid #f4dfcd; /* 경계선 */
+}
+
+/* 🟣 사이드바 */
+.sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* 상단 정렬 */
+    gap: 15px;
+}
+
+
+/* 🔵 사이드바 버튼 */
+.sidebar-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 36px 0; /* 위아래 간격 조정 */
+}
+
+
+.sidebar-btn::before {
+    content: "...";
+    font-size: 11px;
+    font-weight: bold;
+    color: black;
+    position: absolute;
+    top: -20px; /* 기존 -42px → -30px으로 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+/* 버튼 내부 아이콘 */
+.sidebar-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 🔵 버튼 호버 효과 */
+.sidebar-btn:hover {
+    transform: scale(1.1);
+}
+
+/* 🟠 오른쪽 컨테이너 */
+.right-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🟣 헤더 바 */
+.header-bar {
+    width: 100%;
+    height: 100px;
+    background-color: #D2C4D6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    border-radius: 0px 0px 0 0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* 🌙 중앙 브랜드 로고 */
+.brand-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+}
+
+/* 브랜드 로고 크기 */
+.brand-title img {
+    width: 125px;
+    height: 125px;
+}
+
+/* 🟡 우측 상단 아이콘 */
+.header-icons {
+    position: absolute;
+    right: 90px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 프로필 이미지 */
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+/* 🟡 메인 콘텐츠 */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+.bbiyak {
+    position: absolute; /* 절대 위치 */
+    bottom: 47px; /* 보라색 파도 위로 조정 */
+    left: 73%; /* 가운데 정렬 */
+    transform: translateX(-50%); /* 정확한 중앙 정렬 */
+    width: 70px;  /* 크기 조절 (작게) */
+    height: 70px; /* 크기 조절 (작게) */
+    background-color: transparent; /* 배경색 없음 */
+    border-radius: 50%;
+    box-sizing: border-box; /* 크기 조정 */
+    z-index: 20; /* 다른 요소 위에 표시 */
+    overflow: hidden; /* 혹시라도 삐져나오면 숨김 */
+}
+
+/* bbiyak 내부 이미지 크기 조정 */
+.bbiyak img {
+    width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
+    height: 100%;
+    object-fit: contain; /* 이미지 비율 유지하며 맞춤 */
+}

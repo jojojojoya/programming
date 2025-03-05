@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
 
     <title> KOYOI </title>
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/sidebar.css">
 </head>
 <body>
 
@@ -35,7 +35,6 @@
 
     <!-- 메인 콘텐츠 영역 -->
     <main class="content">
-        <button type="button" style="width: 100px" onclick="location.href='/detail-sidebar'"></button>
         <p>메인 콘텐츠 영역</p>
     </main>
     <div class="bbiyak">
@@ -43,6 +42,16 @@
     </div>
     <!-- 파도 추가 -->
     <div class="wave-container"></div>
+    <!-- 사이드바 추가 -->
+    <aside class="sidebar">
+        <nav class="sidebar-menu">
+            <button class="sidebar-btn"><img src="/static/imgsource/smile.png" alt="프로필"></button>
+            <button class="sidebar-btn"><img src="/static/imgsource/calander.png" alt="캘린더"></button>
+            <button class="sidebar-btn"><img src="/static/imgsource/pencil.png" alt="메모"></button>
+            <button class="sidebar-btn"><img src="/static/imgsource/chat.png" alt="채팅"></button>
+            <button class="sidebar-btn"><img src="/static/imgsource/settingss.png" alt="설정"></button>
+        </nav>
+    </aside>
 
 
 </div>
