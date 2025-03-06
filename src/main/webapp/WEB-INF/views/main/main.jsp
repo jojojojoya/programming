@@ -47,16 +47,16 @@
         <div class="content-wrapper">
             <!-- 왼쪽 영역: 달력 + 챗봇 -->
             <div class="left-content">
-                <div class="calendar-container">달력</div>
-                <div class="chat-connect">챗봇</div>
+                <div class="calendar-container"> 달력 </div>
+                <div class="chat-connect"> 챗봇, 라이브챗 연결</div>
             </div>
 
             <!-- 오른쪽 영역: 무드 그래프 + 체크리스트 -->
             <div class="right-content">
-                <div class="mood-graph">무드 통계</div>
+                <div class="mood-graph"> 무드 통계 </div>
                 <div class="checklists">
-                    <div class="checklist">체크리스트1</div>
-                    <div class="checklist">체크리스트2</div>
+                    <div class="checklist"> 체크리스트1 </div>
+                    <div class="checklist"> 체크리스트2 </div>
                 </div>
             </div>
         </div>

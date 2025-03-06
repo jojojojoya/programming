@@ -109,13 +109,13 @@ body {
     border: 2px solid #ddd;
 }
 
-    /* 메인 콘텐츠 */
-    .content {
-        flex-grow: 1;
-        margin: 100px 20px;
-        text-align: center;
-        font-size: 18px;
-    }
+/* 메인 콘텐츠 */
+.content {
+    flex-grow: 1;
+    margin: 100px 20px;
+    text-align: center;
+    font-size: 18px;
+}
 
 /* 우측 상단 고정 이미지 */
 .fixed-top-right {
@@ -133,53 +133,60 @@ body {
     flex-direction: column;
     padding: 20px;
     height: calc(100% - 120px); /* 헤더 제외한 높이 */
+    position: relative;
 }
 
-/* 명언 영역 (줄어든 높이 적용) */
+/* 명언 영역 */
 .quotes-container {
     background-color: #FFEBCC;
     padding: 10px;
     border-radius: 10px;
     text-align: center;
-    height: 60px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    z-index: 10;
 }
 
 /* 메인 콘텐츠 (달력 + 무드통계) */
 .content-wrapper {
     display: flex;
-    flex: 1; /* 남은 공간을 균등하게 차지 */
+    flex: 1;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 50px;
 }
 
 /* 왼쪽 영역 (달력 + 챗봇) */
 .left-content {
     display: flex;
     flex-direction: column;
-    width: 40%; /* 전체 너비의 40% 차지 */
+    width: 40%;
     gap: 10px;
 }
 
-/* 달력 영역 (높이 늘림) */
+/* 달력 영역 */
 .calendar-container {
     background-color: #D2E4FF;
     padding: 15px;
     border-radius: 10px;
-    flex: 2; /* 더 큰 영역 차지 */
+    flex: 3;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* 챗봇 영역 (높이 줄임) */
+/* 챗봇 영역 */
 .chat-connect {
     background-color: #FFD6A5;
     padding: 15px;
     border-radius: 10px;
-    flex: 1; /* 작은 영역 차지 */
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -189,7 +196,7 @@ body {
 .right-content {
     display: flex;
     flex-direction: column;
-    width: 60%; /* 전체 너비의 60% 차지 */
+    width: 60%;
     gap: 10px;
 }
 
@@ -198,24 +205,32 @@ body {
     background-color: #FDD7E4;
     padding: 15px;
     border-radius: 10px;
-    flex: 1; /* 일정한 높이 유지 */
+    flex: 1;
 }
 
-/* 체크리스트 */
+/* 체크리스트 컨테이너 */
 .checklists {
     background-color: #C6F6D5;
     padding: 15px;
     border-radius: 10px;
-    flex: 1; /* 일정한 높이 유지 */
+    flex: 2;
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* 가로 정렬 */
+    justify-content: space-between; /* 좌우 정렬 */
     gap: 10px;
 }
 
-/* 체크리스트 개별 항목 */
+/* 개별 체크리스트 항목 */
 .checklist {
     background-color: #FFFFFF;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 15px;
+    border-radius: 10px;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 48%; /* 두 개가 나란히 배치되도록 설정 */
+    text-align: left;
+    display: flex;
+    flex-direction: column; /* 내부 내용을 세로 정렬 */
+    gap: 10px;
 }
+
+
