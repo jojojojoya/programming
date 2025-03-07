@@ -8,7 +8,7 @@
     <title>KOYOI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main/main.css">
-    <script src="/static/js/main.js"></script>
+    <script src="/static/js/main/main.js"></script>
 </head>
 <body>
 
@@ -20,12 +20,13 @@
             <img class="logo-icon" src="/static/imgsource/logo.png" alt="KOYOI">
         </div>
         <div class="header-icons">
-            <button class="header-btn">
+            <button class="header-btn" id="notice">
                 <img src="/static/imgsource/notice.png" alt="notice">
             </button>
-            <button class="header-btn">
+            <%--추후 알림창 설정--%>
+<%--            <button class="header-btn" id="message">
                 <img src="/static/imgsource/chat.png" alt="message">
-            </button>
+            </button>--%>
             <button class="header-btn">
                 <img src="/static/imgsource/logout.png" alt="logout">
             </button>
@@ -33,6 +34,19 @@
         </div>
 
     </header>
+
+    <%-- 공지 모달창 --%>
+    <div id="notice-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn"> &times; </span>
+            <h3> 공지사항 </h3>
+            <ul id="notice-lists">
+                <li><a href="#"> 첫 번째 공지사항 </a></li>
+                <li><a href="#"> 두 번째 공지사항 </a></li>
+                <li><a href="#"> 세 번째 공지사항 </a></li>
+            </ul>
+        </div>
+    </div>
 
     <main class="main-container">
 
