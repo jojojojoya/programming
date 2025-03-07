@@ -8,7 +8,7 @@
     <title>Title</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main.css">
-  <%--  <script src="/resources/js/product.js"></script>--%>
+    <script src="/static/js/main.js"></script>
 </head>
 <body>
 
@@ -24,15 +24,15 @@
         <!-- 우측 상단 아이콘 -->
         <div class="header-icons">
             <button class="header-btn">
-                <img src="/static/imgsource/chat.png" alt="채팅">
+                <img src="/static/imgsource/notice.png" alt="notice">
             </button>
             <button class="header-btn">
-                <img src="/static/imgsource/settingss.png" alt="설정">
+                <img src="/static/imgsource/chat.png" alt="message">
             </button>
             <button class="header-btn">
-                <img src="/static/imgsource/logout.png" alt="로그아웃">
+                <img src="/static/imgsource/logout.png" alt="logout">
             </button>
-            <img class="profile-img" src="/static/imgsource/testprofile.png" alt="프로필">
+            <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile">
         </div>
     </header>
 
@@ -47,13 +47,19 @@
         <div class="content-wrapper">
             <!-- 왼쪽 영역: 달력 + 챗봇 -->
             <div class="left-content">
-                <div class="calendar-container"> 달력 </div>
-                <div class="chat-connect"> 챗봇, 라이브챗 연결</div>
+                <div class="calendar-container">
+                    <jsp:include page="maincalendar.jsp"/>
+                </div>
+               <%-- <div class="chat-connect">
+                    <div> 챗봇 </div>
+                    <div> 라이브챗 </div>
+                </div>--%>
             </div>
 
             <!-- 오른쪽 영역: 무드 그래프 + 체크리스트 -->
             <div class="right-content">
                 <div class="mood-graph"> 무드 통계 </div>
+                <div class="chat-connect"> 챗봇, 라이브챗 연결</div>
                 <div class="checklists">
                     <div class="checklist"> 체크리스트1 </div>
                     <div class="checklist"> 체크리스트2 </div>
@@ -62,6 +68,6 @@
         </div>
     </main>
 
-
+</div>
 </body>
 </html>
