@@ -12,5 +12,10 @@ public class MainC {
         return "main/main";
     }
 
+    @GetMapping("/admin")
+    public String admin() {
+        return "adminmypage/adminmypage";
+    }
+
 
 }

@@ -7,7 +7,7 @@
 <head>
     <title>KOYOI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/main/main.css">
     <script src="/static/js/main.js"></script>
 </head>
 <body>
