@@ -138,7 +138,6 @@ body {
 
 /* 명언 영역 */
 .quotes-container {
-    background-color: #FFEBCC;
     padding: 10px;
     border-radius: 10px;
     text-align: center;
@@ -181,6 +180,32 @@ body {
     justify-content: center;
 }
 
+/* 오른쪽 영역 (무드통계 + 체크리스트) */
+.right-content {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 100%;
+    gap: 10px;
+}
+
+/* 무드 그래프 + 챗봇을 가로로 정렬하는 컨테이너 */
+.upper-section {
+    display: flex;
+    flex-direction: row; /* ✅ 가로 정렬 */
+    justify-content: space-between;
+    gap: 10px;
+    flex: 1;
+}
+
+/* 무드 그래프 */
+.mood-graph {
+    background-color: #FDD7E4;
+    padding: 15px;
+    border-radius: 10px;
+    flex: 2;
+}
+
 /* 챗봇 영역 */
 .chat-connect {
     background-color: #FFD6A5;
@@ -191,23 +216,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
-/* 오른쪽 영역 (무드통계 + 체크리스트) */
-.right-content {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    gap: 10px;
-}
-
-/* 무드 그래프 */
-.mood-graph {
-    background-color: #FDD7E4;
-    padding: 15px;
-    border-radius: 10px;
-    flex: 1;
-}
-
 /* 체크리스트 컨테이너 */
 .checklists {
     background-color: #C6F6D5;

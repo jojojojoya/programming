@@ -57,9 +57,15 @@
             </div>
 
             <!-- 오른쪽 영역: 무드 그래프 + 체크리스트 -->
+            <!-- 오른쪽 영역: 무드 그래프 + 챗봇 + 체크리스트 -->
             <div class="right-content">
-                <div class="mood-graph"> 무드 통계 </div>
-                <div class="chat-connect"> 챗봇, 라이브챗 연결</div>
+                <!-- 첫 번째 행: 무드 그래프 + 챗봇 -->
+                <div class="upper-section">
+                    <div class="mood-graph"> 무드 통계 </div>
+                    <div class="chat-connect"> 챗봇, 라이브챗 연결 </div>
+                </div>
+
+                <!-- 두 번째 행: 체크리스트 -->
                 <div class="checklists">
                     <div class="checklist"> 체크리스트1 </div>
                     <div class="checklist"> 체크리스트2 </div>
