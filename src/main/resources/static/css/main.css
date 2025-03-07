@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
 
-/* 전체 배경 */
 body {
     font-family: 'Noto Sans JP', sans-serif;
     background-color: #f5f0ea;
@@ -12,7 +11,6 @@ body {
     height: 100vh;
 }
 
-/* 전체 컨테이너 */
 .container {
     width: 1440px;
     height: 95vh;
@@ -25,21 +23,19 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 헤더 바 */
 .header-bar {
     width: 100%;
     height: 100px;
     background-color: #EDE0D4;
     display: flex;
     align-items: center;
-    justify-content: center; /* 중앙 정렬 */
+    justify-content: center;
     padding: 0 30px;
     border-radius: 30px 30px 0 0;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
-/* 로고 컨테이너 (중앙 정렬) */
 .logo-container {
     display: flex;
     align-items: center;
@@ -49,13 +45,11 @@ body {
     transform: translateX(-50%);
 }
 
-/* 로고 아이콘 */
 .logo-icon {
     width: 115px;
     height: 115px;
 }
 
-/* 브랜드 텍스트 */
 .logo-text {
     font-size: 28px;
     font-weight: bold;
@@ -63,16 +57,14 @@ body {
     font-family: 'Inknut Antiqua', serif;
 }
 
-/* 헤더 아이콘 컨테이너 (우측으로 이동) */
 .header-icons {
     display: flex;
     align-items: center;
     gap: 12px;
     position: absolute;
-    right: 100px; /* 왼쪽으로 살짝 땡기기 */
+    right: 100px;
 }
 
-/* 헤더 버튼 */
 .header-btn {
     background: none;
     border: none;
@@ -88,18 +80,15 @@ body {
     transition: transform 0.2s ease-in-out;
 }
 
-/* 아이콘 크기 */
 .header-btn img {
     width: 20px;
     height: 20px;
 }
 
-/* 버튼 호버 효과 */
 .header-btn:hover {
     transform: scale(1.1);
 }
 
-/* 프로필 이미지 */
 .profile-img {
     width: 40px;
     height: 40px;
@@ -109,7 +98,6 @@ body {
     border: 2px solid #D8D2C2;
 }
 
-/* 메인 콘텐츠 */
 .content {
     flex-grow: 1;
     margin: 100px 20px;
@@ -117,7 +105,6 @@ body {
     font-size: 18px;
 }
 
-/* 우측 상단 고정 이미지 */
 .fixed-top-right {
     position: absolute;
     top: 20px;
@@ -127,16 +114,14 @@ body {
     z-index: 10;
 }
 
-/* 메인 컨테이너 (Flexbox 적용) */
 .main-container {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    height: calc(100% - 120px); /* 헤더 제외한 높이 */
+    height: calc(100% - 120px);
     position: relative;
 }
 
-/* 명언 영역 */
 .quotes-container {
     padding: 10px;
     border-radius: 10px;
@@ -153,7 +138,6 @@ body {
     z-index: 10;
 }
 
-/* 메인 콘텐츠 (달력 + 무드통계) */
 .content-wrapper {
     display: flex;
     flex: 1;
@@ -161,7 +145,7 @@ body {
     margin-top: 50px;
 }
 
-/* 왼쪽 영역 (달력 + 챗봇) */
+/* 왼쪽 영역 (달력) */
 .left-content {
     display: flex;
     flex-direction: column;
@@ -169,9 +153,7 @@ body {
     gap: 10px;
 }
 
-/* 달력 영역 */
 .calendar-container {
-    /*background-color: #D2E4FF;*/
     padding: 15px;
     border-radius: 10px;
     flex: 3;
@@ -180,7 +162,7 @@ body {
     justify-content: center;
 }
 
-/* 오른쪽 영역 (무드통계 + 체크리스트) */
+/* 오른쪽 영역 (무드 그래프 + 챗봇 + 체크리스트) */
 .right-content {
     display: flex;
     flex-direction: column;
@@ -189,16 +171,15 @@ body {
     gap: 10px;
 }
 
-/* 무드 그래프 + 챗봇을 가로로 정렬하는 컨테이너 */
+/* 무드 그래프 + 챗봇 */
 .upper-section {
     display: flex;
-    flex-direction: row; /* ✅ 가로 정렬 */
+    flex-direction: row;
     justify-content: space-between;
     gap: 10px;
     flex: 1;
 }
 
-/* 무드 그래프 */
 .mood-graph {
     background-color: #FDD7E4;
     padding: 15px;
@@ -206,7 +187,6 @@ body {
     flex: 2;
 }
 
-/* 챗봇 영역 */
 .chat-connect {
     background-color: #FFD6A5;
     padding: 15px;
@@ -216,15 +196,15 @@ body {
     align-items: center;
     justify-content: center;
 }
-/* 체크리스트 컨테이너 */
+
 .checklists {
     background-color: #C6F6D5;
     padding: 15px;
     border-radius: 10px;
     flex: 2;
     display: flex;
-    flex-direction: row; /* 가로 정렬 */
-    justify-content: space-between; /* 좌우 정렬 */
+    flex-direction: row;
+    justify-content: space-between;
     gap: 10px;
 }
 
@@ -234,10 +214,10 @@ body {
     padding: 15px;
     border-radius: 10px;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
-    width: 48%; /* 두 개가 나란히 배치되도록 설정 */
+    width: 48%;
     text-align: left;
     display: flex;
-    flex-direction: column; /* 내부 내용을 세로 정렬 */
+    flex-direction: column;
     gap: 10px;
 }
 

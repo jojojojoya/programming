@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>달력</title>
+    <title>Calendar</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <style>
         .calendar {
@@ -16,16 +16,16 @@
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
             display: flex;
-            flex-direction: column; /* 세로 방향 정렬 */
-            align-items: center; /* 중앙 정렬 */
+            flex-direction: column;
+            align-items: center;
             background-color: #9A6E50;
         }
 
         .main-calendar_header {
-            display: flex; /* ✅ 요소들을 가로로 배치 */
-            justify-content: center; /* ✅ 전체 요소를 가로 중앙 정렬 */
-            align-items: center; /* ✅ 수직 정렬 */
-            gap: 20px; /* ✅ 버튼과 month-year 사이 간격 조정 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
             width: 100%;
             margin-bottom: 10px;
         }
@@ -33,7 +33,7 @@
         .main-calendar_header button {
             border: none;
             background: none;
-            font-size: 18px; /* 버튼 크기 조정 */
+            font-size: 18px;
             cursor: pointer;
             padding: 5px;
         }
@@ -77,13 +77,13 @@
 <body>
 
 <div class="calendar">
+
     <div class="main-calendar_header">
         <button id="prevMonth" onclick="prevMonth()"> ◀ </button>
         <h3 id="month-year"></h3>
         <button id="nextMonth" onclick="nextMonth()"> ▶ </button>
     </div>
 
-    <%-- 요일 --%>
     <div class="main-calendar_weeks">
         <div> SUN </div>
         <div> MON </div>
@@ -106,62 +106,64 @@
         let calendarEl = document.getElementById("calendar");
         let monthYearEl = document.getElementById("month-year");
 
-        if (!calendarEl || !monthYearEl) {
-            console.error("❌ month-year 요소를 찾을 수 없음!");
-            return;
-        }
-
         let year = currentDate.getFullYear();
-        let month = currentDate.getMonth() + 1; // ✅ 1월부터 12월까지 변환
+        let month = currentDate.getMonth() + 1; // 0부터 시작.
 
-        monthYearEl.innerText = year + "년 " + month + "월";
+        monthYearEl.innerText = year + "년" + month + "월";
 
-        // ✅ 첫 번째 날과 마지막 날 계산
-        let firstDay = new Date(year, month - 1, 1).getDay(); // 이번 달 1일의 요일 (0: 일요일, 6: 토요일)
+        // 첫 번째 날과 마지막 날 계산
+
+        // new Date(year, month, day)에서 day가 0이면 이전 달의 마지막 날 의미.
+        // .getDate()를 호출해서 값 반환.
+
+        // .getDay() => 그 날짜의 요일을 반환(0 : 일요일, 6 : 토요일)
+        let firstDay = new Date(year, month - 1, 1).getDay();
+
+
         let lastDate = new Date(year, month, 0).getDate(); // 이번 달 마지막 날짜
         let prevLastDate = new Date(year, month - 1, 0).getDate(); // 이전 달의 마지막 날짜
 
         calendarEl.innerHTML = ""; // 기존 날짜 초기화
-        let totalCells = 0; // 총 셀 개수 (6주 = 42개)
+        let totalCells = 0; // 전체 날짜 셀 개수 저장
 
-        // **1. 이전 달 빈칸에 이전 달 날짜 채우기**
+        // 이전 달 빈칸에 이전 달 날짜 채우기
         for (let i = firstDay - 1; i >= 0; i--) {
             let emptyDiv = document.createElement("div");
             emptyDiv.classList.add("calendar-day", "inactive");
-            emptyDiv.innerText = prevLastDate - i; // 이전 달의 날짜 표시
+            emptyDiv.innerText = prevLastDate - i;
             calendarEl.appendChild(emptyDiv);
             totalCells++;
         }
 
-        // **2. 현재 달 날짜 추가**
+        // 현재 달 날짜 추가
         for (let date = 1; date <= lastDate; date++) {
             let dayDiv = document.createElement("div");
             dayDiv.classList.add("calendar-day");
             dayDiv.innerText = date;
 
+            // 오늘의 날짜와 같으면 true => 배경색 표시
             let today = new Date();
             if (year === today.getFullYear() && month === today.getMonth() + 1 && date === today.getDate()) {
-                dayDiv.style.backgroundColor = "#ffcccb"; // 오늘 날짜 강조
+                dayDiv.style.backgroundColor = "#FFD27A";
             }
 
             calendarEl.appendChild(dayDiv);
-            totalCells++;
+            totalCells++; // 총 날짜 칸을 하나씩 증가
         }
 
-        // **3. 다음 달 빈칸에 다음 달 날짜 채우기 (6주를 유지하도록)**
+        // 다음 달 빈칸에 다음 달 날짜 채우기 <= 매달 같은 크기를 맞추기 위해 달력 표시일을 6주로 고정.
         let nextMonthDate = 1;
+
+        // 총 셀 수가 42가 될 때까지 반복
         while (totalCells < 42) {
             let emptyDiv = document.createElement("div");
             emptyDiv.classList.add("calendar-day", "inactive");
-            emptyDiv.innerText = nextMonthDate; // ✅ 다음 달 날짜 표시
+            emptyDiv.innerText = nextMonthDate;
             calendarEl.appendChild(emptyDiv);
             nextMonthDate++;
             totalCells++;
         }
     }
-
-
-
 
     function prevMonth() {
         currentDate.setMonth(currentDate.getMonth() - 1);
@@ -172,10 +174,7 @@
         currentDate.setMonth(currentDate.getMonth() + 1);
         generateCalendar();
     }
-
-    // ✅ DOM이 완전히 로드된 후 실행
     document.addEventListener("DOMContentLoaded", function() {
-        console.log("📌 DOMContentLoaded 이벤트 발생");
         generateCalendar();
     });
 
