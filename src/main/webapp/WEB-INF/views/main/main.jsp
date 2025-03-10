@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main/main.css">
     <script src="/static/js/main/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -79,7 +80,38 @@
                     </div>
 
                     <div class="right-side">
-                        <div class="mood-graph"> 무드 그래프 </div>
+                        <div class="mood-graph"> 무드 그래프
+                            <canvas id="moodChart"></canvas>
+                        </div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const ctx = document.getElementById('moodChart').getContext('2d');
+
+                                new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['월', '화', '수', '목', '금', '토', '일'], // X축: 요일
+                                        datasets: [{
+                                            label: '기분 점수',
+                                            data: [7, 8, 6, 5, 9, 8, 7], // 예제 기분 점수
+                                            backgroundColor: ['#ff9999', '#ffcc99', '#ffff99', '#99ff99', '#99ccff', '#cc99ff', '#ff99cc'],
+                                            borderColor: '#555',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true, // 반응형 그래프
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true, // Y축 0부터 시작
+                                                max: 10 // 최대 기분 점수 10으로 설정
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
 
                         <div class="chat-connect">
                             <button class="chatbot"> 챗봇 </button>

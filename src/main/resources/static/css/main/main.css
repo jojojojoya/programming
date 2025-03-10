@@ -262,7 +262,6 @@ body {
 }
 
 #task-input {
-    width: 94%;
     padding: 10px;
     border: 2px solid #d7ccc8;
     border-radius: 8px;
@@ -295,8 +294,8 @@ body {
 
 #task-list {
     list-style: none;
+    width: 93%;
     padding: 0;
-    width: 94%;
     display: flex;
     flex-direction: column;
     gap: 10px;
