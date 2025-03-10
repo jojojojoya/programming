@@ -43,6 +43,8 @@
             </div>
         </header>
 
+
+
         <main class="content">
             <p>메인 콘텐츠 영역</p>
 
