@@ -26,7 +26,7 @@
                 <img src="/static/imgsource/settingss.png" alt="설정">
             </button>
             <button class="header-btn">
-                <img src="/static/imgsource/logout.png" alt="로그아웃">
+                <img src="/static/imgsource/6.png" alt="로그아웃">
             </button>
             <img class="profile-img" src="/static/imgsource/testprofile.png" alt="프로필">
         </div>
