@@ -1,0 +1,250 @@
+-- ==========================================
+-- ========== DROP OBJECTS ==========
+-- ==========================================
+
+-- Drop Triggers
+DROP TRIGGER MAIN_DIARY_TRG;
+DROP TRIGGER MAIN_EMOTION_TRG;
+DROP TRIGGER MAIN_CHAT_TRG;
+DROP TRIGGER MAIN_LIVE_CHAT_TRG;
+DROP TRIGGER MAIN_COUNSELING_RES_TRG;
+
+DROP TRIGGER TEST_DIARY_TRG;
+DROP TRIGGER TEST_EMOTION_TRG;
+DROP TRIGGER TEST_CHAT_TRG;
+DROP TRIGGER TEST_LIVE_CHAT_TRG;
+DROP TRIGGER TEST_COUNSELING_RES_TRG;
+
+-- Drop Sequences
+DROP SEQUENCE MAIN_DIARY_SEQ;
+DROP SEQUENCE MAIN_EMOTION_SEQ;
+DROP SEQUENCE MAIN_CHAT_SEQ;
+DROP SEQUENCE MAIN_LIVE_CHAT_SEQ;
+DROP SEQUENCE MAIN_COUNSELING_RES_SEQ;
+
+DROP SEQUENCE TEST_DIARY_SEQ;
+DROP SEQUENCE TEST_EMOTION_SEQ;
+DROP SEQUENCE TEST_CHAT_SEQ;
+DROP SEQUENCE TEST_LIVE_CHAT_SEQ;
+DROP SEQUENCE TEST_COUNSELING_RES_SEQ;
+
+-- Drop Tables (Main)
+DROP TABLE MAIN_COUNSELING_CONTENT CASCADE CONSTRAINTS;
+DROP TABLE MAIN_COUNSELING_RESERVATION CASCADE CONSTRAINTS;
+DROP TABLE MAIN_LIVE_CHAT CASCADE CONSTRAINTS;
+DROP TABLE MAIN_CHAT CASCADE CONSTRAINTS;
+DROP TABLE MAIN_EMOTION CASCADE CONSTRAINTS;
+DROP TABLE MAIN_DIARY CASCADE CONSTRAINTS;
+DROP TABLE MAIN_USER CASCADE CONSTRAINTS;
+
+-- Drop Tables (Test)
+DROP TABLE TEST_COUNSELING_CONTENT CASCADE CONSTRAINTS;
+DROP TABLE TEST_COUNSELING_RESERVATION CASCADE CONSTRAINTS;
+DROP TABLE TEST_LIVE_CHAT CASCADE CONSTRAINTS;
+DROP TABLE TEST_CHAT CASCADE CONSTRAINTS;
+DROP TABLE TEST_EMOTION CASCADE CONSTRAINTS;
+DROP TABLE TEST_DIARY CASCADE CONSTRAINTS;
+DROP TABLE TEST_USER CASCADE CONSTRAINTS;
+
+
+-- ==========================================
+-- ========== MAIN TABLES ==========
+-- ==========================================
+CREATE TABLE MAIN_USER (
+                           user_id VARCHAR2(50) PRIMARY KEY,
+                           user_type NUMBER(1) NOT NULL,
+                           user_name VARCHAR2(100) NOT NULL,
+                           user_email VARCHAR2(100) UNIQUE NOT NULL,
+                           user_password VARCHAR2(255) NOT NULL,
+                           user_img VARCHAR2(255),
+                           created_at TIMESTAMP DEFAULT SYSDATE NOT NULL
+);
+
+CREATE TABLE MAIN_DIARY (
+                            diary_id NUMBER PRIMARY KEY,
+                            user_id VARCHAR2(50) NOT NULL,
+                            diary_content CLOB NOT NULL,
+                            created_at TIMESTAMP DEFAULT SYSDATE NOT NULL,
+                            CONSTRAINT fk_diary_user FOREIGN KEY (user_id) REFERENCES MAIN_USER(user_id)
+);
+
+CREATE TABLE MAIN_EMOTION (
+                              emotion_id NUMBER PRIMARY KEY,
+                              user_id VARCHAR2(50) NOT NULL,
+                              diary_id NUMBER UNIQUE NOT NULL,
+                              emotion_score NUMBER NOT NULL,
+                              emotion_emoji VARCHAR2(200) NOT NULL,
+                              recorded_at TIMESTAMP DEFAULT SYSDATE NOT NULL,
+                              CONSTRAINT fk_emotion_user FOREIGN KEY (user_id) REFERENCES MAIN_USER(user_id),
+                              CONSTRAINT fk_emotion_diary FOREIGN KEY (diary_id) REFERENCES MAIN_DIARY(diary_id)
+);
+
+CREATE TABLE MAIN_CHAT (
+                           chat_id NUMBER PRIMARY KEY,
+                           user_id VARCHAR2(50) NOT NULL,
+                           chat_summary CLOB NOT NULL,
+                           CONSTRAINT fk_chat_user FOREIGN KEY (user_id) REFERENCES MAIN_USER(user_id)
+);
+
+CREATE TABLE MAIN_LIVE_CHAT (
+                                session_id NUMBER PRIMARY KEY,
+                                user_id VARCHAR2(50) NOT NULL,
+                                counselor_id VARCHAR2(50),
+                                start_time TIMESTAMP NOT NULL,
+                                end_time TIMESTAMP,
+                                status VARCHAR2(50) NOT NULL,
+                                CONSTRAINT fk_live_chat_user FOREIGN KEY (user_id) REFERENCES MAIN_USER(user_id),
+                                CONSTRAINT fk_live_chat_counselor FOREIGN KEY (counselor_id) REFERENCES MAIN_USER(user_id)
+);
+
+CREATE TABLE MAIN_COUNSELING_RESERVATION (
+                                             counseling_id NUMBER PRIMARY KEY,
+                                             user_id VARCHAR2(50) NOT NULL,
+                                             counselor_id VARCHAR2(50) NOT NULL,
+                                             counseling_date DATE NOT NULL,
+                                             counseling_time NUMBER(2) CHECK (counseling_time BETWEEN 10 AND 22),
+                                             category VARCHAR2(20) CHECK (category IN ('건강','미래','인간관계','기타고민')),
+                                             status VARCHAR2(20) DEFAULT '대기' CHECK (status IN ('대기','진행중','완료','취소')),
+                                             created_at DATE DEFAULT SYSDATE NOT NULL,
+                                             CONSTRAINT fk_cr_user FOREIGN KEY (user_id) REFERENCES MAIN_USER(user_id),
+                                             CONSTRAINT fk_cr_counselor FOREIGN KEY (counselor_id) REFERENCES MAIN_USER(user_id)
+);
+
+CREATE TABLE MAIN_COUNSELING_CONTENT (
+                                         counseling_id NUMBER PRIMARY KEY,
+                                         counseling_content CLOB,
+                                         CONSTRAINT fk_cc_reservation FOREIGN KEY (counseling_id) REFERENCES MAIN_COUNSELING_RESERVATION(counseling_id)
+);
+
+
+-- ==========================================
+-- ========== TEST TABLES ==========
+-- ==========================================
+
+CREATE TABLE TEST_USER AS SELECT * FROM MAIN_USER WHERE 1=2;
+CREATE TABLE TEST_DIARY AS SELECT * FROM MAIN_DIARY WHERE 1=2;
+CREATE TABLE TEST_EMOTION AS SELECT * FROM MAIN_EMOTION WHERE 1=2;
+CREATE TABLE TEST_CHAT AS SELECT * FROM MAIN_CHAT WHERE 1=2;
+CREATE TABLE TEST_LIVE_CHAT AS SELECT * FROM MAIN_LIVE_CHAT WHERE 1=2;
+CREATE TABLE TEST_COUNSELING_RESERVATION AS SELECT * FROM MAIN_COUNSELING_RESERVATION WHERE 1=2;
+CREATE TABLE TEST_COUNSELING_CONTENT AS SELECT * FROM MAIN_COUNSELING_CONTENT WHERE 1=2;
+
+
+-- ==========================================
+-- ========== MAIN SEQUENCE & TRIGGER ==========
+-- ==========================================
+
+CREATE SEQUENCE MAIN_DIARY_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER MAIN_DIARY_TRG
+    BEFORE INSERT ON MAIN_DIARY
+    FOR EACH ROW
+BEGIN
+    SELECT MAIN_DIARY_SEQ.NEXTVAL INTO :NEW.diary_id FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE MAIN_EMOTION_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER MAIN_EMOTION_TRG
+    BEFORE INSERT ON MAIN_EMOTION
+    FOR EACH ROW
+BEGIN
+    SELECT MAIN_EMOTION_SEQ.NEXTVAL INTO :NEW.emotion_id FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE MAIN_CHAT_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER MAIN_CHAT_TRG
+    BEFORE INSERT ON MAIN_CHAT
+    FOR EACH ROW
+BEGIN
+    SELECT MAIN_CHAT_SEQ.NEXTVAL INTO :NEW.chat_id FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE MAIN_LIVE_CHAT_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER MAIN_LIVE_CHAT_TRG
+    BEFORE INSERT ON MAIN_LIVE_CHAT
+    FOR EACH ROW
+BEGIN
+    SELECT MAIN_LIVE_CHAT_SEQ.NEXTVAL INTO :NEW.session_id FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE MAIN_COUNSELING_RES_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER MAIN_COUNSELING_RES_TRG
+    BEFORE INSERT ON MAIN_COUNSELING_RESERVATION
+    FOR EACH ROW
+BEGIN
+    SELECT MAIN_COUNSELING_RES_SEQ.NEXTVAL INTO :NEW.counseling_id FROM DUAL;
+END;
+/
+
+-- ==========================================
+-- ========== TEST SEQUENCE & TRIGGER ==========
+-- ==========================================
+
+CREATE SEQUENCE TEST_DIARY_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER TEST_DIARY_TRG
+    BEFORE INSERT ON TEST_DIARY
+    FOR EACH ROW
+BEGIN
+    SELECT TEST_DIARY_SEQ.NEXTVAL INTO :NEW.diary_id FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE TEST_EMOTION_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER TEST_EMOTION_TRG
+    BEFORE INSERT ON TEST_EMOTION
+    FOR EACH ROW
+BEGIN
+    SELECT TEST_EMOTION_SEQ.NEXTVAL INTO :NEW.emotion_id FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE TEST_CHAT_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER TEST_CHAT_TRG
+    BEFORE INSERT ON TEST_CHAT
+    FOR EACH ROW
+BEGIN
+    SELECT TEST_CHAT_SEQ.NEXTVAL INTO :NEW.chat_id FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE TEST_LIVE_CHAT_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER TEST_LIVE_CHAT_TRG
+    BEFORE INSERT ON TEST_LIVE_CHAT
+    FOR EACH ROW
+BEGIN
+    SELECT TEST_LIVE_CHAT_SEQ.NEXTVAL INTO :NEW.session_id FROM DUAL;
+END;
+/
+
+CREATE SEQUENCE TEST_COUNSELING_RES_SEQ START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER TEST_COUNSELING_RES_TRG
+    BEFORE INSERT ON TEST_COUNSELING_RESERVATION
+    FOR EACH ROW
+BEGIN
+    SELECT TEST_COUNSELING_RES_SEQ.NEXTVAL INTO :NEW.counseling_id FROM DUAL;
+END;
+/
+
+
+-- ==========================================
+-- ========== SELECT TEST ==========
+-- ==========================================
+
+SELECT * FROM MAIN_USER;
+SELECT * FROM MAIN_DIARY;
+SELECT * FROM MAIN_EMOTION;
+SELECT * FROM MAIN_CHAT;
+SELECT * FROM MAIN_LIVE_CHAT;
+SELECT * FROM MAIN_COUNSELING_RESERVATION;
+SELECT * FROM MAIN_COUNSELING_CONTENT;
+
+SELECT * FROM TEST_USER;
+SELECT * FROM TEST_DIARY;
+SELECT * FROM TEST_EMOTION;
+SELECT * FROM TEST_CHAT;
+SELECT * FROM TEST_LIVE_CHAT;
+SELECT * FROM TEST_COUNSELING_RESERVATION;
+SELECT * FROM TEST_COUNSELING_CONTENT;
