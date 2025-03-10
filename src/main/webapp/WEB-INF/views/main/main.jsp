@@ -66,23 +66,24 @@
                 </div>--%>
             </div>
 
-            <!-- 오른쪽 영역: 무드 그래프 + 체크리스트 -->
-            <!-- 오른쪽 영역: 무드 그래프 + 챗봇 + 체크리스트 -->
+            <!-- 오른쪽 영역: 체크리스트(왼쪽 정렬) + 무드 그래프 + 챗봇 -->
             <div class="right-content">
-                <!-- 무드 그래프 + 챗봇 -->
-                <div class="upper-section">
-                    <%--<div class="mood-graph"> 무드 그래프 </div>--%>
-                    <div class="chat-connect">
-                        <button class="chatbot"> 챗봇 </button>
-                        <button class="livechat"> 라이브챗 </button>
+                <div class="right-inner">
+                    <!-- 체크리스트 (오른쪽 영역 안에서 왼쪽으로 배치) -->
+                    <div class="checklist-container">
+                        <div class="checklist"> 체크리스트 </div>
                     </div>
-                    <div class="mood-graph"> 무드 그래프 </div>
-                </div>
 
-                <!-- 체크리스트 -->
-                <div class="checklists">
-                    <div class="checklist"> 체크리스트1 </div>
-                    <div class="checklist"> 체크리스트2 </div>
+                    <div class="right-side">
+                        <!-- 무드 그래프 -->
+                        <div class="mood-graph"> 무드 그래프 </div>
+
+                        <!-- 챗봇/라이브챗 -->
+                        <div class="chat-connect">
+                            <button class="chatbot"> 챗봇 </button>
+                            <button class="livechat"> 라이브챗 </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
