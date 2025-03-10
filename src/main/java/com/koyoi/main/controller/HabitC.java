@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HabitC {
     @GetMapping("/habit")
     public String habit() {
-        return "habit/habit";
+        return "habit/finalhabit";
     }
 
 }
