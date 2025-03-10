@@ -22,7 +22,9 @@
         <aside class="sidebar">
             <nav class="sidebar-menu">
                 <button class="sidebar-btn"><img src="/static/imgsource/smile.png" alt="프로필"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/calander.png" alt="캘린더"></button>
+                <button onclick="location.href= '/diary'" class="sidebar-btn">
+                    <img src="/static/imgsource/calandar.png" alt="캘린더">
+                </button>
                 <button class="sidebar-btn"><img src="/static/imgsource/pencil.png" alt="메모"></button>
                 <button class="sidebar-btn"><img src="/static/imgsource/chat.png" alt="채팅"></button>
                 <button class="sidebar-btn"><img src="/static/imgsource/settingss.png" alt="설정"></button>
