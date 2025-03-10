@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="right-side">
-                        <div class="mood-graph"> 무드 그래프
+                        <div class="mood-chart"> Mood Chart
                             <canvas id="moodChart"></canvas>
                         </div>
 
@@ -114,8 +114,8 @@
                         </script>
 
                         <div class="chat-connect">
-                            <button class="chatbot"> 챗봇 </button>
-                            <button class="livechat"> 라이브챗 </button>
+                            <button class="chatbot"> ChatBot</button>
+                            <button class="livechat" onclick="location.href='/livechat'"> LiveChat </button>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,4 @@ public class MainC {
         return "main/main";
     }
 
-
-
 }
