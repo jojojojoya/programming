@@ -80,13 +80,18 @@
                     </div>
 
                     <div class="right-side">
-                        <div class="mood-chart"> Mood Chart
+                        <div class="mood-chart">
+                            <h3> Mood Chart </h3>
                             <canvas id="moodChart"></canvas>
                         </div>
 
                         <script>
                             document.addEventListener("DOMContentLoaded", function () {
                                 const ctx = document.getElementById('moodChart').getContext('2d');
+
+                                /*const moodChart = document.getElementById('moodChart');
+                                moodChart.width = 220;  // 원하는 너비(px)
+                                moodChart.height = 150; // 원하는 높이(px)*/
 
                                 new Chart(ctx, {
                                     type: 'bar',
