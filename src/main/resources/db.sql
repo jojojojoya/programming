@@ -1,4 +1,4 @@
-create table product_test2(
+create table product_test35(
     p_no number(3) primary key,
     p_name varchar2(30 char) not null,
     p_price number(5) not null
