@@ -11,6 +11,6 @@ public class AdminMypageC {
         return "adminmypage/adminmypage";
     }
 
-
+    // 회원 목록 및 상담사 목록 DB 가져오기
 
 }
