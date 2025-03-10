@@ -262,8 +262,9 @@ body {
 }
 
 #task-input {
+    width: 94%;
     padding: 10px;
-    border: 2px solid #d7ccc8;
+    border: 1px solid #d7ccc8;
     border-radius: 8px;
     font-size: 14px;
     background: #fcf8f3;
@@ -294,10 +295,10 @@ body {
 
 #task-list {
     list-style: none;
-    width: 93%;
     padding: 0;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* 세로형 목록 */
     gap: 10px;
 }
 
@@ -305,61 +306,18 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px;
     width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s ease-in-out;
 }
 
 .task-item input[type="checkbox"] {
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #a1887f;
-    border-radius: 50%;
-    background: #fcf8f3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.task-item input[type="checkbox"]:checked {
-    background: #D7A86E;
-    border-color: #D7A86E;
-    position: relative;
-}
-
-.task-item input[type="checkbox"]:checked::after {
-    content: '✔';
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.task-item label {
-    font-size: 14px;
-    color: #5D4037;
-    font-weight: 600;
-    transition: color 0.3s ease-in-out;
-}
-
-.task-item.completed {
-    background: #efe0d1;
-    text-decoration: none;
-    transition: background 0.3s ease-in-out;
 }
 
 .task-item.completed label {
     text-decoration: line-through;
-    color: #8d6e63;
-    font-style: italic;
+    color: gray;
 }
 
 .right-side {
