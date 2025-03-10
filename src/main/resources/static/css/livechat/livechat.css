@@ -195,10 +195,9 @@ body {
 
 
 /* 🔵 개별 테이블 스타일 */
-.profile_table, .chatbot_table,
+.profile_table, .livechat_table,
 .diary_table, .counseling_table, .chatbot_detail_table {
     min-width: 440px; /* 🔹 최소 크기 증가 */
-    max-width: 700px; /* 🔹 최대 크기 줄여서 균형 조정 */
     padding: 20px;
     border-radius: 12px;
     background: #ffffff;
@@ -229,11 +228,18 @@ body {
     background-color: white;
 }
 
-.chatbot_table {
+.livechat_table {
     flex-grow: 2; /* 🔹 상대적으로 작은 크기 */
     flex-basis: 35%;
+    background-color: #3f2e29;
+    height: 100%; /* 🔹 부모 높이에 맞춤 */
+}
+
+.livechat_detail_table {
+    flex-grow: 3; /* 🔹 상대적으로 큰 크기 */
+    flex-basis: 60%;
     background-color: #ede0d4;
-    height: 86%; /* 🔹 부모 높이에 맞춤 */
+    height: 100%; /* 🔹 부모 높이에 맞춤 */
 }
 
 
@@ -370,7 +376,7 @@ body {
     background-color: #d8c3a5;
 }
 
-.chatbot_list {
+.livechat_list {
     border: none;
     background-color: #f5f0ea;
     margin: 10px;

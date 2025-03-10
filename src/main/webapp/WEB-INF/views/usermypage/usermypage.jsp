@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="chatbot_table">
+                <div class="chatbot_table" onclick="location.href='/usermypagechatbot'"> >
                     <!--foreach로 정보구현-->
                     <div> 챗봇과의 대화 </div>
                     <div class="chatbot_info">
@@ -90,7 +90,7 @@
                         <img src="/static/imgsource/calandarback.png" alt="달력 이미지">
                     </div>
                 </div>
-                <div class="counseling_table">
+                <div class="counseling_table" onclick="location.href='/livechat'">
                     <div class="counseling_background_img">
                         <img class="main-img" src="/static/imgsource/padoo2.png" alt="기본 이미지">
                     </div>
