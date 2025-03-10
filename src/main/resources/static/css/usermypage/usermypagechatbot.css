@@ -233,7 +233,14 @@ body {
     flex-grow: 2; /* 🔹 상대적으로 작은 크기 */
     flex-basis: 35%;
     background-color: #ede0d4;
-    height: 86%; /* 🔹 부모 높이에 맞춤 */
+    height: 100%; /* 🔹 부모 높이에 맞춤 */
+}
+
+.chatbot_detail_table {
+    flex-grow: 3; /* 🔹 상대적으로 큰 크기 */
+    flex-basis: 60%;
+    background-color: #ede0d4;
+    height: 100%; /* 🔹 부모 높이에 맞춤 */
 }
 
 
