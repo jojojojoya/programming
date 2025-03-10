@@ -94,8 +94,8 @@ body {
 .modal {
     display: none;
     position: fixed;
-    top: 77px;
-    right: 200px;
+    top: 80px;
+    right: 210px;
     width: 700px;
     background: white;
     border: 1px solid #ccc;
@@ -178,6 +178,7 @@ body {
     position: relative;
 }
 
+/* 명언 */
 .quotes-container {
     padding: 10px;
     border-radius: 10px;
@@ -208,6 +209,7 @@ body {
     gap: 10px;
 }
 
+/* 달력 */
 .calendar-container {
     padding: 15px;
     border-radius: 10px;
@@ -219,7 +221,8 @@ body {
 
 .right-content {
     width: 70%;
-    padding: 15px;
+    padding-top: 15px;
+    padding-right: 35px;
 }
 
 .right-inner {
@@ -229,13 +232,135 @@ body {
     width: 100%;
 }
 
+/* 체크리스트 */
 .checklist-container {
     width: 45%;
-    background: #f8f8f8;
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 420px;
+    overflow-y: auto;
+}
+
+.checklist-container h3 {
+    font-size: 20px;
+    color: #5D4037;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.checklist-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+#task-input {
+    width: 94%;
+    padding: 10px;
+    border: 2px solid #d7ccc8;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fcf8f3;
+    color: #5D4037;
+    outline: none;
+    transition: background 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+#task-input:focus {
+    border: 2px solid #a1887f;
+}
+
+#add-task-btn {
+    width: 100%;
+    padding: 10px;
+    background: #D7A86E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#add-task-btn:hover {
+    background: #bc8a5f;
+}
+
+#task-list {
+    list-style: none;
+    padding: 0;
+    width: 94%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out;
+}
+
+.task-item input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #a1887f;
+    border-radius: 50%;
+    background: #fcf8f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.task-item input[type="checkbox"]:checked {
+    background: #D7A86E;
+    border-color: #D7A86E;
+    position: relative;
+}
+
+.task-item input[type="checkbox"]:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.task-item label {
+    font-size: 14px;
+    color: #5D4037;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out;
+}
+
+.task-item.completed {
+    background: #efe0d1;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+}
+
+.task-item.completed label {
+    text-decoration: line-through;
+    color: #8d6e63;
+    font-style: italic;
 }
 
 .right-side {
@@ -246,6 +371,7 @@ body {
     gap: 15px;
 }
 
+/* 무드 그래프 */
 .mood-graph {
     width: 100%;
     height: 250px;
@@ -257,6 +383,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* 챗봇, 라이브챗 연결 */
 .chat-connect {
     display: flex;
     gap: 10px;

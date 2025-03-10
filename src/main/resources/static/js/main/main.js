@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
 
+    // 모달
     const noticeBtn = document.getElementById("notice");
     const modal = document.getElementById("notice-modal");
     const closeBtn = document.querySelector(".close-btn");
@@ -30,5 +31,43 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+    // 체크리스트
+    const taskInput = document.getElementById("task-input");
+    const addTaskBtn = document.getElementById("add-task-btn");
+    const taskList = document.getElementById("task-list");
+
+    addTaskBtn.addEventListener("click", function () {
+        const taskText = taskInput.value.trim(); // trim = 앞 뒤 공백 제거 => 공백이 유효값이 되는 걸 방지
+        if (taskText === "") return; // trim으로 인해 값이 없어지므로 추가 되는 것이 방지됨.
+
+        // 리스트 아이템 생성
+        const listItem = document.createElement("li");
+        listItem.classList.add("task-item");
+
+        // 체크박스 생성
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        // 라벨 생성
+        const label = document.createElement("label");
+        label.textContent = taskText;
+
+        // 체크박스 체크 시 줄 긋기 효과
+        checkbox.addEventListener("change", function () {
+            if (checkbox.checked) {
+                listItem.classList.add("completed"); // 줄 긋기
+            } else {
+                listItem.classList.remove("completed"); // 원래 상태로
+            }
+        });
+
+        // 리스트 아이템 구성
+        listItem.appendChild(checkbox);
+        listItem.appendChild(label);
+        taskList.appendChild(listItem);
+
+        // 입력 필드 비우기
+        taskInput.value = "";
+    });
 
 });

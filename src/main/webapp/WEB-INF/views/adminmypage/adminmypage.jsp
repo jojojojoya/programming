@@ -19,7 +19,7 @@
             <nav class="sidebar-menu">
                 <button class="sidebar-btn" id="user"><img src="/static/imgsource/user.png" alt="user"></button>
                 <button class="sidebar-btn" id="counselor"><img src="/static/imgsource/counselor.png" alt="counselor"></button>
-            </nav>e
+            </nav>
         </aside>
     </div>
 
