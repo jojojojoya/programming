@@ -24,6 +24,48 @@
     width: 300px;
     height: 300px;
 }
+
+.tabs {
+    display: flex;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+}
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 3px solid transparent;
+    transition: 0.3s;
+}
+.tab.active {
+    border-bottom: 3px solid #007BFF;
+    background-color: #e9ecef;
+}
+.content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+.content.active {
+    display: block;
+}
+.content ul {
+    list-style: none;
+    padding: 0;
+}
+.content li {
+    background: #f8f9fa;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    text-align: center;
+}
 .habit-firstline{
     display: flex;
 }
@@ -65,12 +107,54 @@ table {
 
 
 </style>
+<script>
+    $(document).ready(function () {
+        $(".tab").click(function () {
+            // 모든 탭과 콘텐츠의 active 클래스 제거
+            $(".tab").removeClass("active");
+            $(".content").removeClass("active");
+
+            // 현재 클릭한 탭에 active 클래스 추가
+            $(this).addClass("active");
+
+            // data-target 속성에서 해당 콘텐츠 ID 가져와서 표시
+            var target = $(this).attr("data-target");
+            $("#" + target).addClass("active");
+        });
+
+        // 초기 상태 설정 (첫 번째 탭이 기본 활성화됨)
+        $(".tab:first").addClass("active");
+        $(".content:first").addClass("active");
+    });
+</script>
 <body>
 
 <div class="habitpage" >
     <div>
         <div class="myhabit">내습관</div>
-        <div class="recommend-habit">추천습관</div>
+        <div class="recommend-habit">
+            <div class="tabs">
+                <div class="tab active" data-target="mental">정신건강</div>
+                <div class="tab" data-target="physical">신체건강</div>
+            </div>
+
+            <div id="mental" class="content active">
+                <ul>
+                    <li>책 읽기</li>
+                    <li>음악 듣기</li>
+                    <li>그림 그리기</li>
+                </ul>
+            </div>
+
+            <div id="physical" class="content">
+                <ul>
+                    <li>물 마시기</li>
+                    <li>산책 가기</li>
+                    <li>식사 하기</li>
+                </ul>
+            </div>
+
+        </div>
     </div>
     <div>
     <div class="habit-firstline">
