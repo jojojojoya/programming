@@ -1,15 +1,14 @@
 package com.koyoi.main.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class MainC {
+public class AdminMypageC {
 
-    @GetMapping("/main")
-    public String main() {
-        return "main/main";
+    @GetMapping("/admin")
+    public String admin() {
+        return "adminmypage/adminmypage";
     }
 
 
