@@ -1,58 +1,59 @@
-    document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("profileModal");
-    const editButton = document.querySelector(".profile_edit_btn");
-    const closeButton = document.querySelector(".close");
-    const form = document.getElementById("profileEditForm");
+document.addEventListener("DOMContentLoaded", function () {
+    const passwordCheckModal = document.getElementById("passwordCheckModal");
+    const profileModal = document.getElementById("profileModal");
 
-    // 처음 로드될 때 모달을 숨김
-    if (modal) {
-    modal.style.display = "none";
-}
+    const checkPasswordBtn = document.getElementById("checkPasswordBtn");
+    const passwordCheckInput = document.getElementById("passwordCheck");
+    const passwordErrorMsg = document.getElementById("passwordErrorMsg");
 
-    // "프로필 수정하기" 버튼 클릭 시 모달 열기
-    if (editButton) {
-    editButton.addEventListener("click", function () {
-    modal.style.display = "flex";
-});
-}
+    const editPwInput = document.getElementById("editPw"); // 새 비밀번호 입력 필드
+    const openPasswordCheckModal = document.getElementById("openPasswordCheckModal");
 
-    // 닫기 버튼 클릭 시 모달 닫기
-    if (closeButton) {
-    closeButton.addEventListener("click", function () {
-    modal.style.display = "none";
-});
-}
+    if (passwordCheckModal) passwordCheckModal.style.display = "none";
+    if (profileModal) profileModal.style.display = "none";
 
-    // 모달 바깥 영역 클릭 시 닫기
+    openPasswordCheckModal.addEventListener("click", function () {
+        passwordCheckModal.style.display = "block"; // 비밀번호 확인 모달 띄우기
+    });
+
+    checkPasswordBtn.addEventListener("click", function () {
+        const userId = document.getElementById("editId").value;
+        const enteredPassword = passwordCheckInput.value;
+
+        fetch("/checkPassword", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id: userId, password: enteredPassword })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.valid) {
+                    passwordCheckModal.style.display = "none"; // 비밀번호 확인 모달 닫기
+                    profileModal.style.display = "block"; // 프로필 수정 모달 열기
+                    editPwInput.value = ""; // 기존 비밀번호 삭제
+                } else {
+                    passwordErrorMsg.style.display = "block"; // 오류 메시지 표시
+                    passwordCheckInput.value = ""; // 입력 필드 초기화
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    });
+
+    document.querySelectorAll(".close").forEach(button => {
+        button.addEventListener("click", function () {
+            passwordCheckModal.style.display = "none";
+            profileModal.style.display = "none";
+            passwordErrorMsg.style.display = "none";
+            passwordCheckInput.value = ""; // 입력값 초기화
+        });
+    });
+
     window.addEventListener("click", function (event) {
-    if (event.target === modal) {
-    modal.style.display = "none";
-}
-});
-
-    // 폼 제출 (AJAX 요청)
-    if (form) {
-    form.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const id = document.getElementById("editId").value;
-    const password = document.getElementById("editPw").value;
-    const nickname = document.getElementById("editNickname").value;
-
-    fetch("/profile/update", {
-    method: "POST",
-    headers: {
-    "Content-Type": "application/json",
-},
-    body: JSON.stringify({ id, password, nickname }),
-})
-    .then(response => response.json())
-    .then(data => {
-    alert("프로필이 수정되었습니다!");
-    modal.style.display = "none";
-    location.reload(); // 페이지 새로고침
-})
-    .catch(error => console.error("Error:", error));
-});
-}
+        if (event.target === profileModal) {
+            profileModal.style.display = "none";
+        }
+        if (event.target === passwordCheckModal) {
+            passwordCheckModal.style.display = "none";
+        }
+    });
 });
