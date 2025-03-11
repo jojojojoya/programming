@@ -15,6 +15,4 @@ public interface AdminMypageMapper {
     @Select("select * from test_user where user_type =1 order by created_at DESC")
     List<AdminMypageVO> getAllCounselors();
 
-
-
 }

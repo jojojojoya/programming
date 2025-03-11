@@ -4,6 +4,7 @@ import com.koyoi.main.mapper.AdminMypageMapper;
 import com.koyoi.main.service.AdminMypageService;
 import com.koyoi.main.vo.AdminMypageVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ public class AdminMypageC {
         return "adminmypage/adminmypage";
 
     }
+
+
+
 
 
 }
