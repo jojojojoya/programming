@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,8 +19,12 @@
     <div class="left-container">
         <aside class="sidebar">
             <nav class="sidebar-menu">
-                <button class="sidebar-btn" id="user"><img src="/static/imgsource/user.png" alt="user"></button>
-                <button class="sidebar-btn" id="counselor"><img src="/static/imgsource/counselor.png" alt="counselor"></button>
+                <button class="sidebar-btn" id="user">
+                    <img src="/static/imgsource/user.png" alt="user">
+                </button>
+                <button class="sidebar-btn" id="counselor">
+                    <img src="/static/imgsource/counselor.png" alt="counselor">
+                </button>
             </nav>
         </aside>
     </div>
@@ -45,46 +51,49 @@
                 <thead>
                     <tr>
                         <td> 번호 </td>
-                        <td> 이름 </td>
+                        <td> ID </td>
                         <td> 닉네임 </td>
                         <td> 이메일 </td>
                         <td> 가입일 </td>
                     </tr>
                 </thead>
                 <tbody id="userTableBody">
+                <c:forEach var="user" items="${users}" varStatus="status">
                     <tr>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- 상담사 목록 (초기에는 숨김 처리) -->
-            <table id="counselorTable" style="display: none;">
-                <thead>
-                <tr>
-                    <th> 번호 </th>
-                    <th> 이름 </th>
-                    <th> 이메일 </th>
-                    <th> 등록일 </th>
-                </tr>
-                </thead>
-                <tbody id="counselorTableBody">
-                <c:forEach var="counselor" items="${counselorList}" varStatus="status">
-                    <tr>
-                        <td>${status.index + 1}</td>
-                        <td>
-                            <a href="/admin/counselorDetail?id=${counselor.id}" class="user-link">
-                                    ${counselor.name}
-                            </a>
-                        </td>
-                        <td>${counselor.email}</td>
-                        <td>${counselor.registerDate}</td>
+                        <td>${status.count}</td>
+                        <td> <span onclick="location.href='adminuserdetail?no=${user.user_id}'"> ${user.user_id} </td>
+                        <td>${user.user_name}</td>
+                        <td>${user.user_email}</td>
+                        <td>${user.formattedCreatedAt}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
 
-
+            <%-- 상담사 목록 --%>
+            <table id="counselorTable" style="display: none;">
+                <thead>
+                <tr>
+                    <td> 번호 </td>
+                    <td> ID </td>
+                    <td> 닉네임 </td>
+                    <td> 이메일 </td>
+                    <td> 가입일 </td>
+                </tr>
+                </thead>
+                <tbody id="counselorTableBody">
+                <c:set var="totalCounselors" value="${fn:length(counselors)}" />
+                <c:forEach var="counselor" items="${counselors}" varStatus="status">
+                    <tr>
+                        <td>${totalCounselors - status.index}</td>
+                        <td>${counselor.user_id}</td>
+                        <td>${counselor.user_name}</td>
+                        <td>${counselor.user_email}</td>
+                        <td>${counselor.formattedCreatedAt}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </main>
     </div>
 
