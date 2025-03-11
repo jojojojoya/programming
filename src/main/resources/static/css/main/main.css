@@ -195,6 +195,18 @@ body {
     z-index: 10;
 }
 
+.swiper {
+    width: 900px;
+    height: 20px;
+}
+
+.swiper-button-prev:after{
+    color: #5D4037;
+}
+.swiper-button-next:after {
+    color: #5D4037;
+}
+
 .content-wrapper {
     display: flex;
     flex: 1;

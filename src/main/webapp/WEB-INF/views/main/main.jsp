@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="/static/css/main/main.css">
     <script src="/static/js/main/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 </head>
 <body>
 
@@ -52,8 +55,34 @@
     <main class="main-container">
 
         <div class="quotes-container">
-            <div class="quotes-content">"Life is like riding a bicycle. To keep your balance you must keep moving" - Albert Einstein</div>
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper" id="quoteWrapper">
+                    <!-- Slides -->
+                </div>
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
         </div>
+        <script>
+
+            const swiper = new Swiper('.swiper', {
+                direction: 'horizontal',
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                }
+            });
+        </script>
 
         <div class="content-wrapper">
             <!-- 왼쪽 영역: 달력 -->
@@ -61,10 +90,6 @@
                 <div class="calendar-container">
                     <jsp:include page="maincalendar.jsp"/>
                 </div>
-               <%-- <div class="chat-connect">
-                    <div> 챗봇 </div>
-                    <div> 라이브챗 </div>
-                </div>--%>
             </div>
 
             <!-- 오른쪽 영역: 체크리스트 + 무드 그래프 + 챗봇 -->

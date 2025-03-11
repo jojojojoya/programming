@@ -70,4 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
         taskInput.value = "";
     });
 
+    // 명언
+
+
+
+
+
 });
