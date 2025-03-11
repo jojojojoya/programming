@@ -9,6 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main/main.css">
     <script src="/static/js/main/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 </head>
 <body>
 
@@ -51,8 +55,40 @@
     <main class="main-container">
 
         <div class="quotes-container">
-            <div class="quotes-content">"Life is like riding a bicycle. To keep your balance you must keep moving" - Albert Einstein</div>
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper" id="quoteWrapper">
+                    <div class="swiper-slide">"Life is like riding a bicycle. To keep your balance you must keep moving." - Albert Einstein</div>
+                    <div class="swiper-slide">"Success is not final, failure is not fatal: it is the courage to continue that counts." - Winston Churchill</div>
+                    <div class="swiper-slide">"Happiness depends upon ourselves." - Aristotle</div>
+                    <div class="swiper-slide">"Do what you can, with what you have, where you are." - Theodore Roosevelt</div>
+                    <div class="swiper-slide">"Believe you can and you're halfway there." - Theodore Roosevelt</div>
+                    <div class="swiper-slide">"If you're going through hell, keep going." - Winston Churchill</div>
+                    <div class="swiper-slide">"The only limit to our realization of tomorrow is our doubts of today." - Franklin D. Roosevelt</div>
+                </div>
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
         </div>
+        <script>
+
+            const swiper = new Swiper('.swiper', {
+                direction: 'horizontal',
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                }
+            });
+        </script>
 
         <div class="content-wrapper">
             <!-- 왼쪽 영역: 달력 -->
@@ -60,29 +96,64 @@
                 <div class="calendar-container">
                     <jsp:include page="maincalendar.jsp"/>
                 </div>
-               <%-- <div class="chat-connect">
-                    <div> 챗봇 </div>
-                    <div> 라이브챗 </div>
-                </div>--%>
             </div>
 
-            <!-- 오른쪽 영역: 무드 그래프 + 체크리스트 -->
-            <!-- 오른쪽 영역: 무드 그래프 + 챗봇 + 체크리스트 -->
+            <!-- 오른쪽 영역: 체크리스트 + 무드 그래프 + 챗봇 -->
             <div class="right-content">
-                <!-- 무드 그래프 + 챗봇 -->
-                <div class="upper-section">
-                    <%--<div class="mood-graph"> 무드 그래프 </div>--%>
-                    <div class="chat-connect">
-                        <button class="chatbot"> 챗봇 </button>
-                        <button class="livechat"> 라이브챗 </button>
+                <div class="right-inner">
+                    <div class="checklist-container">
+                        <h3> 체크리스트 </h3>
+                        <div class="checklist-input">
+                            <input type="text" id="task-input" placeholder="할 일을 입력하세요">
+                            <button id="add-task-btn"> 추가 </button>
+                        </div>
+                        <ul id="task-list"></ul>
                     </div>
-                    <div class="mood-graph"> 무드 그래프 </div>
-                </div>
 
-                <!-- 체크리스트 -->
-                <div class="checklists">
-                    <div class="checklist"> 체크리스트1 </div>
-                    <div class="checklist"> 체크리스트2 </div>
+                    <div class="right-side">
+                        <div class="mood-chart">
+                            <h3> Mood Chart </h3>
+                            <canvas id="moodChart"></canvas>
+                        </div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const ctx = document.getElementById('moodChart').getContext('2d');
+
+                                /*const moodChart = document.getElementById('moodChart');
+                                moodChart.width = 220;  // 원하는 너비(px)
+                                moodChart.height = 150; // 원하는 높이(px)*/
+
+                                new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['월', '화', '수', '목', '금', '토', '일'], // X축: 요일
+                                        datasets: [{
+                                            label: '기분 점수',
+                                            data: [7, 8, 6, 5, 9, 8, 7], // 예제 기분 점수
+                                            backgroundColor: ['#ff9999', '#ffcc99', '#ffff99', '#99ff99', '#99ccff', '#cc99ff', '#ff99cc'],
+                                            borderColor: '#555',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true, // 반응형 그래프
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true, // Y축 0부터 시작
+                                                max: 10 // 최대 기분 점수 10으로 설정
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <div class="chat-connect">
+                            <button class="chatbot"> ChatBot</button>
+                            <button class="livechat" onclick="location.href='/livechat'"> LiveChat </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
