@@ -90,3 +90,12 @@ select * from TEST_USER;
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
+
+INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
+VALUES ('user6', 3, '칼국수', 'user6@example.com', 'password6', '/imgsource/user6.jpg', SYSDATE);
+
+INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
+VALUES ('user7', 2, '에밀리', 'user7@example.com', 'password7', '/imgsource/user7.jpg', SYSDATE);
+
+INSERT INTO TEST_QUOTE(quote_id, admin_id, content, created_at)
+VALUES (1, 'user6', '"Happiness comes to those who are prepared." – Thomas Edison',sysdate);

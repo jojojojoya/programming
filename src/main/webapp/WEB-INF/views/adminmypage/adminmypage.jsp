@@ -112,12 +112,17 @@
 
                     <table>
                         <tr><th>ID</th> <td id="modalUserId"></td></tr>
-                        <tr><th>비밀번호</th> <td id="modalUserPassword"></td></tr>
-                        <tr><th>닉네임</th> <td id="modalUserName"></td></tr>
-                        <tr><th>이메일</th> <td id="modalUserEmail"></td></tr>
+                        <tr><th>비밀번호</th> <td><input type="password" id="modalUserPassword"></td></tr>
+                        <tr><th>닉네임</th> <td><input type="text" id="modalUserName"></td></tr>
+                        <tr><th>이메일</th> <td><input type="email" id="modalUserEmail"></td></tr>
                         <tr><th>타입</th> <td id="modalUserType"></td></tr>
                         <tr><th>가입일</th> <td id="modalCreatedAt"></td></tr>
                     </table>
+
+                    <div class="modal-buttons">
+                        <button id="saveUserChanges"> 수정 </button>
+                        <button id="deleteUser"> 삭제 </button>
+                    </div>
                 </div>
             </div>
 

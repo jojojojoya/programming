@@ -26,4 +26,8 @@ public class AdminMypageService {
     public AdminMypageVO getUserById(String userId) {
         return adminMypageMapper.getUserById(userId);
     }
+
+    public int updateUser(AdminMypageVO user) {
+        return adminMypageMapper.updateUser(user);
+    }
 }
