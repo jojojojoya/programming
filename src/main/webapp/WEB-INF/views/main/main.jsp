@@ -57,13 +57,11 @@
         <div class="quotes-container">
             <div class="swiper">
                 <div class="swiper-wrapper" id="quoteWrapper">
-                    <div class="swiper-slide">"Life is like riding a bicycle. To keep your balance you must keep moving." - Albert Einstein</div>
-                    <div class="swiper-slide">"Success is not final, failure is not fatal: it is the courage to continue that counts." - Winston Churchill</div>
-                    <div class="swiper-slide">"Happiness depends upon ourselves." - Aristotle</div>
-                    <div class="swiper-slide">"Do what you can, with what you have, where you are." - Theodore Roosevelt</div>
-                    <div class="swiper-slide">"Believe you can and you're halfway there." - Theodore Roosevelt</div>
-                    <div class="swiper-slide">"If you're going through hell, keep going." - Winston Churchill</div>
-                    <div class="swiper-slide">"The only limit to our realization of tomorrow is our doubts of today." - Franklin D. Roosevelt</div>
+                    <c:forEach var="quote" items="${quotes}">
+                        <div class="swiper-slide">
+                            ${quote.content}
+                        </div>
+                    </c:forEach>
                 </div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>

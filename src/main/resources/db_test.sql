@@ -97,5 +97,19 @@ VALUES ('user6', 3, '칼국수', 'user6@example.com', 'password6', '/imgsource/u
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user7', 2, '에밀리', 'user7@example.com', 'password7', '/imgsource/user7.jpg', SYSDATE);
 
-INSERT INTO TEST_QUOTE(quote_id, admin_id, content, created_at)
-VALUES (1, 'user6', '"Happiness comes to those who are prepared." – Thomas Edison',sysdate);
+INSERT INTO TEST_QUOTE
+VALUES (1, 'user6', 'Happiness comes to those who are prepared. – Thomas Edison',sysdate);
+
+INSERT INTO TEST_QUOTE
+VALUES (2, 'user6', 'Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill', sysdate);
+
+INSERT INTO TEST_QUOTE
+VALUES (3, 'user6', '"The biggest risk is not taking any risk." – Mark Zuckerberg', sysdate);
+
+INSERT INTO TEST_QUOTE
+VALUES (4, 'user6', '"Make today better than yesterday." – Unknown', sysdate);
+
+INSERT INTO TEST_QUOTE
+VALUES (5, 'user6', '"Small changes make a big difference." – Unknown', sysdate);
+
+select * from TEST_QUOTE;
