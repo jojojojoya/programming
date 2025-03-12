@@ -10,11 +10,7 @@
     <script src="/resources/js/product.js"></script>
 </head>
 <body>
-<h1> -Product List- </h1>
 
-            <div class="no">${product.p_no}</div>
-            <div class="name">${product.p_name}</div>
-            <div class="price">${product.p_price}</div>
 
 
 </body>
