@@ -7,8 +7,8 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/static/css/finalindex.css">
-    <link rel="stylesheet" href="/static/css/diary.css">
-    <script src="/static/js/diary.js" defer></script>
+    <link rel="stylesheet" href="/static/css/diary/diary.css">
+    <script src="/static/js/diary/diary.js" defer></script>
 </head>
 <body>
 <!-- 전체 컨테이너 -->
