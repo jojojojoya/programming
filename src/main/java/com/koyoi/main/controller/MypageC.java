@@ -17,4 +17,5 @@ public class MypageC {
 //            model.addAttribute("page", "usermypage/usermypage.jsp");
          return "/usermypage/usermypage";
 
-    }}
+    }
+}
