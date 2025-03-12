@@ -233,7 +233,14 @@ body {
     flex-grow: 2; /* 🔹 상대적으로 작은 크기 */
     flex-basis: 35%;
     background-color: #ede0d4;
-    height: 86%; /* 🔹 부모 높이에 맞춤 */
+    height: 100%; /* 🔹 부모 높이에 맞춤 */
+}
+
+.chatbot_detail_table {
+    flex-grow: 3; /* 🔹 상대적으로 큰 크기 */
+    flex-basis: 60%;
+    background-color: #ede0d4;
+    height: 100%; /* 🔹 부모 높이에 맞춤 */
 }
 
 
@@ -377,28 +384,28 @@ body {
     border-radius: 10px;
     height: 35px;
 }
-/* 공통 모달 스타일 */
+
+
+/* 모달 기본적으로 숨기기 */
 .modal {
     display: none; /* 기본적으로 숨김 */
     position: fixed;
-    z-index: 1000; /* 최상단에 배치 */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 350px; /* 모달 크기 */
-    background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    text-align: center;
-    padding: 20px;
+    z-index: 1000; /* 가장 위에 배치 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
 }
 
-/* 모달 내부 스타일 */
 .modal-content {
     background-color: white;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 8px;
     text-align: center;
+    width: 300px;
     position: relative;
 }
 
@@ -410,39 +417,6 @@ body {
     font-size: 20px;
     cursor: pointer;
 }
-
-/* 비밀번호 확인 입력창 스타일 */
-#passwordCheck {
-    width: 90%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin: 10px 0;
-}
-
-/* 버튼 스타일 */
-#checkPasswordBtn, .profile-submit-btn {
-    padding: 10px 15px;
-    background-color: #ede0d4;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s;
-}
-
-#checkPasswordBtn:hover, .profile-submit-btn:hover {
-    background-color: #d8c3a5;
-}
-
-/* 오류 메시지 스타일 */
-#passwordErrorMsg {
-    color: red;
-    display: none; /* 기본적으로 숨김 */
-    font-size: 14px;
-    margin-top: 5px;
-}
-
 .profile-submit-btn {
     padding: 7px 18px;
     background-color: #ede0d4;
@@ -463,7 +437,7 @@ body {
     margin: 4px;
 }
 
-#editId {
+input:invalid {
     border: 2px solid #88623d;
     background-color: #ede0d4;
 }

@@ -15,6 +15,6 @@ public class MypageC {
     public String usermypage() {
 //            Object mode = session.getAttribute("mode"); // 유저가 로그인할때 세션값
 //            model.addAttribute("page", "usermypage/usermypage.jsp");
-            return "/usermypage/usermypage";
+         return "/usermypage/usermypage";
 
     }}
