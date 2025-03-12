@@ -60,10 +60,10 @@
                 <tbody id="userTableBody">
                 <c:set var="totalUsers" value="${fn:length(users)}" />
                 <c:forEach var="user" items="${users}" varStatus="status">
-                    <tr>
+                    <tr class="user-detail-btn" data-user-id="${user.user_id}">
                         <td>${totalUsers - status.index}</td>
-                        <td>
-                            <span class="user-detail-btn" data-user-id="${user.user_id}">${user.user_id}</span>
+                        <td>${user.user_id}
+                            <%--<span class="user-detail-btn" data-user-id="${user.user_id}">${user.user_id}</span>--%>
                         </td>
                         <td>${user.user_name}</td>
                         <td>${user.user_email}</td>
@@ -87,10 +87,10 @@
                 <tbody id="counselorTableBody">
                 <c:set var="totalCounselors" value="${fn:length(counselors)}" />
                 <c:forEach var="counselor" items="${counselors}" varStatus="status">
-                    <tr>
+                    <tr class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">
                         <td>${totalCounselors - status.index}</td>
-                        <td>
-                            <span class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">${counselor.user_id}</span>
+                        <td>${counselor.user_id}
+                            <%--<span class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">${counselor.user_id}</span>--%>
                         </td>
                         <td>${counselor.user_name}</td>
                         <td>${counselor.user_email}</td>

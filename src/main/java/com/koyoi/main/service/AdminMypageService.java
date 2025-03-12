@@ -23,4 +23,7 @@ public class AdminMypageService {
         return adminMypageMapper.getAllCounselors();
     }
 
+    public AdminMypageVO getUserById(String userId) {
+        return adminMypageMapper.getUserById(userId);
+    }
 }

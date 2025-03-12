@@ -17,27 +17,51 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // 상세 정보 모달
+    const userDetailButtons = document.querySelectorAll(".user-detail-btn")
     const modal = document.getElementById("userDetailModal");
     const closeBtn = document.querySelector(".close");
 
-    // 모든 유저 상세 버튼에 클릭 이벤트 추가
-    document.querySelectorAll(".user-detail-btn").forEach(btn => {
-        btn.addEventListener("click", function () {
+    // 모달 내부 요소
+    const modalUserId = document.getElementById("modalUserId");
+    const modalUserPassword = document.getElementById("modalUserPassword");
+    const modalUserName = document.getElementById("modalUserName");
+    const modalUserEmail = document.getElementById("modalUserEmail");
+    const modalUserType = document.getElementById("modalUserType");
+    const modalCreatedAt = document.getElementById("modalCreatedAt");
 
-                    modal.style.display = "block";
-                });
+    userDetailButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const userId = this.getAttribute("data-user-id");
+            const userType = this.getAttribute("data-type") || "user"; // 기본값은 'user'
 
+            // API 호출하여 사용자 상세 정보 가져오기
+            fetch(`/admin/userDetail?userId=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        modalUserId.textContent = data.user_id;
+                        modalUserPassword.textContent = data.user_password;
+                        modalUserName.textContent = data.user_name;
+                        modalUserEmail.textContent = data.user_email;
+                        modalUserType.textContent = (data.user_type === "counselor") ? "상담사" : "회원";
+                        modalCreatedAt.textContent = data.formattedCreatedAt;
 
-        closeBtn.addEventListener("click", function () {
+                        modal.style.display = "block";
+                    }
+                })
+                .catch(error => console.error("Error fetching user details:", error));
+        });
+    });
+
+    // 모달 닫기 기능
+    closeBtn.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
             modal.style.display = "none";
-        });
-
-        window.addEventListener("click", function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-
+        }
     });
 
 });
