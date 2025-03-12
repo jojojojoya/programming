@@ -55,9 +55,7 @@
     <main class="main-container">
 
         <div class="quotes-container">
-            <!-- Slider main container -->
             <div class="swiper">
-                <!-- Additional required wrapper -->
                 <div class="swiper-wrapper" id="quoteWrapper">
                     <div class="swiper-slide">"Life is like riding a bicycle. To keep your balance you must keep moving." - Albert Einstein</div>
                     <div class="swiper-slide">"Success is not final, failure is not fatal: it is the courage to continue that counts." - Winston Churchill</div>
@@ -67,7 +65,6 @@
                     <div class="swiper-slide">"If you're going through hell, keep going." - Winston Churchill</div>
                     <div class="swiper-slide">"The only limit to our realization of tomorrow is our doubts of today." - Franklin D. Roosevelt</div>
                 </div>
-                <!-- If we need navigation buttons -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
@@ -78,11 +75,10 @@
                 direction: 'horizontal',
                 loop: true,
                 autoplay: {
-                    delay: 2500,
-                    disableOnInteraction: false,
+                    delay: 60000,
+                    disableOnInteraction: false, // 슬라이드를 터치해도 오토플레이가 적용됨.
                 },
 
-                // Navigation arrows
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
