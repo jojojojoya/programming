@@ -99,10 +99,6 @@
                 <div class="right-inner">
                     <div class="checklist-container">
                         <h3> 체크리스트 </h3>
-                        <div class="checklist-input">
-                            <input type="text" id="task-input" placeholder="할 일을 입력하세요">
-                            <button id="add-task-btn"> 추가 </button>
-                        </div>
                         <ul id="task-list"></ul>
                     </div>
 
