@@ -158,21 +158,34 @@ body {
     margin-bottom: 10px;
     background-color: #bbbbbb;
 }
+.myhabit{
+    font-size: 20pt;
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.myhabit > div{
+    text-decoration: black underline solid;
+
+}
+
+
+
 
 .habit-recommend {
-    margin-bottom: 20px; /* 아래쪽 여백 추가 */
-    padding: 5px;  /* 여백 최소화 */
-    padding-bottom: 20px;  /* padding-bottom 추가 */
+    margin-bottom: 20px;
+    padding: 5px;
+    padding-bottom: 20px;
     background-color: #FDD7E4;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* 콘텐츠가 균등하게 배치되도록 */
-    height: auto; /* 고정된 높이를 제거하고, 콘텐츠에 맞게 자동 조정 */
-    flex-grow: 1; /* 남는 공간을 채우도록 설정 */
-    overflow: visible; /* 넘치는 콘텐츠가 보이도록 설정 */
+    justify-content: space-between;
+    height: auto;
+    flex-grow: 1;
+    overflow: visible;
 }
-/* 탭 스타일 */
+
 .habit-tabs {
     display: flex;
     justify-content: center;
@@ -187,14 +200,14 @@ body {
     flex: 1;
     padding: 10px;
     cursor: pointer;
-    color: #777; /* 어두운 회색으로 색상 변경 */
+    color: #777;
     transition: 0.3s;
-    font-weight: normal; /* 기본적으로 글자 굵기 normal */
+    font-weight: normal;
 }
 
 .habit-tab.habit-active {
-    color: #ff4081; /* 활성화된 탭만 강조된 색상 */
-    font-weight: bold; /* 활성화된 탭은 강조 */
+    color: #ff4081;
+    font-weight: bold;
     background-color: #FDD7E4;
 }
 
@@ -203,10 +216,10 @@ body {
     padding: 20px;
     border-radius: 10px;
     width: 250px;
-    height: auto; /* 높이를 자동으로 조정 */
+    height: auto;
     margin: auto;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow: visible; /* 내용이 잘리지 않도록 설정 */
+    overflow: visible;
 
 }
 

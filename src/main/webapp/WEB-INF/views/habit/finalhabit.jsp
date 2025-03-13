@@ -45,7 +45,21 @@
         <main class="content">
             <div class="habit-page">
                 <div class="habit-partone">
-                    <div class="habit-list">습관목록</div>
+                    <div class="habit-list">
+                       <div class="myhabit">내 습관</div>
+                        <div class="myhabit-list">
+                            <div>
+                                <input type="checkbox"> 습관1
+                            </div>
+                            <div>
+                                <input type="checkbox"> 습관2
+                            </div>
+                            <div>
+                                <input type="checkbox"> 습관3
+                            </div>
+
+                        </div>
+                    </div>
                     <div class="habit-recommend">
                         <div class="habit-tabs">
                             <div id="habit-tab-신체건강" class="habit-tab habit-active" onclick="habitShowTab('신체건강')">신체건강</div>
@@ -53,14 +67,40 @@
                         </div>
 
                         <div id="habit-신체건강" class="habit-content">
+                            <div style="float: left; width: 25%;" >
                             <p>✅ 산책</p>
                             <p>🍽️ 식사</p>
                             <p>🏋️ 운동</p>
+                            </div>
+                            <div style="float: left; width: 25%;" >
+                            <p>✅ 산책</p>
+                            <p>🍽️ 식사</p>
+                            <p>🏋️ 운동</p>
+                            </div>
+                            <div style="float: left; width: 25%;">
+                            <p>✅ 산책</p>
+                            <p>🍽️ 식사</p>
+                            <p>🏋️ 운동</p>
+                            </div>
+                            <div style="float: left; width: 25%;">
+                            <p>✅ 산책</p>
+                            <p>🍽️ 식사</p>
+                            <p>🏋️ 운동</p>
+                            </div>
                         </div>
 
                         <div id="habit-정신건강" class="habit-content habit-hidden">
+                            <div style="float: left; width: 40%;">
                             <p>🎵 음악듣기</p>
                             <p>📝 일기쓰기</p>
+                            <p>📝 그림그리기</p>
+                            </div>
+                            <div style="float: left; width: 40%;">
+                            <p>🎵 음악듣기</p>
+                            <p>📝 일기쓰기</p>
+                            <p>📝 그림그리기</p>
+                            </div>
+
                         </div>
                     </div>
                 </div>
