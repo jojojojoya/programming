@@ -100,6 +100,7 @@
 </div>
 
 <script>
+
     let currentDate = new Date();
 
     function generateCalendar() {
@@ -119,7 +120,6 @@
         // .getDay() => 그 날짜의 요일을 반환(0 : 일요일, 6 : 토요일)
         let firstDay = new Date(year, month - 1, 1).getDay();
 
-
         let lastDate = new Date(year, month, 0).getDate(); // 이번 달 마지막 날짜
         let prevLastDate = new Date(year, month - 1, 0).getDate(); // 이전 달의 마지막 날짜
 
@@ -135,20 +135,38 @@
             totalCells++;
         }
 
+        let today = new Date();
+        let todayYear = today.getFullYear();
+        let todayMonth = today.getMonth() + 1;
+        let todayDate = today.getDate();
+
         // 현재 달 날짜 추가
         for (let date = 1; date <= lastDate; date++) {
             let dayDiv = document.createElement("div");
             dayDiv.classList.add("calendar-day");
             dayDiv.innerText = date;
 
+            let selectedDate = new Date(year, month - 1, date);
+
             // 오늘의 날짜와 같으면 true => 배경색 표시
-            let today = new Date();
-            if (year === today.getFullYear() && month === today.getMonth() + 1 && date === today.getDate()) {
+            if (year === todayYear && month === todayMonth && date === todayDate) {
                 dayDiv.style.backgroundColor = "#FFD27A";
             }
 
+            dayDiv.style.cursor = "pointer"; // 모든 날짜에 클릭 가능하도록 설정
+
+            // 날짜 클릭 이벤트 추가
+            dayDiv.addEventListener("click", function () {
+                if (selectedDate > today) {
+                    alert("미래의 일기는 작성할 수 없습니다.");
+                } else {
+                    window.location.href = `/diary?date=${year}-${month}-${date}`;
+                }
+            });
+
             calendarEl.appendChild(dayDiv);
             totalCells++; // 총 날짜 칸을 하나씩 증가
+
         }
 
         // 다음 달 빈칸에 다음 달 날짜 채우기 <= 매달 같은 크기를 맞추기 위해 달력 표시일을 6주로 고정.
