@@ -92,4 +92,10 @@ select * from TEST_USER;
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
->>>>>>> 9ce381165894c55d2627bf310e0348c139fa15e2
+-- >>>>>>> 9ce381165894c55d2627bf310e0348c139fa15e2
+
+
+-- TEST_HABIT 테이블 데이터 삽입
+INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
+VALUES (4, 'user4', '물마시기', SYSDATE);
+select *from TEST_HABIT;
