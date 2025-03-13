@@ -60,10 +60,10 @@
                 <tbody id="userTableBody">
                 <c:set var="totalUsers" value="${fn:length(users)}" />
                 <c:forEach var="user" items="${users}" varStatus="status">
-                    <tr>
+                    <tr class="user-detail-btn" data-user-id="${user.user_id}">
                         <td>${totalUsers - status.index}</td>
-                        <td>
-                            <span class="user-detail-btn" data-user-id="${user.user_id}">${user.user_id}</span>
+                        <td>${user.user_id}
+                            <%--<span class="user-detail-btn" data-user-id="${user.user_id}">${user.user_id}</span>--%>
                         </td>
                         <td>${user.user_name}</td>
                         <td>${user.user_email}</td>
@@ -87,10 +87,10 @@
                 <tbody id="counselorTableBody">
                 <c:set var="totalCounselors" value="${fn:length(counselors)}" />
                 <c:forEach var="counselor" items="${counselors}" varStatus="status">
-                    <tr>
+                    <tr class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">
                         <td>${totalCounselors - status.index}</td>
-                        <td>
-                            <span class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">${counselor.user_id}</span>
+                        <td>${counselor.user_id}
+                            <%--<span class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">${counselor.user_id}</span>--%>
                         </td>
                         <td>${counselor.user_name}</td>
                         <td>${counselor.user_email}</td>
@@ -112,12 +112,17 @@
 
                     <table>
                         <tr><th>ID</th> <td id="modalUserId"></td></tr>
-                        <tr><th>비밀번호</th> <td id="modalUserPassword"></td></tr>
-                        <tr><th>닉네임</th> <td id="modalUserName"></td></tr>
-                        <tr><th>이메일</th> <td id="modalUserEmail"></td></tr>
+                        <tr><th>비밀번호</th> <td><input type="password" id="modalUserPassword"></td></tr>
+                        <tr><th>닉네임</th> <td><input type="text" id="modalUserName"></td></tr>
+                        <tr><th>이메일</th> <td><input type="email" id="modalUserEmail"></td></tr>
                         <tr><th>타입</th> <td id="modalUserType"></td></tr>
                         <tr><th>가입일</th> <td id="modalCreatedAt"></td></tr>
                     </table>
+
+                    <div class="modal-buttons">
+                        <button id="saveUserChanges"> 수정 </button>
+                        <button id="deleteUser"> 삭제 </button>
+                    </div>
                 </div>
             </div>
 

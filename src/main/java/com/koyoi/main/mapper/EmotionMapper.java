@@ -3,6 +3,8 @@ package com.koyoi.main.mapper;
 import com.koyoi.main.vo.EmotionVO;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface EmotionMapper {
     // 특정 날짜의 감정 데이터 조회
@@ -22,4 +24,9 @@ public interface EmotionMapper {
 //    // 감정 데이터 삭제 (다이어리 삭제 시 함께 삭제)
 //    @Delete("DELETE FROM TEST_EMOTION WHERE diary_id = #{diaryId}")
 //    int deleteEmotionByDiaryId(int diaryId);
+
+    @Select("select * from test_emotion where user_id = #{userId} order by recorded_at ASC")
+    List<EmotionVO> getAllUserEmotions(String userId);
+
+
 }
