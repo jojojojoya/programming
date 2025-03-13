@@ -43,11 +43,13 @@
     <div id="notice-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn"> &times; </span>
-            <h3> 공지사항 </h3>
+            <h3> Notice </h3>
             <ul id="notice-lists">
-                <li><a href="#"> 첫 번째 공지사항 </a></li>
-                <li><a href="#"> 두 번째 공지사항 </a></li>
-                <li><a href="#"> 세 번째 공지사항 </a></li>
+                <c:forEach var="announcement" items="${announcements}">
+                    <li>
+                        <a href="#">${announcement.title}</a>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
     </div>

@@ -113,3 +113,15 @@ INSERT INTO TEST_QUOTE
 VALUES (5, 'user6', '"Small changes make a big difference." – Unknown', sysdate);
 
 select * from TEST_QUOTE;
+
+INSERT INTO TEST_ANNOUNCEMENT
+VALUES (1, 'user6', '서비스 점검 안내', '시스템 유지보수를 위해 3월 15일 오전 2시부터 4시까지 서비스가 중단됩니다.', SYSDATE);
+
+INSERT INTO TEST_ANNOUNCEMENT
+VALUES (2, 'user6', '신규 기능 업데이트', '새로운 AI 감정 분석 기능이 추가되었습니다. 많은 이용 부탁드립니다.', SYSDATE);
+
+INSERT INTO TEST_ANNOUNCEMENT
+VALUES (3, 'user6', '이벤트 안내', '사용자 감사 이벤트가 4월 1일부터 시작됩니다. 다양한 혜택을 확인하세요!', SYSDATE);
+
+select * from TEST_ANNOUNCEMENT;
+

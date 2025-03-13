@@ -2,6 +2,8 @@
 
 body {
     font-family: 'Noto Sans JP', sans-serif;
+    clamp(최소값, 기본값, 최대값)
+    font-size: clamp(14px, 1.8vw, 20px);
     background-color: #f5f0ea;
     margin: 0;
     padding: 0;
