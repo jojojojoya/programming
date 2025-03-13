@@ -109,7 +109,7 @@
         let year = currentDate.getFullYear();
         let month = currentDate.getMonth() + 1; // 0부터 시작.
 
-        monthYearEl.innerText = year + "년" + month + "월";
+        monthYearEl.innerText = year + "년 " + month + "월";
 
         // 첫 번째 날과 마지막 날 계산
 

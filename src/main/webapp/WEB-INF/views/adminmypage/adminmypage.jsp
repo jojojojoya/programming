@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +10,7 @@
     <title>KOYOI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/adminmypage/adminmypage.css">
+    <script src="/static/js/adminmypage/adminmypage.js"></script>
 </head>
 <body>
 
@@ -16,8 +19,12 @@
     <div class="left-container">
         <aside class="sidebar">
             <nav class="sidebar-menu">
-                <button class="sidebar-btn"><img src="/static/imgsource/user.png" alt="user"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/counselor.png" alt="counselor"></button>
+                <button class="sidebar-btn" id="user">
+                    <img src="/static/imgsource/user.png" alt="user">
+                </button>
+                <button class="sidebar-btn" id="counselor">
+                    <img src="/static/imgsource/counselor.png" alt="counselor">
+                </button>
             </nav>
         </aside>
     </div>
@@ -37,10 +44,86 @@
         </header>
 
         <main class="content">
-            유저 목록 조회 게시판 만들면 됩니다.
+            <h2 id="table-title"> 회원 목록 </h2>
+
+            <%-- 회원 목록 --%>
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <td> 번호 </td>
+                        <td> ID </td>
+                        <td> 닉네임 </td>
+                        <td> 이메일 </td>
+                        <td> 가입일 </td>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                <c:set var="totalUsers" value="${fn:length(users)}" />
+                <c:forEach var="user" items="${users}" varStatus="status">
+                    <tr>
+                        <td>${totalUsers - status.index}</td>
+                        <td>
+                            <span class="user-detail-btn" data-user-id="${user.user_id}">${user.user_id}</span>
+                        </td>
+                        <td>${user.user_name}</td>
+                        <td>${user.user_email}</td>
+                        <td>${user.formattedCreatedAt}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+            <%-- 상담사 목록 --%>
+            <table id="counselorTable" style="display: none;">
+                <thead>
+                <tr>
+                    <td> 번호 </td>
+                    <td> ID </td>
+                    <td> 닉네임 </td>
+                    <td> 이메일 </td>
+                    <td> 가입일 </td>
+                </tr>
+                </thead>
+                <tbody id="counselorTableBody">
+                <c:set var="totalCounselors" value="${fn:length(counselors)}" />
+                <c:forEach var="counselor" items="${counselors}" varStatus="status">
+                    <tr>
+                        <td>${totalCounselors - status.index}</td>
+                        <td>
+                            <span class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">${counselor.user_id}</span>
+                        </td>
+                        <td>${counselor.user_name}</td>
+                        <td>${counselor.user_email}</td>
+                        <td>${counselor.formattedCreatedAt}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+            <%-- 상세 데이터 모달 --%>
+            <div id="userDetailModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2 id="modalTitle">회원 상세 정보</h2>
+
+                    <div class="profile-container">
+                        <img id="modalUserImg" src="/static/imgsource/testprofile.png" alt="profile">
+                    </div>
+
+                    <table>
+                        <tr><th>ID</th> <td id="modalUserId"></td></tr>
+                        <tr><th>비밀번호</th> <td id="modalUserPassword"></td></tr>
+                        <tr><th>닉네임</th> <td id="modalUserName"></td></tr>
+                        <tr><th>이메일</th> <td id="modalUserEmail"></td></tr>
+                        <tr><th>타입</th> <td id="modalUserType"></td></tr>
+                        <tr><th>가입일</th> <td id="modalCreatedAt"></td></tr>
+                    </table>
+                </div>
+            </div>
+
+
         </main>
     </div>
-
 </div>
 
 
