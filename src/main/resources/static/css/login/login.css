@@ -12,77 +12,85 @@ body {
     height: 100vh;
 }
 
-
 /* 전체 컨테이너 */
 .container {
-    width: 1440px;
-    height: 90vh;
-    background-color: #fff3e7;
-    border-radius: 30px;
     position: relative;
+    width: 90vw;                /* 화면 너비의 90% */
+    height: 90vh;               /* 화면 높이의 90% */
+    border-radius: 2vw;
+    overflow: hidden; /* 파도를 안 넘기게 */
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: visible;
+    background-color: #fff3e7;
+    box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.1);
 }
 
 
+/* 헤더 영역 */
+.header-bar {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+}
+
+.header-logo-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-logo {
+    height: 80px;
+    width: 80px;
+}
+
+/* 메인 콘텐츠 */
 .content {
     flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: 2; /* 파도보다 위에 오도록 */
-    height: 900px; /* 예시값 → 너가 조절해서 값 바꿔주면 돼! */
-    padding-top: 50px;  /* 위 여백 */
-    padding-bottom: 50px; /* 아래 여백 */
+    z-index: 2; /* ✅ 파도보다 위에 위치 */
+    padding-bottom: 10vh; /* ✅ 파도가 덮지 않도록 여백 주기 */
+    /*height: 60vh;*/
 }
 
 /* 로그인 폼 전체 */
 .login-wrapper {
     display: flex;
-    width: 1100px; /* 기존보다 넓게 (원래 1000px) */
-    height: 650px; /* 기존보다 높게 (원래 600px) */
+    width: 70vw;                /* 화면 너비 70% */
+    height: 75vh;               /* 화면 높이 65% */
     background-color: #ffffff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
+    box-shadow: 0 1vh 3vh rgba(0, 0, 0, 0.1);
+    border-radius: 2vw;
     overflow: hidden;
 }
 
 /* 왼쪽 일러스트 영역 */
 .login-left {
-    flex: 1;
+    flex: 2;  /* 비율 유지 (2:1) */
     background-color: #f5ebe0;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     position: relative;
+    overflow: hidden;  /* 넘치는 이미지 방지 */
 }
 
 .logo-container {
     margin-bottom: 20px;
 }
 
-.moon-img {
-    width: 80%; /* 반응형 대비 */
-    max-width: 350px;
-}
-
-.duck-container {
-    position: absolute;
-    bottom: 30px;
-}
-
-.duck-img {
-    width: 80px;
-}
 
 /* 오른쪽 폼 영역 */
 .login-right {
     flex: 1;
-    padding: 40px;
+    padding: 2vh 3vw;           /* 위아래 vh, 좌우 vw */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,17 +98,23 @@ body {
 }
 
 .login-right .title {
-    font-family: 'Inknut Antiqua', serif;
-    font-size: 36px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: clamp(24px, 4vw, 60px);
     font-weight: bold;
-    color: #3e3e3e;
-    margin-bottom: 10px;
+    color: #3F2E29;
+    margin-bottom: 0.5vh;
 }
 
 .login-right .subtitle {
-    font-size: 14px;
-    color: #8a8a8a;
-    margin-bottom: 30px;
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: bold;
+    color: #3F2E29;
+}
+
+.login-right .login-cont {
+    font-size: 2vh;
+    color: #3F2E29;
+    margin-bottom: 3vh;
 }
 
 .login-form {
@@ -109,18 +123,18 @@ body {
 }
 
 .login-form label {
-    font-size: 14px;
-    color: #333333;
-    margin-bottom: 5px;
-    text-align: left;
+    font-size: 2vh;
+    font-weight: bold;
+    color: #3F2E29;
+    margin-bottom: 0.5vh;
 }
 
 .login-form input {
-    padding: 12px 15px;
-    margin-bottom: 20px;
+    padding: 1.2vh 1.5vw;
+    margin-bottom: 2vh;
     border: 1px solid #dddddd;
-    border-radius: 10px;
-    font-size: 14px;
+    border-radius: 1vw;
+    font-size: 1.8vh;
     background-color: #f9f9f9;
 }
 
@@ -128,121 +142,55 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
 }
 
-.remember-me {
-    font-size: 14px;
-    color: #666666;
-}
-
-.forgot-password {
-    font-size: 14px;
-    color: #ff8c42;
-    text-decoration: none;
-}
 
 .login-btn {
-    padding: 15px;
-    background-color: #ff8c42;
-    color: white;
+    padding: 1.5vh;
+    background-color: #D8D2C2;
+    color: #3F2E29;
     border: none;
-    border-radius: 12px;
-    font-size: 16px;
+    border-radius: 1.2vw;
+    font-size: 2vh;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .login-btn:hover {
-    background-color: #e6732f;
+    background-color: #C8C2B2;
 }
 
 .signup-option {
     text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: 2vh;
+    font-size: 1.6vh;
+    color: #3F2E29;
 }
 
 .signup-option a {
-    color: #ff8c42;
+    color: #3F2E29;
     text-decoration: none;
 }
 
-.social-login {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.social-login p {
-    font-size: 14px;
-    color: #8a8a8a;
-    margin-bottom: 10px;
-}
-
-.social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.social-icons a {
-    font-size: 14px;
-    text-decoration: none;
-    color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-}
-
-.social-icons a.facebook {
-    background-color: #3b5998;
-}
-
-.social-icons a.linkedin {
-    background-color: #0077b5;
-}
-
-.social-icons a.google {
-    background-color: #db4437;
-}
-
-.social-icons a:hover {
-    opacity: 0.8;
-}
-
-/* 삐약 이미지 */
-.bbiyak {
-    position: absolute;
-    bottom: 100px; /* wave 위로 자연스럽게 */
-    left: 150px;
-    width: 70px;
-    height: 70px;
-    z-index: 20;
-}
-
-.bbiyak img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
 
 /* 파도 효과 */
 .wave-container {
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
-    height: 140px;
+    height: 15vh;
+    z-index: 1; /* ✅ content 아래로 */
     overflow: hidden;
-    z-index: 1; /* 아래에 있어야 container 밑으로 감 */
 
-    /* 좌우 하단 라운드 추가 */
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 2vw;
+    border-bottom-right-radius: 2vw;
 }
 
-/* 하단 파도 */
-.wave-container::before {
+.wave-container::before,
+.wave-container::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -256,15 +204,30 @@ body {
 }
 
 .wave-container::after {
-    content: "";
-    position: absolute;
+    opacity: 0.5;
+}
+
+/* Swiper 기본 컨테이너 */
+.swiper {
     width: 100%;
     height: 100%;
-    bottom: 0;
-    left: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23D2C4D6" fill-opacity="1" d="M0,256L80,245.3C160,235,320,213,480,208C640,203,800,213,960,218.7C1120,224,1280,224,1360,229.3L1440,235L1440,320L0,320Z"></path></svg>');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: bottom;
-    opacity: 0.5;
+    display: flex;
+    align-items: center;
+}
+
+/* 각 슬라이드 이미지 크기 조정 */
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* 이미지 비율 유지하면서 꽉 채우기 */
+    border-radius: 0;   /* 둥글게 처리 필요하면 수정 가능 */
+}
+
+/* 페이지네이션 위치 (원하면 조정 가능) */
+.swiper-pagination {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 100%;
+    z-index: 10;
 }
