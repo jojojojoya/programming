@@ -73,9 +73,9 @@
                             <p>🏋️ 운동</p>
                             </div>
                             <div style="float: left; width: 25%;" >
-                            <p>✅ 산책</p>
+                            <p>✅ 걷기</p>
                             <p>🍽️ 식사</p>
-                            <p>🏋️ 운동</p>
+                            <p>🏋️ 헬스</p>
                             </div>
                             <div style="float: left; width: 25%;">
                             <p>✅ 산책</p>
