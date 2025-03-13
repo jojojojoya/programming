@@ -58,7 +58,6 @@
                         <span id="😆" class="emoji-option" onclick="selectEmoji('😆')">😆</span>
                         <span id="🥰" class="emoji-option" onclick="selectEmoji('🥰')">🥰</span>
                     </div>
-                    <textarea id="diaryTitle" rows="10" cols="50"></textarea><br>
                     <textarea id="diaryContent" rows="10" cols="50"></textarea><br>
                     <button onclick="saveDiary()">일기 등록하기</button>
                 </div>
