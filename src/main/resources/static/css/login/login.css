@@ -55,8 +55,8 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: 2; /* ✅ 파도보다 위에 위치 */
-    padding-bottom: 10vh; /* ✅ 파도가 덮지 않도록 여백 주기 */
+    z-index: 2; /* 파도보다 위에 위치 */
+    padding-bottom: 10vh; /* 파도가 덮지 않도록 여백 주기 */
     /*height: 60vh;*/
 }
 
@@ -223,11 +223,45 @@ body {
     border-radius: 0;   /* 둥글게 처리 필요하면 수정 가능 */
 }
 
-/* 페이지네이션 위치 (원하면 조정 가능) */
+/* 페이지네이션 위치 및 스타일 */
 .swiper-pagination {
     position: absolute;
-    bottom: 10px;
+    bottom: 2vh; /* vh 단위로 반응형 조정 */
     text-align: center;
     width: 100%;
     z-index: 10;
+}
+/* 버튼 크기 절반으로 줄이기 */
+.swiper-button-next,
+.swiper-button-prev {
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(15px, 2.5vw, 25px);
+    height: clamp(15px, 2.5vw, 25px);
+}
+
+/* 아이콘 기본값 오버라이드 및 크기 절반 */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    color: #808080 !important;
+    font-size: clamp(10px, 1.5vw, 16px) !important;
+}
+
+/* 호버 효과 추가 */
+.swiper-button-next:hover::after,
+.swiper-button-prev:hover::after {
+    color: #4F4F4F !important;
+    transform: scale(1.2);
+    transition: all 0.3s ease;
+}
+
+/*  슬라이드 하단 페이지네이션(점) 스타일 그레이 */
+.swiper-pagination-bullet {
+    background-color: #808080 !important;
+    opacity: 1;
+}
+
+/* 활성화된 페이지네이션(선택된 점) 스타일 다크 그레이 */
+.swiper-pagination-bullet-active {
+    background-color: #4F4F4F !important;
 }

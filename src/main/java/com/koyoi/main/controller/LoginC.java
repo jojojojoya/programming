@@ -9,7 +9,7 @@ public class LoginC {
     // 기본 로그인 페이지
     @GetMapping("/login")
     public String login() {
-        return "Login/Login";  // => /WEB-INF/views/login.jsp로 매핑됨
+        return "login/login";  // => /WEB-INF/views/login.jsp로 매핑됨
     }
 
 }

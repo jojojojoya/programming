@@ -37,8 +37,12 @@
                                 </div>
                             </div>
 
-                            <!-- 페이지네이션/버튼 원하면 추가 -->
+                            <!-- ✅ 페이지네이션 -->
                             <div class="swiper-pagination"></div>
+
+                            <!-- ✅ 이전/다음 버튼 -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
                         </div>
                     </div>
 
@@ -68,19 +72,32 @@
         <div class="wave-container"></div>
 
     </div>
+
+    <!-- ✅ Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- ✅ Swiper 초기화 코드 -->
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            loop: true,
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            effect: 'fade', // 부드러운 페이드 효과 추천!
+        document.addEventListener("DOMContentLoaded", function () {
+            const swiper = new Swiper(".mySwiper", {
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                },
+                effect: 'fade',
+                speed: 1000
+            });
         });
     </script>
+
     </body>
     </html>
