@@ -1,4 +1,5 @@
 
+
 @import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
 
 /* 전체 배경 */
@@ -71,6 +72,17 @@ body {
     transform: translateX(-50%);
 }
 
+.completed-btn
+{
+    padding: 13px 12px;
+    background-color: #ede0d4;
+    cursor: pointer;
+    font-size: 15px;
+    color: #333;
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    border: none;
+}
 
 /* 버튼 내부 아이콘 */
 .sidebar-btn img {

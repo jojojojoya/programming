@@ -1,6 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
-
 /* 전체 배경 */
 body {
     font-family: 'Noto Sans JP', sans-serif;
@@ -83,11 +81,12 @@ body {
     transform: scale(1.1);
 }
 
-/* 🟠 오른쪽 컨테이너 */
+/* 배경 이미지 설정 */
 .right-container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+    background-image: url('/static/imgsource/your_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* 🟣 헤더 바 */
@@ -196,7 +195,7 @@ body {
 
 /* 🔵 개별 테이블 스타일 */
 .profile_table, .chatbot_table,
-.diary_table, .counseling_table, .chatbot_detail_table {
+.diary_table, .counseling_table, nonreserved_counseling_table, .chatbot_detail_table {
     min-width: 440px; /* 🔹 최소 크기 증가 */
     max-width: 700px; /* 🔹 최대 크기 줄여서 균형 조정 */
     padding: 20px;
@@ -245,26 +244,61 @@ body {
     height: 400px;
 
 }
-/* 🔹 상담 테이블 */
+
 .counseling_table {
-    flex-grow: 3; /* 🔹 상담을 더 크게 */
-    flex-basis: 55%; /* 🔹 기본 크기 55% */
-    background-color: #ffd27a;
-    height: 400px;
-    position: relative; /* 내부 요소 위치 설정 가능하도록 변경 */
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* 요소들을 세로로 정렬 */
     align-items: center;
-    overflow: hidden; /* 🔹 넘치는 이미지 숨김 */
+    justify-content: flex-start; /* 위쪽 정렬 */
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative; /* 내부 요소가 부모 안에 있도록 설정 */
 }
 
-/* 🔹 상담 테이블 내부의 백그라운드 이미지 컨테이너 */
+
+
+/* 다이어리 테이블 크기와 동일하게 설정 */
+.nonreserved_counseling_table {
+    flex-grow: 2; /* 같은 비율로 확장 */
+    flex-basis: 45%; /* 다이어리와 동일한 크기 */
+    height: 440px; /* 동일한 높이 */
+    position: relative;
+    background-color: #3D2C2E; /* 다이어리 테이블과 같은 색 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* 이미지 크기를 부모 요소에 맞게 조정 */
+.nonreserved_counseling_table img {
+    width: 100%; /* 부모 요소 너비에 맞춤 */
+    height: 100%; /* 높이도 맞춤 */
+    object-fit: cover; /* 비율 유지하며 맞춤 */
+}
+
+.nonreserved_counseling_table_comment {
+    position: absolute;
+    bottom: 9%;
+    color: white;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    z-index: 2;
+    width: 80%;
+    margin-bottom: 90px;
+}
+
 .counseling_background_img {
-    position: absolute; /* 🔹 부모(.counseling_table)를 기준으로 위치 고정 */
+    position: absolute;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
-    width: 100%; /* 🔹 부모 요소(.counseling_table)와 같은 크기로 설정 */
-    height: 100%;
+    z-index: -1; /* 배경을 뒤로 보내기 */
 }
 
 /* 🔹 백그라운드 이미지 */
@@ -313,14 +347,12 @@ body {
     justify-content: center;
 }
 
-/* 🔹 내부 콘텐츠 정렬 (프로필 이미지 + 정보) */
 .profile_content {
     display: flex; /* 🔹 가로 정렬 */
     align-items: center; /* 🔹 세로 중앙 정렬 */
     gap: 54px; /* 🔹 이미지와 정보 사이 간격 */
 }
 
-/* 🔹 프로필 이미지 */
 .profile_img img {
     width: 140px; /* 🔹 프로필 이미지 크기 조절 */
     height: 140px;
@@ -336,7 +368,6 @@ body {
     gap: 10px; /* 🔹 각 요소 사이 여백 */
 }
 
-/* 🔹 개별 프로필 항목 정렬 (아이콘 + 텍스트) */
 .profile_item {
     display: flex; /* 🔹 가로 정렬 */
     align-items: center; /* 🔹 세로 중앙 정렬 */
@@ -346,15 +377,12 @@ body {
     padding: 10px;
 }
 
-/* 🔹 아이콘 크기 조정 */
 .profile_item img {
     width: 20px;
     height: 20px;
     object-fit: contain;
 }
 
-/* 🔹 프로필 수정 버튼 스타일 */
-/* 🔹 프로필 수정 버튼 스타일 */
 .profile_edit_btn {
     padding: 13px 12px;
     background-color: #ede0d4;
@@ -377,7 +405,6 @@ body {
     border-radius: 10px;
     height: 35px;
 }
-/* 공통 모달 스타일 */
 .modal {
     display: none; /* 기본적으로 숨김 */
     position: fixed;
@@ -393,7 +420,6 @@ body {
     padding: 20px;
 }
 
-/* 모달 내부 스타일 */
 .modal-content {
     background-color: white;
     padding: 20px;
@@ -402,7 +428,6 @@ body {
     position: relative;
 }
 
-/* 닫기 버튼 스타일 */
 .close {
     position: absolute;
     right: 10px;
@@ -411,7 +436,6 @@ body {
     cursor: pointer;
 }
 
-/* 비밀번호 확인 입력창 스타일 */
 #passwordCheck {
     width: 90%;
     padding: 10px;
@@ -420,7 +444,6 @@ body {
     margin: 10px 0;
 }
 
-/* 버튼 스타일 */
 #checkPasswordBtn, .profile-submit-btn {
     padding: 10px 15px;
     background-color: #ede0d4;
@@ -435,7 +458,6 @@ body {
     background-color: #d8c3a5;
 }
 
-/* 오류 메시지 스타일 */
 #passwordErrorMsg {
     color: red;
     display: none; /* 기본적으로 숨김 */
@@ -482,20 +504,112 @@ input:invalid::placeholder {
     z-index: 1; /* 낮은 값으로 배경을 뒤로 */
 }
 
-/* 상담 메시지를 이미지보다 위로 올리기 */
-.counseling_table_comment {
-    position: absolute; /* 배경보다 앞으로 오도록 */
-    z-index: 2; /* 배경보다 높은 값 설정 */
-    color: #ede0d4; /* 글자색 */
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center;
-    padding: 15px 20px;
+
+.reserved_counseling_table_comment {
+    width: 100%;
+    padding: 10px;
     border-radius: 8px;
-    margin-bottom: 95px;
-    font-family: 'Sawarabi Maru', sans-serif;
+    margin-bottom: -15px;
+    text-align: center;
 }
 
-.counseling_table_comment img{
-    margin-top: 10px;
+
+
+
+
+.reserved_reservation_box strong,
+.reserved_reservation_box div,
+.reserved_reservation_box br {
+    margin-bottom: 0;
+    padding: 0;
 }
+
+
+
+
+.reservation_box {
+    padding: 10px;
+    border: 2px solid;
+    margin: 5px;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 240px;
+    font-size: 25px;
+    width: 220px;
+}
+
+.reservation_slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+
+
+/* 🔹 슬라이드 리스트 */
+.reservation_list {
+    display: flex;
+    gap: 15px;
+    margin-left: 240px;
+    width: 132%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.enter-btn {
+    padding: 6px 11px;
+    background-color: #ffd27a;
+    cursor: pointer;
+    font-size: 17px;
+    color: rgb(61 44 46);
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    border: none;
+    margin-top: 7px;
+}
+
+.reservation_submit_btn {
+    padding: 7px 18px;
+    background-color: #ede0d4;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s;
+    border-radius: 6px;
+    border: none;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+.completed-btn {
+    padding: 6px 11px;
+    background-color: rgb(61 44 46);
+    cursor: pointer;
+    font-size: 17px;
+    color: #D8D2C2;
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    border: none;
+    margin-top: 7px;
+}
+
+.reserved_reservation_box {
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 정렬 */
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 250px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #f3cfcf;
+    background-color: #fff;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+
+
+
