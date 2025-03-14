@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         modalUserName.textContent = data.user_name || "";
                         modalUserNickname.value = data.user_nickname || "";
                         modalUserEmail.value = data.user_email || "";
-                        modalUserType.textContent = (data.user_type === "counselor") ? "상담사" : "회원";
+                        modalUserType.textContent = (data.user_type === 2 ) ? "상담사" : "회원";
                         modalCreatedAt.textContent = data.formattedCreatedAt || "";
 
                         modal.style.display = "block";

@@ -124,3 +124,4 @@ INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
 VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일부터 시작됩니다. 다양한 혜택을 확인하세요!', SYSDATE);
 
 select * from TEST_ANNOUNCEMENT;
+select * from TEST_DIARY;

@@ -35,14 +35,14 @@ public class MainC {
     @GetMapping("/calendar/emotions")
     @ResponseBody
     public List<EmotionVO> getAllEmotions() {
-        String userId = "user2"; // 로그인 기능 추가 시 변경 필요
+        String userId = "user1"; // 로그인 기능 추가 시 변경 필요
         return emotionService.getUserAllEmotions(userId);
     }
 
     @GetMapping("/mood/scores")
     @ResponseBody
     public List<EmotionVO> getWeeklyMoodScores() {
-        String userId = "user2";
+        String userId = "user1";
         return emotionService.getUserAllEmotions(userId);
     }
 
