@@ -38,7 +38,6 @@
             padding: 5px;
         }
 
-
         .main-calendar_weeks {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -58,11 +57,20 @@
         .calendar-day {
             width: 50px;
             height: 50px;
-            line-height: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             border: 1px solid #ddd;
             cursor: pointer;
             font-size: 16px;
             background-color: #f9f9f9;
+            position: relative;
+        }
+
+        .calendar-day span {
+            font-size: 24px;
+            line-height: 1;
         }
 
         .calendar-day:hover {
@@ -76,109 +84,44 @@
 </head>
 <body>
 
-<div class="calendar">
+<div class="calendar-container">
+    <button id="prevCalendar">◀</button>
+    <h3 id="calendar-title">Daily</h3>
+    <button id="nextCalendar">▶</button>
+</div>
 
-    <div class="main-calendar_header">
-        <button id="prevMonth" onclick="prevMonth()"> ◀ </button>
-        <h3 id="month-year"></h3>
-        <button id="nextMonth" onclick="nextMonth()"> ▶ </button>
-    </div>
-
-    <div class="main-calendar_weeks">
-        <div> SUN </div>
-        <div> MON </div>
-        <div> TUE </div>
-        <div> WED </div>
-        <div> THU </div>
-        <div> FRI </div>
-        <div> SAT </div>
-    </div>
-
-    <div class="main-calendar_days" id="calendar">
-        <%--날짜 생성--%>
+<!-- 데일리 달력 -->
+<div id="daily-calendar">
+    <div class="calendar">
+        <div class="main-calendar_header">
+            <button id="prevMonth" onclick="prevMonth()"> ◀ </button>
+            <h3 id="month-year"></h3>
+            <button id="nextMonth" onclick="nextMonth()"> ▶ </button>
+        </div>
+        <div class="main-calendar_weeks">
+            <div> SUN </div> <div> MON </div> <div> TUE </div>
+            <div> WED </div> <div> THU </div> <div> FRI </div> <div> SAT </div>
+        </div>
+        <div class="main-calendar_days" id="daily-calendar-grid"></div>
     </div>
 </div>
 
-<script>
-    let currentDate = new Date();
+<!-- 위클리 달력 -->
+<div id="weekly-calendar" style="display: none;">
+    <div class="calendar">
+        <div class="main-calendar_header">
+            <button id="prevWeek" onclick="prevWeek()"> ◀ </button>
+            <h3 id="week-range"></h3>
+            <button id="nextWeek" onclick="nextWeek()"> ▶ </button>
+        </div>
+        <div class="main-calendar_weeks">
+            <div> SUN </div> <div> MON </div> <div> TUE </div>
+            <div> WED </div> <div> THU </div> <div> FRI </div> <div> SAT </div>
+        </div>
+        <div class="main-calendar_days" id="weekly-calendar-grid"></div>
+    </div>
+</div>
 
-    function generateCalendar() {
-        let calendarEl = document.getElementById("calendar");
-        let monthYearEl = document.getElementById("month-year");
-
-        let year = currentDate.getFullYear();
-        let month = currentDate.getMonth() + 1; // 0부터 시작.
-
-        monthYearEl.innerText = year + "년 " + month + "월";
-
-        // 첫 번째 날과 마지막 날 계산
-
-        // new Date(year, month, day)에서 day가 0이면 이전 달의 마지막 날 의미.
-        // .getDate()를 호출해서 값 반환.
-
-        // .getDay() => 그 날짜의 요일을 반환(0 : 일요일, 6 : 토요일)
-        let firstDay = new Date(year, month - 1, 1).getDay();
-
-
-        let lastDate = new Date(year, month, 0).getDate(); // 이번 달 마지막 날짜
-        let prevLastDate = new Date(year, month - 1, 0).getDate(); // 이전 달의 마지막 날짜
-
-        calendarEl.innerHTML = ""; // 기존 날짜 초기화
-        let totalCells = 0; // 전체 날짜 셀 개수 저장
-
-        // 이전 달 빈칸에 이전 달 날짜 채우기
-        for (let i = firstDay - 1; i >= 0; i--) {
-            let emptyDiv = document.createElement("div");
-            emptyDiv.classList.add("calendar-day", "inactive");
-            emptyDiv.innerText = prevLastDate - i;
-            calendarEl.appendChild(emptyDiv);
-            totalCells++;
-        }
-
-        // 현재 달 날짜 추가
-        for (let date = 1; date <= lastDate; date++) {
-            let dayDiv = document.createElement("div");
-            dayDiv.classList.add("calendar-day");
-            dayDiv.innerText = date;
-
-            // 오늘의 날짜와 같으면 true => 배경색 표시
-            let today = new Date();
-            if (year === today.getFullYear() && month === today.getMonth() + 1 && date === today.getDate()) {
-                dayDiv.style.backgroundColor = "#FFD27A";
-            }
-
-            calendarEl.appendChild(dayDiv);
-            totalCells++; // 총 날짜 칸을 하나씩 증가
-        }
-
-        // 다음 달 빈칸에 다음 달 날짜 채우기 <= 매달 같은 크기를 맞추기 위해 달력 표시일을 6주로 고정.
-        let nextMonthDate = 1;
-
-        // 총 셀 수가 42가 될 때까지 반복
-        while (totalCells < 42) {
-            let emptyDiv = document.createElement("div");
-            emptyDiv.classList.add("calendar-day", "inactive");
-            emptyDiv.innerText = nextMonthDate;
-            calendarEl.appendChild(emptyDiv);
-            nextMonthDate++;
-            totalCells++;
-        }
-    }
-
-    function prevMonth() {
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        generateCalendar();
-    }
-
-    function nextMonth() {
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        generateCalendar();
-    }
-    document.addEventListener("DOMContentLoaded", function() {
-        generateCalendar();
-    });
-
-</script>
-
+<script src="/static/js/main/maincalendar.js"></script>
 </body>
 </html>

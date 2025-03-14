@@ -92,6 +92,7 @@ select * from TEST_USER;
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
+<<<<<<< HEAD
 -- >>>>>>> 9ce381165894c55d2627bf310e0348c139fa15e2
 
 
@@ -99,3 +100,40 @@ VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/u
 INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
 VALUES (5, 'user5', '식사', SYSDATE);
 select *from TEST_HABIT;
+=======
+
+INSERT INTO TEST_USER (user_id, user_type, user_name, USER_NICKNAME, user_email, user_password, user_img, created_at)
+VALUES ('admin001', 3, 'admin', 'admin', 'admin001@example.com', 'admin001', '/imgsource/admin001.jpg', SYSDATE);
+
+INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
+VALUES ('user7', 2, '에밀리', 'user7@example.com', 'password7', '/imgsource/user7.jpg', SYSDATE);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001', '"Happiness comes to those who are prepared." – Thomas Edison', sysdate);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001', '"Success is not final, failure is not fatal: It is the courage to continue that counts." – Winston Churchill', sysdate);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001', '"The biggest risk is not taking any risk." – Mark Zuckerberg', sysdate);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001', '"Make today better than yesterday." – Unknown', sysdate);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001', '"Small changes make a big difference." – Unknown', sysdate);
+
+select * from TEST_QUOTE;
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ( 'admin001', '서비스 점검 안내', '시스템 유지보수를 위해 3월 15일 오전 2시부터 4시까지 서비스가 중단됩니다.', SYSDATE);
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '신규 기능 업데이트', '새로운 AI 감정 분석 기능이 추가되었습니다. 많은 이용 부탁드립니다.', SYSDATE);
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일부터 시작됩니다. 다양한 혜택을 확인하세요!', SYSDATE);
+
+select * from TEST_ANNOUNCEMENT;
+select * from TEST_DIARY;
+>>>>>>> 0279cb5128ea21b8cf09f22d45ad1effff2295dc
