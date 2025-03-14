@@ -131,7 +131,7 @@ body {
 
 .login-form input {
     padding: 1.2vh 1.5vw;
-    margin-bottom: 2vh;
+    margin-bottom: 0.5vh;
     border: 1px solid #dddddd;
     border-radius: 1vw;
     font-size: 1.8vh;
@@ -264,4 +264,41 @@ body {
 /* 활성화된 페이지네이션(선택된 점) 스타일 다크 그레이 */
 .swiper-pagination-bullet-active {
     background-color: #4F4F4F !important;
+}
+
+.modal {
+    display: none; /* 기본 숨김 */
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* 로그인 필수값 미입력 오류*/
+.error-message {
+    color: red;
+    font-size: clamp(0.7rem, 1vw, 1rem);
+    margin-bottom: 1.5vh;
+    display: block;
+    min-height: 1.2em;
 }

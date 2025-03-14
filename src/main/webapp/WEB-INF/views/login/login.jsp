@@ -1,4 +1,6 @@
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
     <!DOCTYPE html>
     <html lang="ko">
     <head>
@@ -7,11 +9,13 @@
         <link rel="stylesheet" href="/static/css/login/login.css">
         <!-- Swiper CSS CDN -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+        <script src="/static/js/login/login.js"></script>
     </head>
     <body>
 
     <!-- 전체 컨테이너 -->
-    <div class="container">
+    <!-- 실패 여부를 data 속성으로 전달 -->
+    <div class="container" data-login-failed="${loginFailed}">
 
         <header class="header-bar">
             <div class="header-logo-center">
@@ -37,26 +41,30 @@
                                 </div>
                             </div>
 
-                            <!-- ✅ 페이지네이션 -->
+                            <!-- 페이지네이션 -->
                             <div class="swiper-pagination"></div>
 
-                            <!-- ✅ 이전/다음 버튼 -->
+                            <!-- 이전/다음 버튼 -->
                             <div class="swiper-button-prev"></div>
                             <div class="swiper-button-next"></div>
                         </div>
                     </div>
 
                 <div class="login-right">
+
                     <div class="title">KOYOI</div>
                     <p class="subtitle"> Login </p>
                     <p class="login-cont">Welcome back. Please login to your account.</p>
 
-                    <form action="/login" method="post" class="login-form">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <form action="/login" method="post" class="login-form" onsubmit="return validateForm()">
+                    <%--                    <form action="/login" method="post" class="login-form">--%>
+                        <label for="user_id">ID</label>
+                        <input type="text" id="user_id" name="user_id" placeholder="Enter your ID">
+                        <span id="id-error" class="error-message"></span>
 
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <label for="user_pw">Password</label>
+                        <input type="password" id="user_pw" name="user_pw" placeholder="Enter your password">
+                        <span id="pw-error" class="error-message"></span>
 
                         <button type="submit" class="login-btn">Login</button>
 
@@ -68,36 +76,22 @@
             </div>
         </main>
 
-        <!-- ✅ 파도는 content 바로 밑에 -->
+        <!-- 파도는 content 바로 밑에 -->
         <div class="wave-container"></div>
 
     </div>
 
-    <!-- ✅ Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <div id="loginFailModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p> The ID or password you entered is incorrect. Please try again. </p>
+        </div>
+    </div>
 
-    <!-- ✅ Swiper 초기화 코드 -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const swiper = new Swiper(".mySwiper", {
-                loop: true,
-                autoplay: {
-                    delay: 2500,
-                    disableOnInteraction: false
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev"
-                },
-                effect: 'fade',
-                speed: 1000
-            });
-        });
-    </script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <!-- Login JS -->
+    <script src="/static/js/login/login.js"></script>
 
     </body>
     </html>
