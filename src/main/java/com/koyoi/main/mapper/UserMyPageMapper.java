@@ -18,10 +18,15 @@ public interface UserMyPageMapper {
     @Select("SELECT user_password FROM test_user WHERE user_id = #{user_id}")
     String getPasswordByUserId(@Param("user_id") String user_id);
 
-//    @Update("UPDATE test_user SET user_password = #{newPassword} WHERE user_id = #{userId}")
-//    int updatePassword(@Param("userId") String userId, @Param("newPassword") String newPassword);
-
-    @Update("UPDATE test_user SET user_password = #{user_password}, user_name = #{user_name} WHERE user_id = #{user_id}")
+    @Update("UPDATE test_user SET user_password = #{user_password}, user_nickname = #{user_nickname} WHERE user_id = #{user_id}")
     int updateProfile(UserMyPageVO user);
+
+
+    //챗봇 대화 요약내역 조회 
+    @Select("select chat_summary from test_chat where user_id = #{user_id}")
+    List<UserMyPageVO> getUserChatBotDetail(@Param("user_id") String user_id);
+
+    @Select("SELECT counseling_id, counseling_date, counseling_time, category, counselor_id, status FROM test_counseling_reservation WHERE user_id = #{user_id}")
+    List<UserMyPageVO> getUserReservations(@Param("user_id") String user_id);
 
 }

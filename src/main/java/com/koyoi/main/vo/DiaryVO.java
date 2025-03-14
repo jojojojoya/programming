@@ -1,5 +1,6 @@
 package com.koyoi.main.vo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,15 +9,16 @@ import java.time.format.DateTimeFormatter;
 public class DiaryVO {
     private int diary_id;
     private String user_id;
-//    private String diary_title;
+    private String title;
     private String diary_content;
     private LocalDateTime created_at;
 
     private String emotion_emoji;
 
+    @JsonProperty("formattedCreatedAt")
     public String getFormattedCreatedAt() {
         if (created_at != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             return created_at.format(formatter);
         }
         return null;

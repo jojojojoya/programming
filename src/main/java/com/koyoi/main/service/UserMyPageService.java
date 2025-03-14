@@ -2,6 +2,7 @@ package com.koyoi.main.service;
 
 import com.koyoi.main.mapper.UserMyPageMapper;
 import com.koyoi.main.vo.UserMyPageVO;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,15 @@ public class UserMyPageService {
         return userMyPageMapper.updateProfile(user) > 0;
     }
 
+    public List<UserMyPageVO> getUserChatBotDetail(String user_id) {
+        return userMyPageMapper.getUserChatBotDetail(user_id);
+
+    }
+
+
+    public List<UserMyPageVO> getUserReservations(String user_id) {
+        return userMyPageMapper.getUserReservations(user_id);
+    }
 
     public List<UserMyPageVO> getUserById(String user_id) {
         return userMyPageMapper.getUserById(user_id);
@@ -40,13 +50,5 @@ public class UserMyPageService {
     }
 
 
-//    public boolean updatePassword(String userId, String newPassword) {
-//        if (newPassword == null || newPassword.trim().isEmpty()) {
-//            return false;
-//        }
-//
-//        return userMyPageMapper.updatePassword(userId, newPassword) > 0;
-//    }
-//
 
 }
