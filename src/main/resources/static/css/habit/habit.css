@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
+
+/* 전체 배경 */
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #f5f0ea;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 🟢 전체 컨테이너 */
+.container {
+    width: 90vw;                / 화면 너비의 90% /
+    height: 90vh;               / 화면 높이의 90% /
+    background-color: #fff3e7;
+    border-radius: 2vw;         / vw로 둥글게 처리 /
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* 🟠 왼쪽 컨테이너 (사이드바) */
+.left-container {
+    width: 60px;
+    background-color: #FFF3E7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+    position: relative;
+    border-right: 1px solid #f4dfcd;
+}
+
+/* 🟣 사이드바 */
+.sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+/* 🔵 사이드바 버튼 */
+.sidebar-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 36px 0;
+}
+
+.sidebar-btn::before {
+    content: "...";
+    font-size: 11px;
+    font-weight: bold;
+    color: black;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sidebar-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 🔵 버튼 호버 효과 */
+.sidebar-btn:hover {
+    transform: scale(1.1);
+}
+
+/* 🟠 오른쪽 컨테이너 */
+.right-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🟣 헤더 바 */
+.header-bar {
+    width: 100%;
+
+    background-color: #ede0d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    border-radius: 0px 0px 0 0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    height: 10vh;
+    position: relative;
+    z-index: 3;
+}
+
+/* 🌙 중앙 브랜드 로고 */
+.brand-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 100px;
+}
+
+.brand-title img {
+    width: 100%;
+    height: auto;
+    max-width: 125px;
+}
+
+/* 🟡 우측 상단 아이콘 */
+.header-icons {
+    position: absolute;
+    right: 90px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 프로필 이미지 */
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+/* 🟡 메인 콘텐츠 */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+
+
+
+
+
+.habit-page {
+    display: flex;
+    flex-wrap: wrap; /* 자식 요소들이 넘칠 경우 자동으로 줄 바꿈 */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.habit-list {
+    height: 30%;
+    margin-bottom: 10px;
+    background-color: #bbbbbb;
+}
+.myhabit{
+    font-size: 20pt;
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.myhabit > div{
+    text-decoration: black underline solid;
+
+}
+.myhabit-list{
+    font-size: 10pt;
+}
+
+
+
+.habit-recommend {
+    margin-bottom: 20px;
+    padding: 5px;
+    padding-bottom: 20px;
+    background-color: #FDD7E4;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    flex-grow: 1;
+    overflow: visible;
+}
+
+.habit-tabs {
+    display: flex;
+    justify-content: center;
+    background-color: #FDD7E4;
+    padding: 8px;
+    border-radius: 20px;
+    width: 300px;
+    margin: 20px auto;
+}
+
+.habit-tab {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    color: #777;
+    transition: 0.3s;
+    font-weight: normal;
+}
+
+.habit-tab.habit-active {
+    color: #ff4081;
+    font-weight: bold;
+    background-color: #FDD7E4;
+}
+
+.habit-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    height: auto;
+    margin: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: visible;
+
+}
+
+.habit-hidden {
+    display: none;
+}
+
+
+
+/* 텍스트 크기 및 여백 축소 */
+.habit-recommend p {
+    font-size: 12px; /* 텍스트 크기 축소 */
+    margin: 3px 0; /* 문단 간 간격 축소 */
+    line-height: 1.3; /* 줄 간격 축소 */
+}
+
+
+
+
+.habit-partone {
+    width: 30%;
+    height: 450px;
+}
+
+.habit-partone > div {
+    height: 47%;
+}
+
+.habit-parttwo {
+    width: 70%;
+    height: 500px;
+}
+
+.habit-parttwo-first {
+    display: flex;
+    padding-bottom: 30px;
+    padding-top: 17px;
+    padding-left: 20px;
+}
+
+.habit-calendar {
+    width: 50%;
+    height: 200px;
+    background-color: #3D2C2E;
+    margin-right: 10px;
+}
+
+.habit-week {
+    width: 50%;
+    height: 200px;
+    background-color: #C6F6D5;
+}
+
+.habit-parttwo-second {
+    display: flex;
+    padding-left: 20px;
+}
+
+.habit-rate {
+    width: 50%;
+    height: 200px;
+    background-color: #bbbbbb;
+    margin-right: 10px;
+}
+
+.habit-memo {
+    width: 50%;
+    height: 200px;
+    background-color: #d8c3a5;
+}
+
+.bbiyak {
+    position: absolute;
+    bottom: 47px;
+    left: 73%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-sizing: border-box;
+    z-index: 20;
+    overflow: hidden;
+}
+
+.bbiyak img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
