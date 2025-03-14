@@ -101,13 +101,36 @@
 
 /* hide number if event exists */
 .fc-daygrid-day-frame:has(.fc-event) .fc-daygrid-day-number {
-    opacity: 0;
+    display: none;
 }
 
-/* emoji event style */
-.fc-event-title {
-    font-size: 18px;
-    text-align: center;
+
+.fc-daygrid-event {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.emoji-event {
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+.fc-event {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* diary section */
