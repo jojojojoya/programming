@@ -39,5 +39,11 @@ public class MainC {
         return emotionService.getUserAllEmotions(userId);
     }
 
+    @GetMapping("/mood/scores")
+    @ResponseBody
+    public List<EmotionVO> getWeeklyMoodScores() {
+        String userId = "user2";
+        return emotionService.getUserAllEmotions(userId);
+    }
 
 }
