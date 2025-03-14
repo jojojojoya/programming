@@ -7,12 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/usermypage/usermypage.css">
-    <script src="/static/js/usermypage.js"></script>
 </head>
 <body>
 
 <div class="container">
-
     <!-- 사이드바 -->
     <div class="left-container">
         <aside class="sidebar">
@@ -39,42 +37,43 @@
         <main class="content">
             <div class="top-section">
                 <div class="profile_table">
-                    <c:forEach var="user" items="${users}">
-                        <div class="profile_content">
-                            <div class="profile_img">
-                                <img src="${user.user_img}" alt="프로필 이미지">
+                    <div class="profile_content">
+                        <div class="profile_img">
+                            <img src="/static/${user.user_img}" alt="프로필 이미지">
+                        </div>
+                        <div class="profile_info">
+                            <div class="profile_item">
+                                <img src="/static/imgsource/personicon.png" alt="">
+                                <span>ID: ${user.user_id}</span>
                             </div>
-                            <div class="profile_info">
-                                <div class="profile_item">
-                                    <img src="/static/imgsource/personicon.png" alt="">
-                                    <span>ID: ${user.user_id}</span>
-                                </div>
-                                <div class="profile_item">
-                                    <img src="/static/imgsource/lockicon.png" alt="">
-                                    <span> PW: ******** </span>
-                                </div>
-                                <div class="profile_item">
-                                    <img src="/static/imgsource/personicon.png" alt="">
-                                    <span>닉네임: ${user.user_name} </span>
 
-                                </div>
-                                <button class="profile_edit_btn" id="openPasswordCheckModal">프로필 수정하기</button>
+                            <input type="hidden" id="hiddenUserId" value="${user.user_id}"> <!-- 🔥 여기에 추가 -->
 
+                            <div class="profile_item">
+                                <img src="/static/imgsource/lockicon.png" alt="">
+                                <span> PW: ******** </span>
                             </div>
+                            <div class="profile_item">
+                                <img src="/static/imgsource/personicon.png" alt="">
+                                <span id="nicknameDisplay">닉네임: ${user.user_nickname} </span>
+                            </div>
+                            <button class="profile_edit_btn" id="openPasswordCheckModal">프로필 수정하기</button>
                         </div>
 
-                    </c:forEach>
+                    </div>
                 </div>
 
-                <div class="chatbot_table" onclick="location.href='/usermypagechatbot'">
-                    <div class="chatbot_title">챗봇과의 대화</div>
+                <div class="chatbot_table">
+                    <div class="chatbot_title">챗봇과의 대화 내역</div>
                     <div class="chatbot_info">
-                        <c:forEach var="chat" items="${chats}">
-                        <div class="chatbot_list">foreach로</div>
-                        <div class="chatbot_list"> ${chat.chatcontent}</div>
-                        <div class="chatbot_list">챗봇 컨텐츠 내용</div>
-                        <div class="chatbot_list">챗봇 컨텐츠 내용</div>
-                        </c:forEach>
+                        <c:if test="${not empty chats}">
+                            <c:forEach var="chat" items="${chats}">
+                                <div class="chatbot_list">${chat.chat_summary}</div>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${empty chats}">
+                            <div class="chatbot_list"> 챗봇 이용 내역이 없습니다. </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -86,46 +85,90 @@
                     </div>
                 </div>
 
-                <div class="counseling_table" onclick="location.href='/livechat'">
-                    <div class="counseling_background_img">
-                        <img class="main-img" src="/static/imgsource/padoo2.png" alt="기본 이미지">
-                    </div>
-                    <div class="counseling_table_comment">
-                        <div><img style="width: 70px" src="/static/imgsource/shining5.png"></div>
-                        <p>現在、<br>予定されている相談はありません。<br>お話ししましょうか？</p>
-                    </div>
+                <!-- 상담 영역 -->
+                <div class="counseling_wrapper">
+                    <!-- 상담 내역 없는 경우 -->
+
+                    <c:if test="${empty reservations}">
+                        <div class="counseling_no_reservation">
+                            <div class="nonreserved_counseling_table">
+                                <!-- 갈색 배경 안에 텍스트 포함 -->
+                                <img src="/static/imgsource/padoo2.png">
+
+                                <div class="nonreserved_counseling_table_comment">
+                                    <div><img style="width: 70px" src="/static/imgsource/shining5.png"></div>
+                                    <p>現在、予定されている相談はありません。<br>お話ししましょうか？</p>
+                                    <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">상담 예약하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+
+
+
+                    <!-- 상담 내역이 있는 경우 -->
+                    <c:if test="${not empty reservations}">
+                        <div class="counseling_table">
+                            <div class="reserved_counseling_table_comment">
+                                <ul>📅 予約された相談
+                                    <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">상담 예약하기</button>
+                                </ul>
+                            </div>
+
+                            <div class="reservation_slider">
+                                <div class="reservation_list">
+                                    <c:forEach var="reservation" items="${reservations}">
+                                        <div class="reserved_reservation_box">
+                                            <div><strong>[상담일시] </strong></div>${reservation.counseling_date} ${reservation.counseling_time}:00
+                                            <div><strong>[상담 카테고리] </strong></div>${reservation.category}
+                                            <div><strong>[상담사 ID] </strong>${reservation.counselor_id}</div>
+                                            <div><strong>[상담 상태] </strong>${reservation.status}</div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+
                 </div>
             </div>
         </main>
     </div>
 </div>
 
-<!-- 비밀번호 확인 모달 -->
-<div id="passwordCheckModal" class="modal">
+<!-- 🔥 여기에 모달 추가 -->
+<div id="passwordCheckModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>PW 확인</h2>
-        <p>프로필을 수정하려면 PW를 입력하세요.</p>
-        <input type="password" id="passwordCheck" placeholder="현재 비밀번호 입력" required>
-        <p id="passwordErrorMsg">비밀번호가 일치하지 않습니다.</p>
+        <p>비밀번호를 입력하세요:</p>
+        <input type="password" id="passwordCheck" autocomplete="off">
         <button id="checkPasswordBtn">확인</button>
+        <button class="close">닫기</button>
+        <p id="passwordErrorMsg" style="display: none; color: red;">비밀번호가 틀렸습니다.</p>
     </div>
 </div>
-
-<!-- 프로필 수정하기 모달 -->
-<div id="profileModal" class="modal">
+<!-- 프로필 수정 모달 -->
+<div id="profileModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>My Profile 수정</h2>
-        <form id="profileEditForm" action="/profileupdate" method="post">
-            <label for="editId">ID:</label>
-            <input type="text" id="editId" name="user_id" value="${user.user_id}" readonly><br>
-            <label for="editPw">PW:</label>
-            <input type="text" id="editPw" name="user_password" placeholder="*******" required><br>
-            <label for="editNickname">닉네임:</label>
-            <input type="text" id="editNickname" name="user_name" value="${user.user_name}" required><br>
-            <button class="profile-submit-btn" type="submit">수정하기</button>
-        </form>
+        <h3>프로필 수정</h3>
+        <label>아이디 </label>
+        <input type="text" id="editId" readonly>
+        <br>
 
+
+        <label>새 비밀번호</label>
+        <input type="password" id="editPw" placeholder="새 비밀번호 입력" >
+        <br>
+
+        <label>닉네임</label>
+        <input type="text" id="editNickname">
+        <br>
+
+        <button id="saveProfileBtn">저장</button>
+        <button class="close">닫기</button>
     </div>
 </div>
+
+
+</body>
+<script src="/static/js/usermypage/usermypage.js"></script>
+</html>
