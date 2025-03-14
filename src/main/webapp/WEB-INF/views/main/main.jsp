@@ -43,11 +43,13 @@
     <div id="notice-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn"> &times; </span>
-            <h3> 공지사항 </h3>
+            <h3> Notice </h3>
             <ul id="notice-lists">
-                <li><a href="#"> 첫 번째 공지사항 </a></li>
-                <li><a href="#"> 두 번째 공지사항 </a></li>
-                <li><a href="#"> 세 번째 공지사항 </a></li>
+                <c:forEach var="announcement" items="${announcements}">
+                    <li>
+                        <a href="#">${announcement.title}</a>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
     </div>
@@ -55,19 +57,14 @@
     <main class="main-container">
 
         <div class="quotes-container">
-            <!-- Slider main container -->
             <div class="swiper">
-                <!-- Additional required wrapper -->
                 <div class="swiper-wrapper" id="quoteWrapper">
-                    <div class="swiper-slide">"Life is like riding a bicycle. To keep your balance you must keep moving." - Albert Einstein</div>
-                    <div class="swiper-slide">"Success is not final, failure is not fatal: it is the courage to continue that counts." - Winston Churchill</div>
-                    <div class="swiper-slide">"Happiness depends upon ourselves." - Aristotle</div>
-                    <div class="swiper-slide">"Do what you can, with what you have, where you are." - Theodore Roosevelt</div>
-                    <div class="swiper-slide">"Believe you can and you're halfway there." - Theodore Roosevelt</div>
-                    <div class="swiper-slide">"If you're going through hell, keep going." - Winston Churchill</div>
-                    <div class="swiper-slide">"The only limit to our realization of tomorrow is our doubts of today." - Franklin D. Roosevelt</div>
+                    <c:forEach var="quote" items="${quotes}">
+                        <div class="swiper-slide">
+                            ${quote.content}
+                        </div>
+                    </c:forEach>
                 </div>
-                <!-- If we need navigation buttons -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
@@ -78,11 +75,10 @@
                 direction: 'horizontal',
                 loop: true,
                 autoplay: {
-                    delay: 2500,
-                    disableOnInteraction: false,
+                    delay: 60000,
+                    disableOnInteraction: false, // 슬라이드를 터치해도 오토플레이가 적용됨.
                 },
 
-                // Navigation arrows
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
@@ -103,10 +99,6 @@
                 <div class="right-inner">
                     <div class="checklist-container">
                         <h3> 체크리스트 </h3>
-                        <div class="checklist-input">
-                            <input type="text" id="task-input" placeholder="할 일을 입력하세요">
-                            <button id="add-task-btn"> 추가 </button>
-                        </div>
                         <ul id="task-list"></ul>
                     </div>
 
@@ -117,36 +109,54 @@
                         </div>
 
                         <script>
+
                             document.addEventListener("DOMContentLoaded", function () {
-                                const ctx = document.getElementById('moodChart').getContext('2d');
 
-                                /*const moodChart = document.getElementById('moodChart');
-                                moodChart.width = 220;  // 원하는 너비(px)
-                                moodChart.height = 150; // 원하는 높이(px)*/
+                                fetch(`mood/scores`)
+                                    .then(response => response.json())
+                                    .then(moodData => {
+                                        console.log("불러온 기분 점수", moodData);
 
-                                new Chart(ctx, {
-                                    type: 'bar',
-                                    data: {
-                                        labels: ['월', '화', '수', '목', '금', '토', '일'], // X축: 요일
-                                        datasets: [{
-                                            label: '기분 점수',
-                                            data: [7, 8, 6, 5, 9, 8, 7], // 예제 기분 점수
-                                            backgroundColor: ['#ff9999', '#ffcc99', '#ffff99', '#99ff99', '#99ccff', '#cc99ff', '#ff99cc'],
-                                            borderColor: '#555',
-                                            borderWidth: 1
-                                        }]
-                                    },
-                                    options: {
-                                        responsive: true, // 반응형 그래프
-                                        scales: {
-                                            y: {
-                                                beginAtZero: true, // Y축 0부터 시작
-                                                max: 10 // 최대 기분 점수 10으로 설정
+                                        let labels = ['월', '화', '수', '목', '금', '토', '일']; // X축: 요일
+                                        let moodScores = new Array(7).fill(0); // 월요일 부터 시작 -> 기본값 0 설정
+
+                                        moodData.forEach(entry => {
+                                            let date = new Date(entry.recorded_at.substring(0, 10)); // ✅ 날짜 변환
+                                            let dayIndex = date.getDay(); // 0: 일요일, 1: 월요일, ..., 6: 토요일
+
+                                            if (dayIndex === 0) dayIndex = 6; // 일요일(0)을 배열 마지막으로 이동
+                                            else dayIndex -= 1; // 요일 인덱스 맞추기 (월~일: 0~6)
+
+                                            moodScores[dayIndex] = entry.emotion_score; // 점수 저장
+                                        });
+
+                                        const ctx = document.getElementById('moodChart').getContext('2d');
+
+                                        new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: labels,
+                                                datasets: [{
+                                                    label: '기분 점수',
+                                                    data: moodScores, // 예제 기분 점수
+                                                    backgroundColor: ['#ff9999', '#ffcc99', '#ffff99', '#99ff99', '#99ccff', '#cc99ff', '#ff99cc'],
+                                                    borderColor: '#555',
+                                                    borderWidth: 1
+                                                }]
+                                            },
+                                            options: {
+                                                responsive: true, // 반응형 그래프
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true, // Y축 0부터 시작
+                                                        max: 100 // 최대 기분 점수 100으로 설정
+                                                    }
+                                                }
                                             }
-                                        }
-                                    }
-                                });
+                                        });
+                                    })
                             });
+
                         </script>
 
                         <div class="chat-connect">

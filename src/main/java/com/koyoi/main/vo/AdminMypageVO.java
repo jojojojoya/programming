@@ -10,6 +10,7 @@ public class AdminMypageVO {
     private String user_id;
     private int user_type;
     private String user_name;
+    private String user_nickname;
     private String user_email;
     private String user_password;
     private String user_img;
