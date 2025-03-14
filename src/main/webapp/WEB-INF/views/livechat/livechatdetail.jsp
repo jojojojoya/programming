@@ -6,8 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/static/css/usermypage/usermypagechatbot.css">
-    <script src="/static/js/usermypage.js"></script>
+    <link rel="stylesheet" href="/static/css/livechat/livechatreservation.css">
 </head>
 <body>
 
@@ -44,29 +43,18 @@
         <main class="content">
 
             <div class="top-section">
-                <div class="chatbot_table">
-                    <!--foreach로 정보구현-->
-                    <div> 챗봇과의 대화 </div>
-                    <div class="chatbot_info">
-                        <div class="chatbot_list"> foreach로</div>
-                        <div class="chatbot_list"> 챗봇 컨텐츠 내용</div>
-                        <div class="chatbot_list"> 챗봇 컨텐츠 내용</div>
-                        <div class="chatbot_list"> 챗봇 컨텐츠 내용</div>
-                    </div>
-                </div>
+                <div class="livechat_table">
+                    <div> LIVE CHAT </div>
+                    <div class="livechat_info">
 
-                <div class="chatbot_detail_table">
-                    <!--foreach로 정보구현-->
-                    <div> 챗봇과의 대화 상세 </div>
-                    <div class="chatbot_info">
-                        <div class="chatbot_list"> foreach로</div>
-                        <div class="chatbot_list"> 챗봇 컨텐츠 내용</div>
-                        <div class="chatbot_list"> 챗봇 컨텐츠 내용</div>
-                        <div class="chatbot_list"> 챗봇 컨텐츠 내용</div>
-                    </div>
-
-            </div>
-
+                        <div id="livechat_step1" class="show">
+                            <div class="livechat_list"> 상담하고 싶은 일정을 선택해주세요. </div>
+                            <input type="date" id="livechat_reserve_date" onchange="showNext('step2')">
+                        </div>
+        </main>
     </div>
 </div>
-</div>
+<script src="/static/js/livechat/livechatreservation.js"></script>
+
+</body>
+</html>
