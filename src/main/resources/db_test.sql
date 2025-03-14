@@ -97,5 +97,5 @@ VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/u
 
 -- TEST_HABIT 테이블 데이터 삽입
 INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
-VALUES (4, 'user4', '물마시기', SYSDATE);
+VALUES (5, 'user5', '식사', SYSDATE);
 select *from TEST_HABIT;
