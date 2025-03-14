@@ -5,9 +5,7 @@ import com.koyoi.main.vo.HabitVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -47,5 +45,21 @@ public class HabitC {
 
         // 추가 후 습관 목록 갱신
         return "redirect:/habit";  // 새로 추가된 습관을 포함한 목록을 다시 로드
+    }
+    // 삭제 요청 처리
+    @DeleteMapping("/delete/{habitId}")
+    @ResponseBody  // JSON 응답을 보낼 수 있게 함
+    public String deleteHabit(@PathVariable int habitId) {
+        String userId = "user1";  // user_id를 "user1"로 고정
+
+        // 해당 습관을 삭제하는 서비스 호출
+        boolean success = habitService.deleteHabit(userId, habitId);
+//        System.out.println("습관 삭제 요청 - userId: " + userId + ", habitId: " + habitId);
+        // 삭제 성공 여부에 따라 JSON 응답 처리
+        if (success) {
+            return "{\"status\":\"success\"}";
+        } else {
+            return "{\"status\":\"fail\"}";
+        }
     }
 }

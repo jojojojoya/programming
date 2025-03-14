@@ -49,12 +49,14 @@
                 <div class="habit-partone">
                     <div class="habit-list">
                         <div class="myhabit">내 습관</div>
+                        <!-- 습관 리스트 출력 부분 -->
                         <div class="myhabit-list">
-                            <!-- HabitVO에서 받은 습관 목록을 반복문을 통해 출력 -->
                             <c:forEach var="habit" items="${habits}">
-                                <div>
+                                <div id="habit-${habit.habit_id}">
                                     <input type="checkbox" id="habit-${habit.habit_id}" />
                                     <label for="habit-${habit.habit_id}">${habit.habit_name}</label>
+                                    <!-- 삭제 버튼 추가 -->
+                                    <button class="delete-btn" onclick="deleteHabit(${habit.habit_id})">삭제</button>
                                 </div>
                             </c:forEach>
                         </div>
@@ -111,5 +113,29 @@
 
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="/static/js/habit/habit.js"></script>
+<script>
+    // 삭제 버튼 클릭 시 호출되는 함수
+    function deleteHabit(habitId) {
+        // 사용자가 삭제를 확인하도록 알림창을 띄울 수도 있습니다.
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            // 삭제 요청을 서버로 보냄
+            fetch('/habit/delete/' + habitId, {
+                method: 'DELETE', // HTTP DELETE 요청
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // 성공적으로 삭제되면 해당 항목을 화면에서 제거
+                        document.getElementById('habit-' + habitId).remove();
+                    } else {
+                        alert('삭제 실패');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }
+</script>
 </body>
 </html>

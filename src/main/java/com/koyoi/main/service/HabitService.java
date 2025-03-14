@@ -21,4 +21,15 @@ public class HabitService {
     public void addHabit(HabitVO habitVO) {
         habitMapper.insertHabit(habitVO);  // HabitMapper에서 DB에 습관 삽입
     }
+    // 습관 삭제
+    public boolean deleteHabit(String userId, int habitId) {
+        // userId를 "user1"로 고정
+        userId = "user1";
+
+        // HabitMapper에서 삭제 처리
+        int result = habitMapper.deleteHabit(userId, habitId);
+
+        // 삭제가 성공하면 1을 반환, 아니면 0을 반환
+        return result > 0;
+    }
 }
