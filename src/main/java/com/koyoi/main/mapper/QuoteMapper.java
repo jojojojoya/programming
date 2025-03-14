@@ -10,7 +10,8 @@ import java.util.List;
 public interface QuoteMapper {
 
 
-    @Select("select * from test_quote")
+    @Select("SELECT Q.quote_id, Q.admin_id, U.user_id, Q.content, Q.created_at " +
+            "FROM TEST_QUOTE Q LEFT JOIN TEST_USER U ON Q.admin_id = U.user_id")
     List<QuoteVO> getAllQuotes();
 
 

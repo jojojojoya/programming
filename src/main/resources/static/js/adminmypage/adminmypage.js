@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(`/admin/userDetail?userId=${userId}`)
                 .then(response => response.json())
                 .then(data => {
-
                     if (data.user_img) {
                         modalUserImg.src = data.user_img.startsWith("/")
                             ? location.origin + data.user_img
@@ -54,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data) {
                         modalUserId.textContent = data.user_id || "";
                         modalUserPassword.value = data.user_password || "";
-                        modalUserName.value = data.user_name || "";
+                        modalUserName.textContent = data.user_name || "";
                         modalUserNickname.value = data.user_nickname || "";
                         modalUserEmail.value = data.user_email || "";
                         modalUserType.textContent = (data.user_type === "counselor") ? "상담사" : "회원";

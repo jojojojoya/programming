@@ -25,7 +25,9 @@ public interface EmotionMapper {
 //    @Delete("DELETE FROM TEST_EMOTION WHERE diary_id = #{diaryId}")
 //    int deleteEmotionByDiaryId(int diaryId);
 
-    @Select("select * from test_emotion where user_id = #{userId} order by recorded_at ASC")
+    @Select("SELECT E.emotion_id, E.user_id, E.diary_id, E.emotion_score, E.emotion_emoji, E.recorded_at " +
+            "FROM TEST_EMOTION E LEFT JOIN TEST_USER U ON E.user_id = U.user_id " +
+            "LEFT JOIN TEST_DIARY D ON E.diary_id = D.diary_id WHERE E.user_id = #{userId} ORDER BY E.recorded_at ASC")
     List<EmotionVO> getAllUserEmotions(String userId);
 
 

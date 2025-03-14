@@ -9,6 +9,9 @@ import java.util.List;
 @Mapper
 public interface AnnouncementMapper {
 
-    @Select("select * from test_announcement ORDER BY created_at DESC")
+    @Select("SELECT A.announcement_id, A.admin_id, U.user_id, A.title, A.content, A.created_at " +
+            "FROM TEST_ANNOUNCEMENT A LEFT JOIN TEST_USER U ON A.admin_id = U.user_id ORDER BY A.created_at DESC")
     List<AnnouncementVO> getAllAnnouncements();
+
+
 }

@@ -63,13 +63,13 @@
             align-items: center;
             border: 1px solid #ddd;
             cursor: pointer;
-            font-size: 16px; /* 날짜 크기 유지 */
+            font-size: 16px;
             background-color: #f9f9f9;
             position: relative;
         }
 
         .calendar-day span {
-            font-size: 24px; /* ✅ 이모지 크기 키우기 */
+            font-size: 24px;
             line-height: 1;
         }
 
