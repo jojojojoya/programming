@@ -9,6 +9,7 @@ public class QuoteVO {
 
     private int quote_id;
     private String admin_id;
+    private String user_id;
     private String content;
     private LocalDateTime created_at;
 
