@@ -1,103 +1,68 @@
-let currentMode = "daily";
+let currentMode = "daily"; // 초기 모드는 Daily
 let currentDate = new Date();
+let emotionMap = {}; // 감정 데이터를 저장
 
 document.getElementById("prevCalendar").addEventListener("click", switchCalendar);
 document.getElementById("nextCalendar").addEventListener("click", switchCalendar);
 
+// Daily <-> Weekly 전환
 function switchCalendar() {
     if (currentMode === "daily") {
-        document.getElementById("daily-calendar").style.display = "none";
-        document.getElementById("weekly-calendar").style.display = "block";
         document.getElementById("calendar-title").innerText = "Weekly";
-        generateWeeklyCalendar();
         currentMode = "weekly";
     } else {
-        document.getElementById("daily-calendar").style.display = "block";
-        document.getElementById("weekly-calendar").style.display = "none";
         document.getElementById("calendar-title").innerText = "Daily";
-        generateDailyCalendar();
         currentMode = "daily";
     }
+    generateCalendar();
 }
 
-function prevMonth() {
+// 이전/다음 달 이동
+document.getElementById("prevMonth").addEventListener("click", function () {
     currentDate.setMonth(currentDate.getMonth() - 1);
-    if (currentMode === "daily") {
-        generateDailyCalendar();
-    } else {
-        generateWeeklyCalendar();
-    }
-}
+    generateCalendar();
+});
 
-function nextMonth() {
+document.getElementById("nextMonth").addEventListener("click", function () {
     currentDate.setMonth(currentDate.getMonth() + 1);
-    if (currentMode === "daily") {
-        generateDailyCalendar();
-    } else {
-        generateWeeklyCalendar();
-    }
+    generateCalendar();
+});
+
+// 감정 데이터를 한 번만 가져오기
+function fetchEmotions() {
+    fetch(`/calendar/emotions`)
+        .then(response => response.json())
+        .then(emotionData => {
+            emotionMap = {};
+            emotionData.forEach(event => {
+                let formattedDate = event.recorded_at.substring(0, 10);
+                emotionMap[formattedDate] = event.emotion_emoji;
+            });
+            generateCalendar();
+        })
+        .catch(error => console.error("❌ 감정 데이터를 불러오지 못했습니다.", error));
 }
 
-function generateDailyCalendar() {
-    generateCalendar("daily-calendar-grid", "month-year", true); // 이모지 포함
-}
-
-function generateWeeklyCalendar() {
-    generateCalendar("weekly-calendar-grid", "week-range", false); // 이모지 없음
-}
-
-// 공통 달력
-function generateCalendar(calendarId, titleId, loadEmotions) {
-    let calendarEl = document.getElementById(calendarId);
-    let monthYearEl = document.getElementById(titleId);
-
-    if (!calendarEl || !monthYearEl) {
-        console.error(`❌ ${calendarId} 요소를 찾을 수 없습니다.`);
-        return;
-    }
+function generateCalendar() {
+    let calendarEl = document.getElementById("calendar-grid");
+    let monthYearEl = document.getElementById("calendar-month-year");
 
     let year = currentDate.getFullYear();
     let month = currentDate.getMonth() + 1;
     let formattedMonth = `${year}-${String(month).padStart(2, '0')}`;
 
     monthYearEl.innerText = `${year}년 ${month}월`;
+    calendarEl.innerHTML = "";
 
     let firstDay = new Date(year, month - 1, 1).getDay();
     let lastDate = new Date(year, month, 0).getDate();
     let prevLastDate = new Date(year, month - 1, 0).getDate();
-
-    calendarEl.innerHTML = "";
     let totalCells = 0;
+
     let today = new Date();
-    let emotionMap = {};
+    let todayFormatted = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
-    // 감정 데이터 불러오기 (데일리만 실행)
-    if (loadEmotions) {
-        fetch(`/calendar/emotions`)
-            .then(response => response.json())
-            .then(emotionData => {
-                emotionData.forEach(event => {
-                    let formattedDate = event.recorded_at.substring(0, 10);
-                    emotionMap[formattedDate] = event.emotion_emoji;
-                });
-
-                drawCalendar(firstDay, lastDate, prevLastDate, formattedMonth, emotionMap, calendarEl);
-            })
-            .catch(error => console.error("❌ 감정 데이터를 불러오지 못했습니다.", error));
-    } else {
-        drawCalendar(firstDay, lastDate, prevLastDate, formattedMonth, {}, calendarEl);
-    }
-}
-
-// 달력 UI 생성 함수
-function drawCalendar(firstDay, lastDate, prevLastDate, formattedMonth, emotionMap, calendarEl) {
-    let totalCells = 0;
-    let today = new Date();
-    let todayYear = today.getFullYear();
-    let todayMonth = today.getMonth() + 1;
-    let todayDate = today.getDate();
-
-    // 이전 달 빈칸 채우기
+    // 이전 달 빈칸
     for (let i = firstDay - 1; i >= 0; i--) {
         let emptyDiv = document.createElement("div");
         emptyDiv.classList.add("calendar-day", "inactive");
@@ -106,66 +71,38 @@ function drawCalendar(firstDay, lastDate, prevLastDate, formattedMonth, emotionM
         totalCells++;
     }
 
-    // 이번 달 날짜 채우기
+    // 이번 달 날짜
     for (let date = 1; date <= lastDate; date++) {
         let dayDiv = document.createElement("div");
         dayDiv.classList.add("calendar-day");
         let formattedDate = `${formattedMonth}-${String(date).padStart(2, '0')}`;
 
-        // 감정 데이터가 있는 경우 이모지 표시 (데일리 달력만 해당)
-        if (emotionMap[formattedDate]) {
+        if (currentMode === "daily" && emotionMap[formattedDate]) {
             dayDiv.innerHTML = `<span>${emotionMap[formattedDate]}</span>`;
         } else {
             dayDiv.innerText = date;
         }
-
-        let selectedDate = new Date(`${formattedDate}T00:00:00`);
-
-        // 오늘 날짜 강조
-        if (todayYear === selectedDate.getFullYear() &&
-            todayMonth === selectedDate.getMonth() + 1 &&
-            todayDate === selectedDate.getDate()) {
-            dayDiv.style.backgroundColor = "#FFD27A";
+        
+        if (formattedDate === todayFormatted) {
+            dayDiv.classList.add("today");
         }
 
-        dayDiv.style.cursor = "pointer";
-
-        // 날짜 클릭 이벤트 추가
         dayDiv.addEventListener("click", function () {
-            if (selectedDate > today) {
-                alert("미래의 일기는 작성할 수 없습니다.");
-            } else {
-                window.location.href = `/diary?date=${formattedDate}`;
-            }
+            window.location.href = `/diary?date=${formattedDate}`;
         });
 
         calendarEl.appendChild(dayDiv);
         totalCells++;
     }
 
-    // 다음 달 빈칸 채우기 (달력 칸 6주 유지)
-    let nextMonthDate = 1;
+    // 다음 달 빈칸
     while (totalCells < 42) {
         let emptyDiv = document.createElement("div");
         emptyDiv.classList.add("calendar-day", "inactive");
-        emptyDiv.innerText = nextMonthDate;
+        emptyDiv.innerText = totalCells - lastDate - firstDay + 1;
         calendarEl.appendChild(emptyDiv);
-        nextMonthDate++;
         totalCells++;
     }
 }
 
-function prevWeek() {
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    generateWeeklyCalendar();
-}
-
-function nextWeek() {
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    generateWeeklyCalendar();
-}
-
-// 페이지 로드 시 자동 실행
-document.addEventListener("DOMContentLoaded", function() {
-    generateDailyCalendar();
-});
+document.addEventListener("DOMContentLoaded", fetchEmotions);
