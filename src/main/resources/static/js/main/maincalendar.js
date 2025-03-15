@@ -82,7 +82,7 @@ function generateCalendar() {
         } else {
             dayDiv.innerText = date;
         }
-        
+
         if (formattedDate === todayFormatted) {
             dayDiv.classList.add("today");
         }
