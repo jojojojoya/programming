@@ -23,11 +23,14 @@ public class AdminMypageService {
         return adminMypageMapper.getAllCounselors();
     }
 
+    // 상세 정보 조회
     public AdminMypageVO getUserById(String userId) {
         return adminMypageMapper.getUserById(userId);
     }
 
-    public int updateUser(AdminMypageVO user) {
-        return adminMypageMapper.updateUser(user);
+    // 삭제
+    public int deleteUserById(String userId) {
+        System.out.println("🟡 데이터베이스에서 삭제 시도: " + userId); // 확인 로그 추가
+        return adminMypageMapper.deleteUserById(userId);
     }
 }

@@ -92,8 +92,7 @@ select * from TEST_USER;
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
-<<<<<<< HEAD
--- >>>>>>> 9ce381165894c55d2627bf310e0348c139fa15e2
+
 
 
 -- TEST_HABIT 테이블 데이터 삽입
@@ -136,4 +135,9 @@ VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일
 
 select * from TEST_ANNOUNCEMENT;
 select * from TEST_DIARY;
->>>>>>> 0279cb5128ea21b8cf09f22d45ad1effff2295dc
+
+INSERT INTO TEST_USER (user_id, user_type, user_name, user_nickname, user_email, user_password, user_img, created_at)
+VALUES ('test01', 1, 'test01','삭제 테스트', 'test01@example.com', 'test01', '/imgsource/usermypage_profiletest.jpg', sysdate);
+
+INSERT INTO TEST_USER (user_id, user_type, user_name, user_nickname, user_email, user_password, user_img, created_at)
+VALUES ('test02', 2, 'test02','삭제 테스트', 'test02@example.com', 'test02', '/imgsource/usermypage_profiletest.jpg', sysdate);

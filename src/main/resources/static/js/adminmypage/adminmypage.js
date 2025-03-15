@@ -42,10 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(`/admin/userDetail?userId=${userId}`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log("불러온 이미지 경로:", data.user_img); // 경로 확인용
                     if (data.user_img) {
-                        modalUserImg.src = data.user_img.startsWith("/")
-                            ? location.origin + data.user_img
-                            : data.user_img;
+                        modalUserImg.src = `/static/${data.user_img}`;
                     } else {
                         modalUserImg.src = "/static/imgsource/testprofile.png"; // 기본 이미지
                     }
@@ -66,43 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 유저 삭제
-    deleteUser.addEventListener("click", function () {
-        const userId = modalUserId.textContent; // 모달에서 현재 유저 ID 가져오기
-
-        if (!userId) {
-            alert("삭제할 사용자 ID가 없습니다.");
-            return;
-        }
-
-        if (!confirm("정말 삭제하시겠습니까?")) {
-            return; // 취소 버튼을 누르면 삭제 중단
-        }
-
-        // API 호출하여 사용자 삭제 요청 보내기
-        fetch(`/admin/deleteUser?userId=${userId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("삭제 실패");
-                }
-                return response.json();
-            })
-            .then(data => {
-                alert(data.message || "사용자가 삭제되었습니다.");
-                modal.style.display = "none"; // 모달 닫기
-                location.reload(); // 페이지 새로고침
-            })
-            .catch(error => {
-                console.error("Error deleting user:", error);
-                alert("삭제 중 오류가 발생했습니다.");
-            });
-    });
-
 
     closeBtn.addEventListener("click", function () {
         modal.style.display = "none";
@@ -115,3 +77,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+document.addEventListener("click", function (event) {
+    // 클릭된 요소가 deleteUser 버튼인지 확인
+    if (event.target && event.target.id === "deleteUser") {
+        const userId = document.getElementById("modalUserId").textContent;
+
+        if (!confirm("정말로 삭제하시겠습니까?")) {
+            return;
+        }
+
+        fetch(`/admin/deleteUser?userId=${userId}`, {
+            method: "DELETE"
+        })
+            .then(response => {
+                return response.text();
+            })
+            .then(result => {
+                if (result === "1") {
+                    alert("삭제 성공했습니다.");
+                    location.reload(); // 삭제 성공 시 새로고침
+                } else {
+                    alert("삭제에 실패했습니다. 다시 시도해주세요.");
+                }
+            })
+            .catch(error => console.error("삭제 요청 실패:", error));
+    }
+});
+

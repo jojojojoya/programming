@@ -111,7 +111,7 @@
                     <h2 id="modalTitle">회원 상세 정보</h2>
 
                     <div class="profile-container">
-                        <img id="modalUserImg" src="/static/imgsource/testprofile.png" alt="profile">
+                        <img id="modalUserImg" alt="profile">
                     </div>
 
                     <table>
