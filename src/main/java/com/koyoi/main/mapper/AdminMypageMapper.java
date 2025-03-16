@@ -19,4 +19,7 @@ public interface AdminMypageMapper {
 
     @Delete("delete from test_user where user_id = #{userId}")
     int deleteUserById(String userId);
+
+    @Update("update test_user set user_password = #{user_password}, user_nickname = #{user_nickname}, user_email = #{user_email} where user_id = #{user_id}")
+    int updateUser(AdminMypageVO adminMypageVO);
 }

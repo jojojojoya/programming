@@ -105,3 +105,38 @@ document.addEventListener("click", function (event) {
     }
 });
 
+document.addEventListener("click", function (event) {
+    if (event.target && event.target.id === "updateUser") {
+        const userId = document.getElementById("modalUserId").textContent;
+        const updatedPassword = document.getElementById("modalUserPassword").value;
+        const updatedNickname = document.getElementById("modalUserNickname").value;
+        const updatedEmail = document.getElementById("modalUserEmail").value;
+
+        if (!confirm("정말로 정보를 수정하시겠습니까?")) {
+            return;
+        }
+
+        const userData = {
+            user_id: userId,
+            user_password: updatedPassword,
+            user_nickname: updatedNickname,
+            user_email: updatedEmail
+        };
+
+        fetch(`/admin/updateUser`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData)
+        })
+            .then(response => response.text())
+            .then(result => {
+                if (result === "1") {
+                    alert("수정 성공했습니다.");
+                    location.reload();
+                } else {
+                    alert("수정에 실패했습니다. 다시 시도해주세요.");
+                }
+            })
+            .catch(error => console.error("수정 요청 실패:", error));
+    }
+});

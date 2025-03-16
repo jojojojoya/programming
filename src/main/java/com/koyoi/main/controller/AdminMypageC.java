@@ -38,8 +38,11 @@ public class AdminMypageC {
         return adminMypageService.deleteUserById(userId);
     }
 
-
-
+    @PostMapping("/admin/updateUser")
+    @ResponseBody
+    public int updateUser(@RequestBody AdminMypageVO adminMypageVO) {
+        return adminMypageService.updateUser(adminMypageVO);
+    }
 
 
 }

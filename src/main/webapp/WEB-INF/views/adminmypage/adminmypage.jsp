@@ -125,7 +125,7 @@
                     </table>
 
                     <div class="modal-buttons">
-                        <button id="saveUserChanges"> 수정 </button>
+                        <button id="updateUser"> 수정 </button>
                         <button id="deleteUser"> 삭제 </button>
                     </div>
                 </div>

@@ -30,7 +30,10 @@ public class AdminMypageService {
 
     // 삭제
     public int deleteUserById(String userId) {
-        System.out.println("🟡 데이터베이스에서 삭제 시도: " + userId); // 확인 로그 추가
         return adminMypageMapper.deleteUserById(userId);
+    }
+
+    public int updateUser(AdminMypageVO adminMypageVO) {
+        return adminMypageMapper.updateUser(adminMypageVO);
     }
 }
