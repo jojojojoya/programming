@@ -9,6 +9,7 @@
 <head>
     <title>KOYOI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/static/css/adminmypage/adminmypage.css">
     <script src="/static/js/adminmypage/adminmypage.js"></script>
 </head>
@@ -116,7 +117,12 @@
 
                     <table>
                         <tr><th>ID</th> <td id="modalUserId"></td></tr>
-                        <tr><th>비밀번호</th> <td><input type="password" id="modalUserPassword"></td></tr>
+                        <tr><th>비밀번호</th>
+                            <td>
+                                <input type="password" id="modalUserPassword">
+                                <i class="fa-solid fa-eye password-toggle"></i>
+                            </td>
+                        </tr>
                         <tr><th>이름</th> <td id="modalUserName"></td></tr>
                         <tr><th>닉네임</th> <td><input type="text" id="modalUserNickname"></td></tr>
                         <tr><th>이메일</th> <td><input type="email" id="modalUserEmail"></td></tr>

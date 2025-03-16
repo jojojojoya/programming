@@ -21,6 +21,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("userDetailModal");
     const closeBtn = document.querySelector(".close");
 
+    const passwordInput = document.getElementById("modalUserPassword");
+    const toggleIcon = document.querySelector(".password-toggle");
+
+    toggleIcon.addEventListener("click", function () {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash"); // 눈 감은 아이콘
+        } else {
+            passwordInput.type = "password";
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye"); // 눈 뜬 아이콘
+        }
+    });
+
     // 모달 내부 요소
     const modalUserId = document.getElementById("modalUserId");
     const modalUserPassword = document.getElementById("modalUserPassword");
