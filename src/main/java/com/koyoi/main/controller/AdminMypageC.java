@@ -44,5 +44,4 @@ public class AdminMypageC {
         return adminMypageService.updateUser(adminMypageVO);
     }
 
-
 }

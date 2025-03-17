@@ -62,14 +62,14 @@
                 <tbody id="userTableBody">
                 <c:set var="totalUsers" value="${fn:length(users)}" />
                 <c:forEach var="user" items="${users}" varStatus="status">
-                    <tr class="user-detail-btn" data-user-id="${user.user_id}">
+                    <tr class="user-detail-btn" data-user-id="${user.user_id}" >
                         <td>${totalUsers - status.index}</td>
                         <td>${user.user_id}
                             <%--<span class="user-detail-btn" data-user-id="${user.user_id}">${user.user_id}</span>--%>
                         </td>
                         <td>${user.user_name}</td>
-                        <td>${user.user_nickname}</td>
-                        <td>${user.user_email}</td>
+                        <td class="nickname">${user.user_nickname}</td>
+                        <td class="email">${user.user_email}</td>
                         <td>${user.formattedCreatedAt}</td>
                     </tr>
                 </c:forEach>
@@ -97,8 +97,8 @@
                             <%--<span class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">${counselor.user_id}</span>--%>
                         </td>
                         <td>${counselor.user_name}</td>
-                        <td>${counselor.user_nickname}</td>
-                        <td>${counselor.user_email}</td>
+                        <td class="nickname">${counselor.user_nickname}</td>
+                        <td class="email">${counselor.user_email}</td>
                         <td>${counselor.formattedCreatedAt}</td>
                     </tr>
                 </c:forEach>
