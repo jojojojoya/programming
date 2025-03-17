@@ -143,3 +143,4 @@ INSERT INTO TEST_USER (user_id, user_type, user_name, user_nickname, user_email,
 VALUES ('test02', 2, 'test02','수정 테스트', 'test02@example.com', 'test02', '/imgsource/usermypage_profiletest.jpg', sysdate);
 
 select * from TEST_USER;
+select * from TEST_EMOTION;

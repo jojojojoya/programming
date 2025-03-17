@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         counselorTable.style.display = "table";
     });
 
+
     // 상세 정보 모달
     const userDetailButtons = document.querySelectorAll(".user-detail-btn");
     const modal = document.getElementById("userDetailModal");
@@ -80,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-
+    // 모달 창 닫기 (X 버튼, 모달 창 바깥 클릭)
     closeBtn.addEventListener("click", function () {
         modal.style.display = "none";
     });
@@ -93,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+// 유저 정보 삭제
 document.addEventListener("click", function (event) {
     // 클릭된 요소가 deleteUser 버튼인지 확인
     if (event.target && event.target.id === "deleteUser") {
@@ -111,7 +113,7 @@ document.addEventListener("click", function (event) {
             .then(result => {
                 if (result === "1") {
                     alert("삭제 성공했습니다.");
-                    location.reload(); // 삭제 성공 시 새로고침
+                    location.reload();
                 } else {
                     alert("삭제에 실패했습니다. 다시 시도해주세요.");
                 }
@@ -120,6 +122,7 @@ document.addEventListener("click", function (event) {
     }
 });
 
+// 유저 정보 수정
 document.addEventListener("click", function (event) {
     if (event.target && event.target.id === "updateUser") {
         const userId = document.getElementById("modalUserId").textContent;
@@ -127,7 +130,7 @@ document.addEventListener("click", function (event) {
         const updatedNickname = document.getElementById("modalUserNickname").value;
         const updatedEmail = document.getElementById("modalUserEmail").value;
 
-        if (!confirm("정말로 정보를 수정하시겠습니까?")) {
+        if (!confirm("정말로 수정하시겠습니까?")) {
             return;
         }
 
@@ -146,7 +149,7 @@ document.addEventListener("click", function (event) {
             .then(response => response.text())
             .then(result => {
                 if (result === "1") {
-                    alert("수정 성공했습니다.");
+                    alert("수정했습니다.");
                     location.reload();
                 } else {
                     alert("수정에 실패했습니다. 다시 시도해주세요.");
