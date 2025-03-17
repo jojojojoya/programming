@@ -88,7 +88,16 @@ function generateCalendar() {
         }
 
         dayDiv.addEventListener("click", function () {
-            window.location.href = `/diary?date=${formattedDate}`;
+            let selectedDate = new Date(`${formattedDate}T00:00:00`); // 클릭한 날짜 객체 변환
+
+            if (selectedDate > today) {
+                alert("미래의 일기는 작성할 수 없습니다.");
+                return;
+            }
+
+            sessionStorage.setItem("selectedDate", formattedDate);
+            // 달력과 연동 위해서 sessionStorage 사용. 브라우저 닫으면 없어짐.
+            window.location.href = `/diary`;
         });
 
         calendarEl.appendChild(dayDiv);
