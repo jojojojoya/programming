@@ -1,25 +1,20 @@
 package com.koyoi.main.controller;
 
 import com.koyoi.main.service.LiveChatService;
-import com.koyoi.main.service.UserMyPageService;
 import com.koyoi.main.vo.LiveChatVO;
-import com.koyoi.main.vo.UserMyPageVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 @Controller
 public class LiveChatC {
@@ -27,67 +22,302 @@ public class LiveChatC {
     @Autowired
     private LiveChatService liveChatService;
 
-    // "입장하기" 버튼이 필요한 상담 조회
+    // ✅ "입장하기" 버튼이 필요한 상담 조회
     @GetMapping("/available")
-    public List<LiveChatVO> getAvailableReservations() {
-        return liveChatService.getAvailableReservations();
+    public ResponseEntity<List<LiveChatVO>> getAvailableReservations() {
+        liveChatService.updateReservationsStatus(); // 상담 상태 업데이트 반영
+        List<LiveChatVO> reservations = liveChatService.getAvailableReservations();
 
+        if (reservations.isEmpty()) {
+            System.out.println("⚠️ 예약된 상담 없음.");
+        } else {
+            System.out.println("🔍 예약된 상담 개수: " + reservations.size());
+        }
+
+        return ResponseEntity.ok(reservations);
     }
 
+    // ✅ 상담 예약 페이지
     @GetMapping("/livechatreservation")
     public String showLiveChatReservations(Model model) {
+        liveChatService.updateReservationsStatus(); // 상담 상태 최신화
         List<LiveChatVO> availableReservations = liveChatService.getAvailableReservations();
         model.addAttribute("availableReservations", availableReservations);
         return "/livechat/livechatreservation";
     }
+
+    // ✅ 특정 상담 상세 페이지
     @GetMapping("/livechatdetail")
-    public String showLiveChatDetails(Model model) {
-        List<LiveChatVO> livechattings = liveChatService.getAvailableReservations();
-        model.addAttribute("livechattings", livechattings);
+    public String showLiveChatDetails(@RequestParam("reservationId") int counselingId, Model model) {
+        LiveChatVO counselingDetail = liveChatService.getCounselingDetail(counselingId);
+
+        if (counselingDetail == null) {
+            return "redirect:/usermypage"; // 상담 정보 없으면 마이페이지로 리디렉트
+        }
+
+        model.addAttribute("counseling", counselingDetail);
+        model.addAttribute("chatLogs", liveChatService.getChatLogs(counselingDetail.getSession_id()));
+
+        boolean isCompleted = "완료".equals(counselingDetail.getStatus());
+        model.addAttribute("isCompleted", isCompleted);
+
         return "/livechat/livechatdetail";
     }
+//    @PostMapping("/livechatreservation")
+//    public ResponseEntity<Map<String, Object>> reserveLiveChat(@RequestBody Map<String, String> request, HttpSession session) {
+//        String userId = (String) session.getAttribute("user_id");
+//        if (userId == null || userId.isEmpty()) {
+//            userId = "user5";  // 기본 유저 "user5" 유지
+//        }
+//
+//        try {
+//            // ✅ 1. 날짜 확인
+//            if (request.get("livechatreservedate") == null || request.get("livechatreservedate").isEmpty()) {
+//                System.out.println("❌ [오류] 예약 날짜가 비어 있음!");
+//                return ResponseEntity.badRequest().body(Map.of("success", false, "message", "날짜가 비어 있습니다."));
+//            }
+//
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            LocalDate localDate = LocalDate.parse(request.get("livechatreservedate"), formatter);
+//            java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+//
+//            // ✅ 2. 시간 확인 및 변환
+//            if (request.get("livechatreservetime") == null || request.get("livechatreservetime").isEmpty()) {
+//                System.out.println("❌ [오류] 예약 시간이 비어 있음!");
+//                return ResponseEntity.badRequest().body(Map.of("success", false, "message", "시간이 비어 있습니다."));
+//            }
+//
+//            String timeString = request.get("livechatreservetime").trim();
+//            System.out.println("🔍 [예약 시간 요청] " + timeString);
+//
+//            int counselingTime;
+//            try {
+//                counselingTime = Integer.parseInt(timeString.split(":")[0]);  // "23:00" → 23 변환
+//            } catch (NumberFormatException e) {
+//                System.out.println("❌ [오류] 예약 시간 변환 실패! 잘못된 형식: " + timeString);
+//                return ResponseEntity.badRequest().body(Map.of("success", false, "message", "올바른 시간 형식이 아닙니다."));
+//            }
+//
+//            System.out.println("🕒 변환된 예약 시간: " + counselingTime);
+//
+//            // ✅ 3. 시간 범위 검증 (10~23)
+//            if (counselingTime < 10 || counselingTime > 23) {
+//                System.out.println("❌ [오류] 유효하지 않은 시간 선택!");
+//                return ResponseEntity.badRequest().body(Map.of("success", false, "message", "유효한 시간이 아닙니다."));
+//            }
+//
+//            // ✅ 4. 카테고리 확인
+//            String category = request.get("livechatcategory");
+//            if (category == null || category.isEmpty()) {
+//                System.out.println("❌ [오류] 카테고리가 비어 있음!");
+//                return ResponseEntity.badRequest().body(Map.of("success", false, "message", "카테고리가 비어 있습니다."));
+//            }
+//
+//            // ✅ 5. 예약 데이터 생성
+//            LiveChatVO reservation = new LiveChatVO();
+//            reservation.setUser_id(userId);
+//            reservation.setCounseling_date(sqlDate);
+//            reservation.setCounseling_time(counselingTime);
+//            reservation.setCategory(category);
+//            reservation.setStatus("대기");
+//            reservation.setCounselor_id("counselor001");
+//
+//            System.out.println("🔹 [예약 요청] 사용자 ID: " + userId);
+//            System.out.println("🔹 예약 날짜: " + sqlDate);
+//            System.out.println("🔹 예약 시간: " + counselingTime);
+//            System.out.println("🔹 카테고리: " + category);
+//
+//            // ✅ 6. 상담 예약 시도
+//            boolean isReserved = liveChatService.reserveCounseling(reservation);
+//
+//            if (isReserved) {
+//                liveChatService.updateReservationsStatus();
+//                System.out.println("✅ 상담 예약 성공: " + reservation.getCounseling_id());
+//                return ResponseEntity.ok(Map.of("success", true, "message", "예약이 완료되었습니다."));
+//            } else {
+//                System.out.println("⚠️ 상담 예약 실패 - DB 오류");
+//                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                        .body(Map.of("success", false, "message", "예약에 실패했습니다."));
+//            }
+//        } catch (Exception e) {
+//            System.err.println("🚨 서버 오류 발생: " + e.getMessage());
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(Map.of("success", false, "message", "서버 오류가 발생했습니다."));
+//        }
+//    }
 
-    // "완료된 상담" 버튼이 필요한 상담 조회
-    @GetMapping("/completed")
-    public List<LiveChatVO> getCompletedReservations() {
-        return liveChatService.getCompletedReservations();
+    @PostMapping("/livechatreservation")
+    public ResponseEntity<Map<String, Object>> reserveLiveChat(@RequestBody Map<String, String> request, HttpSession session) {
+        String userId = (String) session.getAttribute("user_id");
+        if (userId == null || userId.isEmpty()) {
+            userId = "user5";  // 기본 유저 "user5" 유지
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(request.get("livechatreservedate"), formatter);
+            java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+
+            int counselingTime = Integer.parseInt(request.get("livechatreservetime").split(":")[0]);
+            String category = request.get("livechatcategory");
+
+            LiveChatVO reservation = new LiveChatVO();
+            reservation.setUser_id(userId);
+            reservation.setCounseling_date(sqlDate);
+            reservation.setCounseling_time(counselingTime);
+            reservation.setCategory(category);
+            reservation.setStatus("대기");
+            reservation.setCounselor_id("counselor001");
+
+            boolean isReserved = liveChatService.reserveCounseling(reservation);
+
+            if (isReserved) {
+                liveChatService.updateReservationsStatus();
+                System.out.println("✅ 상담 예약 성공: " + reservation.getCounseling_id());
+
+                // ✅ 상담 ID도 함께 반환
+                return ResponseEntity.ok(Map.of(
+                        "success", true,
+                        "message", "예약이 완료되었습니다.",
+                        "counseling_id", reservation.getCounseling_id()
+                ));
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Map.of("success", false, "message", "예약에 실패했습니다."));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("success", false, "message", "서버 오류가 발생했습니다."));
+        }
     }
 
-    // 상담 예약하기 로직
-    @PostMapping("/livechatreservation")
-    public ResponseEntity<?> reserveLiveChat(@RequestBody Map<String, String> request, HttpSession session) {
-        //  로그인된 유저가 없다면 기본값 "user5" 설정
-        String userId = (String) session.getAttribute("user_id");
-        if (userId == null) {
-            userId = "user5";  // 🔥 기본 유저 "user5" 사용
+
+    // ✅ 채팅 로그 조회 API
+    @GetMapping("/chatlogs")
+    public ResponseEntity<List<LiveChatVO>> getChatLogs(@RequestParam int sessionId) {
+        if (sessionId <= 0) {
+            return ResponseEntity.badRequest().body(null);
         }
 
-        System.out.println("현재 예약하는 유저 ID: " + userId); // 디버깅용 출력
-
-        // 날짜 변환 (String → java.sql.Date)
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(request.get("livechatreservedate"), formatter);
-        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate); // ✅ SQL DATE로 변환
-
-        // 시간 변환 (String → int)
-        int counselingTime = Integer.parseInt(request.get("livechatreservetime").split(":")[0]);
-        String category = request.get("livechatcategory");
-
-        // 예약 객체 생성
-        LiveChatVO reservation = new LiveChatVO();
-        reservation.setUser_id(userId);
-        reservation.setCounseling_date(sqlDate);  // ✅ DB 저장 가능하도록 SQL Date 사용
-        reservation.setCounseling_time(counselingTime);
-        reservation.setCategory(category);
-        reservation.setStatus("대기"); // 기본값: 대기
-        reservation.setCounselor_id("counselor001"); // 상담사 배정 (임시)
-
-        // 예약 처리
-        boolean isReserved = liveChatService.reserveCounseling(reservation);
-
-        if (isReserved) {
-            return ResponseEntity.ok(Map.of("success", true, "message", "예약이 완료되었습니다."));
+        List<LiveChatVO> chatLogs = liveChatService.getChatLogs(sessionId);
+        if (chatLogs.isEmpty()) {
+            System.out.println("⚠️ 채팅 로그 없음: session_id=" + sessionId);
         } else {
-            return ResponseEntity.ok(Map.of("success", false, "message", "예약에 실패했습니다."));
+            System.out.println("💬 채팅 로그 개수: " + chatLogs.size());
         }
-    }}
+
+        return ResponseEntity.ok(chatLogs);
+    }
+
+    // ✅ 채팅 메시지 저장 API
+    @PostMapping("/chatmessage")
+    public ResponseEntity<Map<String, Object>> saveChatMessage(@RequestBody LiveChatVO message) {
+        liveChatService.saveChatMessage(message);
+        System.out.println("✅ 채팅 메시지 저장 완료: " + message.getContent());
+        return ResponseEntity.ok(Map.of("success", true, "message", "채팅 메시지 저장 완료"));
+    }
+
+    @GetMapping("/updateWaitingStatus")
+    public ResponseEntity<Map<String, Object>> updateWaitingStatus() {
+        liveChatService.updateWaitingStatus();
+        return ResponseEntity.ok(Map.of("success", true, "message", "대기 상태 업데이트 완료"));
+    }
+
+    // ✅ 상담 상태 업데이트 (완료 상태)
+    @GetMapping("/updateCompletedStatus")
+    public ResponseEntity<Map<String, Object>> updateCompletedStatus() {
+        liveChatService.updateCompletedStatus();
+        return ResponseEntity.ok(Map.of("success", true, "message", "완료 상태 업데이트 완료"));
+    }
+
+    // ✅ 상담 완료 처리 API
+    @PostMapping("/completeCounseling")
+    public ResponseEntity<Map<String, Object>> completeCounseling(@RequestBody Map<String, Integer> request) {
+        Integer counselingId = request.get("counseling_id");
+
+        if (counselingId == null || counselingId <= 0) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "message", "잘못된 상담 ID"));
+        }
+
+        int updatedCount = liveChatService.completeCounseling(counselingId);
+
+        if (updatedCount > 0) {
+            System.out.println("✅ 상담 완료: " + counselingId);
+            return ResponseEntity.ok(Map.of("success", true, "message", "상담이 완료되었습니다.", "updatedCount", updatedCount));
+        } else {
+            System.out.println("⚠️ 상담 완료 실패: " + counselingId);
+            return ResponseEntity.status(500).body(Map.of("success", false, "message", "DB 업데이트 실패"));
+        }
+    }
+
+    //    @PostMapping("/updateStatus")
+//    public ResponseEntity<?> updateStatus(@RequestBody Map<String, Object> request) {
+//        try {
+//            int counselingId = (int) request.get("counseling_id");
+//            String status = (String) request.get("status");
+//
+//            int result = liveChatService.updateReservationStatus(counselingId, status);
+//            if (result > 0) {
+//                return ResponseEntity.ok(Map.of("success", true, "message", "상담 상태 업데이트 성공"));
+//            } else {
+//                return ResponseEntity.ok(Map.of("success", false, "message", "상담 상태 업데이트 실패"));
+//            }
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(Map.of("success", false, "error", e.getMessage()));
+//        }
+//    }
+//
+//}
+//    @PostMapping("/livechat/updateStatus")
+//    public ResponseEntity<?> updateStatus(@RequestBody Map<String, Object> request) {
+//        try {
+//            int counselingId = (int) request.get("counseling_id");
+//            String status = (String) request.get("status");
+//
+//            System.out.println("📌 [서버] 상담 ID: " + counselingId + ", 변경할 상태: " + status);
+//
+//            if (!status.equals("대기") && !status.equals("취소됨")) {
+//                return ResponseEntity.badRequest().body(Map.of("success", false, "message", "잘못된 상태 값입니다."));
+//            }
+//
+//            int result = liveChatService.updateReservationStatus(counselingId, status);
+//            if (result > 0) {
+//                return ResponseEntity.ok(Map.of("success", true, "message", "상담 상태 업데이트 성공"));
+//            } else {
+//                return ResponseEntity.ok(Map.of("success", false, "message", "상담 상태 업데이트 실패"));
+//            }
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(Map.of("success", false, "error", e.getMessage()));
+//        }
+//    }}
+
+    @PostMapping("/livechat/updateStatus")
+    public ResponseEntity<?> updateStatus(@RequestBody Map<String, Object> request) {
+        try {
+            Integer counselingId = (Integer) request.get("counseling_id");
+            String status = (String) request.get("status");
+
+            if (counselingId == null || status == null) {
+                return ResponseEntity.badRequest().body(Map.of("success", false, "message", "상담 ID 또는 상태가 누락되었습니다."));
+            }
+
+            System.out.println("📌 [서버] 상담 ID: " + counselingId + ", 변경할 상태: " + status);
+
+            boolean result = liveChatService.updateReservationStatus(counselingId, status);
+            if (result) {
+                return ResponseEntity.ok(Map.of("success", true, "message", "상담 상태 업데이트 성공"));
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Map.of("success", false, "message", "DB 업데이트 실패"));
+            }
+        } catch (Exception e) {
+            System.err.println("🚨 상담 상태 업데이트 중 오류 발생: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("success", false, "error", e.getMessage()));
+        }
+    }
+}

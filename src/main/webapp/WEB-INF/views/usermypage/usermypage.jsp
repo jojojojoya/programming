@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -106,32 +108,51 @@
 
 
 
-                    <!-- 상담 내역이 있는 경우 -->
                     <c:if test="${not empty reservations}">
-                        <div class="counseling_table">
-                            <div class="reserved_counseling_table_comment">
-                                <ul>📅 予約された相談
-                                    <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">상담 예약하기</button>
-                                </ul>
-                            </div>
+                    <div class="counseling_table">
+                        <div class="reserved_counseling_table_comment">
+                            <div>📅 予約された相談 (대기 건은, 1시간 전 상담 입장가능) </div>
+                            <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">추가상담 예약</button>
+                        </div>
 
-                            <div class="reservation_slider">
-                                <div class="reservation_list">
-                                    <c:forEach var="reservation" items="${reservations}">
-                                        <div class="reserved_reservation_box">
-                                            <div><strong>[상담일시] </strong></div>${reservation.counseling_date} ${reservation.counseling_time}:00
-                                            <div><strong>[상담 카테고리] </strong></div>${reservation.category}
-                                            <div><strong>[상담사 ID] </strong>${reservation.counselor_id}</div>
-                                            <div><strong>[상담 상태] </strong>${reservation.status}</div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
+                        <div class="reservation_slider">
+                            <div class="reservation_list">
+
+
+                                <c:forEach var="reservation" items="${reservations}">
+                                    <div class="reserved_reservation_box"
+                                         data-counseling-date="<fmt:formatDate value='${reservation.counseling_date}' pattern='yyyy-MM-dd'/>"
+                                         data-counseling-time="${reservation.counseling_time}"
+                                         data-counseling-id="${reservation.counseling_id}">
+
+                                    <div><strong>[상담일시] </strong></div>
+                                        <fmt:formatDate value="${reservation.counseling_date}" pattern="yyyy년 MM월 dd일"/>
+                                            ${reservation.counseling_time}시 00분
+
+                                        <div><strong>[상담 카테고리] </strong>${reservation.category}</div>
+                                        <div><strong>[상담사 ID] </strong>${reservation.counselor_id}</div>
+                                        <div class="counseling_status"><strong>[상담 상태] </strong>${reservation.status}</div>
+
+                                        <c:if test="${reservation.status eq '대기'}">
+                                            <button class="enter_counseling_btn"
+                                                    onclick="location.href='/livechatdetail?reservationId=${reservation.counseling_id}'">
+                                                상담 입장하기
+                                            </button>
+                                        </c:if>
+
+                                        <c:if test="${reservation.status eq '완료'}">
+                                            <button class="view_counseling_btn"
+                                                    onclick="location.href='/livechatdetail?reservationId=${reservation.counseling_id}&isCompleted=true'">
+                                                상담 내용보기
+                                            </button>
+                                        </c:if>
+                                    </div>
+                                </c:forEach>
+
                             </div>
                         </div>
-                    </c:if>
-
-                </div>
-            </div>
+                    </div>
+                    </c:if> <!-- ✅ 닫음 -->
         </main>
     </div>
 </div>
