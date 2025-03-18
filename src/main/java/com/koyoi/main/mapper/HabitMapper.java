@@ -18,8 +18,8 @@ public interface HabitMapper {
             "VALUES (TEST_HABIT_SEQ.NEXTVAL, #{user_id}, #{habit_name}, SYSDATE)")  // 변수명 수정
     void insertHabit(HabitVO habitVO);  // 습관 추가
 
-    // 습관 삭제 쿼리
     @Delete("DELETE FROM TEST_HABIT WHERE user_id = 'user1' AND habit_id = #{habitId}")
     int deleteHabit(String userId, @Param("habitId") int habitId);
+
 }
 

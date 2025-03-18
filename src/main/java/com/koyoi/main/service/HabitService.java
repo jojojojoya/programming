@@ -5,10 +5,18 @@ import com.koyoi.main.vo.HabitVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Service
 public class HabitService {
+
+    private final DataSource dataSource;
+
+    @Autowired
+    public HabitService(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Autowired
     private HabitMapper habitMapper;

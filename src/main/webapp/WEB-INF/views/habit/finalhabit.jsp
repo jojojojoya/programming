@@ -114,13 +114,10 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="/static/js/habit/habit.js"></script>
 <script>
-    // 삭제 버튼 클릭 시 호출되는 함수
     function deleteHabit(habitId) {
-        // 사용자가 삭제를 확인하도록 알림창을 띄울 수도 있습니다.
         if (confirm("정말로 삭제하시겠습니까?")) {
-            // 삭제 요청을 서버로 보냄
             fetch('/habit/delete/' + habitId, {
-                method: 'DELETE', // HTTP DELETE 요청
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -136,6 +133,7 @@
                 .catch(error => console.error('Error:', error));
         }
     }
+
 </script>
 </body>
 </html>
