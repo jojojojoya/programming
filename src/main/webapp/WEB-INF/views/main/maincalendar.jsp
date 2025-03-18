@@ -21,7 +21,6 @@
             background-color: #9A6E50;
         }
 
-        /* ✅ 헤더에 Daily/Weekly 버튼 포함 */
         .calendar-header {
             display: flex;
             justify-content: space-between;

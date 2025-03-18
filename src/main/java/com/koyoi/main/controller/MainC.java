@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -41,9 +43,10 @@ public class MainC {
 
     @GetMapping("/mood/scores")
     @ResponseBody
-    public List<EmotionVO> getWeeklyMoodScores() {
+    public List<EmotionVO> getWeeklyMoodScores(@RequestParam("start") String startDate, @RequestParam("end") String endDate) {
         String userId = "user1";
-        return emotionService.getUserAllEmotions(userId);
+        /*return emotionService.getUserAllEmotions(userId);*/
+        return emotionService.getWeeklyMoodScores(userId, startDate, endDate);
     }
 
 }

@@ -5,10 +5,18 @@ import com.koyoi.main.vo.AdminMypageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Service
 public class AdminMypageService {
+
+    private final DataSource dataSource;
+
+    @Autowired
+    public AdminMypageService(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Autowired
     private AdminMypageMapper adminMypageMapper;
