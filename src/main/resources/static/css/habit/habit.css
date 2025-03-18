@@ -207,6 +207,7 @@ body {
     border-radius: 20px;
     width: 300px;
     margin: 20px auto;
+
 }
 
 .habit-tab {
@@ -218,11 +219,13 @@ body {
     font-weight: normal;
 }
 
-.habit-tab.habit-active {
-    color: #ff4081;
-    font-weight: bold;
-    background-color: #FDD7E4;
+
+
+.habit-active {
+    color: #FF69B4; /* 분홍색 */
+    font-weight: bold; /* 글씨 굵게 */
 }
+
 
 .habit-content {
     background: white;
@@ -233,12 +236,55 @@ body {
     margin: auto;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     overflow: visible;
+    padding-bottom: 5px;
+
 
 }
+.habit-content p {
+    font-size: 12px;
+    margin: 3px 0;
+    line-height: 1.3;
+    word-break: break-word;
+    white-space: nowrap;
+}
+/* habit-mental 내용이 숨겨지지 않도록 수정 */
+#habit-mental {
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    max-height: 1000px; /* 필요에 맞게 설정 */
+    display: none;  /* 기본적으로 숨겨져 있음 */
+}
+
+/* .habit-hidden 클래스가 없는 경우 보이게 처리 */
+#habit-mental:not(.habit-hidden) {
+    display: block;  /* 클릭 시 활성화되면 보이도록 처리 */
+}
+
+/* 탭 활성화 스타일 */
+.habit-tab.habit-active {
+    color: #ff4081;
+    font-weight: bold;
+    background-color: #FDD7E4;
+}
+
+/* .habit-hidden 클래스는 숨김 처리 */
+.habit-hidden {
+    display: none;
+}
+
 
 .habit-hidden {
     display: none;
 }
+
+
+
+/* .habit-hidden 클래스를 가진 요소는 기본적으로 숨겨짐 */
+.habit-hidden {
+    display: none;
+}
+
+
 
 
 
@@ -247,7 +293,35 @@ body {
     font-size: 12px; /* 텍스트 크기 축소 */
     margin: 3px 0; /* 문단 간 간격 축소 */
     line-height: 1.3; /* 줄 간격 축소 */
+    white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 처리 */
 }
+
+
+.habit-mental-part {
+    display: flex;
+    flex-wrap: wrap; /* 항목이 넘칠 경우 자동으로 줄 바꿈 */
+    gap: 10px; /* 항목 간 간격을 조정 */
+    justify-content: space-between; /* 항목들을 좌우로 균등 배치 */
+}
+
+.habit-mental-part p {
+    width: calc(33.333% - 10px); /* 한 줄에 3개의 항목 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: 12px;
+    margin: 0px 0; /* 위아래 간격 */
+    white-space: normal; /* 텍스트가 한 줄에 맞게 표시되도록 처리 */
+    word-break: break-word; /* 단어가 너무 길 경우 자동 줄 바꿈 */
+    line-height: 1.3; /* 줄 간격 설정 */
+}
+
+
+/* habit-content는 기본적으로 숨김 처리 */
+.habit-hidden {
+    display: none;
+}
+
+
+
 
 
 
@@ -269,21 +343,73 @@ body {
 .habit-parttwo-first {
     display: flex;
     padding-bottom: 30px;
-    padding-top: 17px;
+    padding-top: 0px;
     padding-left: 20px;
 }
 
 .habit-calendar {
     width: 50%;
-    height: 200px;
+    height: 250px;
     background-color: #3D2C2E;
     margin-right: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    overflow: hidden;  /* 내부가 넘어가지 않도록 처리 */
 }
+
+#calendar {
+    height: 100%;  /* habit-calendar의 높이를 가득 채움 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#month-year {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+habit-calendar button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: white;
+}
+
+#calendar-days {
+    width: 100%;
+    height: calc(100% - 40px);  /* 버튼 영역을 제외한 나머지 공간을 차지하도록 설정 */
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#calendar-days th, #calendar-days td {
+    width: 14.28%;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+#calendar-days td {
+    cursor: pointer;
+    height: 30px;  /* 날짜 셀 높이를 조정 */
+}
+
+#calendar-days td:hover {
+    background-color: #f0f0f0;
+}
+
+
 
 .habit-week {
     width: 50%;
     height: 200px;
     background-color: #C6F6D5;
+    margin-top: 30px;
 }
 
 .habit-parttwo-second {

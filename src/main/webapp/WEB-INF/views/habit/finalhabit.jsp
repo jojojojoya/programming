@@ -65,7 +65,7 @@
                     <div class="habit-recommend">
                         <div class="habit-tabs">
                             <div id="habit-tab-신체건강" class="habit-tab habit-active" onclick="habitShowTab('신체건강')">신체건강</div>
-                            <div id="habit-tab-정신건강" class="habit-tab" onclick="habitShowTab('정신건강')">정신건강</div>
+                            <div id="habit-tab-정신건강" class="habit-tab" onclick="habitShowTab('mental')">정신건강</div>
                         </div>
 
                         <div id="habit-신체건강" class="habit-content">
@@ -86,23 +86,52 @@
                             </div>
                         </div>
 
-                        <div id="habit-정신건강" class="habit-content habit-hidden">
-                            <div style="float: left; width: 40%;">
-                                <p id="music" >🎵 음악듣기</p>
-                                <p id="diary">📝 일기쓰기</p>
-                                <p id="draw">📝 그림그리기</p>
+                        <div id="habit-mental" class="habit-content habit-hidden" onclick="habitShowTab('mental')">
+                            <div class="habit-mental-part">
+                                <p id="walk">산책</p>
+                                <p id="meal">식사</p>
+                                <p id="talk">수다</p>
+                                <p id="friend">친구</p>
+                                <p id="exercise">운동</p>
+                                <p id="book">책</p>
+                                <p id="game">게임</p>
+                                <p id="water">물</p>
+                                <p id="movie">영화</p>
                             </div>
-                            <div style="float: left; width: 40%;">
-                                <p id="meditation">🎵 명상</p>
-                                <p id="book">📝 독서</p>
-                                <p id="breath">📝 호흡</p>
-                            </div>
-                            <div style="float: left; width: 40%;">
-                                <p id="smile">🎵 웃기</p>
-                                <p id="communication">📝 소통</p>
-                                <p id="compliment">📝 칭찬</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="habit-parttwo">
+                    <div class="habit-parttwo-first">
+                        <div class="habit-calendar">
+                            <div id="calendar">
+                                <div id="month-year">
+                                    <button id="prev">◀</button>
+                                    <span id="month-year-text"></span>
+                                    <button id="next">▶</button>
+                                </div>
+                                <table id="calendar-days">
+                                    <thead>
+                                    <tr>
+                                        <th>일</th>
+                                        <th>월</th>
+                                        <th>화</th>
+                                        <th>수</th>
+                                        <th>목</th>
+                                        <th>금</th>
+                                        <th>토</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
+                        <div class="habit-week">habit-week</div>
+                    </div>
+                    <div class="habit-parttwo-second">
+                        <div class="habit-rate">habit-rate</div>
+                        <div class="habit-memo">habit-memo</div>
                     </div>
                 </div>
             </div>
