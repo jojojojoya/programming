@@ -54,9 +54,12 @@
 
                 <form action="/signup" method="post" enctype="multipart/form-data" class="signup-form">
 
+                    <!-- ID -->
                     <label for="user_id">ID</label>
-                    <input type="text" id="user_id" name="user_id" placeholder="Enter your ID" required>
-                    <button type="button" id="checkIdBtn" class="check-btn">Check ID</button>
+                    <div class="check-wrapper">
+                        <input type="text" id="user_id" name="user_id" placeholder="Enter your ID" required>
+                        <button type="button" id="checkIdBtn" class="check-btn small">Check</button>
+                    </div>
                     <div id="id-error" class="error-message"></div>
 
                     <label for="user_pw">Password</label>
@@ -67,12 +70,21 @@
                            placeholder="Confirm your password" required>
                     <div id="pw-error" class="error-message"></div>
 
+                    <!-- Name -->
                     <label for="user_name">Name</label>
-                    <input type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
+                    <div class="check-wrapper">
+                        <input type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
+                        <button type="button" id="checkNameBtn" class="check-btn small">Check</button>
+                    </div>
+                    <div id="name-error" class="error-message"></div>
 
+                    <!-- Nickname -->
                     <label for="user_nickname">Nickname</label>
-                    <input type="text" id="user_nickname" name="user_nickname" placeholder="Enter your nickname"
-                           required>
+                    <div class="check-wrapper">
+                        <input type="text" id="user_nickname" name="user_nickname" placeholder="Enter your nickname" required>
+                        <button type="button" id="checkNicknameBtn" class="check-btn small">Check</button>
+                    </div>
+                    <div id="nickname-error" class="error-message"></div>
 
                     <label for="user_email">Email</label>
                     <input type="email" id="user_email" name="user_email" placeholder="Enter your email" required>

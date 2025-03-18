@@ -112,9 +112,13 @@ body {
     flex-direction: column;
     gap: 1vh;
 
-    overflow-y: auto;          /* ✅ 폼 안쪽에 스크롤 */
-    max-height: 55vh;          /* ✅ 높이 제한 후 스크롤 */
-    padding-right: 10px;       /* ✅ 스크롤바 공간 확보 */
+    /* 스크롤 확인 */
+    overflow-y: auto;
+    overflow-x: hidden; /* 가로 스크롤 없애기 */
+    max-height: 55vh;
+    padding-right: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* 스크롤바 스타일도 똑같이 */
@@ -137,31 +141,63 @@ body {
     margin-bottom: 0.5vh;
 }
 
+/* ID 입력 필드와 버튼을 나란히 배치하는 wrapper */
+.check-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    width: 100%;
+}
+
+/* ID 입력창 크기 조절 */
+.check-wrapper input[type="text"] {
+    flex: 1;
+    padding: 1vh 1vw;
+    border: 1px solid #ddd;
+    border-radius: 0.8vw;
+    font-size: clamp(12px, 1.2vw, 14px);
+    min-width: 0;
+    width: 100%;
+}
+
 .signup-form input {
     padding: 1vh 1vw;
     border: 1px solid #dddddd;
     border-radius: 0.8vw;
-    font-size: clamp(12px, 1.2vw, 14px);  /* ✅ 작게 시작해서 반응형 */
+    font-size: clamp(12px, 1.2vw, 14px);
     background-color: #f9f9f9;
+    width: 100%;
+    box-sizing: border-box; /* ✅ 패딩 포함한 정확한 width */
 }
 
-/* 아이디 중복 버튼 */
+/* check 버튼 스타일 */
 .check-btn {
     padding: 1vh 1vw;
     background-color: #D8D2C2;
     color: #3F2E29;
     border: none;
     border-radius: 0.8vw;
-    font-size: clamp(12px, 1.2vw, 14px);
+    font-size: clamp(12px, 1.3vw, 14px);
     cursor: pointer;
+    white-space: nowrap;
+    max-width: 80px;
+    flex-shrink: 0;
 }
-
 .check-btn:hover {
     background-color: #C8C2B2;
 }
 
+/* 에러 메시지 */
+.error-message {
+    color: red;
+    font-size: clamp(10px, 1vw, 12px);
+    margin-bottom: 1vh;
+    min-height: 1em;
+}
+
 /* 회원가입 버튼 */
 .signup-btn {
+    width: 100%;
     padding: 1.2vh;
     background-color: #D8D2C2;
     color: #3F2E29;
