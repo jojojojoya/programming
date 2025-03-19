@@ -21,24 +21,27 @@
             background-color: #9A6E50;
         }
 
-        .main-calendar_header {
+        .calendar-header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 20px;
             width: 100%;
-            margin-bottom: 10px;
+            padding: 10px;
         }
 
-        .main-calendar_header button {
+        .calendar-header h3 {
+            margin: 0;
+        }
+
+        .calendar-header button {
             border: none;
             background: none;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             padding: 5px;
         }
 
-        .main-calendar_weeks {
+        .calendar-weeks {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             width: 100%;
@@ -47,7 +50,7 @@
             padding: 5px 0;
         }
 
-        .main-calendar_days {
+        .calendar-days {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 5px;
@@ -80,46 +83,34 @@
         .inactive {
             color: #bbb;
         }
+
+        .today {
+            background-color: #FFD27A !important;
+            font-weight: bold;
+            border: 2px solid #ff9f1c;
+        }
     </style>
 </head>
 <body>
 
-<div class="calendar-container">
-    <button id="prevCalendar">◀</button>
-    <h3 id="calendar-title">Daily</h3>
-    <button id="nextCalendar">▶</button>
-</div>
+<div class="calendar">
+    <div class="calendar-header">
+        <button id="prevMonth">◀</button>
+        <h3 id="calendar-month-year"></h3>
+        <button id="nextMonth">▶</button>
 
-<!-- 데일리 달력 -->
-<div id="daily-calendar">
-    <div class="calendar">
-        <div class="main-calendar_header">
-            <button id="prevMonth" onclick="prevMonth()"> ◀ </button>
-            <h3 id="month-year"></h3>
-            <button id="nextMonth" onclick="nextMonth()"> ▶ </button>
+        <div>
+            <button id="prevCalendar">◀</button>
+            <span id="calendar-title">Daily</span>
+            <button id="nextCalendar">▶</button>
         </div>
-        <div class="main-calendar_weeks">
-            <div> SUN </div> <div> MON </div> <div> TUE </div>
-            <div> WED </div> <div> THU </div> <div> FRI </div> <div> SAT </div>
-        </div>
-        <div class="main-calendar_days" id="daily-calendar-grid"></div>
     </div>
-</div>
 
-<!-- 위클리 달력 -->
-<div id="weekly-calendar" style="display: none;">
-    <div class="calendar">
-        <div class="main-calendar_header">
-            <button id="prevWeek" onclick="prevWeek()"> ◀ </button>
-            <h3 id="week-range"></h3>
-            <button id="nextWeek" onclick="nextWeek()"> ▶ </button>
-        </div>
-        <div class="main-calendar_weeks">
-            <div> SUN </div> <div> MON </div> <div> TUE </div>
-            <div> WED </div> <div> THU </div> <div> FRI </div> <div> SAT </div>
-        </div>
-        <div class="main-calendar_days" id="weekly-calendar-grid"></div>
+    <div class="calendar-weeks">
+        <div> SUN </div> <div> MON </div> <div> TUE </div>
+        <div> WED </div> <div> THU </div> <div> FRI </div> <div> SAT </div>
     </div>
+    <div class="calendar-days" id="calendar-grid"></div>
 </div>
 
 <script src="/static/js/main/maincalendar.js"></script>
