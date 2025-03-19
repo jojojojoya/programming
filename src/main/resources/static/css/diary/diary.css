@@ -79,6 +79,13 @@
     border-radius: 8px;
 }
 
+/* 선택된 날짜에 오늘 강조 스타일 적용 */
+.fc-day-selected {
+    background-color: #ffd27a !important;
+    color: #3f2e29;
+    border-radius: 8px;
+}
+
 /* ✅ 날짜 숫자 */
 .fc-daygrid-day-number {
     font-size: 14px;
@@ -148,31 +155,35 @@
     box-shadow: 0 4px 10px rgba(63, 46, 41, 0.1);
 }
 
-/* ✅ 이모지 선택 버튼 */
+/* ✅ 공통 이모지 기본 스타일 (조회/작성 동일한 비주얼 유지) */
 .emoji-option {
     font-size: 24px;
-    cursor: pointer;
     margin: 5px;
-    transition: transform 0.2s ease;
     display: inline-block;
     padding: 5px;
     border-radius: 50%;
     background-color: #ede0d4;
+    transition: transform 0.2s ease;
 }
 
-.emoji-option:hover {
-    transform: scale(1.2);
-    background-color: #ffd27a;
-}
-
-/* ✅ 이모지 선택 시 */
-.selected {
+/* ✅ 선택된 이모지 스타일 (조회/작성 동일하게 강조) */
+.emoji-option.selected {
     border: 2px solid #996d4f;
     background-color: #ffd27a;
 }
 
-/* ✅ 읽기 전용 이모지 (조회 뷰일 때) */
-.emoji-option.readonly {
+/* ✅ 작성 뷰에서만 호버/클릭 효과를 추가로 줌 */
+#diaryWriteSection .emoji-option {
+    cursor: pointer;
+}
+
+#diaryWriteSection .emoji-option:hover {
+    transform: scale(1.2);
+    background-color: #ffd27a;
+}
+
+/* ✅ 조회 뷰에서는 커서 기본값으로만 고정 (클릭 막기) */
+#diaryViewSection .emoji-option {
     cursor: default;
 }
 
