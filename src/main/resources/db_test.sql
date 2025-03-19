@@ -144,3 +144,18 @@ VALUES ('test02', 2, 'test02','수정 테스트', 'test02@example.com', 'test02'
 
 select * from TEST_USER;
 select * from TEST_EMOTION;
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '서버 점검 안내', '3월 21일 02:00 - 05:00 서버 점검이 진행됩니다.', TIMESTAMP '2024-03-18 10:00:00');
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '보안 패치 적용', '보안 강화를 위한 패치가 적용되었습니다.', TIMESTAMP '2024-03-14 08:45:00');
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '이벤트 당첨자 발표', '이벤트 당첨자를 발표합니다! 확인하세요.', TIMESTAMP '2024-03-12 12:20:00');
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001',  '공지사항 테스트 데이터', '테스트를 위한 공지사항입니다.', TIMESTAMP '2024-03-10 18:00:00');
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '고객센터 운영시간 변경', '고객센터 운영시간이 3월 20일부터 평일 9시~18시로 변경됩니다.', TIMESTAMP '2025-03-17 14:20:00');

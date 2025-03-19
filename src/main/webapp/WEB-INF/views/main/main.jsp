@@ -47,6 +47,9 @@
                 <c:forEach var="announcement" items="${announcements}">
                     <li>
                         <a href="#">${announcement.title}</a>
+                        <c:if test="${announcement.isNew == 'Y'}">
+                        <span class="new-tag">New</span>
+                            </c:if>
                     </li>
                 </c:forEach>
             </ul>
