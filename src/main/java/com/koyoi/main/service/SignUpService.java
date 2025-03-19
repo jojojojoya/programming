@@ -13,14 +13,25 @@ public class SignUpService {
         this.signupMapper = signupMapper;
     }
 
-    // 아이디 중복 체크
-    public boolean isUserIdDuplicate(String userId) {
-        return signupMapper.countUserId(userId) > 0;
-    }
-
     // 회원가입 처리
     public boolean registerUser(UserDTO userDTO) {
         int result = signupMapper.insertUser(userDTO);
         return result > 0;
     }
+
+    // id 중복 체크
+    public boolean isUserIdDuplicate(String userId) {
+        return signupMapper.existsById(userId) > 0;
+    }
+
+    // name 중복 체크
+    public boolean isUserNameDuplicate(String userName) {
+        return signupMapper.existsByName(userName) > 0;
+    }
+
+    // nickname 중복 체크
+    public boolean isUserNicknameDuplicate(String userNickname) {
+        return signupMapper.existsByNickname(userNickname) > 0;
+    }
+
 }

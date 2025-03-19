@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 public class SignUpC {
     private final SignUpService signupService;
@@ -24,13 +27,6 @@ public class SignUpC {
     @PostMapping("/signup")
     public String signupProcess(@ModelAttribute UserDTO userDTO, Model model) {
 
-        // ID 중복 체크
-        if (signupService.isUserIdDuplicate(userDTO.getUser_id())) {
-            model.addAttribute("signupFailed", "ID is already taken.");
-            return "login/signup";
-        }
-
-        // 회원가입 처리
         boolean isSuccess = signupService.registerUser(userDTO);
 
         if (isSuccess) {
@@ -41,10 +37,44 @@ public class SignUpC {
         }
     }
 
-    // AJAX ID 중복 체크
-    @PostMapping("/signup/id-check")
+    // 아이디, 닉네임, 이름 중복 체크
+    @GetMapping("/check")
     @ResponseBody
-    public boolean checkUserId(@RequestParam("user_id") String userId) {
-        return signupService.isUserIdDuplicate(userId);
+    public Map<String, Boolean> checkDuplicate(
+            @RequestParam String type,
+            @RequestParam String value
+    ) {
+        // debug
+        System.out.println("[CHECK 요청 수신]");
+        System.out.println("type: " + type);
+        System.out.println("value: " + value);
+
+        boolean exists = false;
+
+        switch (type) {
+            case "id":
+                exists = signupService.isUserIdDuplicate(value);
+                System.out.println("[SignUpC/checkDuplicate] ID 중복 여부: " + exists);
+                break;
+            case "name":
+                exists = signupService.isUserNameDuplicate(value);
+                System.out.println("[SignUpC/checkDuplicate] NAME 중복 여부: " + exists);
+                break;
+            case "nickname":
+                exists = signupService.isUserNicknameDuplicate(value);
+                System.out.println("[SignUpC/checkDuplicate] NICKNAME 중복 여부: " + exists);
+                break;
+            default:
+                System.out.println("[SignUpC/checkDuplicate] 잘못된 type 파라미터입니다.");
+        }
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("exists", exists);
+
+        System.out.println("[SignUpC/checkDuplicate] 최종 반환 데이터: " + response);
+
+        return response;
     }
+
+
 }

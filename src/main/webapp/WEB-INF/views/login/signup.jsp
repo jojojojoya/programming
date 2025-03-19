@@ -8,8 +8,6 @@
     <title>KOYOI - Sign Up</title>
     <!-- CSS 연결-->
     <link rel="stylesheet" href="/static/css/login/signup.css">
-    <!-- js 연결 -->
-    <script src="/static/js/login/signup.js"></script>
     <!-- Swiper CSS Lib -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 
@@ -55,12 +53,14 @@
                 <form action="/signup" method="post" enctype="multipart/form-data" class="signup-form">
 
                     <!-- ID -->
-                    <label for="user_id">ID</label>
-                    <div class="check-wrapper">
-                        <input type="text" id="user_id" name="user_id" placeholder="Enter your ID" required>
-                        <button type="button" id="checkIdBtn" class="check-btn small">Check</button>
+                    <div class="form-group">
+                        <label for="user_id">ID</label>
+                        <div class="check-wrapper">
+                            <input type="text" id="user_id" name="user_id" placeholder="Enter your ID" required>
+                            <button type="button" id="checkIdBtn" class="check-btn small">Check</button>
+                        </div>
+                        <div id="id-error" class="error-message"></div>
                     </div>
-                    <div id="id-error" class="error-message"></div>
 
                     <label for="user_pw">Password</label>
                     <input type="password" id="user_pw" name="user_pw" placeholder="Enter your password" required>
@@ -71,20 +71,24 @@
                     <div id="pw-error" class="error-message"></div>
 
                     <!-- Name -->
-                    <label for="user_name">Name</label>
-                    <div class="check-wrapper">
-                        <input type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
-                        <button type="button" id="checkNameBtn" class="check-btn small">Check</button>
+                    <div class="form-group">
+                        <label for="user_name">Name</label>
+                        <div class="check-wrapper">
+                            <input type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
+                            <button type="button" id="checkNameBtn" class="check-btn small">Check</button>
+                        </div>
+                        <div id="name-error" class="error-message"></div>
                     </div>
-                    <div id="name-error" class="error-message"></div>
 
                     <!-- Nickname -->
-                    <label for="user_nickname">Nickname</label>
-                    <div class="check-wrapper">
-                        <input type="text" id="user_nickname" name="user_nickname" placeholder="Enter your nickname" required>
-                        <button type="button" id="checkNicknameBtn" class="check-btn small">Check</button>
+                    <div class="form-group">
+                        <label for="user_nickname">Nickname</label>
+                        <div class="check-wrapper">
+                            <input type="text" id="user_nickname" name="user_nickname" placeholder="Enter your nickname" required>
+                            <button type="button" id="checkNicknameBtn" class="check-btn small">Check</button>
+                        </div>
+                        <div id="nickname-error" class="error-message"></div>
                     </div>
-                    <div id="nickname-error" class="error-message"></div>
 
                     <label for="user_email">Email</label>
                     <input type="email" id="user_email" name="user_email" placeholder="Enter your email" required>

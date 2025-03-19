@@ -15,9 +15,9 @@ body {
 /* 전체 컨테이너 */
 .container {
     position: relative;
-    width: 90vw;                /* 화면 너비의 90% */
-    height: 90vh;               /* 화면 높이의 90% */
-    border-radius: 2vw;
+    width: 100vw;                /* 화면 너비의 90% */
+    height: 100vh;               /* 화면 높이의 90% */
+    /*border-radius: 2vw;*/
     overflow: hidden; /* 파도를 안 넘기게 */
     display: flex;
     flex-direction: column;
