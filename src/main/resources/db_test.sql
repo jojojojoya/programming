@@ -116,8 +116,7 @@ ALTER TABLE TEST_USER
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
-<<
-<<<<< HEAD
+
 -- >>>>>>> 9ce381165894c55d2627bf310e0348c139fa15e2
 SELECT *
 FROM TEST_USER;

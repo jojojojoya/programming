@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-
     // 모달
     const noticeBtn = document.getElementById("notice");
     const modal = document.getElementById("notice-modal");
@@ -69,11 +68,5 @@ document.addEventListener("DOMContentLoaded", function () {
         // 입력 필드 비우기
         taskInput.value = "";
     });
-
-    // 명언
-
-
-
-
 
 });

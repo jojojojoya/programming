@@ -97,13 +97,13 @@ body {
     position: fixed;
     top: calc(10% + 4vh);
     right: 15vw;
-    width: 50vw;
+    width: 35vw;
     max-width: 700px;
     background: white;
     border: 0.1vw solid #ccc;
     box-shadow: 0.2vw 0.2vw 1vw rgba(0, 0, 0, 0.1);
     border-radius: 1vw;
-    padding: 2vh;
+    /*padding: 2vh;*/
     z-index: 1000;
 }
 
@@ -114,37 +114,50 @@ body {
 
 .modal-content h3 {
     margin: 0;
-    font-size: 16px;
     padding-bottom: 8px;
     border-bottom: 1px solid #ddd;
+    color: #5D4037;
 }
 
 .close-btn {
+    color: #5D4037;
     position: absolute;
     top: 5px;
-    right: 10px;
-    font-size: 20px;
+    right: 20px;
+    font-size: 30px;
     cursor: pointer;
 }
 
-#notice-list {
-    list-style: none;
-    padding: 0;
+#notice-lists {
+    /*list-style: none;*/
+    color: #5D4037;
+    padding: 20px;
     margin: 10px 0 0;
 }
 
-#notice-list li {
-    padding: 8px 0;
-}
+/*#notice-lists li::before {
+    content: "📢";
+    margin-right: 8px;
+}*/
 
-#notice-list li a {
+#notice-lists a {
+    color: #5D4037;
     text-decoration: none;
-    color: #333;
-    font-size: 14px;
 }
 
-#notice-list li a:hover {
-    color: #007bff;
+#notice-lists a:visited {
+    color: #5D4037;
+    text-decoration: none;
+}
+
+#notice-lists a:hover {
+    color: #A1887F;
+    text-decoration: underline;
+}
+
+.new-tag {
+    color: indianred;
+    font-size: 15px;
 }
 
 .profile-img {
