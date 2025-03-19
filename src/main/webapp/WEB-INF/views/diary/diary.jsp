@@ -100,7 +100,7 @@
         <h2>오늘 하루는 어땠나요?</h2>
         <p>점수를 입력해 주세요! (10점 ~ 100점)</p>
         <div class="score-slider-container">
-            <input type="range" id="emotionScoreInput" min="10" max="100" value="50" oninput="updateScoreValue(this.value)">
+            <input type="range" id="emotionScoreInput" min="10" max="100" value="50" step="10" oninput="updateScoreValue(this.value)">
             <div class="score-value"><span id="scoreDisplay">50</span> 점</div>
         </div>
         <div class="modal-buttons">

@@ -1,15 +1,21 @@
 // 전역 변수 선언
+let calendar;
 let currentDiaryId = null; // 현재 다이어리 ID
 let selectedEmoji = "🙂"; // 기본 감정 이모지
 let isViewMode = false; // true면 조회 뷰, false면 작성/수정 뷰
 let selectedDate = null;
-let calendar;
 
 // 페이지 로드 후 초기 세팅
 document.addEventListener('DOMContentLoaded', function() {
     const today = new Date().toISOString().slice(0, 10);
+    const storedDate = sessionStorage.getItem("selectedDate");
 
-    document.getElementById("diaryDate").innerText = today;
+    if (storedDate) {
+        document.getElementById("diaryDate").innerText = storedDate; // sessionStorage에 저장된 날짜 적용
+        sessionStorage.removeItem("selectedDate"); // 사용 후 sessionStorage에서 삭제
+    } else {
+        document.getElementById("diaryDate").innerText = today; // 기본값으로 오늘 날짜 사용
+    }
     selectedEmoji = "🙂";
     currentDiaryId = null;
 
@@ -165,20 +171,6 @@ function highlightSelectedDate(dateStr) {
     });
 }
 
-// 캘린더에서 이모지 이벤트 로딩
-function loadCalendarEmojis(fetchInfo, successCallback, failureCallback) {
-    fetch('/diary/events')
-        .then(response => response.json())
-        .then(data => {
-            const events = data.map(item => ({
-                title: item.EMOTION_EMOJI,
-                start: item.DIARY_DATE
-            }));
-            successCallback(events);
-        })
-        .catch(error => failureCallback(error));
-}
-
 /* 이모지 선택 */
 function selectEmoji(emoji) {
     if (isViewMode) {
@@ -243,7 +235,7 @@ function saveDiary() {
         });
 }
 
-/* 일기 수정 완료 */
+/* 일기 수정 */
 function updateDiary() {
     if (!currentDiaryId) {
         alert("수정할 일기가 없습니다.");
@@ -264,8 +256,6 @@ function updateDiary() {
         emotion_emoji: selectedEmoji
     };
 
-    console.log("📝 수정 요청 데이터:", data); // 디버깅 로그 추가!
-
     fetch('/diary/update', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -274,8 +264,9 @@ function updateDiary() {
         .then(response => {
             if (response.ok) {
                 alert("일기 수정 완료!");
-                refreshCalendarEvents(); // 캘린더 이벤트 새로고침
-                loadDiaryById(currentDiaryId);
+
+                    openEmotionModal();
+
             } else {
                 alert("일기 수정 실패");
             }
@@ -296,17 +287,28 @@ function deleteDiary() {
     if (!confirm("정말 삭제하시겠습니까?")) {
         return;
     }
-
-    fetch(`/diary/delete/${currentDiaryId}`, { method: 'DELETE' })
+    fetch(`/diary/emotion/delete/${currentDiaryId}`, { method: 'DELETE' })
         .then(response => {
-            if (response.ok) {
-                alert("일기 삭제 완료!");
-                refreshCalendarEvents();
-                openWriteMode(new Date().toISOString().slice(0, 10)); // 오늘 날짜로 초기화
-            } else {
-                alert("일기 삭제 실패");
+            if (!response.ok) {
+                throw new Error("감정 점수 삭제 실패");
             }
-        });
+            console.log("✅ 감정 점수 삭제 완료");
+
+            return fetch(`/diary/delete/${currentDiaryId}`, {method: 'DELETE'});
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("일기 삭제 완료!");
+                    refreshCalendarEvents();
+                    openWriteMode(new Date().toISOString().slice(0, 10)); // 오늘 날짜로 초기화
+                } else {
+                    alert("일기 삭제 실패");
+                }
+            })
+                .catch(error => {
+                    console.error("❌ 삭제 실패:", error);
+                    alert("삭제 중 오류가 발생했습니다!");
+                });
 }
 
 /* 일기 상세 조회 */
@@ -317,8 +319,6 @@ function loadDiaryById(diaryId) {
 
     fetch(`/diary/${diaryId}`)
         .then(async (response) => {
-            console.log("👉 응답 상태:", response.status);
-
             if (!response.ok) {
                 const errorMessage = await response.text();
                 throw new Error(`서버 오류: ${response.status}, 내용: ${errorMessage}`);
@@ -469,15 +469,47 @@ function switchToEditMode() {
 }
 
 /* 오늘의 감정 점수 모달 열기 */
-function openEmotionModal() {
+function openEmotionModal(existingScore = 50) {
     const modal = document.getElementById("emotionScoreModal");
     modal.style.display = "flex";
+
+    loadEmotionScoreByDiaryId(currentDiaryId);
 }
 
 /* 오늘의 감정 점수 모달 닫기 */
 function closeEmotionModal() {
     const modal = document.getElementById("emotionScoreModal");
     modal.style.display = "none";
+}
+
+/* 오늘의 점수 가져오는 함수 */
+function loadEmotionScoreByDiaryId(diaryId) {
+    if (!diaryId) {
+        console.warn("❗ diaryId가 없습니다. 감정 점수 조회 불가");
+        return;
+    }
+
+    fetch(`/diary/emotion/score/${diaryId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.emotion_score !== undefined) {
+                const score = data.emotion_score;
+
+                // input에 값 반영
+                document.getElementById("emotionScoreInput").value = score;
+                document.getElementById("scoreDisplay").innerText = score;
+
+                // 전역 변수도 세팅 (선택 사항)
+                currentEmotionScore = score;
+
+                console.log("✅ 감정 점수 조회 성공:", score);
+            } else {
+                console.warn("❗ 감정 점수 없음, 기본값 사용");
+            }
+        })
+        .catch(error => {
+            console.error("❌ 감정 점수 조회 실패", error);
+        });
 }
 
 /* 감정 점수 저장 */
@@ -505,15 +537,11 @@ function saveEmotionScore() {
 
                 closeEmotionModal();
 
-                // ✅ 캘린더 이벤트 리프레시
+                // 캘린더 이벤트 리프레시 상세조회 호출
                 refreshCalendarEvents();
+                loadDiaryById(currentDiaryId);
 
-                // ✅ 작성 폼 초기화 (오늘 날짜로 이동)
-                const today = new Date().toISOString().slice(0, 10);
-                openWriteMode(today);
-                highlightSelectedDate(today);
-
-                // ✅ currentDiaryId 초기화
+                // currentDiaryId 초기화
                 currentDiaryId = null;
             } else {
                 alert("감정 점수 저장 실패");
