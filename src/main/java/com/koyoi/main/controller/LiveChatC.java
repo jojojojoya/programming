@@ -40,7 +40,7 @@ public class LiveChatC {
     // ✅ 상담 예약 페이지
     @GetMapping("/livechatreservation")
     public String showLiveChatReservations(Model model) {
-        liveChatService.updateReservationsStatus(); // 상담 상태 최신화
+//        liveChatService.updateReservationsStatus(); // 상담 상태 최신화
         List<LiveChatVO> availableReservations = liveChatService.getAvailableReservations();
         model.addAttribute("availableReservations", availableReservations);
         return "/livechat/livechatreservation";
@@ -191,14 +191,15 @@ public class LiveChatC {
             boolean isReserved = liveChatService.reserveCounseling(reservation);
 
             if (isReserved) {
-                liveChatService.updateReservationsStatus();
+//                liveChatService.updateReservationsStatus();
                 System.out.println("✅ 상담 예약 성공: " + reservation.getCounseling_id());
 
                 // ✅ 상담 ID도 함께 반환
                 return ResponseEntity.ok(Map.of(
                         "success", true,
                         "message", "예약이 완료되었습니다.",
-                        "counseling_id", reservation.getCounseling_id()
+                        "counseling_id", reservation.getCounseling_id(),
+                        "session_id", reservation.getSession_id()
                 ));
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

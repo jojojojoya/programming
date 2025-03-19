@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class LiveChatVO {
-    private int session_id;
+    private Integer session_id;
     private String user_id;
     private String counselor_id;
     private Clob counseling_content;
@@ -19,8 +19,8 @@ public class LiveChatVO {
     private String category;
     private String status;
     private Date sysdate;
-    private Date start_time;
-    private Date end_time;
+    private int start_time;
+    private int end_time;
 
     private List<LiveChatVO> chatLogs;
 

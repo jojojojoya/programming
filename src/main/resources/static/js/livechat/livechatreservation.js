@@ -315,34 +315,4 @@ document.getElementById("livechat_exit_btn").addEventListener("click", function 
 //         })
 //         .catch(error => console.error("Error:", error));
 // });
-document.getElementById("livechat_exit_btn").addEventListener("click", function () {
-    let counselingId = sessionStorage.getItem("counseling_id");
 
-    if (!counselingId) {
-        alert("❌ 상담 ID를 찾을 수 없습니다.");
-        return;
-    }
-
-    fetch("/livechat/updateStatus", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            counseling_id: parseInt(counselingId, 10),
-            status: "대기", // ✅ 상담 상태를 "대기"로 변경
-        }),
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("✅ 상담이 '대기' 상태로 설정되었습니다.");
-                sessionStorage.removeItem("counseling_id"); // ✅ 세션에서 삭제
-                window.location.href = "/usermypage"; // ✅ 마이페이지로 이동
-            } else {
-                alert("❌ 상담 상태 업데이트 중 오류가 발생했습니다.");
-            }
-        })
-        .catch(error => {
-            console.error("🚨 서버 요청 중 오류 발생:", error);
-            alert("❌ 서버 요청 오류 발생.");
-        });
-});

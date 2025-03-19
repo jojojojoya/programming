@@ -21,13 +21,16 @@ public class LiveChatService {
     private UserMyPageMapper userMyPageMapper;
 
     // ✅ 상담 예약 저장 (트랜잭션 적용)
-    @Transactional
     public boolean reserveCounseling(LiveChatVO reservation) {
         try {
             int result = liveChatMapper.reserveCounseling(reservation);
             if (result > 0) {
                 System.out.println("✅ 상담 예약 성공: " + reservation.getCounseling_id());
-                liveChatMapper.createChatRoom(reservation);
+                System.out.println(reservation);
+                reservation.setStart_time(reservation.getCounseling_time());
+                Integer sessionId = liveChatMapper.createChatRoom(reservation);
+                System.out.println("sessionId =====>" + sessionId);
+                reservation.setSession_id(sessionId); // session_id
                 return true;
             } else {
                 System.out.println("⚠️ 상담 예약 실패!");
@@ -95,16 +98,16 @@ public class LiveChatService {
         }
     }
 
-    @Scheduled(fixedRate = 60000)
-    @Transactional
+//    @Scheduled(fixedRate = 60000)
+//    @Transactional
     public void updateReservationsStatus() {
         try {
-            int updatedToWaiting = liveChatMapper.updateToWaitingStatus();
-            int updatedToCompleted = liveChatMapper.completeCounseling(null);
+//            int updatedToWaiting = liveChatMapper.updateToWaitingStatus();
+//            int updatedToCompleted = liveChatMapper.completeCounseling(null);
 
-            System.out.println("🔄 상담 상태 업데이트 실행됨");
-            System.out.println("▶ '대기'로 변경된 상담 개수: " + updatedToWaiting);
-            System.out.println("▶ '완료'로 변경된 상담 개수: " + updatedToCompleted);
+//            System.out.println("🔄 상담 상태 업데이트 실행됨");
+//            System.out.println("▶ '대기'로 변경된 상담 개수: " + updatedToWaiting);
+//            System.out.println("▶ '완료'로 변경된 상담 개수: " + updatedToCompleted);
         } catch (Exception e) {
             System.err.println("🚨 상담 상태 업데이트 중 오류 발생: " + e.getMessage());
         }

@@ -298,3 +298,42 @@ from TEST_USER;
 
 select *
 from TEST_CHAT;
+
+CREATE TABLE Test_LIVE_CHAT
+(
+    session_id   NUMBER PRIMARY KEY,                                                            -- 실시간 채팅 세션 고유 ID
+    user_id      VARCHAR2(50) NOT NULL,
+    counseling_id number(5),
+    counselor_id VARCHAR2(50),                                                                  -- 응답한 상담사 사용자 ID
+    start_time   number(2)    NOT NULL,                                                         -- 채팅 시작 시간
+    end_time     number(2),                                                                     -- 채팅 종료 시간 (종료 시점 기록)
+    status       VARCHAR2(50) NOT NULL,                                                         -- 채팅 상태 (예: 진행중, 종료 등)
+    CONSTRAINT fk_live_chat_user5 FOREIGN KEY (user_id) REFERENCES test_USER (user_id),          -- 사용자 외래키
+    CONSTRAINT fk_live_chat_counselor5 FOREIGN KEY (counselor_id) REFERENCES test_USER (user_id), -- 상담사 외래키
+    CONSTRAINT fk_live_chat_counseling5 FOREIGN KEY (counseling_id) REFERENCES TEST_COUNSELING_RESERVATION (COUNSELING_ID) -- 상담사 외래키
+);
+
+drop table TEST_LIVE_CHAT cascade constraint purge;
+
+CREATE OR REPLACE TRIGGER trg_sync_live_chat_status
+    AFTER UPDATE OF status ON TEST_COUNSELING_RESERVATION
+    FOR EACH ROW
+BEGIN
+    UPDATE TEST_LIVE_CHAT
+    SET status = :NEW.status
+    WHERE counseling_id = :NEW.counseling_id;
+END;
+
+CREATE OR REPLACE TRIGGER trg_sync_counseling_status
+    AFTER UPDATE OF status ON TEST_LIVE_CHAT
+    FOR EACH ROW
+BEGIN
+    UPDATE TEST_COUNSELING_RESERVATION
+    SET status = :NEW.status
+    WHERE counseling_id = :NEW.counseling_id;
+END;
+
+
+
+SELECT cr.*, lc.session_id FROM TEST_COUNSELING_RESERVATION cr, TEST_LIVE_CHAT lc
+WHERE cr.COUNSELING_ID = lc.counseling_id and cr.COUNSELING_ID = 398;

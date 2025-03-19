@@ -69,9 +69,9 @@ public interface LiveChatMapper {
 
         // ✅ 특정 상담 ID로 상담 내역 조회
         @Select("""
-        SELECT * FROM TEST_COUNSELING_RESERVATION 
-        WHERE counseling_id = #{counseling_id}
-    """)
+                    SELECT cr.*, lc.session_id FROM TEST_COUNSELING_RESERVATION cr, TEST_LIVE_CHAT lc
+                                                          WHERE cr.COUNSELING_ID = lc.counseling_id and cr.COUNSELING_ID = #{counseling_id}
+                """)
         LiveChatVO findReservationById(@Param("counseling_id") int counselingId);
 
         // ✅ 특정 상담의 상태를 '대기'로 변경
@@ -99,8 +99,13 @@ public interface LiveChatMapper {
         int insertChatMessage(LiveChatVO message);
 
 
-        @Insert("""
-        insert into test_live_chat values(test_live_chat_seq.nextval,#{user_id},#{counselor_id},#{start_time},#{end_time},#{status})
+    @Insert("""
+    INSERT INTO test_live_chat (session_id, user_id,COUNSELING_ID, counselor_id, start_time, end_time, status)
+    VALUES (#{session_id}, #{user_id},#{counseling_id}, #{counselor_id}, #{start_time}, 0, '대기')
 """)
-    void createChatRoom(LiveChatVO reservation);
+    @SelectKey(statement = "SELECT test_live_chat_seq.nextval FROM dual",
+            keyProperty = "session_id",
+            before = true,
+            resultType = Integer.class)
+    Integer createChatRoom(LiveChatVO reservation);
 }

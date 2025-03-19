@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -58,44 +59,29 @@
                     </c:choose>
                 </div>
 
-                <c:if test="${not isCompleted}">
-                    <button id="enterButton" class="enter-chat-btn">상담 시작하기</button>
-                    <div class="chat-input" style="display: none;">
-                        <input type="text" id="chatInput" placeholder="메시지를 입력하세요">
-                        <button onclick="sendMessage()">전송</button>
-                    </div>
-                </c:if>
-                <button id="exitButton" class="end-chat-btn"
-                        onclick="${isCompleted ? 'goBack()' : 'confirmExit()'}">
-                    ${isCompleted ? '돌아가기' : '나가기'}
-                </button>
             </div>
 
 
-
-
-
-
-        <c:if test="${counseling.status ne '완료'}">
-                    <button id="enterButton" class="enter-chat-btn">상담 시작하기</button>
-                    <div class="chat-input" style="display: none;">
-                        <input type="text" id="chatInput" placeholder="메시지를 입력하세요">
-                        <button onclick="sendMessage()">전송</button>
-                    </div>
-                </c:if>
-                <button id="exitButton" class="end-chat-btn"
-                        onclick="${counseling.status eq '완료' ? 'goBack()' : 'confirmExit()'}">
-                    ${counseling.status eq '완료' ? '돌아가기' : '나가기'}
-                </button>
-
+            <c:if test="${counseling.status ne '완료'}">
+            <button id="enterButton" class="enter-chat-btn">상담 시작하기</button>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="메시지를 입력하세요">
+                <button onclick="sendMessage()">전송</button>
             </div>
-        </main>
+            </c:if>
+            <button id="exitButton" class="end-chat-btn"
+                    onclick="${counseling.status eq '완료' ? 'goBack()' : 'confirmExit()'}">
+                ${counseling.status eq '완료' ? '돌아가기' : '나가기'}
+            </button>
+
     </div>
+    </main>
+</div>
 </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-        <script src="/static/js/livechat/livechatdetail.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/static/js/livechat/livechatdetail.js"></script>
 
 </body>
 </html>

@@ -285,7 +285,7 @@ body {
 /* 상담 시작 버튼 */
 /* 상담 시작 버튼 */
 #enterButton {
-    display: block !important; /* 🔥 강제 표시 */
+    display: block; /* 🔥 강제 표시 */
     margin: 20px auto;
     padding: 10px 15px;
     background-color: #3f2e29;
@@ -354,17 +354,17 @@ body {
 }
 
 .chat-input {
-    display: none !important; /* 🔥 기본적으로 무조건 숨김 */
+    display: none;
     align-items: center;
-    width: 99%;
+    width: 98%;
     padding: 10px;
     background: #ede0d4;
     border-top: 1px solid #ede0d4;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
-    margin-top: -128px;
+    margin-top: -92px;
+    margin-left: 21px;
 }
-
 
 
 /* 🔹 입력창 내부 스타일 */

@@ -29,8 +29,8 @@ public interface UserMyPageMapper {
 
 
     @Select("""
-    SELECT * FROM test_counseling_reservation 
-    WHERE user_id = #{user_id} 
+    SELECT cr.*, lc.session_id FROM test_counseling_reservation cr, test_live_chat lc 
+    WHERE cr.COUNSELING_ID = lc.COUNSELING_ID and cr.user_id =  #{user_id}  
     ORDER BY counseling_date DESC, counseling_time DESC
 """)
     List<UserMyPageVO> getUserReservations(@Param("user_id") String user_id);

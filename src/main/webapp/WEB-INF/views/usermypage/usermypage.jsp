@@ -127,7 +127,8 @@
                                          data-counseling-id="${reservation.counseling_id}"
                                          data-session-id="${reservation.session_id}"
                                          data-counseling-date="<fmt:formatDate value='${reservation.counseling_date}' pattern='yyyy-MM-dd'/>"
-                                         data-counseling-time="${reservation.counseling_time}">
+                                         data-counseling-time="${reservation.counseling_time}"
+                                         data-status="${reservation.status}">
 
                                         <div><strong>[상담일시] </strong></div>
                                         <fmt:formatDate value="${reservation.counseling_date}" pattern="yyyy년 MM월 dd일"/>

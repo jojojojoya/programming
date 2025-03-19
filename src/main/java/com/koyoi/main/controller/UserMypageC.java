@@ -81,6 +81,7 @@ public class UserMypageC {
         }
 
         List<UserMyPageVO> reservations = userMyPageService.getUserReservations(user_id);
+        System.out.println(reservations);
         model.addAttribute("reservations", reservations);
 
         return "usermypage/usermypage";
