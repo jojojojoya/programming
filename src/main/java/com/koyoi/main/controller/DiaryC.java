@@ -3,6 +3,8 @@ package com.koyoi.main.controller;
 import com.koyoi.main.service.DiaryService;
 import com.koyoi.main.vo.DiaryVO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,26 +29,54 @@ public class DiaryC {
         return "diary/diary";
     }
 
-    /* 캘린더 이모지 이벤트 조회 (FullCalendar에서 호출하는 API) */
+    /* 캘린더 이모지 이벤트 조회 */
     @GetMapping("/events")
     @ResponseBody
     public List<Map<String, Object>> getDiaryEvents() {
         String userId = "user1";
-        return diaryService.getDiaryEvents(userId);
+        List<Map<String, Object>> events = diaryService.getDiaryEvents(userId);
+
+        System.out.println("이벤트 리스트: " + events);
+
+        return events;
+
+//        String userId = "user1";
+//        return diaryService.getDiaryEvents(userId);
     }
 
     /* 일기 상세 조회 (일기 ID 기준) */
     @GetMapping("/{diaryId}")
     @ResponseBody
-    public DiaryVO getDiaryById(@PathVariable int diaryId) {
-        return diaryService.getDiaryById(diaryId);
+    public ResponseEntity<?> getDiaryById(@PathVariable int diaryId) {
+        System.out.println("[DiaryController] 요청받은 diaryId: " + diaryId);
+
+        DiaryVO vo = diaryService.getDiaryById(diaryId);
+
+        if (vo == null) {
+            System.out.println("[DiaryController] 일기 없음, diaryId: " + diaryId);
+            return ResponseEntity.status(404).body(Map.of("message",  "일기를 찾을 수 없습니다."));
+        }
+
+        System.out.println("[DiaryC] 반환할 DiaryVO: " + vo);
+        return ResponseEntity.ok(vo);
+    }
+
+
+    /* 일기 날짜 조회 */
+    @GetMapping("/date/{date}")
+    @ResponseBody
+    public DiaryVO getDiaryByDate(@PathVariable String date) {
+        String userId = "user1"; // 로그인 연동 시 세션에서 userId 가져오기!
+
+        return diaryService.getDiaryByDate(userId, date);
     }
 
     /* 일기 등록 */
     @PostMapping("/save")
     @ResponseBody
-    public Map<String, Object> writeDiary(@RequestBody DiaryVO diaryVO) {
-        diaryVO.setUser_id("userId"); // 하드코딩
+    public Map<String, Object> saveDiary(@RequestBody DiaryVO diaryVO) {
+        System.out.println("[DiaryC] 받은 diaryVO: " + diaryVO);
+        diaryVO.setUser_id("user1"); // 하드코딩
         diaryService.saveDiary(diaryVO);
 
         return Map.of("message", "일기 등록 완료!", "diaryId", diaryVO.getDiary_id());
