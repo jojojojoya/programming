@@ -46,23 +46,41 @@ public class LiveChatC {
         return "/livechat/livechatreservation";
     }
 
-    // ✅ 특정 상담 상세 페이지
     @GetMapping("/livechatdetail")
-    public String showLiveChatDetails(@RequestParam("reservationId") int counselingId, Model model) {
-        LiveChatVO counselingDetail = liveChatService.getCounselingDetail(counselingId);
+    public String showLiveChatDetails(@RequestParam(value = "sessionId", required = false) Integer sessionId,
+                                      @RequestParam(value = "counselingId", required = false) Integer counselingId,
+                                      @RequestParam(value = "isCompleted", required = false, defaultValue = "false") boolean isCompleted,
+                                      Model model) {
+        System.out.println("🔍 상담 상세 페이지 요청: sessionId=" + sessionId + ", counselingId=" + counselingId + ", isCompleted=" + isCompleted);
 
-        if (counselingDetail == null) {
-            return "redirect:/usermypage"; // 상담 정보 없으면 마이페이지로 리디렉트
+//        if (sessionId == null || sessionId <= 0) {
+//            System.out.println("❌ 유효하지 않은 sessionId: " + sessionId);
+//            return "redirect:/usermypage"; // 상담 ID가 없으면 마이페이지로 리다이렉트
+//        }
+
+        // ✅ 상담 정보 가져오기
+        LiveChatVO counselingDetail = liveChatService.getCounselingDetail(counselingId);
+        System.out.println("counselingDetail : " + counselingDetail);
+        if (counselingDetail.getSession_id() == 0) {
+            System.out.println("⚠️ 상담 내역 없음: sessionId=" + sessionId);
+            counselingDetail.setSession_id(sessionId);
+        }
+
+        // ✅ 채팅 로그 가져오기
+        List<LiveChatVO> chatLogs = liveChatService.getChatLogs(sessionId);
+        if (chatLogs.isEmpty()) {
+            System.out.println("⚠️ 채팅 기록 없음: sessionId=" + sessionId);
         }
 
         model.addAttribute("counseling", counselingDetail);
-        model.addAttribute("chatLogs", liveChatService.getChatLogs(counselingDetail.getSession_id()));
-
-        boolean isCompleted = "완료".equals(counselingDetail.getStatus());
+        model.addAttribute("chatLogs", chatLogs);
         model.addAttribute("isCompleted", isCompleted);
 
+        System.out.println("✅ 상담 상세 페이지 로드 완료: sessionId=" + sessionId + ", isCompleted=" + isCompleted);
         return "/livechat/livechatdetail";
     }
+
+
 //    @PostMapping("/livechatreservation")
 //    public ResponseEntity<Map<String, Object>> reserveLiveChat(@RequestBody Map<String, String> request, HttpSession session) {
 //        String userId = (String) session.getAttribute("user_id");

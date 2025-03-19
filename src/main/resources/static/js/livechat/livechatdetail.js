@@ -9,7 +9,7 @@ function connect(sessionId, userId, category, counselingDate, counselingTime, is
     stompClient = Stomp.over(socket);
 
     stompClient.connect({}, function (frame) {
-        console.log("✅ WebSocket 연결됨: " + frame);
+        console.log("✅ WebSocket 연결 성공: " + frame);
         reconnectAttempts = 0;
 
         stompClient.subscribe("/topic/chat/" + sessionId, function (message) {
@@ -19,186 +19,278 @@ function connect(sessionId, userId, category, counselingDate, counselingTime, is
             showMessage(chatMessage);
         });
 
-        if (!isCompleted && !document.querySelector(".counselor-msg")) {
-            let formattedDateTime = formatDateTime(counselingDate, counselingTime);
-            let welcomeMessage = {
-                session_id: sessionId,
-                sender: "상담사",
-                content: `안녕하세요! ${formattedDateTime}에 예약된 '${category}' 관련 상담을 도와드리겠습니다.<br>😊 편하게 하고 싶은 말씀을 들려주세요.`,
-                type: "COUNSELOR"
-            };
+        // ✅ 상담사 자동 메시지 추가 (상담이 대기 상태일 경우)
+        if (!isCompleted) {
+            let welcomeMessageSent = localStorage.getItem(`welcome_msg_${sessionId}`);
+            console.log(`🔍 welcome_msg_${sessionId} 값:`, welcomeMessageSent);
+console.log(counselingDate);
+console.log(counselingTime)
+            if (!welcomeMessageSent || welcomeMessageSent !== "true") {
+                let formattedDateTime = formatDateTime(counselingDate, counselingTime);
+                let welcomeMessage = {
+                    session_id: sessionId,
+                    sender: "상담사",
+                    content: `안녕하세요! ${formattedDateTime}에 예약된 '${category}' 관련 상담을 도와드리겠습니다.<br>😊 편하게 하고 싶은 말씀을 들려주세요.`,
+                    type: "COUNSELOR"
+                };
 
-            console.log("📨 상담사 자동 환영 메시지 전송:", welcomeMessage);
-            showMessage(welcomeMessage);
-            saveChatToLocal(welcomeMessage);
-            stompClient.send("/app/chat", {}, JSON.stringify(welcomeMessage));
+                console.log("📨 상담사 자동 메시지 생성됨:", welcomeMessage);
+
+                setTimeout(() => {
+                    console.log("📨 상담사 자동 메시지 전송 시작:", welcomeMessage);
+                    removeNoMessagesText(); // ✅ "대화 내용이 없습니다." 삭제
+                    showMessage(welcomeMessage);
+                    saveChatToLocal(welcomeMessage);
+
+                    // ✅ WebSocket을 통해 서버에도 전송
+                    if (stompClient && stompClient.connected) {
+                        stompClient.send("/app/chat", {}, JSON.stringify(welcomeMessage));
+                        console.log("✅ WebSocket을 통해 상담사 메시지 전송 완료");
+                    } else {
+                        console.error("🚨 WebSocket이 연결되지 않아 메시지를 보낼 수 없음");
+                    }
+
+                    localStorage.setItem(`welcome_msg_${sessionId}`, "true");
+                }, 500);
+            } else {
+                console.log("⚠️ 상담사 자동 메시지가 이미 전송됨 (중복 방지)");
+            }
         }
     }, function (error) {
         console.error("🚨 WebSocket 연결 실패: ", error);
-        if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-            let timeout = Math.min(5000 * reconnectAttempts, 30000);
-            console.log(`🔄 ${timeout / 1000}초 후 WebSocket 재연결 시도...`);
-            setTimeout(() => connect(sessionId, userId, category, counselingDate, counselingTime, isCompleted), timeout);
-            reconnectAttempts++;
-        } else {
-            alert("⚠️ WebSocket 연결이 지속적으로 실패했습니다. 네트워크를 확인하세요.");
-        }
     });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     let chatContainer = document.querySelector(".chat-container");
-    let chatBox = document.getElementById("chatBox");
-
     let sessionId = chatContainer.dataset.sessionId;
-    let category = chatContainer.dataset.category;
-    let counselingDate = chatContainer.dataset.counselingDate;
-    let counselingTime = chatContainer.dataset.counselingTime;
-    let userId = chatContainer.dataset.userId;
-    let userType = chatContainer.dataset.userType || "USER";  // 🔥 userType이 없을 경우 기본값 설정
 
-    let isCompleted = chatContainer.dataset.isCompleted === "true";
-
-    let chatInputContainer = document.querySelector(".chat-input");
-    let enterButton = document.getElementById("enterButton");
-    let exitButton = document.getElementById("exitButton");
-
-    loadChatsFromLocal();
-
-    if (isCompleted) {
-        console.log("✅ 상담 완료 상태입니다.");
-        enterButton.style.display = "none";
-        chatInputContainer.style.display = "none";
-        exitButton.textContent = "돌아가기";
-        exitButton.setAttribute("onclick", "goBack()");
+    if (!sessionId) {
+        console.error("🚨 sessionId가 없습니다!");
         return;
     }
 
-    console.log("⏳ 상담 대기 상태입니다. 버튼 활성화!");
-    enterButton.style.display = "block";
-    chatInputContainer.style.display = "none";
-    exitButton.textContent = "나가기";
-    exitButton.setAttribute("onclick", "confirmExit()");
+    let isCompleted = chatContainer.dataset.isCompleted === "true"; // 상담 완료 여부
+    let enterButton = document.getElementById("enterButton");
+    let chatInputContainer = document.querySelector(".chat-input");
 
-    enterButton.addEventListener("click", function () {
-        connect(sessionId, userId, category, counselingDate, counselingTime, isCompleted);
-        chatInputContainer.style.display = "flex";
-        enterButton.style.display = "none";
-    });
-});
-function showMessage(message) {
-    let chatBox = document.getElementById("chatBox");
+    if (isCompleted) {
+        console.log("✅ 상담이 완료된 상태입니다.");
+        if (enterButton) enterButton.style.display = "none"; // 상담 시작 버튼 숨기기
+        chatInputContainer.style.display = "none"; // 입력창 숨기기
 
-    // 🔥 기존 "대화 내용이 없습니다." 삭제
-    let noMessagesElement = chatBox.querySelector(".no-messages");
-    if (noMessagesElement) {
-        noMessagesElement.remove();
-    }
+        // ✅ 기존 채팅 내역을 DB에서 불러오기
+        loadChatsFromServer(sessionId);
+    } else {
+        console.log("✅ 상담이 진행 중입니다. 상담 시작 버튼을 표시합니다.");
+        if (enterButton) {
+            enterButton.addEventListener("click", function () {
+                console.log("✅ 상담 시작 버튼 클릭됨!");
+                enterButton.style.display = "none"; // 상담 시작 버튼 숨기기
+                chatInputContainer.style.display = "flex"; // 입력창 보이기
 
-    // 상담사 메시지가 처음 전송되기 전에는 화면에 표시되지 않도록 숨김 처리
-    let msgElement = document.createElement("div");
-    msgElement.className = `chat-message ${message.type === "USER" ? "user-msg" : "counselor-msg"}`;
-
-    // 🔥 상담사 메시지일 경우, 메시지가 화면에 나타나지 않도록 숨김 처리
-    if (message.type === "COUNSELOR") {
-        msgElement.style.display = "none";
-    }
-
-    // 🔥 sender가 비어 있지 않을 때만 표시
-    let senderHtml = message.sender && message.sender.trim() !== "" ? `<strong>${message.sender}:</strong> ` : "";
-    msgElement.innerHTML = `${senderHtml}${message.content}`;
-
-    chatBox.appendChild(msgElement);
-    chatBox.scrollTop = chatBox.scrollHeight; // 스크롤 아래로 자동 이동
-
-    // 상담사 메시지가 화면에 나타나도록 설정
-    if (message.type === "COUNSELOR") {
-        setTimeout(() => {
-            msgElement.style.display = "block"; // 상담사 메시지를 화면에 표시
-        }, 1000); // 1초 뒤에 나타나게 설정 (원하는 시간으로 조정 가능)
-    }
-}
-
-function sendMessage() {
-    let chatInput = document.getElementById("chatInput");
-    let messageContent = chatInput.value.trim();
-
-    if (messageContent === "") return;
-
-    let chatContainer = document.querySelector(".chat-container");
-    let sessionId = chatContainer.dataset.sessionId;
-    let userId = chatContainer.dataset.userId;
-
-    let message = {
-        session_id: sessionId,
-        sender: userId,
-        content: messageContent,
-        type: "USER"
-    };
-
-    showMessage(message);
-    saveChatToLocal(message);
-    stompClient.send("/app/chat", {}, JSON.stringify(message));
-
-    chatInput.value = "";
-}
-
-function goBack() {
-    window.location.href = "/usermypage";
-}
-
-function confirmExit() {
-    let isConfirmed = confirm("정말 상담을 종료하시겠습니까?");
-    if (isConfirmed) {
-        let chatContainer = document.querySelector(".chat-container");
-        let counselingId = chatContainer.dataset.counselingId;
-
-        if (!counselingId) {
-            console.error("🚨 상담 ID가 존재하지 않습니다.");
-            alert("❌ 상담 ID가 유효하지 않습니다.");
-            return;
+                // ✅ WebSocket 연결 및 자동 메시지 전송
+                connect(
+                    chatContainer.dataset.sessionId,
+                    chatContainer.dataset.userId,
+                    chatContainer.dataset.category,
+                    chatContainer.dataset.counselingDate,
+                    chatContainer.dataset.counselingTime,
+                    isCompleted
+                );
+            });
         }
+    }
+});
 
-        fetch("/completeCounseling", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ counseling_id: parseInt(counselingId, 10) })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("✅ 상담이 완료되었습니다!");
-                    localStorage.removeItem("chat_" + chatContainer.dataset.sessionId);
-                    window.location.href = "/usermypage";
-                } else {
-                    alert("❌ 상담 종료 실패. 다시 시도해주세요.");
+
+            function showMessage(message) {
+                let chatBox = document.getElementById("chatBox");
+
+                // ✅ 기존 "대화 내용이 없습니다." 메시지 삭제
+                let noMessagesElement = chatBox.querySelector(".no-messages");
+                if (noMessagesElement) {
+                    noMessagesElement.remove();
                 }
-            })
-            .catch(error => console.error("🚨 상담 종료 오류:", error));
-    }
-}
 
-function keepWebSocketAlive() {
-    if (stompClient && stompClient.connected) {
-        stompClient.send("/app/ping", {}, JSON.stringify({ message: "ping" }));
-        console.log("📡 WebSocket ping 메시지 전송!");
-    }
-}
-setInterval(keepWebSocketAlive, 30000);
+                let msgElement = document.createElement("div");
+                msgElement.className = `chat-message ${message.type === "USER" ? "user-msg" : "counselor-msg"}`;
 
-function saveChatToLocal(message) {
-    let chatContainer = document.querySelector(".chat-container");
-    let sessionId = chatContainer.dataset.sessionId;
-    let chatLogs = JSON.parse(localStorage.getItem("chat_" + sessionId) || "[]");
+                let senderHtml = message.sender && message.sender.trim() !== "" ? `<strong>${message.sender}:</strong> ` : "";
+                msgElement.innerHTML = `${senderHtml}${message.content}`;
 
-    chatLogs.push(message);
-    localStorage.setItem("chat_" + sessionId, JSON.stringify(chatLogs));
-}
+                chatBox.appendChild(msgElement);
+                chatBox.scrollTop = chatBox.scrollHeight; // 스크롤 자동 이동
 
-function loadChatsFromLocal() {
-    let chatContainer = document.querySelector(".chat-container");
-    let sessionId = chatContainer.dataset.sessionId;
-    let chatLogs = JSON.parse(localStorage.getItem("chat_" + sessionId) || "[]");
+                // ✅ 상담사 메시지일 경우, 상담 시작 버튼이 눌리면 보이도록 처리
+                if (message.type === "COUNSELOR") {
+                    let isChatStarted = localStorage.getItem("chat_started") === "true"; // 🔥 상담 시작 여부 확인
+                    if (isChatStarted) {
+                        msgElement.style.display = "block"; // 🔥 상담이 시작되었을 때만 보이게 설정
+                    }
+                }
 
-    chatLogs.forEach(chat => showMessage(chat));
-}
+                document.getElementById("enterButton").addEventListener("click", function () {
+                    localStorage.setItem("chat_started", "true"); // 🔥 상담 시작 상태 저장
+
+                    // ✅ "대화 내용이 없습니다." 문구 즉시 삭제
+                    removeNoMessagesText();
+
+                    // ✅ 기존 상담사 메시지를 보이게 설정
+                    document.querySelectorAll(".counselor-msg").forEach(msg => {
+                        msg.style.display = "block";
+                    });
+
+                    let chatContainer = document.querySelector(".chat-container");
+                    connect(
+                        chatContainer.dataset.sessionId,
+                        chatContainer.dataset.userId,
+                        chatContainer.dataset.category,
+                        chatContainer.dataset.counselingDate,
+                        chatContainer.dataset.counselingTime,
+                        chatContainer.dataset.isCompleted === "true"
+                    );
+
+                    // ✅ 상담 시작 버튼을 누르면 상담사 자동 메시지 전송
+                    let formattedDateTime = formatDateTime(chatContainer.dataset.counselingDate, chatContainer.dataset.counselingTime);
+                    let welcomeMessage = {
+                        session_id: chatContainer.dataset.sessionId,
+                        sender: "상담사",
+                        content: `안녕하세요! ${formattedDateTime}에 예약된 '${chatContainer.dataset.category}' 관련 상담을 도와드리겠습니다.<br>😊 편하게 하고 싶은 말씀을 들려주세요.`,
+                        type: "COUNSELOR"
+                    };
+
+                    console.log("📨 상담사 자동 메시지 전송:", welcomeMessage);
+                    showMessage(welcomeMessage); // ✅ 화면에 메시지 출력
+                    saveChatToLocal(welcomeMessage); // ✅ localStorage에 저장
+
+                    // ✅ WebSocket을 통해 서버에도 메시지 전송
+                    if (stompClient && stompClient.connected) {
+                        stompClient.send("/app/chat", {}, JSON.stringify(welcomeMessage));
+                        console.log("✅ WebSocket을 통해 상담사 메시지 전송 완료");
+                    } else {
+                        console.error("🚨 WebSocket이 연결되지 않아 메시지를 보낼 수 없음");
+                    }
+                });
+
+                function sendMessage() {
+                    let chatInput = document.getElementById("chatInput");
+                    let messageContent = chatInput.value.trim();
+
+                    if (messageContent === "") return;
+
+                    let chatContainer = document.querySelector(".chat-container");
+                    let sessionId = chatContainer.dataset.sessionId;
+                    let userId = chatContainer.dataset.userId;
+
+                    let message = {
+                        session_id: sessionId,
+                        sender: userId,
+                        content: messageContent,
+                        type: "USER",
+                        timestamp: new Date().toISOString()
+                    };
+
+                    // ✅ 메시지를 화면에 표시
+                    showMessage(message);
+                    saveChatToLocal(message);
+
+                    // ✅ 메시지를 서버에 저장
+                    fetch("/saveChat", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify(message)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                console.error("❌ 메시지 저장 실패");
+                            }
+                        })
+                        .catch(error => console.error("🚨 메시지 저장 오류:", error));
+
+                    stompClient.send("/app/chat", {}, JSON.stringify(message));
+
+                    chatInput.value = "";
+                }
+
+
+                function goBack() {
+                    window.location.href = "/usermypage";
+                }
+
+                function confirmExit() {
+                    let isConfirmed = confirm("정말 상담을 종료하시겠습니까?");
+                    if (isConfirmed) {
+                        let chatContainer = document.querySelector(".chat-container");
+                        let sessionId = chatContainer.dataset.sessionId;
+
+                        fetch("/completeCounseling", {
+                            method: "POST",
+                            headers: {"Content-Type": "application/json"},
+                            body: JSON.stringify({counseling_id: parseInt(chatContainer.dataset.counselingId, 10)})
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert("✅ 상담이 완료되었습니다!");
+                                    localStorage.removeItem(`chat_started_${sessionId}`); // ✅ 상담 상태 초기화
+                                    window.location.href = "/usermypage";
+                                } else {
+                                    alert("❌ 상담 종료 실패. 다시 시도해주세요.");
+                                }
+                            })
+                            .catch(error => console.error("🚨 상담 종료 오류:", error));
+                    }
+                }
+
+
+                function keepWebSocketAlive() {
+                    if (stompClient && stompClient.connected) {
+                        stompClient.send("/app/ping", {}, JSON.stringify({message: "ping"}));
+                        console.log("📡 WebSocket ping 메시지 전송!");
+                    }
+                }
+
+                setInterval(keepWebSocketAlive, 30000);
+
+                function saveChatToLocal(message) {
+                    let chatContainer = document.querySelector(".chat-container");
+                    let sessionId = chatContainer.dataset.sessionId;
+                    let chatLogs = JSON.parse(localStorage.getItem("chat_" + sessionId) || "[]");
+
+                    chatLogs.push(message);
+                    localStorage.setItem("chat_" + sessionId, JSON.stringify(chatLogs));
+                }
+
+                function removeNoMessagesText() {
+                    let noMessagesElement = document.querySelector(".no-messages");
+                    if (noMessagesElement) {
+                        noMessagesElement.remove();
+                    }
+                }
+
+
+                function loadChats() {
+                    console.log("🔄 채팅 내역 불러오는 중...");
+                    loadChatsFromServer();
+                }
+
+                // ✅ 상담이 "완료" 상태일 때 DB에서 기존 채팅 내역 불러오기
+                function loadChatsFromServer(sessionId) {
+                    fetch(`/getChatLogs?sessionId=${sessionId}`)
+                        .then(response => response.json())
+                        .then(chatLogs => {
+                            let chatBox = document.getElementById("chatBox");
+                            if (!chatBox) return;
+
+                            if (chatLogs.length > 0) {
+                                chatLogs.forEach(chat => showMessage(chat));
+                            } else {
+                                chatBox.innerHTML = "<div class='no-messages'>대화 내용이 없습니다.</div>";
+                            }
+                        })
+                        .catch(error => console.error("🚨 DB에서 채팅 내역 불러오기 오류:", error));
+                }
+
+            }

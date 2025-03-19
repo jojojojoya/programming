@@ -27,6 +27,7 @@ public class LiveChatService {
             int result = liveChatMapper.reserveCounseling(reservation);
             if (result > 0) {
                 System.out.println("✅ 상담 예약 성공: " + reservation.getCounseling_id());
+                liveChatMapper.createChatRoom(reservation);
                 return true;
             } else {
                 System.out.println("⚠️ 상담 예약 실패!");

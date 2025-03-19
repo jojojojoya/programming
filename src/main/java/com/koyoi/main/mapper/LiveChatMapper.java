@@ -99,4 +99,8 @@ public interface LiveChatMapper {
         int insertChatMessage(LiveChatVO message);
 
 
-    }
+        @Insert("""
+        insert into test_live_chat values(test_live_chat_seq.nextval,#{user_id},#{counselor_id},#{start_time},#{end_time},#{status})
+""")
+    void createChatRoom(LiveChatVO reservation);
+}

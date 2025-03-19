@@ -259,9 +259,9 @@ body {
     border-radius: 20px;
 }
 
-/* 🟡 채팅 입력창 */
+/* 🟡 채팅 입력창 (상담 시작 전에는 보이지 않도록 설정) */
 .chat-input {
-    display: flex;
+    display: none; /* ✅ `!important` 제거 */
     align-items: center;
     width: 99%;
     padding: 10px;
@@ -269,17 +269,12 @@ body {
     border-top: 1px solid #ede0d4;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
-    margin-top: -46px;
+    margin-top: -128px;
 }
 
-/* 🔹 입력창 내부 스타일 */
-.chat-input input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ede0d4;
-    border-radius: 20px;
-    outline: none;
-}
+
+
+
 .no-messages {
     color: #FFD27A; /* 원하는 색상 코드로 변경 */
     font-size: 16px;  /* 글자 크기 */
@@ -287,10 +282,11 @@ body {
     text-align: center; /* 가운데 정렬 */
     margin-top: 20px;
 }
-
+/* 상담 시작 버튼 */
+/* 상담 시작 버튼 */
 #enterButton {
-    display: block;
-    margin: 20px auto; /* 상하 여백 + 좌우 중앙 정렬 */
+    display: block !important; /* 🔥 강제 표시 */
+    margin: 20px auto;
     padding: 10px 15px;
     background-color: #3f2e29;
     color: #ffd27a;
@@ -299,10 +295,24 @@ body {
     cursor: pointer;
     font-size: 14px;
     text-align: center;
-    width: 150px; /* 원하는 크기 조절 */
+    width: 150px;
 }
 
 
+/* 나가기 버튼 */
+#exitButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #ffd27a;
+    cursor: pointer;
+    font-size: 14px;
+    color: #3f2e29;
+    transition: background-color 0.2s;
+    border-radius: 6px;
+    border: none;
+    text-align: center;
+}
 /* 🔹 전송 버튼 스타일 */
 .chat-input button {
     margin-left: 10px;
@@ -318,19 +328,6 @@ body {
     background-color: #ffcc66;
 }
 
-#exitButton {
-    display: block;  /* 블록 요소로 변경 */
-    margin: 20px auto; /* 위 아래 여백 + 좌우 자동 정렬 (중앙) */
-    padding: 10px 20px;
-    background-color: #ffd27a;
-    cursor: pointer;
-    font-size: 14px;
-    color: #3f2e29;
-    transition: background-color 0.2s;
-    border-radius: 6px;
-    border: none;
-    text-align: center; /* 텍스트도 가운데 정렬 */
-}
 
 /* 🔵 채팅 메시지 */
 .user-msg {
@@ -345,17 +342,7 @@ body {
     font-size: 14px;
 }
 
-.counselor-msg {
-    align-self: flex-start;
-    background-color: #ede0d4;
-    color: #3f2e29;
-    border-radius: 15px 15px 15px 0;
-    padding: 10px;
-    max-width: 60%;
-    word-wrap: break-word;
-    margin-bottom: 8px;
-    font-size: 14px;
-}
+
 
 .chat-message {
     display: inline-block;
@@ -364,4 +351,27 @@ body {
     position: relative;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
     text-align: left;
+}
+
+.chat-input {
+    display: none !important; /* 🔥 기본적으로 무조건 숨김 */
+    align-items: center;
+    width: 99%;
+    padding: 10px;
+    background: #ede0d4;
+    border-top: 1px solid #ede0d4;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-top: -128px;
+}
+
+
+
+/* 🔹 입력창 내부 스타일 */
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ede0d4;
+    border-radius: 20px;
+    outline: none;
 }
