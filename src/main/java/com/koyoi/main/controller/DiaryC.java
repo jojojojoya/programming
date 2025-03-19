@@ -2,8 +2,8 @@ package com.koyoi.main.controller;
 
 import com.koyoi.main.service.DiaryService;
 import com.koyoi.main.vo.DiaryVO;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +19,43 @@ public class DiaryC {
 
     private final DiaryService diaryService;
 
+    // 메인페이지에서 넘어온 날짜를 세션에 저장
+//    @PostMapping("/setSelectedDate")
+//    @ResponseBody
+//    public ResponseEntity<?> setSelectedDate(@RequestBody Map<String, String> requestBody, HttpSession session) {
+//        String selectedDate = requestBody.get("date");
+//
+//        if (selectedDate == null || selectedDate.isEmpty()) {
+//            return ResponseEntity.badRequest().body("날짜 값이 없습니다.");
+//        }
+//
+//        session.setAttribute("selectedDate", selectedDate);  // 세션에 날짜 저장!
+//
+//        return ResponseEntity.ok().build();
+//    }
+
     // 뷰 페이지 렌더링
     @GetMapping
-    public String diaryPage(Model model) {
+    public String diaryPage(HttpSession session, Model model) {
+//        String userId = (String) session.getAttribute("userId"); 나중에 유저 연결
+//        if (userId == null) {
+//            return "redirect:/login";  // 로그인 상태 확인
+//        }
         String userId = "user1";
+
         List<Map<String, Object>> diaryEvents = diaryService.getDiaryEvents(userId);
         model.addAttribute("diaryEvents", diaryEvents);
+
+        // 세션에서 선택 날짜 꺼내기
+//        String selectedDate = (String) session.getAttribute("selectedDate");
+//
+//        if (selectedDate != null && !selectedDate.isEmpty()) {
+//            DiaryVO diary = diaryService.getDiaryByDate(userId, selectedDate);
+//            model.addAttribute("selectedDiary", diary);
+//            model.addAttribute("selectedDate", selectedDate);
+//
+//            session.removeAttribute("selectedDate");  // 사용 후 초기화 (선택)
+//        }
 
         return "diary/diary";
     }
