@@ -9,7 +9,7 @@ import java.util.List;
 public interface EmotionMapper {
     // 감정 데이터 등록 (emotion_emoji 포함)
     @Insert("INSERT INTO TEST_EMOTION (emotion_id, user_id, diary_id, emotion_emoji, emotion_score, recorded_at) " +
-            "VALUES (TEST_EMOTION_SEQ.NEXTVAL, #{user_id}, #{diary_id}, #{emotion_emoji}, #{emotion_score}, SYSDATE)")
+            "VALUES (TEST_EMOTION_SEQ.NEXTVAL, #{user_id}, #{diary_id}, #{emotion_emoji}, #{emotion_score}, #{recorded_at})")
     int addEmotion(EmotionVO emotionVO);
 
     // 감정 이모지만 수정 (일기 수정 시 호출)
