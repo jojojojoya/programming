@@ -21,7 +21,7 @@ public class DiaryVO {
     @JsonProperty("formattedCreatedAt")
     public String getFormattedCreatedAt() {
         if (created_at != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             return created_at.format(formatter);
         }
         return null;

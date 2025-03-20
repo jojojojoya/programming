@@ -19,7 +19,7 @@ public class EmotionVO {
 
     public String getFormattedRecordedAt() {
         if (recorded_at != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             return recorded_at.format(formatter);
         }
         return null;
