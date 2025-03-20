@@ -2,9 +2,11 @@ package com.koyoi.main.controller;
 
 import com.koyoi.main.service.AnnouncementService;
 import com.koyoi.main.service.EmotionService;
+import com.koyoi.main.service.HabitTrackingService;
 import com.koyoi.main.service.QuoteService;
 import com.koyoi.main.vo.AnnouncementVO;
 import com.koyoi.main.vo.EmotionVO;
+import com.koyoi.main.vo.HabitTrackingVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,9 @@ public class MainC {
     @Autowired
     private EmotionService emotionService;
 
+    @Autowired
+    private HabitTrackingService habitTrackingService;
+
     @GetMapping("/main")
     public String main(Model model) {
         model.addAttribute("announcements", announcementService.getAllAnnouncements());
@@ -50,6 +55,14 @@ public class MainC {
         String userId = "user1";
         /*return emotionService.getUserAllEmotions(userId);*/
         return emotionService.getWeeklyMoodScores(userId, startDate, endDate);
+    }
+
+    @GetMapping("/habit-tracking/list")
+    @ResponseBody
+    public List<HabitTrackingVO> getHabitTrackingList() {
+        String userId = "user1";
+        List<HabitTrackingVO> habits = habitTrackingService.getHabitTrackingByUser(userId);
+        return habits; // "habits" 키 없이 리스트 자체를 반환
     }
 
 }

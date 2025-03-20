@@ -127,5 +127,6 @@
 
 </div>
 <script src="/static/js/main/main.js"></script>
+<script src="/static/js/main/todoList.js"></script>
 </body>
 </html>
