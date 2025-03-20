@@ -49,7 +49,7 @@
                         <a href="#">${announcement.title}</a>
                         <c:if test="${announcement.isNew == 'Y'}">
                         <span class="new-tag">New</span>
-                            </c:if>
+                        </c:if>
                     </li>
                 </c:forEach>
             </ul>
@@ -63,7 +63,9 @@
                 <div class="swiper-wrapper" id="quoteWrapper">
                     <c:forEach var="quote" items="${quotes}">
                         <div class="swiper-slide">
+                            <span class="quote-symbol">❝</span>
                             ${quote.content}
+                            <span class="quote-symbol">❞</span>
                         </div>
                     </c:forEach>
                 </div>
