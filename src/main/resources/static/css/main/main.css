@@ -13,10 +13,10 @@ body {
 }
 
 .container {
-    width: 90vw;
-    height: 90vh;
+    width: 100vw;
+    height: 100vh;
     background-color: #fff3e7;
-    border-radius: 2vw;
+ /*   border-radius: 2vw;*/
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -27,13 +27,13 @@ body {
 /* header */
 .header-bar {
     width: 100%;
-    height: 10vh;
+    height: 12vh;
     background-color: #EDE0D4;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 30px;
-    border-radius: 30px 30px 0 0;
+   /* border-radius: 30px 30px 0 0;*/
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
 }
@@ -48,8 +48,8 @@ body {
 }
 
 .logo-icon {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
 }
 
 .logo-text {
@@ -95,10 +95,9 @@ body {
 .modal {
     display: none;
     position: fixed;
-    top: calc(10% + 4vh);
-    right: 15vw;
-    width: 35vw;
-    max-width: 700px;
+    top: 10%;
+    right: 10vw;
+    width: 40vw;
     background: white;
     border: 0.1vw solid #ccc;
     box-shadow: 0.2vw 0.2vw 1vw rgba(0, 0, 0, 0.1);
@@ -194,40 +193,94 @@ body {
 }
 
 /* 명언 */
+/* 명언 컨테이너 */
 .quotes-container {
-    padding: 10px;
-    border-radius: 10px;
+    padding: 15px;
     text-align: center;
-    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 96%;
+    width: 100%;
     z-index: 10;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4); /* 부드러운 감성 그라디언트 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
 }
 
+/* 슬라이더 스타일 */
 .swiper {
-    width: 1200px;
-    height: 28px;
+    width: 80%;
+    height: auto;
 }
 
-.swiper-button-prev:after{
-    color: #5D4037;
+/* 슬라이드 내부 텍스트 */
+.swiper-slide {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    padding: 10px;
 }
-.swiper-button-next:after {
-    color: #5D4037;
+
+/* 페이드인 효과 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
+
+/* 네비게이션 버튼 스타일 */
+.swiper-button-prev:after, .swiper-button-next:after {
+    color: #fff;
+    font-size: 20px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+}
+
+.swiper-button-prev:hover:after, .swiper-button-next:hover:after {
+    transform: scale(1.2);
+}
+
+/* 슬라이드 배경 스타일 */
+.swiper-slide::before {
+    content: "❝"; /* 따옴표 추가 */
+    font-size: 30px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.swiper-slide::after {
+    content: "❞";
+    font-size: 30px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 
 .content-wrapper {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: stretch;
-    margin-top: 50px;
+    margin-top: 80px;
     gap: 2vw;
 }
 
@@ -351,6 +404,7 @@ body {
 
 .mood-chart canvas {
     border-radius: 8px;
+    /*width: 33vw;*/
 }
 
 /* 챗봇, 라이브챗 연결 */
@@ -362,13 +416,13 @@ body {
 .chatbot, .livechat {
     padding: 10px 20px;
     border: none;
-    background: #4CAF50;
+    background: #D2C4D6;
     color: white;
     cursor: pointer;
     border-radius: 5px;
 }
 
 .chatbot:hover, .livechat:hover {
-    background: #45a049;
+    background: #e6d7f1;
 }
 
