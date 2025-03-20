@@ -23,6 +23,10 @@ function isFutureDate(dateStr) {
  * @param {boolean} isEditable - 수정 가능 여부 (true: pointer / false: default) */
 /* 이모지 선택 초기화 */
 function resetEmojiSelection(sectionId, emoji, isEditable = true) {
+    console.log("✅ resetEmojiSelection 호출됨!");
+    console.log("sectionId:", sectionId);
+    console.log("emoji:", emoji);
+
     document.querySelectorAll(`#${sectionId} .emoji-option`).forEach(option => {
         option.classList.remove("selected");
         option.style.cursor = isEditable ? "pointer" : "default";
@@ -34,6 +38,7 @@ function resetEmojiSelection(sectionId, emoji, isEditable = true) {
 
     if (emojiElement) {
         emojiElement.classList.add("selected");
+        console.log(`✅ ${prefix}-${emoji} 하이라이트 완료`);
     } else {
         console.warn(`❗ ${prefix}-${emoji} 요소를 찾을 수 없습니다!`);
     }
@@ -263,31 +268,23 @@ function deleteDiary() {
     if (!confirm("정말 삭제하시겠습니까?")) {
         return;
     }
-    fetch(`/diary/emotion/delete/${currentDiaryId}`, { method: 'DELETE' })
+    fetch(`/diary/delete/${currentDiaryId}`, {method: 'DELETE'})
         .then(response => {
             if (!response.ok) {
-                throw new Error("감정 점수 삭제 실패");
+                throw new Error("일기 삭제 실패");
             }
-            console.log("감정 점수 삭제 완료");
+            alert("일기 삭제 완료!");
 
-            return fetch(`/diary/delete/${currentDiaryId}`, {method: 'DELETE'});
-        })
-        .then(response => {
-            if (response.ok) {
-                alert("일기 삭제 완료!");
-                currentDiaryId = null; // 삭제했으니 초기화
-                loadDiaryByDate(selectedDate);  // 삭제 후 작성 모드로 전환 (없는 경우)
-
-                refreshCalendarEvents();
-                openWriteMode(selectedDate);
-            } else {
-                alert("일기 삭제 실패");
-            }
+            currentDiaryId = null;
+            loadDiaryByDate(selectedDate);
+            refreshCalendarEvents();
+            openWriteMode(selectedDate);
         })
         .catch(error => {
             console.error("❌ 삭제 실패:", error);
             alert("삭제 중 오류가 발생했습니다!");
         });
+
 }
 
 
@@ -331,7 +328,8 @@ function loadDiaryById(diaryId) {
             document.getElementById("viewDiaryTitle").innerText = data.title || "제목 없음";
             document.getElementById("viewDiaryContent").innerText = data.diary_content || "내용 없음";
 
-            resetEmojiSelection("diaryWriteSection", selectedEmoji, true);
+            selectedEmoji = data.emotion_emoji;
+            resetEmojiSelection("diaryViewSection", selectedEmoji, false);
 
             document.getElementById("editBtn").style.display = "inline-block";
             document.getElementById("deleteBtn").style.display = "inline-block";
@@ -577,6 +575,7 @@ function selectEmoji(emoji) {
     }
 
     selectedEmoji = emoji;
+    resetEmojiSelection("diaryWriteSection", selectedEmoji, true);
 
     document.querySelectorAll("#diaryWriteSection .emoji-option").forEach(option => {
         option.classList.remove("selected");
