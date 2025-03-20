@@ -62,6 +62,7 @@
                         <div id="id-error" class="error-message"></div>
                     </div>
 
+                    <!-- PW -->
                     <label for="user_pw">Password</label>
                     <input type="password" id="user_pw" name="user_pw" placeholder="Enter your password" required>
 
@@ -90,11 +91,21 @@
                         <div id="nickname-error" class="error-message"></div>
                     </div>
 
+                    <!-- Email -->
                     <label for="user_email">Email</label>
                     <input type="email" id="user_email" name="user_email" placeholder="Enter your email" required>
 
-                    <label for="user_img">Profile Image</label>
-                    <input type="file" id="user_img" name="user_img" accept="image/*">
+                    <!-- Profile -->
+                    <div class="form-group">
+                        <label for="user_img">Profile Image</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="user_img" name="user_img" accept="image/*">
+                            <!-- 썸네일 미리보기 -->
+                            <div class="img-preview">
+                                <img id="img-preview" src="#" alt="Image Preview" style="display: none;" />
+                            </div>
+                        </div>
+                    </div>
 
                     <button type="submit" class="signup-btn">Sign Up</button>
 
