@@ -1,5 +1,6 @@
 // 전역 변수로 선언 (모든 함수에서 접근 가능)
 let pwInput, pwConfirmInput, pwError;
+let userImgInput, imgPreview;
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -22,15 +23,16 @@ document.addEventListener("DOMContentLoaded", function () {
         speed: 1000
     });
 
-    // 폼 제출 시 검증 연결
-    const signupForm = document.querySelector('.signup-form');
-    signupForm.addEventListener('submit', function (event) {
-        if (!validateSignupForm()) {
-            event.preventDefault();
-        }
-    });
+    // 패스워드 인풋 초기화
+    pwInput = document.getElementById("user_pw");
+    pwConfirmInput = document.getElementById("user_pw_confirm");
+    pwError = document.getElementById("pw-error");
 
-    // 중복 체크 버튼 이벤트
+    // 패스워드 실시간 검증 연결
+    pwInput.addEventListener("input", checkPasswordMatch);
+    pwConfirmInput.addEventListener("input", checkPasswordMatch);
+
+    // 중복 체크 버튼 이벤트 연결
     document.getElementById("checkIdBtn").addEventListener("click", function () {
         checkDuplicate("id", document.getElementById("user_id").value);
     });
@@ -43,21 +45,25 @@ document.addEventListener("DOMContentLoaded", function () {
         checkDuplicate("nickname", document.getElementById("user_nickname").value);
     });
 
-    // 패스워드 검증 (글로벌 변수 할당)
-    pwInput = document.getElementById("user_pw");
-    pwConfirmInput = document.getElementById("user_pw_confirm");
-    pwError = document.getElementById("pw-error");
+    // 이미지 업로드 초기화
+    userImgInput = document.getElementById("user_img");
+    imgPreview = document.getElementById("img-preview");
 
-    pwInput.addEventListener("input", checkPasswordMatch);
-    pwConfirmInput.addEventListener("input", checkPasswordMatch);
+    // 이미지 업로드 및 미리보기
+    userImgInput.addEventListener("change", handleImagePreview);
+
+    // 폼 제출 시 검증
+    const signupForm = document.querySelector('.signup-form');
+    signupForm.addEventListener('submit', function (event) {
+        if (!validateSignupForm()) {
+            event.preventDefault(); // 검증 실패 시 폼 전송 막기
+        }
+    });
 });
 
 
-// 중복 체크 함수
+// 중복 체크 함수 (id, name, nickname)
 function checkDuplicate(type, value) {
-
-    // debug
-    console.log(`중복 체크할 ${type} 값: `, value);
 
     if (!value.trim()) {
         console.log(`값 없음! ${type}: `, value);
@@ -77,32 +83,6 @@ function checkDuplicate(type, value) {
             console.error(`Error checking ${type}:`, error);
             alert(`Failed to check ${type}.`);
         });
-
-    // 프로필 이미지 미리보기
-    const userImgInput = document.getElementById("user_img");
-    const imgPreview = document.getElementById("img-preview");
-
-    userImgInput.addEventListener("change", function () {
-        const file = userImgInput.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                imgPreview.src = e.target.result;
-                imgPreview.style.display = "block";
-                imgPreview.style.maxWidth = "150px"; // 원하는 썸네일 사이즈
-                imgPreview.style.maxHeight = "150px";
-                imgPreview.style.borderRadius = "50%"; // 원형으로 만들기
-                imgPreview.style.objectFit = "cover";
-            }
-
-            reader.readAsDataURL(file);
-        } else {
-            imgPreview.src = "#";
-            imgPreview.style.display = "none";
-        }
-    });
 }
 
 
@@ -126,6 +106,36 @@ function checkPasswordMatch() {
 }
 
 
+// 이미지 업로드 및 미리보기 함수
+function handleImagePreview(event) {
+    const file = event.target.files[0];
+
+    if (!file) {
+        imgPreview.src = "#";
+        imgPreview.style.display = "none";
+        return;
+    }
+
+    // 파일 크기 제한 (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+        alert("File size must be less than 5MB");
+        userImgInput.value = ""; // 파일 초기화
+        imgPreview.src = "#";
+        imgPreview.style.display = "none";
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        imgPreview.src = e.target.result;
+        imgPreview.style.display = "block";
+    };
+
+    reader.readAsDataURL(file);
+}
+
+
 // 폼 최종 검증 함수
 function validateSignupForm() {
     let isValid = true;
@@ -145,6 +155,7 @@ function validateSignupForm() {
     document.getElementById("nickname-error").textContent = "";
     document.getElementById("email-error").textContent = "";
 
+    // 필수값 검증
     if (!userId) {
         document.getElementById("id-error").textContent = "Please enter your ID.";
         isValid = false;
@@ -177,13 +188,12 @@ function validateSignupForm() {
         isValid = false;
     }
 
-    return isValid;
-
-    if (file.size > 5 * 1024 * 1024) { // 5MB 제한
-        alert("File size must be less than 2MB");
-        userImgInput.value = ""; // 파일 input 비우기
-        imgPreview.src = "#"; // 미리보기 초기화
-        imgPreview.style.display = "none";
-        return;
+    // 이미지 파일 유효성 검사 (옵션)
+    const file = userImgInput.files[0];
+    if (file && file.size > 5 * 1024 * 1024) {
+        alert("File size must be less than 5MB");
+        isValid = false;
     }
+
+    return isValid;
 }

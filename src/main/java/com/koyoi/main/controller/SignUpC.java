@@ -81,43 +81,5 @@ public class SignUpC {
     }
 
 
-    // user 프로필 등록
-    @PostMapping("/signup")
-    public String signup(
-            @RequestParam("user_id") String userId,
-            @RequestParam("user_pw") String userPw,
-            @RequestParam("user_img") MultipartFile userImg
-    ) {
-        try {
-            // 파일명 중복 방지용 - UUID
-            String uuid = UUID.randomUUID().toString();
-            String fileName = uuid + "_" + userImg.getOriginalFilename();
-
-            // 2. 파일 저장 경로 (ex: 서버 로컬 디렉토리)
-            String uploadDir = "static/imgsource/userProfile";
-            File uploadPath = new File(uploadDir);
-
-            if (!uploadPath.exists()) {
-                uploadPath.mkdirs(); // 폴더 없으면 생성
-            }
-
-            // 실제 파일 저장
-            File file = new File(uploadPath, fileName);
-            userImg.transferTo(file);
-
-            // 4. DB에 저장될 경로
-            String dbFilePath = "static/imgsource/userProfile/" + fileName;
-
-            // DB에 user 정보 + 이미지 경로 저장
-            // SignUpService.registerUser(userId, userPw, dbFilePath);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            // 에러 처리
-        }
-
-        return "redirect:/login";
-    }
-
 
 }
