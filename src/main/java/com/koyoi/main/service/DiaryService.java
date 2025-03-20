@@ -52,12 +52,10 @@ public class DiaryService {
 //        return diaryMapper.getDiaryById(diaryId);
     }
 
-
     // 일기 조회 (날짜기준)
     public DiaryVO getDiaryByDate(String userId, String date) {
         return diaryMapper.getDiaryByDate(userId, date);
     }
-
 
     // 일기 + 감정 등록
     @Transactional
@@ -102,16 +100,6 @@ public class DiaryService {
     }
 
     // 일기 수정 (일기 + 감정 둘 다 수정)
-    public void updateDiary(DiaryVO diaryVO) {
-        // 일기 내용 수정
-        diaryMapper.updateDiary(diaryVO);
-
-        // 감정 이모지 수정 (감정 점수는 별도로 관리)
-        emotionMapper.updateEmotion(diaryVO.getDiary_id(), diaryVO.getEmotion_emoji());
-
-        System.out.println("[DiaryService] 일기 수정 완료 - diaryId: " + diaryVO.getDiary_id());
-    }
-
     @Transactional
     public void updateDiaryAndEmotion(DiaryVO diaryVO) {
         System.out.println("[updateDiaryAndEmotion] 수정 요청 받은 diaryVO: " + diaryVO);
@@ -137,6 +125,7 @@ public class DiaryService {
     }
 
     // 일기 삭제 (감정 + 일기 순으로 삭제)
+
     public void deleteDiary(int diaryId) {
         // 감정 정보 삭제
         emotionMapper.deleteEmotion(diaryId);

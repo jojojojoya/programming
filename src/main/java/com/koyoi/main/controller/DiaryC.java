@@ -118,7 +118,7 @@ public class DiaryC {
     @ResponseBody
     public Map<String, Object> updateDiary(@RequestBody DiaryVO diaryVO) {
         diaryVO.setUser_id("userId");
-        diaryService.updateDiary(diaryVO);
+        diaryService.updateDiaryAndEmotion(diaryVO);
 
         return Map.of("message", "일기 수정 완료!");
     }
