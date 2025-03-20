@@ -7,6 +7,7 @@ import com.koyoi.main.service.QuoteService;
 import com.koyoi.main.vo.AnnouncementVO;
 import com.koyoi.main.vo.EmotionVO;
 import com.koyoi.main.vo.HabitTrackingVO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,16 +45,24 @@ public class MainC {
 
     @GetMapping("/calendar/emotions")
     @ResponseBody
-    public List<EmotionVO> getAllEmotions() {
-        String userId = "user1"; // 로그인 기능 추가 시 변경 필요
+    public List<EmotionVO> getAllEmotions(HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+
+        if(userId == null) {
+            throw new IllegalStateException("로그인 정보가 없습니다");
+        }
         return emotionService.getUserAllEmotions(userId);
     }
 
     @GetMapping("/mood/scores")
     @ResponseBody
-    public List<EmotionVO> getWeeklyMoodScores(@RequestParam("start") String startDate, @RequestParam("end") String endDate) {
-        String userId = "user1";
-        /*return emotionService.getUserAllEmotions(userId);*/
+    public List<EmotionVO> getWeeklyMoodScores(HttpSession session, @RequestParam("start") String startDate, @RequestParam("end") String endDate) {
+        String userId = (String) session.getAttribute("userId");
+
+        if(userId == null) {
+            throw new IllegalStateException("로그인 정보가 없습니다");
+        }
+
         return emotionService.getWeeklyMoodScores(userId, startDate, endDate);
     }
 
