@@ -358,10 +358,11 @@ body {
     font-size: 17px;
     color: #3f2e29;
     background-color: #fdf8f2;
-    padding: 2px;
+    padding: 1px;
     border-radius: 10px;
-    width: 1220px;
     margin-bottom: 10px;
+    padding-left: 360px;
+    padding-right: 360px;
 }
 
 /* ✅ 상담사 멘트가 나타날 때 효과 */

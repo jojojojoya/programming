@@ -32,7 +32,7 @@
                 <img class="myprofile-img" src="/static/imgsource/testprofile.png" alt="프로필">
             </div>
         </header>
-
+        <!--나중에 유저 생기면 userid는 userid로 교체-->
         <main class="content">
             <div class="chat-container"
                  data-session-id="${counseling.session_id}"
@@ -40,9 +40,10 @@
                  data-category="${counseling.category}"
                  data-counseling-date="${counseling.counseling_date}"
                  data-counseling-time="${counseling.counseling_time}"
-                 data-user-id="${user.user_id}"
+                 data-user-id="user5"
+
                  data-user-type="USER"
-                 data-is-completed="${isCompleted}"> <!-- ✅ 상담 상태 추가 -->
+                 data-is-completed="${isCompleted}">
 
                 <div class="chat-box" id="chatBox">
                     <c:choose>

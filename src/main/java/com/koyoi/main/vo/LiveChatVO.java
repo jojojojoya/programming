@@ -21,11 +21,17 @@ public class LiveChatVO {
     private Date sysdate;
     private int start_time;
     private int end_time;
+    private String content;
+
 
     private List<LiveChatVO> chatLogs;
 
+    private int log_id; // 메시지 고유 id
     private String sender;  // 메시지 보낸 사용자 ID
-    private String content; // 채팅 메시지
+    private String message; // 메시지 내용
     private LocalDateTime timestamp; // 메시지 전송 시간
     private String type;  // "USER" or "COUNSELOR"
+    private int user_type;
 }
+
+

@@ -29,35 +29,24 @@ public class UserMypageC {
 //                             HttpSession session, Model model) {
 //        System.out.println("🔹 UserMyPageC 실행");
 //
+//        if (user_id == null || user_id.trim().isEmpty()) {
+//            System.out.println("⚠️ user_id가 없음! 기본값 user5 적용");
+//            user_id = "user5";
+//        } else {
+//            System.out.println("✅ 전달된 user_id: " + user_id);
+//        }
+//
 //        UserMyPageVO loggedInUser = (UserMyPageVO) session.getAttribute("loggedInUser");
 //        if (loggedInUser != null) {
 //            user_id = loggedInUser.getUser_id();
 //            model.addAttribute("user", loggedInUser);
-//        } else {
-//            if (user_id == null || user_id.trim().isEmpty()) {
-//                user_id = "user5";
-//            }
+//            System.out.println("🔍 세션 user_id: " + user_id);
 //        }
 //
 //        List<UserMyPageVO> reservations = userMyPageService.getUserReservations(user_id);
-//
-//        // 🔥 상담이 1시간 이내라면 상태를 '대기'로 업데이트
-//        for (UserMyPageVO reservation : reservations) {
-//            Calendar now = Calendar.getInstance();
-//            Calendar counselingTime = Calendar.getInstance();
-//            counselingTime.setTime(reservation.getCounseling_date());
-//            counselingTime.set(Calendar.HOUR_OF_DAY, reservation.getCounseling_time());
-//
-//            Calendar oneHourBefore = (Calendar) counselingTime.clone();
-//            oneHourBefore.add(Calendar.HOUR, -1);
-//
-//            if (now.after(oneHourBefore) && now.before(counselingTime)) {
-//                System.out.println("✅ 상담 상태 업데이트: " + reservation.getCounseling_id() + " → '대기'");
-//                liveChatService.updateReservationStatusToWaiting(reservation.getCounseling_id());
-//            }
-//        }
-//
+//        System.out.println(reservations);
 //        model.addAttribute("reservations", reservations);
+//
 //        return "usermypage/usermypage";
 //    }
 
@@ -73,19 +62,31 @@ public class UserMypageC {
             System.out.println("✅ 전달된 user_id: " + user_id);
         }
 
+        // 세션에 로그인된 유저 정보가 있다면 사용
         UserMyPageVO loggedInUser = (UserMyPageVO) session.getAttribute("loggedInUser");
         if (loggedInUser != null) {
             user_id = loggedInUser.getUser_id();
             model.addAttribute("user", loggedInUser);
-            System.out.println("🔍 세션 user_id: " + user_id);
+            System.out.println("🔍 세션에서 가져온 user: " + loggedInUser);
+        } else {
+            // DB에서 user5 데이터 가져오기
+            List<UserMyPageVO> userList = userMyPageService.getUserById(user_id);
+
+            if (!userList.isEmpty()) {
+                UserMyPageVO user = userList.get(0);
+                model.addAttribute("user", user);
+                System.out.println("✅ DB에서 가져온 user: " + user);
+            } else {
+                System.out.println("❌ user5 정보 없음");
+            }
         }
 
         List<UserMyPageVO> reservations = userMyPageService.getUserReservations(user_id);
-        System.out.println(reservations);
         model.addAttribute("reservations", reservations);
 
         return "usermypage/usermypage";
     }
+
 
 
     @PostMapping("/checkPassword")

@@ -130,6 +130,7 @@
                                          data-counseling-time="${reservation.counseling_time}"
                                          data-status="${reservation.status}">
 
+
                                         <div><strong>[상담일시] </strong></div>
                                         <fmt:formatDate value="${reservation.counseling_date}" pattern="yyyy년 MM월 dd일"/>
                                             ${reservation.counseling_time}시 00분

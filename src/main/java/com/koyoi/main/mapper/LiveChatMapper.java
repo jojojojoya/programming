@@ -12,15 +12,15 @@ public interface LiveChatMapper {
 
 
 
-        // ✅ 특정 상담 완료 처리 (counselingId가 NULL이면 전체 상담 완료)
+        // 나가기 누르면 특정 상담 완료 처리로 상태 변경하고
         @Update("""
-        UPDATE TEST_COUNSELING_RESERVATION
+        UPDATE TEST_COUNSELING_RESERVATION 
         SET status = '완료'
-        WHERE (#{counseling_id} IS NULL AND counseling_date < CURRENT_DATE)
-        OR (#{counseling_id} IS NOT NULL AND counseling_id = #{counseling_id})
+        WHERE counseling_id = #{counseling_id}
     """)
         int completeCounseling(@Param("counseling_id") Integer counselingId);
 
+    //대기가 아니면 상태변경
     @Update("""
     UPDATE TEST_COUNSELING_RESERVATION
     SET status = #{status}
@@ -82,7 +82,7 @@ public interface LiveChatMapper {
     """)
         int updateSingleReservationToWaiting(@Param("counseling_id") int counselingId);
 
-        // ✅ 상담 ID로 채팅 내역 가져오기 (세션 기반)
+        //  상담 ID로 기존 채팅 내역 가져오기 (세션 기반)
         @Select("""
         SELECT sender, message, timestamp, user_type 
         FROM TEST_LIVE_CHAT_LOG 
@@ -91,7 +91,7 @@ public interface LiveChatMapper {
     """)
         List<LiveChatVO> getChatLogs(@Param("session_id") int sessionId);
 
-        // ✅ 실시간 채팅 메시지 저장
+        // 실시간 채팅 메시지 저장
         @Insert("""
         INSERT INTO TEST_LIVE_CHAT_LOG (log_id, session_id, sender, user_type, message, timestamp) 
         VALUES (TEST_LIVE_CHAT_LOG_SEQ.NEXTVAL, #{session_id}, #{sender}, #{type}, #{content}, CURRENT_TIMESTAMP)
@@ -108,4 +108,25 @@ public interface LiveChatMapper {
             before = true,
             resultType = Integer.class)
     Integer createChatRoom(LiveChatVO reservation);
+
+
+    @Insert("""
+        INSERT INTO TEST_COUNSELING_SUMMARY (summary_id, session_id, counseling_summary, created_at)
+        VALUES (TEST_COUNSELING_SUMMARY_SEQ.NEXTVAL, #{session_id}, #{counseling_summary}, SYSDATE)
+    """)
+    int saveCounselingSummary(@Param("session_id") int sessionId, @Param("counseling_summary") String summary);
+
+
+    // 상담버튼 나가기 누를시 세션 아이디저장
+    @Select("""
+    SELECT counseling_id FROM TEST_LIVE_CHAT WHERE session_id = #{session_id}
+""")
+    Integer findCounselingIdBySession(@Param("session_id") int sessionId);
+
+    @Insert("""
+    INSERT INTO TEST_COUNSELING_SUMMARY (summary_id, session_id, counseling_summary, created_at)
+    VALUES (TEST_COUNSELING_SUM_SEQ.NEXTVAL, #{session_id}, #{summary}, SYSDATE)
+""")
+    void insertChatSummary(@Param("session_id") int sessionId, @Param("summary") String summary);
+
 }

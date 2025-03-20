@@ -86,6 +86,7 @@ public class LiveChatService {
     // ✅ 실시간 채팅 메시지 저장
     @Transactional
     public void saveChatMessage(LiveChatVO message) {
+        System.out.println(message);
         try {
             int result = liveChatMapper.insertChatMessage(message);
             if (result > 0) {
@@ -98,7 +99,7 @@ public class LiveChatService {
         }
     }
 
-//    @Scheduled(fixedRate = 60000)
+    //    @Scheduled(fixedRate = 60000)
 //    @Transactional
     public void updateReservationsStatus() {
         try {
@@ -189,5 +190,22 @@ public class LiveChatService {
         }
 
         return updatedRows > 0;
+    }
+
+    // (나가기 버튼 누를 시 ) 세션아이디 기반 추가
+
+    @Transactional(readOnly = true)
+    public Integer findCounselingIdBySession(int sessionId) {
+        return liveChatMapper.findCounselingIdBySession(sessionId);
+    }
+
+    @Transactional
+    public void saveChatSummary(int sessionId, String summary) {
+        if (summary != null && !summary.isEmpty()) {
+            liveChatMapper.insertChatSummary(sessionId, summary);
+            System.out.println("✅ 채팅 요약 저장 완료 - sessionId: " + sessionId);
+        } else {
+            System.out.println("⚠️ 요약 저장 스킵 (내용 없음) - sessionId: " + sessionId);
+        }
     }
 }

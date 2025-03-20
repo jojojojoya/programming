@@ -3,70 +3,72 @@ document.addEventListener("DOMContentLoaded", function () {
     reservationHandler();
 });
 
+// function reservationHandler() {
+//     console.log("🚀 usermypage 페이지 로드 완료!");
+//
+//     document.querySelectorAll(".reserved_reservation_box").forEach(reservationBox => {
+//         let counselingId = reservationBox.dataset.counselingId;
+//         let sessionId = reservationBox.dataset.sessionId;
+//         let status = reservationBox.dataset.status;
+//
+//         console.log(`🔍 상담 ID: ${counselingId}, 세션 ID: ${sessionId}, 상태: ${status}`);
+//
+//         let enterButton = reservationBox.querySelector(".enter_counseling_btn");
+//         let viewButton = reservationBox.querySelector(".view_counseling_btn");
+//
+//         if (enterButton) {
+//             enterButton.addEventListener("click", function () {
+//                 console.log(`▶️ 상담 입장: sessionId=${sessionId}, counselingId=${counselingId}`);
+//                 goToLiveChatDetail(sessionId, counselingId, false);
+//             });
+//         }
+//
+//         if (viewButton) {
+//             viewButton.addEventListener("click", function () {
+//                 console.log(`▶️ 상담 내용 보기: sessionId=${sessionId}, counselingId=${counselingId}`);
+//                 goToLiveChatDetail(sessionId, counselingId, true);
+//             });
+//         }
+//     });
+// }
+
 function reservationHandler() {
     console.log("🚀 usermypage 페이지 로드 완료!");
 
     document.querySelectorAll(".reserved_reservation_box").forEach(reservationBox => {
-        reservationBox.addEventListener("click", ()=>{
-            let counselingId = reservationBox.dataset.counselingId;
-            let sessionId = reservationBox.dataset.sessionId;
-            let counselingDate = reservationBox.dataset.counselingDate;
-            let counselingTime = reservationBox.dataset.counselingTime;
-            let statusElement = reservationBox.querySelector(".counseling_status");
-            let status = reservationBox.dataset.status;
+        let counselingId = reservationBox.dataset.counselingId;
+        let sessionId = reservationBox.dataset.sessionId;
+        let status = reservationBox.dataset.status;
+        let counselingDate = reservationBox.dataset.counselingDate;
+        let counselingTime = parseInt(reservationBox.dataset.counselingTime); // 상담 시간 (24시간제)
 
-            goToLiveChatDetail(sessionId, counselingId, status);
+        // console.log(`🔍 상담 ID: ${counselingId}, 세션 ID: ${sessionId}, 상태: ${status}, 날짜: ${counselingDate}, 시간: ${counselingTime}`);
+
+        let enterButton = reservationBox.querySelector(".enter_counseling_btn");
+        let viewButton = reservationBox.querySelector(".view_counseling_btn");
+        console.log(enterButton)
+        console.log(viewButton)
+        enterButton?.addEventListener("click", () => {
+            console.log("aaa")
+            goToLiveChatDetail(sessionId, counselingId, false);
+
         })
+
+        viewButton?.addEventListener("click", () => {
+            goToLiveChatDetail(sessionId, counselingId, true);
+        });
+        // 🕒 현재 시간 가져오기
+        let now = new Date();
+        let currentDate = now.toISOString().split("T")[0]; // YYYY-MM-DD 형식
+        let currentHour = now.getHours(); // 현재 시간 (24시간제)
+
+        // ✅ '대기' 상태이며 상담 시간이 현재 시각 기준 1시간 이내인지 확인
+        let isWithinOneHour = (counselingDate === currentDate) && (counselingTime - currentHour <= 1) && (counselingTime - currentHour >= 0);
     });
 }
 
 
-
-    // document.querySelectorAll(".reserved_reservation_box").forEach(reservationBox => {
-    //     let counselingId = reservationBox.dataset.counselingId;
-    //     let sessionId = reservationBox.dataset.sessionId;
-    //     let counselingDate = reservationBox.dataset.counselingDate;
-    //     let counselingTime = reservationBox.dataset.counselingTime;
-    //     let statusElement = reservationBox.querySelector(".counseling_status");
-    //     let status = reservationBox.dataset.status;
-    //     // console.log(`📌 상담 ID: ${counselingId}`);
-    //     // console.log(`📅 상담 날짜: ${counselingDate}`);
-    //     // console.log(`⏰ 상담 시간: ${counselingTime}`);
-    //
-    //     if (!counselingDate || !counselingTime) {
-    //         console.error(`🚨 데이터 오류: 상담 날짜 또는 시간이 올바르지 않음! (counselingDate=${counselingDate}, counselingTime=${counselingTime})`);
-    //         return;
-    //     }
-    //
-    //     let counselingDateTime = new Date(`${counselingDate}T${String(counselingTime).padStart(2, '0')}:00:00`);
-    //     if (isNaN(counselingDateTime.getTime())) {
-    //         console.error(`🚨 날짜 변환 실패: ${counselingDate} ${counselingTime}`);
-    //         return;
-    //     }
-    //
-    //     let now = new Date();
-    //     let oneHourBefore = new Date(counselingDateTime.getTime() - 60 * 60 * 1000);
-    //
-    //     // console.log(`🕒 현재 시간: ${now}`);
-    //     // console.log(`⏳ 상담 1시간 전: ${oneHourBefore}`);
-    //
-    //     let enterButton = reservationBox.querySelector(".enter_counseling_btn");
-    //     let viewButton = reservationBox.querySelector(".view_counseling_btn");
-    //
-    //     if (now >= oneHourBefore && now < counselingDateTime) {
-    //     }
-    // });
-
-
-/**
- * 상담 상세 페이지로 이동하는 함수
- */
 function goToLiveChatDetail(sessionId, counselingId, isCompleted) {
-    if (!sessionId || sessionId === "null") {
-        alert("🚨 오류: sessionId가 존재하지 않습니다.");
-        return;
-    }
-    isCompleted = isCompleted !== "대기";
     let url = `/livechatdetail?sessionId=${sessionId}&counselingId=${counselingId}&isCompleted=${isCompleted}`;
     console.log("📌 이동할 URL:", url);
     window.location.href = url;
@@ -167,86 +169,10 @@ function mypageLoad() {
         });
     });
 
-    window.addEventListener("click", function (event) {
-        if (event.target === profileModal) profileModal.style.display = "none";
-        if (event.target === passwordCheckModal) passwordCheckModal.style.display = "none";
-    });
+    // window.addEventListener("click", function (event) {
+    //     if (event.target === profileModal) profileModal.style.display = "none";
+    //     if (event.target === passwordCheckModal) passwordCheckModal.style.display = "none";
+    // });
+    //
 
 }
-
-
-/*
-document.addEventListener("DOMContentLoaded", function () {
-console.log("🚀 usermypage 페이지 로드 완료!");
-
-const enterButtons = document.querySelectorAll(".enter_counseling_btn");
-
-enterButtons.forEach(button => {
-    const reservationBox = button.closest(".reserved_reservation_box");
-
-    let counselingId = reservationBox.dataset.counselingId;
-    let counselingDate = reservationBox.dataset.counselingDate;
-    let counselingTime = parseInt(reservationBox.dataset.counselingTime, 10);
-
-    console.log(`📌 상담 ID: ${counselingId}`);
-    console.log(`📅 상담 날짜: ${counselingDate}`);
-    console.log(`⏰ 상담 시간: ${counselingTime}`);
-
-    if (!counselingDate || isNaN(counselingTime)) {
-        console.error(`🚨 데이터 오류: 상담 날짜 또는 시간이 올바르지 않음! (counselingDate=${counselingDate}, counselingTime=${counselingTime})`);
-        return;
-    }
-
-    let counselingDateTime = new Date(`${counselingDate}T${String(counselingTime).padStart(2, '0')}:00:00`);
-    if (isNaN(counselingDateTime.getTime())) {
-        console.error(`🚨 날짜 변환 실패: ${counselingDate} ${counselingTime}`);
-        return;
-    }
-
-    console.log(`✅ 변환된 상담 시작 시간: ${counselingDateTime}`);
-
-    let now = new Date();
-    let oneHourBefore = new Date(counselingDateTime.getTime() - 60 * 60 * 1000);
-    let statusElement = reservationBox.querySelector(".counseling_status");
-
-    console.log(`🕒 현재 시간: ${now}`);
-    console.log(`⏳ 상담 1시간 전: ${oneHourBefore}`);
-
-    // ✅ 기존 버튼 제거 후, 새로운 버튼 추가할 준비
-    let existingViewButton = reservationBox.querySelector(".view_counseling_btn");
-    if (existingViewButton) existingViewButton.remove();
-
-    if (now >= oneHourBefore && now < counselingDateTime) {
-        console.log(`✅ 상담(${counselingId}) 상태: '대기' (입장 가능)`);
-        statusElement.innerHTML = `<strong>[상담 상태] </strong>대기`;
-
-        // ✅ 입장하기 버튼 활성화
-        button.disabled = false;
-
-        button.addEventListener("click", function () {
-            console.log(`📌 상담(${counselingId}) 상세 페이지 이동`);
-            location.href = `/livechatdetail?reservationId=${counselingId}`;
-        });
-
-    } else {
-        console.log(`❌ 상담(${counselingId}) 상태: '완료'`);
-        statusElement.innerHTML = `<strong>[상담 상태] </strong>완료`;
-
-        // ✅ '입장하기' 버튼 숨김
-        button.style.display = "none";
-
-        // ✅ '상담 내용보기' 버튼 추가
-        let viewButton = document.createElement("button");
-        viewButton.classList.add("view_counseling_btn");
-        viewButton.textContent = "상담 내용보기";
-
-        viewButton.addEventListener("click", function () {
-            console.log(`📌 상담(${counselingId}) 완료 - 상담 내용 보기 이동`);
-            location.href = `/livechatdetail?reservationId=${counselingId}&isCompleted=true`;
-        });
-
-        reservationBox.appendChild(viewButton);
-    }
-});
-});
-*/

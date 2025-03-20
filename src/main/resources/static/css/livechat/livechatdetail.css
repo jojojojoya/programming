@@ -340,17 +340,21 @@ body {
     word-wrap: break-word;
     margin-bottom: 8px;
     font-size: 14px;
+    text-align: right;
 }
 
 
 
 .chat-message {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 5px 10px;
-    position: relative;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-    text-align: left;
+    align-self: flex-end;
+    background-color: #ede0d4;
+    color: #3f2e29;
+    border-radius: 15px 15px 0 15px;
+    padding: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    margin-bottom: 8px;
+    font-size: 14px;
 }
 
 .chat-input {
@@ -374,4 +378,18 @@ body {
     border: 1px solid #ede0d4;
     border-radius: 20px;
     outline: none;
+}
+
+
+.counselor-msg{
+    align-self: flex-start;
+    background-color: #ede0d4;
+    color: #3f2e29;
+    border-radius: 15px 15px 15px 0px;
+    padding: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-align: left;
 }

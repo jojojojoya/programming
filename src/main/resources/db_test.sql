@@ -253,40 +253,10 @@ CREATE TABLE TEST_LIVE_CHAT_LOG
     CONSTRAINT fk_chat_log_sender FOREIGN KEY (sender) REFERENCES TEST_USER (user_id)
 );
 
-CREATE TABLE TEST_LIVE_CHAT_PARTICIPANTS
-(
-    session_id NUMBER       NOT NULL,               -- 채팅방 ID
-    user_id    VARCHAR2(50) NOT NULL,               -- 참여자 ID
-    joined_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 채팅방 입장 시간
-    left_at    TIMESTAMP,                           -- 퇴장 시간 (NULL이면 아직 참여 중)
-    PRIMARY KEY (session_id, user_id),
-    CONSTRAINT fk_chat_participant_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
-    CONSTRAINT fk_chat_participant_user FOREIGN KEY (user_id) REFERENCES TEST_USER (user_id)
-);
 
 
-CREATE TABLE TEST_LIVE_CHAT_NOTIFICATIONS
-(
-    notification_id NUMBER PRIMARY KEY,                            -- 알림 고유 ID
-    session_id      NUMBER        NOT NULL,                        -- 채팅방 ID
-    user_id         VARCHAR2(50)  NOT NULL,                        -- 알림을 받는 사용자 ID
-    message         VARCHAR2(500) NOT NULL,                        -- 알림 내용
-    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,           -- 알림 생성 시간
-    is_read         NUMBER(1) DEFAULT 0 CHECK (is_read IN (0, 1)), -- 읽음 여부 (0: 미확인, 1: 확인)
-    CONSTRAINT fk_chat_notification_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
-    CONSTRAINT fk_chat_notification_user FOREIGN KEY (user_id) REFERENCES TEST_USER (user_id)
-);
-
-CREATE TABLE TEST_COUNSELING_SUMMARY
-(
-    summary_id         NUMBER PRIMARY KEY,                  -- 상담 요약 ID
-    session_id         NUMBER NOT NULL,                     -- 상담 세션 ID
-    counseling_summary CLOB,                                -- 상담 요약 내용
-    feedback           VARCHAR2(500),                       -- 상담사 피드백
-    created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 저장 시간
-    CONSTRAINT fk_counseling_summary_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id)
-);
-
+select *
+from TEST_LIVE_CHAT_LOG;
 
 select *
 from TEST_LIVE_CHAT;
@@ -333,7 +303,20 @@ BEGIN
     WHERE counseling_id = :NEW.counseling_id;
 END;
 
-
+CREATE OR REPLACE TRIGGER TRG_SYNC_COUNSELING_STATUS
+    BEFORE UPDATE ON TEST_COUNSELING_RESERVATION
+    FOR EACH ROW
+BEGIN
+    UPDATE TEST_LIVE_CHAT
+    SET STATUS = :NEW.STATUS
+    WHERE COUNSELING_ID = :NEW.COUNSELING_ID;
+END;
 
 SELECT cr.*, lc.session_id FROM TEST_COUNSELING_RESERVATION cr, TEST_LIVE_CHAT lc
 WHERE cr.COUNSELING_ID = lc.counseling_id and cr.COUNSELING_ID = 398;
+
+SELECT * FROM test_user WHERE user_id = 'user5';
+
+
+ create sequence TEST_LIVE_CHAT_LOG_SEQ;
+UPDATE test_counseling_reservation  SET status = '완료' WHERE counseling_id = 444;
