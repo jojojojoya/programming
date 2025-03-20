@@ -81,6 +81,7 @@ public class SignUpC {
     }
 
 
+
     // user 프로필 등록
     @PostMapping("/signup")
     public String signup(
@@ -118,6 +119,7 @@ public class SignUpC {
 
         return "redirect:/login";
     }
+
 
 
 }

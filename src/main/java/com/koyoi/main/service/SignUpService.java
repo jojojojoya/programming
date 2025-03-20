@@ -2,7 +2,11 @@ package com.koyoi.main.service;
 
 import com.koyoi.main.dto.UserDTO;
 import com.koyoi.main.mapper.SignUpMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class SignUpService {
