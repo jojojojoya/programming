@@ -39,37 +39,59 @@ function habitShowTab(tab) {
     document.getElementById('habit-tab-' + tab).classList.add('habit-active');
 }
 
-let habitList = document.getElementById('habitList'); // UI 상의 습관 리스트 컨테이너
-let maxHabits = 9; // 최대 습관 개수
+//습관추가
 
-function addHabit() {
-    if (habitList.children.length < maxHabits) {
-        const habitName = `습관 ${habitList.children.length + 1}`;
+document.addEventListener("DOMContentLoaded", function() {
+    // habit-recommend의 각 <p> 태그에 클릭 이벤트 추가
+    const habitItems = document.querySelectorAll('.habit-recommend p');
+    habitItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const habitName = item.innerText;  // 클릭된 습관 이름
+            addHabitToDatabase(habitName);  // 데이터베이스에 추가하는 함수 호출
+        });
+    });
 
-        // 화면에 새로운 습관을 즉시 추가
-        let newHabit = document.createElement('div');
-        newHabit.classList.add('habit-item');
-        newHabit.textContent = habitName; // 습관 이름
-        habitList.appendChild(newHabit); // 화면에 즉시 추가
+    // AJAX를 사용하여 서버로 습관 추가 요청을 보냄
+    function addHabitToDatabase(habitName) {
+        const userId = 'current_user_id';  // 현재 사용자의 ID로 대체 필요 (예: 세션에서 가져오기)
 
-        // 서버로 새 습관을 추가하는 요청
-        fetch('/add-habit', {
+        const requestData = {
+            userId: userId,
+            habitName: habitName
+        };
+
+        fetch('/habit/add', {  // '/habit/add'는 서버에서 습관을 추가하는 엔드포인트
             method: 'POST',
-            body: JSON.stringify({ habitName: habitName }), // 서버로 보낼 데이터
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(requestData)
         })
-            .catch(error => {
-                console.error('서버에 요청하는 중 오류 발생:', error);
-                alert('서버와의 연결에 문제가 발생했습니다.');
-                // 오류 발생 시 화면에서 추가된 항목을 제거할 수 있습니다
-                habitList.removeChild(newHabit); // 실패 시 화면에서 해당 습관을 제거
-            });
-    } else {
-        alert('최대 9개의 습관만 추가할 수 있습니다.');
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // 습관 추가 성공 시, myhabit-list에 새 습관 추가
+                    updateHabitList(data);
+                } else {
+                    alert('습관 추가 실패');
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
-}
+
+    // 습관 리스트를 동적으로 업데이트하는 함수
+    function updateHabitList(habit) {
+        const habitList = document.querySelector('.myhabit-list');
+        const newHabitDiv = document.createElement('div');
+        newHabitDiv.id = `habit-${habit.habit_id}`;
+        newHabitDiv.innerHTML = `
+            <input type="checkbox" id="habit-${habit.habit_id}" />
+            <label for="habit-${habit.habit_id}">${habit.habit_name}</label>
+            <button class="delete-btn" onclick="deleteHabit(${habit.habit_id})">삭제</button>
+        `;
+        habitList.appendChild(newHabitDiv);
+    }
+});
 
 
 
@@ -83,40 +105,6 @@ function addHabit() {
 
 // habit.js
 
-document.addEventListener("DOMContentLoaded", function() {
-    const habits = document.querySelectorAll('.habit-content p'); // habit-content 내 p 태그
-
-    habits.forEach(function(habit) {
-        habit.addEventListener('click', function() {
-            const habitName = this.innerText.trim(); // 클릭한 습관 이름 가져오기
-            addHabitToUser(habitName); // 해당 습관을 사용자에 추가하는 함수 호출
-        });
-    });
-
-    function addHabitToUser(habitName) {
-        fetch('/habit/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ habitName: habitName })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("습관이 추가되었습니다!");
-                    // 새로 추가된 습관을 myhabit-list에 반영
-                    const habitList = document.querySelector('.myhabit-list');
-                    const newHabit = document.createElement('div');
-                    newHabit.innerHTML = `<input type="checkbox" id="habit-${data.habit_id}" /> <label for="habit-${data.habit_id}">${data.habit_name}</label>`;
-                    habitList.appendChild(newHabit);
-                } else {
-                    alert("습관 추가 실패");
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
-});
 
 const calendarDays = document.querySelector('#calendar-days tbody');
 const monthYearText = document.querySelector('#month-year-text');

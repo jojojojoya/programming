@@ -138,4 +138,4 @@ select * from TEST_ANNOUNCEMENT;
 select * from TEST_DIARY;
 
 INSERT INTO TEST_HABIT_TRACKING(tracking_id, habit_id, completion_rate, status, daily_feedback, weekly_feedback, created_at)
-VALUES (1,1, )
+VALUES (1,1, 0, 'false','','', SYSDATE )

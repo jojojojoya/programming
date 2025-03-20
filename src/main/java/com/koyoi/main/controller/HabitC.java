@@ -3,6 +3,8 @@ package com.koyoi.main.controller;
 import com.koyoi.main.service.HabitService;
 import com.koyoi.main.vo.HabitVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,24 +30,22 @@ public class HabitC {
         return "habit/finalhabit";  // habit/finalhabit.jsp 페이지로 이동
     }
 
-    // 습관 추가 메소드
-    @PostMapping("/habit/add")
-    public String addHabit(@RequestBody Map<String, String> requestData) {
-        // user_id를 "user1"로 고정
+    @PostMapping("/add")
+    public ResponseEntity<?> addHabit(@RequestBody HabitVO habitVO) {
         String userId = "user1";
-        String habitName = requestData.get("habitName");
+        try {
+            // HabitService를 통해 습관을 추가하고, 추가된 습관 객체를 반환
+            HabitVO newHabit = habitService.addHabit(habitVO);
 
-        // HabitVO 객체 생성하여 userId와 habitName 설정
-        HabitVO habitVO = new HabitVO();
-        habitVO.setUser_id(userId);
-        habitVO.setHabit_name(habitName);
-
-        // 습관 추가
-        habitService.addHabit(habitVO);
-
-        // 추가 후 습관 목록 갱신
-        return "redirect:/habit";  // 새로 추가된 습관을 포함한 목록을 다시 로드
+            // 성공적으로 추가되면 새 습관 객체를 반환하고 200 OK 상태 반환
+            return ResponseEntity.status(HttpStatus.OK).body(newHabit);
+        } catch (Exception e) {
+            // 에러 발생 시, 내부 서버 오류 상태와 에러 메시지 반환
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("습관 추가 실패");
+        }
     }
+
+
     @DeleteMapping("/habit/delete/{habitId}")
     @ResponseBody
     public String deleteHabit(@PathVariable int habitId) {

@@ -25,10 +25,14 @@ public class HabitService {
         return habitMapper.getUserHabits(userId);  // HabitMapper에서 DB 조회
     }
 
-    // 습관 추가 메소드
-    public void addHabit(HabitVO habitVO) {
-        habitMapper.insertHabit(habitVO);  // HabitMapper에서 DB에 습관 삽입
+    public HabitVO addHabit(HabitVO habitVO) {
+        // HabitMapper를 사용하여 습관을 DB에 추가
+        habitMapper.insertHabit(habitVO);
+
+        // 추가된 습관 정보를 반환 (습관이 DB에 저장됨)
+        return habitVO;  // 추가된 습관을 반환
     }
+
     // 습관 삭제
     public boolean deleteHabit(String userId, int habitId) {
         // userId를 "user1"로 고정

@@ -70,7 +70,7 @@
 
                         <div id="habit-신체건강" class="habit-content">
                             <div style="float: left; width: 25%;" >
-                                <p id="exercise">✅ 운동</p>
+                                <p id="exercise" >✅ 운동</p>
                                 <p id="meal">🍽️ 식사</p>
                                 <p id="diet">🏋️ 체중관리</p>
                             </div>
