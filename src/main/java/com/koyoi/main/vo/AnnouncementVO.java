@@ -13,5 +13,6 @@ public class AnnouncementVO {
     private String title;
     private String content;
     private LocalDateTime created_at;
+    private String isNew; // 최신 공지사항
 
 }

@@ -9,6 +9,7 @@
 <head>
     <title>KOYOI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/static/css/adminmypage/adminmypage.css">
     <script src="/static/js/adminmypage/adminmypage.js"></script>
 </head>
@@ -61,14 +62,14 @@
                 <tbody id="userTableBody">
                 <c:set var="totalUsers" value="${fn:length(users)}" />
                 <c:forEach var="user" items="${users}" varStatus="status">
-                    <tr class="user-detail-btn" data-user-id="${user.user_id}">
+                    <tr class="user-detail-btn" data-user-id="${user.user_id}" >
                         <td>${totalUsers - status.index}</td>
                         <td>${user.user_id}
                             <%--<span class="user-detail-btn" data-user-id="${user.user_id}">${user.user_id}</span>--%>
                         </td>
                         <td>${user.user_name}</td>
-                        <td>${user.user_nickname}</td>
-                        <td>${user.user_email}</td>
+                        <td class="nickname">${user.user_nickname}</td>
+                        <td class="email">${user.user_email}</td>
                         <td>${user.formattedCreatedAt}</td>
                     </tr>
                 </c:forEach>
@@ -96,8 +97,8 @@
                             <%--<span class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">${counselor.user_id}</span>--%>
                         </td>
                         <td>${counselor.user_name}</td>
-                        <td>${counselor.user_nickname}</td>
-                        <td>${counselor.user_email}</td>
+                        <td class="nickname">${counselor.user_nickname}</td>
+                        <td class="email">${counselor.user_email}</td>
                         <td>${counselor.formattedCreatedAt}</td>
                     </tr>
                 </c:forEach>
@@ -111,12 +112,17 @@
                     <h2 id="modalTitle">회원 상세 정보</h2>
 
                     <div class="profile-container">
-                        <img id="modalUserImg" src="/static/imgsource/testprofile.png" alt="profile">
+                        <img id="modalUserImg" alt="profile">
                     </div>
 
                     <table>
                         <tr><th>ID</th> <td id="modalUserId"></td></tr>
-                        <tr><th>비밀번호</th> <td><input type="password" id="modalUserPassword"></td></tr>
+                        <tr><th>비밀번호</th>
+                            <td>
+                                <input type="password" id="modalUserPassword">
+                                <i class="fa-solid fa-eye password-toggle"></i>
+                            </td>
+                        </tr>
                         <tr><th>이름</th> <td id="modalUserName"></td></tr>
                         <tr><th>닉네임</th> <td><input type="text" id="modalUserNickname"></td></tr>
                         <tr><th>이메일</th> <td><input type="email" id="modalUserEmail"></td></tr>
@@ -125,7 +131,7 @@
                     </table>
 
                     <div class="modal-buttons">
-                        <button id="saveUserChanges"> 수정 </button>
+                        <button id="updateUser"> 수정 </button>
                         <button id="deleteUser"> 삭제 </button>
                     </div>
                 </div>

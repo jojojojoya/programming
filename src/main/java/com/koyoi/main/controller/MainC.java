@@ -3,14 +3,19 @@ package com.koyoi.main.controller;
 import com.koyoi.main.service.AnnouncementService;
 import com.koyoi.main.service.EmotionService;
 import com.koyoi.main.service.QuoteService;
+import com.koyoi.main.vo.AnnouncementVO;
 import com.koyoi.main.vo.EmotionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
@@ -41,9 +46,10 @@ public class MainC {
 
     @GetMapping("/mood/scores")
     @ResponseBody
-    public List<EmotionVO> getWeeklyMoodScores() {
+    public List<EmotionVO> getWeeklyMoodScores(@RequestParam("start") String startDate, @RequestParam("end") String endDate) {
         String userId = "user1";
-        return emotionService.getUserAllEmotions(userId);
+        /*return emotionService.getUserAllEmotions(userId);*/
+        return emotionService.getWeeklyMoodScores(userId, startDate, endDate);
     }
 
 }

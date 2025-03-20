@@ -90,8 +90,7 @@ select * from TEST_USER;
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
-<<<<<<< HEAD
--- >>>>>>> 9ce381165894c55d2627bf310e0348c139fa15e2
+
 
 
 -- TEST_HABIT 테이블 데이터 삽입
@@ -134,6 +133,31 @@ VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일
 
 select * from TEST_ANNOUNCEMENT;
 select * from TEST_DIARY;
->>>>>>> 0279cb5128ea21b8cf09f22d45ad1effff2295dc
 
 
+
+=======
+
+INSERT INTO TEST_USER (user_id, user_type, user_name, user_nickname, user_email, user_password, user_img, created_at)
+VALUES ('test01', 1, 'test01','수정 테스트', 'test01@example.com', 'test01', '/imgsource/usermypage_profiletest.jpg', sysdate);
+
+INSERT INTO TEST_USER (user_id, user_type, user_name, user_nickname, user_email, user_password, user_img, created_at)
+VALUES ('test02', 2, 'test02','수정 테스트', 'test02@example.com', 'test02', '/imgsource/usermypage_profiletest.jpg', sysdate);
+
+select * from TEST_USER;
+select * from TEST_EMOTION;
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '서버 점검 안내', '3월 21일 02:00 - 05:00 서버 점검이 진행됩니다.', TIMESTAMP '2024-03-18 10:00:00');
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '보안 패치 적용', '보안 강화를 위한 패치가 적용되었습니다.', TIMESTAMP '2024-03-14 08:45:00');
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '이벤트 당첨자 발표', '이벤트 당첨자를 발표합니다! 확인하세요.', TIMESTAMP '2024-03-12 12:20:00');
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001',  '공지사항 테스트 데이터', '테스트를 위한 공지사항입니다.', TIMESTAMP '2024-03-10 18:00:00');
+
+INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin001', '고객센터 운영시간 변경', '고객센터 운영시간이 3월 20일부터 평일 9시~18시로 변경됩니다.', TIMESTAMP '2025-03-17 14:20:00');

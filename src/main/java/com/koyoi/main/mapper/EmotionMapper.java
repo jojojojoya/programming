@@ -24,11 +24,18 @@ public interface EmotionMapper {
     @Delete("DELETE FROM TEST_EMOTION WHERE diary_id = #{diaryId}")
     int deleteEmotion(@Param("diaryId") int diaryId);
     
-    // 메인페이지 무드그래프
+    // 달력 이모지
     @Select("SELECT E.emotion_id, E.user_id, E.diary_id, E.emotion_score, E.emotion_emoji, E.recorded_at " +
             "FROM TEST_EMOTION E LEFT JOIN TEST_USER U ON E.user_id = U.user_id " +
             "LEFT JOIN TEST_DIARY D ON E.diary_id = D.diary_id WHERE E.user_id = #{userId} ORDER BY E.recorded_at ASC")
     List<EmotionVO> getAllUserEmotions(String userId);
 
-
+    // 무드 그래프
+    @Select("SELECT E.emotion_id, E.user_id, E.diary_id, E.emotion_score, E.emotion_emoji, E.recorded_at " +
+            "FROM TEST_EMOTION E LEFT JOIN TEST_USER U ON E.user_id = U.user_id " +
+            "LEFT JOIN TEST_DIARY D ON E.diary_id = D.diary_id WHERE E.user_id = #{userId} " +
+            "AND TRUNC(E.recorded_at) BETWEEN " +
+            "TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')" +
+            "ORDER BY E.recorded_at ASC")
+    List<EmotionVO> getWeeklyMoodScores(String userId, String startDate, String endDate);
 }
