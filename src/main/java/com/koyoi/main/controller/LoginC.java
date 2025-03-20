@@ -32,7 +32,8 @@ public class LoginC {
         boolean isLogin = loginService.loginCheck(userId, userPw);
 
         if (isLogin) {
-            session.setAttribute("userId", userId);
+            session.setAttribute("userId", userId);  // 세션에 userId 저장
+            session.setMaxInactiveInterval(30 * 60); // 세션 유지 시간 (30분)
             return "redirect:/main";
         } else {
             model.addAttribute("loginFailed", true);
