@@ -96,8 +96,15 @@ VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/u
 
 -- TEST_HABIT 테이블 데이터 삽입
 INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
-VALUES (5, 'user5', '식사', SYSDATE);
+VALUES (1, 'user1', '운동', SYSDATE);
 select *from TEST_HABIT;
+
+INSERT INTO TEST_HABIT_TRACKING (tracking_id, habit_id, user_id, completed, weekly_feedback, tracking_date, created_at)
+VALUES (1, 2, 'user1', 0, null, TO_DATE('2025-03-20', 'YYYY-MM-DD'), SYSTIMESTAMP);
+
+INSERT INTO TEST_HABIT_TRACKING (tracking_id, habit_id, user_id, completed, weekly_feedback, tracking_date, created_at)
+VALUES (2, 3, 'user1', 0, null, TO_DATE('2025-03-20', 'YYYY-MM-DD'), SYSTIMESTAMP);
+select * from TEST_HABIT_TRACKING;
 
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, USER_NICKNAME, user_email, user_password, user_img, created_at)
@@ -135,5 +142,5 @@ VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일
 select * from TEST_ANNOUNCEMENT;
 select * from TEST_DIARY;
 
-INSERT INTO TEST_HABIT_TRACKING(tracking_id, habit_id, completion_rate, status, daily_feedback, weekly_feedback, created_at)
-VALUES (1,1, 0, 'false','','', SYSDATE )
+
+

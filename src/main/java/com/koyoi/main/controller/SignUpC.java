@@ -109,7 +109,7 @@ public class SignUpC {
             String dbFilePath = "static/imgsource/userProfile/" + fileName;
 
             // DB에 user 정보 + 이미지 경로 저장
-            SignUpService.registerUser(userId, userPw, dbFilePath);
+//            SignUpService.registerUser(userId, userPw, dbFilePath);
 
         } catch (IOException e) {
             e.printStackTrace();
