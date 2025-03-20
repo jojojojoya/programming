@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         modal.style.display = "block";
 
+        // history에서 query 지우기
+        window.history.replaceState({}, document.title, window.location.pathname);
+
         // 시간 조정
         setTimeout(() => {
             modal.style.display = "none";

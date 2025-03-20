@@ -191,17 +191,25 @@ CREATE TABLE MAIN_HABIT
 );
 
 -- 습관 추적 기록 테이블 (MAIN_HABIT_TRACKING)
-CREATE TABLE MAIN_HABIT_TRACKING
-(
-    tracking_id     NUMBER PRIMARY KEY,                                                     -- 습관 추적 고유 ID
-    habit_id        NUMBER                    NOT NULL,                                     -- 추적 대상 습관 ID
-    completion_rate NUMBER                    NOT NULL,                                     -- 완료율 (예: 100%)
-    status          VARCHAR2(5)               NOT NULL CHECK (status IN ('true', 'false')), -- 완료 여부 (true/false)
-    daily_feedback  VARCHAR2(200),                                                          -- 일일 피드백 (간단한 메모)
-    weekly_feedback CLOB,                                                                   -- 주간 피드백 (긴 내용 가능)
-    created_at      TIMESTAMP DEFAULT SYSDATE NOT NULL,                                     -- 기록일시
-    CONSTRAINT fk_tracking_habit FOREIGN KEY (habit_id) REFERENCES MAIN_HABIT (habit_id)    -- 습관 외래키
+CREATE TABLE MAIN_HABIT_TRACKING (
+                                     tracking_id NUMBER PRIMARY KEY,                                     -- 습관 추적 고유 ID (기본키)
+                                     habit_id NUMBER NOT NULL,                                           -- 추적 대상 습관 ID (외래키)
+                                     user_id VARCHAR2(50) NOT NULL,                                      -- 습관을 추적한 사용자 ID (외래키) - 길이 50으로 수정
+                                     completed NUMBER(1) DEFAULT 0,                                      -- 완료 플래그 (0=미완료, 1=완료)
+                                     weekly_feedback CLOB,                                               -- 주간 피드백 (긴 내용 가능)
+                                     tracking_date DATE NOT NULL,                                        -- 습관 수행 일자 (기존 date 컬럼 → tracking_date로 변경)
+                                     created_at TIMESTAMP DEFAULT SYSDATE NOT NULL,                      -- 기록일시 (기본값: 현재 시간)
+
+                                     CONSTRAINT fk_tracking_habit FOREIGN KEY (habit_id)
+                                         REFERENCES MAIN_HABIT(habit_id)
+                                             ON DELETE CASCADE,                                              -- 습관 삭제 시 자동으로 추적 데이터 삭제
+
+                                     CONSTRAINT fk_tracking_user FOREIGN KEY (user_id)
+                                         REFERENCES MAIN_USER(user_id)
+                                             ON DELETE CASCADE                                               -- 사용자 삭제 시 자동으로 추적 데이터 삭제
 );
+
+
 
 -- ==========================================
 -- ========== TEST TABLES ==========
