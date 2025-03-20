@@ -4,8 +4,6 @@
 -- table 생성시 꼭 test table 로 생성!!!!!!!!!!!!!
 -- db는 같이 쓰는 db도 있으니 삭제 하거나 변동 주기 전에 서로 공유 꼭 한번씩 해주세요!!
 
-<<<<<<< HEAD
-=======
 
 -- ==========================================
 -- ========== TEST DATA INSERT ==========
@@ -135,6 +133,10 @@ VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일
 
 select * from TEST_ANNOUNCEMENT;
 select * from TEST_DIARY;
+
+
+
+=======
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_nickname, user_email, user_password, user_img, created_at)
 VALUES ('test01', 1, 'test01','수정 테스트', 'test01@example.com', 'test01', '/imgsource/usermypage_profiletest.jpg', sysdate);
