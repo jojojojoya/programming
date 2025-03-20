@@ -112,6 +112,30 @@ public class DiaryService {
         System.out.println("[DiaryService] 일기 수정 완료 - diaryId: " + diaryVO.getDiary_id());
     }
 
+    @Transactional
+    public void updateDiaryAndEmotion(DiaryVO diaryVO) {
+        System.out.println("[updateDiaryAndEmotion] 수정 요청 받은 diaryVO: " + diaryVO);
+
+        // 1. 일기 수정
+        int diaryUpdateResult = diaryMapper.updateDiary(diaryVO);
+        if (diaryUpdateResult == 0) {
+            throw new IllegalStateException("일기 수정 실패! diary_id: " + diaryVO.getDiary_id());
+        }
+
+        // 2. 감정 이모지 + recorded_at 동시 수정
+        int emotionUpdateResult = emotionMapper.updateEmotionWithDate(
+                diaryVO.getDiary_id(),
+                diaryVO.getEmotion_emoji(),
+                diaryVO.getCreated_at()  // recorded_at으로 사용할 값
+        );
+
+        if (emotionUpdateResult == 0) {
+            throw new IllegalStateException("감정 수정 실패! diary_id: " + diaryVO.getDiary_id());
+        }
+
+        System.out.println("[updateDiaryAndEmotion] 일기 + 감정 수정 완료! diary_id: " + diaryVO.getDiary_id());
+    }
+
     // 일기 삭제 (감정 + 일기 순으로 삭제)
     public void deleteDiary(int diaryId) {
         // 감정 정보 삭제
@@ -129,4 +153,5 @@ public class DiaryService {
 
         System.out.println("[DiaryService] 감정 점수 저장 완료 - diaryId: " + diaryId + ", score: " + emotionScore);
     }
+
 }

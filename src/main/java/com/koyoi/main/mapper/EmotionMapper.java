@@ -3,6 +3,7 @@ package com.koyoi.main.mapper;
 import com.koyoi.main.vo.EmotionVO;
 import org.apache.ibatis.annotations.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -15,6 +16,15 @@ public interface EmotionMapper {
     // 감정 이모지만 수정 (일기 수정 시 호출)
     @Update("UPDATE TEST_EMOTION SET emotion_emoji = #{emotion_emoji} WHERE diary_id = #{diary_id}")
     int updateEmotion(@Param("diary_id") int diaryId, @Param("emotion_emoji") String emotionEmoji);
+
+    // 감정 이모지와 recorded_at 동시 수정
+    @Update("UPDATE TEST_EMOTION " +
+            "SET emotion_emoji = #{emotion_emoji}, " +
+            "    recorded_at = #{recorded_at} " +
+            "WHERE diary_id = #{diary_id}")
+    int updateEmotionWithDate(@Param("diary_id") int diaryId,
+                      @Param("emotion_emoji") String emotionEmoji,
+                      @Param("recorded_at") LocalDateTime recordedAt);
 
     // 오늘의 점수만 수정 (모달에서 점수 입력 후 호출)
     @Update("UPDATE TEST_EMOTION SET emotion_score = #{emotion_score} WHERE diary_id = #{diary_id}")
@@ -29,6 +39,7 @@ public interface EmotionMapper {
             "FROM TEST_EMOTION E LEFT JOIN TEST_USER U ON E.user_id = U.user_id " +
             "LEFT JOIN TEST_DIARY D ON E.diary_id = D.diary_id WHERE E.user_id = #{userId} ORDER BY E.recorded_at ASC")
     List<EmotionVO> getAllUserEmotions(String userId);
+
 
     // 무드 그래프
     @Select("SELECT E.emotion_id, E.user_id, E.diary_id, E.emotion_score, E.emotion_emoji, E.recorded_at " +

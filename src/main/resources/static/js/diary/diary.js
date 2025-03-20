@@ -227,7 +227,7 @@ function updateDiary() {
         diary_id: currentDiaryId,
         title: diaryTitle,
         diary_content: diaryContent,
-        // created_at: `${selectedDate}T00:00:00`, // 기존 날짜 유지 (필요시 수정 가능)
+        created_at: `${selectedDate}T00:00:00`, // 기존 날짜 유지 (필요시 수정 가능)
         emotion_emoji: selectedEmoji
     };
 
