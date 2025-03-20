@@ -15,9 +15,9 @@ body {
 /* 전체 컨테이너 */
 .container {
     position: relative;
-    width: 90vw;                /* 화면 너비의 90% */
-    height: 90vh;               /* 화면 높이의 90% */
-    border-radius: 2vw;
+    width: 100vw;                /* 화면 너비의 90% */
+    height: 100vh;               /* 화면 높이의 90% */
+    /*border-radius: 2vw;*/
     overflow: hidden; /* 파도를 안 넘기게 */
     display: flex;
     flex-direction: column;
@@ -57,23 +57,22 @@ body {
     position: relative;
     z-index: 2; /* 파도보다 위에 위치 */
     padding-bottom: 10vh; /* 파도가 덮지 않도록 여백 주기 */
-    /*height: 60vh;*/
 }
 
 /* 로그인 폼 전체 */
 .login-wrapper {
     display: flex;
     width: 70vw;                /* 화면 너비 70% */
-    height: 75vh;               /* 화면 높이 65% */
+    height: 75vh;               /* 화면 높이 75% */
     background-color: #ffffff;
     box-shadow: 0 1vh 3vh rgba(0, 0, 0, 0.1);
     border-radius: 2vw;
     overflow: hidden;
 }
 
-/* 왼쪽 일러스트 영역 */
+/* 왼쪽) 슬라이드 */
 .login-left {
-    flex: 2;  /* 비율 유지 (2:1) */
+    flex: 2;    /* 비율 (2:1) */
     background-color: #f5ebe0;
     display: flex;
     justify-content: center;
@@ -82,12 +81,8 @@ body {
     overflow: hidden;  /* 넘치는 이미지 방지 */
 }
 
-.logo-container {
-    margin-bottom: 20px;
-}
 
-
-/* 오른쪽 폼 영역 */
+/* 오른쪽) 로그인 */
 .login-right {
     flex: 1;
     padding: 2vh 3vw;           /* 위아래 vh, 좌우 vw */

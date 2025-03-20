@@ -6,8 +6,16 @@ let isViewMode = false; // true면 조회 뷰, false면 작성/수정 뷰
 // 페이지 로드 후 초기 세팅
 document.addEventListener('DOMContentLoaded', function() {
     const today = new Date().toISOString().slice(0, 10);
+    const storedDate = sessionStorage.getItem("selectedDate");
 
-    document.getElementById("diaryDate").innerText = today;
+    if (storedDate) {
+        document.getElementById("diaryDate").innerText = storedDate; // sessionStorage에 저장된 날짜 적용
+        sessionStorage.removeItem("selectedDate"); // 사용 후 sessionStorage에서 삭제
+    } else {
+        document.getElementById("diaryDate").innerText = today; // 기본값으로 오늘 날짜 사용
+    }
+
+   // document.getElementById("diaryDate").innerText = today;
     selectedEmoji = "🙂";
     currentDiaryId = null;
 

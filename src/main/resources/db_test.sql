@@ -4,8 +4,6 @@
 -- table 생성시 꼭 test table 로 생성!!!!!!!!!!!!!
 -- db는 같이 쓰는 db도 있으니 삭제 하거나 변동 주기 전에 서로 공유 꼭 한번씩 해주세요!!
 
-<<<<<<< HEAD
-=======
 
 -- ==========================================
 -- ========== TEST DATA INSERT ==========
@@ -93,7 +91,7 @@ select * from TEST_USER;
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
 
--- >>>>>< HEAD>> 9ce381165894c55d2627bf310e0348c139fa15e2
+
 
 
 -- TEST_HABIT 테이블 데이터 삽입
