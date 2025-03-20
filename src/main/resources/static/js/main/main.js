@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // 체크리스트
+/*    // 체크리스트
     const taskInput = document.getElementById("task-input");
     const addTaskBtn = document.getElementById("add-task-btn");
     const taskList = document.getElementById("task-list");
@@ -67,6 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 입력 필드 비우기
         taskInput.value = "";
-    });
+    });*/
 
 });
