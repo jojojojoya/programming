@@ -46,6 +46,17 @@
                 <!-- 📅 달력 -->
                 <div id="calendar"></div>
 
+                <div class="weekly-summary">
+                    <h3>이번주 감정 요약</h3>
+                    <ul>
+                        <li><span class="emoji">😊</span> 2025-03-18</li>
+                        <li><span class="emoji">😢</span> 2025-03-19</li>
+                        <li><span class="emoji">😡</span> 2025-03-20</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="diary-section-container">
                 <!-- ✅ 일기 작성 뷰 -->
                 <div id="diaryWriteSection" style="display: block;">
                     <!-- 날짜 -->
