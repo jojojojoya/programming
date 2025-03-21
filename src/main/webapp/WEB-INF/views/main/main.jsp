@@ -44,7 +44,9 @@
             <button class="header-btn">
                 <a href="/logout"> <img src="/static/imgsource/logout.png" alt="logout"> </a>
             </button>
-            <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile">
+            <button class="profile-btn">
+                <a href="/usermypage">  <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile"> </a>
+            </button>
         </div>
 
     </header>
