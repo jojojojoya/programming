@@ -1,5 +1,6 @@
 package com.koyoi.main.controller;
 
+import com.koyoi.main.service.LiveChatService;
 import com.koyoi.main.service.UserMyPageService;
 import com.koyoi.main.vo.UserMyPageVO;
 import jakarta.servlet.http.HttpSession;
@@ -7,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,39 +20,51 @@ public class UserMypageC {
 
     @Autowired
     private UserMyPageService userMyPageService;
+    @Autowired
+    private LiveChatService liveChatService;
+
+
 
     @GetMapping("/usermypage")
     public String usermypage(@RequestParam(value = "user_id", required = false) String user_id,
                              HttpSession session, Model model) {
         System.out.println("🔹 UserMyPageC 실행");
 
-        // 로그인된 사용자 체크
+        if (user_id == null || user_id.trim().isEmpty()) {
+            System.out.println("⚠️ user_id가 없음! 기본값 user5 적용");
+            user_id = "user5";
+        } else {
+            System.out.println("✅ 전달된 user_id: " + user_id);
+        }
+
+        // 세션에 로그인된 유저 정보가 있다면 사용
         UserMyPageVO loggedInUser = (UserMyPageVO) session.getAttribute("loggedInUser");
         if (loggedInUser != null) {
-            System.out.println("✅ 로그인된 사용자: " + loggedInUser.getUser_id());
             user_id = loggedInUser.getUser_id();
             model.addAttribute("user", loggedInUser);
+            System.out.println("🔍 세션에서 가져온 user: " + loggedInUser);
         } else {
-            System.out.println("⚠️ 비 로그인 유저. 기본 user_id = user5 적용");
-            if (user_id == null || user_id.trim().isEmpty()) {
-                user_id = "user5"; // 기본 유저 ID 설정
+            // DB에서 user5 데이터 가져오기
+            List<UserMyPageVO> userList = userMyPageService.getUserById(user_id);
+
+            if (!userList.isEmpty()) {
+                UserMyPageVO user = userList.get(0);
+                model.addAttribute("user", user);
+                System.out.println("✅ DB에서 가져온 user: " + user);
+            } else {
+                System.out.println("❌ user5 정보 없음");
             }
         }
 
-        List<UserMyPageVO> users = userMyPageService.getUserById(user_id);
-        if (!users.isEmpty()) {
-            UserMyPageVO userProfile = users.get(0);
-            model.addAttribute("user", userProfile);
-            model.addAttribute("user_id", userProfile.getUser_id());  // JSP에서 접근 가능하도록 추가
-            System.out.println("✅ 사용자 프로필 로드 완료: " + userProfile.getUser_id());
-        } else {
-            System.out.println("❌ 사용자 정보 없음. 기본 페이지 로드");
-            return "usermypage/usermypage"; // 기본 페이지로 이동
-        }
+        // ✅ 상담 내역을 가져오기 전에 상담 상태를 최신화
+        liveChatService.updateReservationsStatus();
 
         List<UserMyPageVO> reservations = userMyPageService.getUserReservations(user_id);
-        model.addAttribute("reservations", reservations);  // JSP에서 사용 가능하도록 추가
-        System.out.println("✅ 상담 예약 내역 로드 완료, 개수: " + reservations.size());
+        model.addAttribute("reservations", reservations);
+
+        List<UserMyPageVO> chatSummaries = userMyPageService.getUserChatBotDetail(user_id);
+        model.addAttribute("chats", chatSummaries);
+
 
         return "usermypage/usermypage";
     }
@@ -91,5 +102,35 @@ public class UserMypageC {
         Map<String, Boolean> response = new HashMap<>();
         response.put("updated", isUpdated);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/usermypage/updateStatus")  // 변경됨
+    public ResponseEntity<Map<String, Boolean>> updateStatus(@RequestBody Map<String, Object> requestData) {
+        try {
+            int counselingId = (int) requestData.get("counseling_id");
+            String status = (String) requestData.get("status");
+
+            System.out.println("🔍 [백엔드] 업데이트 요청 - 상담 ID: " + counselingId + ", 상태: " + status);
+
+            boolean success = liveChatService.updateReservationStatus(counselingId, status);
+
+            if (!success) {
+                System.err.println("❌ [백엔드] 상담 상태 업데이트 실패! 상담 ID가 존재하는지 확인 필요.");
+            } else {
+                System.out.println("✅ [백엔드] 상담 상태 업데이트 성공!");
+            }
+
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("success", success);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            System.err.println("🚨 [백엔드] 예외 발생: " + e.getMessage());
+            e.printStackTrace();
+
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("success", false);
+            return ResponseEntity.internalServerError().body(response);
+        }
     }
 }
