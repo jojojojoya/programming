@@ -1,5 +1,7 @@
 package com.koyoi.main.controller;
 
+import com.koyoi.main.dto.CompletedDTO;
+import com.koyoi.main.dto.TodayHabitDTO;
 import com.koyoi.main.service.AnnouncementService;
 import com.koyoi.main.service.EmotionService;
 import com.koyoi.main.service.HabitTrackingService;
@@ -11,13 +13,11 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -68,10 +68,67 @@ public class MainC {
 
     @GetMapping("/habit-tracking/list")
     @ResponseBody
-    public List<HabitTrackingVO> getHabitTrackingList() {
-        String userId = "user1";
+    public List<HabitTrackingVO> getHabitTrackingList(HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+
+        if(userId == null) {
+            throw new IllegalStateException("로그인 정보가 없습니다");
+        }
         List<HabitTrackingVO> habits = habitTrackingService.getHabitTrackingByUser(userId);
-        return habits; // "habits" 키 없이 리스트 자체를 반환
+        return habits;
     }
+
+/*    @GetMapping("/habit-tracking/list/today")
+    @ResponseBody
+    public List<HabitTrackingVO> getTodayHabitTrackingList(HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+
+        if(userId == null) {
+            throw new IllegalStateException("로그인 정보가 없습니다");
+        }
+        return habitTrackingService.getTodayHabitTrackingByUser(userId);
+
+    }  */
+
+    @GetMapping("/habit-tracking/list/today")
+    @ResponseBody
+    public TodayHabitDTO getTodayHabitTrackingList(HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+
+        if(userId == null) {
+            throw new IllegalStateException("로그인 정보가 없습니다");
+        }
+
+        boolean hasHabits = habitTrackingService.countHabitTrackingByUser(userId);
+        List<HabitTrackingVO> habits = habitTrackingService.getTodayHabitTrackingByUser(userId);
+
+        return new TodayHabitDTO(hasHabits, habits);
+
+    }
+
+        @GetMapping("/habit-tracking/list/by-date")
+        @ResponseBody
+        public List<HabitTrackingVO> getHabitTrackingListByDate(HttpSession session, @RequestParam("date")  String formattedDate) {
+            String userId = (String) session.getAttribute("userId");
+
+            if (userId == null) {
+                throw new IllegalStateException("로그인 정보가 없습니다");
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(formattedDate, formatter);
+            return habitTrackingService.getHabitTrackingByUserAndDate(userId, date);
+        }
+
+
+    @PostMapping("/habit-tracking/toggle/{trackingId}")
+    @ResponseBody
+    public String toggleHabit(@PathVariable int trackingId, @RequestBody CompletedDTO dto) {
+        Integer completed = dto.getCompleted();
+        habitTrackingService.toggleHabitCompletion(trackingId, completed);
+        return "OK";
+    }
+
+
 
 }

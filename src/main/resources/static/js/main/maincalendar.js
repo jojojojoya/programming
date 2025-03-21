@@ -119,9 +119,19 @@ function generateCalendar() {
             dayDiv.addEventListener("click", function () {
                 let selectedDate = new Date(`${formattedDate}T00:00:00`);
 
+                document.querySelectorAll(".calendar-day").forEach(el => {
+                    el.classList.remove("selected-date");
+                });
+
+                // ✅ 현재 클릭한 날짜에만 추가
+                this.classList.add("selected-date");
+                selectedCalendarDate = this;
+
                 if (selectedDate) {
                     let weekRange = getWeekRange(selectedDate);
                     fetchWeeklyMoodScores(selectedDate);
+                    console.log("클릭한 날짜:", formattedDate);
+                    loadChecklistByDate(formattedDate);
                 } else {
                     console.log("선택한 날짜가 없습니다 (undefined)");
                 }
