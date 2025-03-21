@@ -101,14 +101,37 @@ function generateCalendar() {
                 sessionStorage.setItem("selectedDate", formattedDate);
                 // 달력과 연동 위해서 sessionStorage 사용. 브라우저 닫으면 없어짐.
                 window.location.href = `/diary`;
+                // [서버 세션 연동 예정] 로그인 세션 담당자 개발 완료 후 전환!
+
+         /*       fetch('/setSelectedDate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ date: formattedDate })
+                    })
+                 .then(() => {
+                     window.location.href = '/diary';
+                 })
+                 .catch(err => {
+                     console.error("서버 세션 저장 실패:", err);
+                 });*/
             });
         } else if (currentMode === "weekly") {
             dayDiv.addEventListener("click", function () {
                 let selectedDate = new Date(`${formattedDate}T00:00:00`);
 
+                document.querySelectorAll(".calendar-day").forEach(el => {
+                    el.classList.remove("selected-date");
+                });
+
+                // ✅ 현재 클릭한 날짜에만 추가
+                this.classList.add("selected-date");
+                selectedCalendarDate = this;
+
                 if (selectedDate) {
                     let weekRange = getWeekRange(selectedDate);
                     fetchWeeklyMoodScores(selectedDate);
+                    console.log("클릭한 날짜:", formattedDate);
+                    loadChecklistByDate(formattedDate);
                 } else {
                     console.log("선택한 날짜가 없습니다 (undefined)");
                 }

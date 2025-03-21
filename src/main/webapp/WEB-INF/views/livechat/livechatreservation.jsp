@@ -44,7 +44,7 @@
 
             <div class="top-section">
                 <div class="livechat_table">
-                    <div> LIVE CHAT </div>
+                    <div style="color: #D8D2C2; font-size: 20px;"  > 전문가와의 상담 예약을 원하시나요? </div>
                     <div class="livechat_info">
 
                         <div id="livechat_step1" class="show">
@@ -56,6 +56,9 @@
                             <div class="livechat_list"> 해당 일자에 가장 코요이한 시간을 선택해주세요. </div>
                             <select id="livechat_reserve_time" onchange="showNext('step3')">
                                 <option value="">시간 선택</option>
+                                <option value="01:00">01:00</option>
+                                <option value="02:00">02:00</option>
+                                <option value="03:00">03:00</option>
                                 <option value="10:00">10:00</option>
                                 <option value="11:00">11:00</option>
                                 <option value="12:00">12:00</option>
@@ -90,9 +93,12 @@
                         </div>
 
                         <div id="conformation">
-                            <div class="livechat_list"> 해당 문의를 조합해 적합한 상담사님을 배정해드렸어요. </div>
-                            <button id="livechat_exit_btn" onclick="location.href='/usermypage'"> 나가기 </button>
+                            <div id="conformation_text" class="livechat_list" style="display: none;">
+                                해당 문의를 조합해 적합한 상담사님을 배정해드렸어요.
+                            </div>
+                            <button id="livechat_exit_btn" class="hide">나가기</button>
                         </div>
+
 
                     </div>
                 </div>
