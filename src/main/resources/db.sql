@@ -121,19 +121,36 @@ CREATE TABLE MAIN_CHAT
     CONSTRAINT fk_chat_user FOREIGN KEY (user_id) REFERENCES MAIN_USER (user_id) -- 사용자 외래키
 );
 
--- 실시간 채팅 테이블 (MAIN_LIVE_CHAT)
+-- 실시간 상담 예약 테이블 (MAIN_LIVE_CHAT)
 CREATE TABLE MAIN_LIVE_CHAT
 (
     session_id   NUMBER PRIMARY KEY,                                                            -- 실시간 채팅 세션 고유 ID
-    user_id      VARCHAR2(50) NOT NULL,                                                         -- 채팅 요청한 사용자 ID
+    user_id      VARCHAR2(50) NOT NULL,
+    counseling_id number(5),
     counselor_id VARCHAR2(50),                                                                  -- 응답한 상담사 사용자 ID
-    start_time   TIMESTAMP    NOT NULL,                                                         -- 채팅 시작 시간
-    end_time     TIMESTAMP,                                                                     -- 채팅 종료 시간 (종료 시점 기록)
+    start_time   number(2)    NOT NULL,                                                         -- 채팅 시작 시간
+    end_time     number(2),                                                                     -- 채팅 종료 시간 (종료 시점 기록)
     status       VARCHAR2(50) NOT NULL,                                                         -- 채팅 상태 (예: 진행중, 종료 등)
-    CONSTRAINT fk_live_chat_user FOREIGN KEY (user_id) REFERENCES MAIN_USER (user_id),          -- 사용자 외래키
-    CONSTRAINT fk_live_chat_counselor FOREIGN KEY (counselor_id) REFERENCES MAIN_USER (user_id) -- 상담사 외래키
+    CONSTRAINT fk_live_chat_users FOREIGN KEY (user_id) REFERENCES test_USER (user_id),          -- 사용자 외래키
+    CONSTRAINT fk_live_chat_counselors FOREIGN KEY (counselor_id) REFERENCES test_USER (user_id), -- 상담사 외래키
+    CONSTRAINT fk_live_chat_counselings FOREIGN KEY (counseling_id) REFERENCES TEST_COUNSELING_RESERVATION (COUNSELING_ID) -- 상담사 외래키
 );
 
+
+
+
+-- 예약된 상담 내역 저장 테이블
+CREATE TABLE MAIN_LIVE_CHAT_LOG
+(
+    log_id     NUMBER PRIMARY KEY,                                      -- 메시지 고유 ID
+    session_id NUMBER       NOT NULL,                                   -- 채팅 세션 ID
+    sender     VARCHAR2(50) NOT NULL,                                   -- 메시지 보낸 사용자
+    user_type  VARCHAR2(10) CHECK (user_type IN ('USER', 'COUNSELOR')), -- 발신자 유형
+    message    CLOB         NOT NULL,                                   -- 메시지 내용
+    timestamp  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,                     -- 메시지 전송 시간
+    CONSTRAINT fk_chat_log_sessionadd FOREIGN KEY (session_id) REFERENCES MAIN_LIVE_CHAT (session_id),
+    CONSTRAINT fk_chat_log_senderr FOREIGN KEY (sender) REFERENCES MAIN_USER (user_id)
+);
 
 
 -- 상담 예약 테이블 (MAIN_COUNSELING_RESERVATION)
@@ -303,6 +320,16 @@ CREATE OR REPLACE TRIGGER MAIN_LIVE_CHAT_TRG
 BEGIN
     SELECT MAIN_LIVE_CHAT_SEQ.NEXTVAL INTO :NEW.session_id FROM DUAL;
 END;
+
+CREATE OR REPLACE TRIGGER trg_sync_counseling_statuss
+    AFTER UPDATE OF status ON MAIN_LIVE_CHAT
+    FOR EACH ROW
+BEGIN
+    UPDATE MAIN_COUNSELING_RESERVATION
+    SET status = :NEW.status
+    WHERE counseling_id = :NEW.counseling_id;
+END;
+
 /
 
 CREATE SEQUENCE MAIN_COUNSELING_RES_SEQ START WITH 1 INCREMENT BY 1;
@@ -354,6 +381,18 @@ BEGIN
     SELECT MAIN_HABIT_TRACKING_SEQ.NEXTVAL INTO :NEW.tracking_id FROM DUAL;
 END;
 /
+
+create sequence MAIN_LIVE_CHAT_LOG_SEQ;
+/
+
+CREATE OR REPLACE TRIGGER TRG_SYNC_COUNSELING_RESERVATION_STATUS
+    BEFORE UPDATE ON MAIN_COUNSELING_RESERVATION
+    FOR EACH ROW
+BEGIN
+    UPDATE MAIN_LIVE_CHAT
+    SET STATUS = :NEW.STATUS
+    WHERE COUNSELING_ID = :NEW.COUNSELING_ID;
+END;
 
 -- 기존 SEQUENCE 및 TRIGGER는 이전과 동일하게 유지 --
 -- (생략된 부분은 기존 내용 참고)
@@ -451,6 +490,7 @@ BEGIN
     SELECT TEST_HABIT_TRACKING_SEQ.NEXTVAL INTO :NEW.tracking_id FROM DUAL;
 END;
 /
+
 
 -- 기존 SEQUENCE 및 TRIGGER는 이전과 동일하게 유지 --
 -- (생략된 부분은 기존 내용 참고)

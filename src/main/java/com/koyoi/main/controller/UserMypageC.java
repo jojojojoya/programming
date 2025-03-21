@@ -87,6 +87,9 @@ public class UserMypageC {
         List<UserMyPageVO> reservations = userMyPageService.getUserReservations(user_id);
         model.addAttribute("reservations", reservations);
 
+        List<UserMyPageVO> chatSummaries = userMyPageService.getUserChatBotDetail(user_id);
+        model.addAttribute("chats", chatSummaries);
+
 
         return "usermypage/usermypage";
     }

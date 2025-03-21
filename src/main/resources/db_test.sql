@@ -170,7 +170,6 @@ select *
 from TEST_DIARY;
 
 
-
 CREATE TABLE TEST_LIVE_CHAT_LOG
 (
     log_id     NUMBER PRIMARY KEY,                                      -- 메시지 고유 ID
@@ -182,38 +181,39 @@ CREATE TABLE TEST_LIVE_CHAT_LOG
     CONSTRAINT fk_chat_log_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
     CONSTRAINT fk_chat_log_sender FOREIGN KEY (sender) REFERENCES TEST_USER (user_id)
 );
-CREATE TABLE TEST_LIVE_CHAT_PARTICIPANTS
-(
-    session_id NUMBER       NOT NULL,               -- 채팅방 ID
-    user_id    VARCHAR2(50) NOT NULL,               -- 참여자 ID
-    joined_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 채팅방 입장 시간
-    left_at    TIMESTAMP,                           -- 퇴장 시간 (NULL이면 아직 참여 중)
-    PRIMARY KEY (session_id, user_id),
-    CONSTRAINT fk_chat_participant_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
-    CONSTRAINT fk_chat_participant_user FOREIGN KEY (user_id) REFERENCES TEST_USER (user_id)
-);
 
-CREATE TABLE TEST_LIVE_CHAT_NOTIFICATIONS
-(
-    notification_id NUMBER PRIMARY KEY,                            -- 알림 고유 ID
-    session_id      NUMBER        NOT NULL,                        -- 채팅방 ID
-    user_id         VARCHAR2(50)  NOT NULL,                        -- 알림을 받는 사용자 ID
-    message         VARCHAR2(500) NOT NULL,                        -- 알림 내용
-    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,           -- 알림 생성 시간
-    is_read         NUMBER(1) DEFAULT 0 CHECK (is_read IN (0, 1)), -- 읽음 여부 (0: 미확인, 1: 확인)
-    CONSTRAINT fk_chat_notification_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
-    CONSTRAINT fk_chat_notification_user FOREIGN KEY (user_id) REFERENCES TEST_USER (user_id)
-);
-CREATE TABLE TEST_COUNSELING_SUMMARY
-(
-    summary_id         NUMBER PRIMARY KEY,                  -- 상담 요약 ID
-    session_id         NUMBER NOT NULL,                     -- 상담 세션 ID
-    counseling_summary CLOB,                                -- 상담 요약 내용
-    feedback           VARCHAR2(500),                       -- 상담사 피드백
-    created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 저장 시간
-    CONSTRAINT fk_counseling_summary_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id)
-);
-
+-- CREATE TABLE TEST_LIVE_CHAT_PARTICIPANTS
+-- (
+--     session_id NUMBER       NOT NULL,               -- 채팅방 ID
+--     user_id    VARCHAR2(50) NOT NULL,               -- 참여자 ID
+--     joined_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 채팅방 입장 시간
+--     left_at    TIMESTAMP,                           -- 퇴장 시간 (NULL이면 아직 참여 중)
+--     PRIMARY KEY (session_id, user_id),
+--     CONSTRAINT fk_chat_participant_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
+--     CONSTRAINT fk_chat_participant_user FOREIGN KEY (user_id) REFERENCES TEST_USER (user_id)
+-- );
+--
+-- CREATE TABLE TEST_LIVE_CHAT_NOTIFICATIONS
+-- (
+--     notification_id NUMBER PRIMARY KEY,                            -- 알림 고유 ID
+--     session_id      NUMBER        NOT NULL,                        -- 채팅방 ID
+--     user_id         VARCHAR2(50)  NOT NULL,                        -- 알림을 받는 사용자 ID
+--     message         VARCHAR2(500) NOT NULL,                        -- 알림 내용
+--     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,           -- 알림 생성 시간
+--     is_read         NUMBER(1) DEFAULT 0 CHECK (is_read IN (0, 1)), -- 읽음 여부 (0: 미확인, 1: 확인)
+--     CONSTRAINT fk_chat_notification_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
+--     CONSTRAINT fk_chat_notification_user FOREIGN KEY (user_id) REFERENCES TEST_USER (user_id)
+-- );
+-- CREATE TABLE TEST_COUNSELING_SUMMARY
+-- (
+--     summary_id         NUMBER PRIMARY KEY,                  -- 상담 요약 ID
+--     session_id         NUMBER NOT NULL,                     -- 상담 세션 ID
+--     counseling_summary CLOB,                                -- 상담 요약 내용
+--     feedback           VARCHAR2(500),                       -- 상담사 피드백
+--     created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 저장 시간
+--     CONSTRAINT fk_counseling_summary_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id)
+-- );
+--
 
 SELECT column_name, constraint_type
 FROM all_cons_columns
