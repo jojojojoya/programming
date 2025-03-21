@@ -141,6 +141,7 @@ VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일
 
 select * from TEST_ANNOUNCEMENT;
 select * from TEST_DIARY;
+select * from TEST_HABIT;
 
 
 

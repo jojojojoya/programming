@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/habit/habit.css">
+    <script src="/static/js/habit/habit.js"></script>
 </head>
 
 <body>
@@ -48,7 +49,7 @@
             <div class="habit-page">
                 <div class="habit-partone">
                     <div class="habit-list">
-                        <div class="myhabit">내 습관</div>
+                        <div class="myhabit">내 습관 </div>
                         <!-- 습관 리스트 출력 부분 -->
                         <div class="myhabit-list">
                             <c:forEach var="habit" items="${habits}">
@@ -60,6 +61,7 @@
                                 </div>
                             </c:forEach>
                         </div>
+                        <div><input type="text" id="habitInput" placeholder="새로운 습관 추가"><button id="addHabitBtn">+</button></div>
                     </div>
 
                     <div class="habit-recommend">
@@ -105,27 +107,24 @@
                 <div class="habit-parttwo">
                     <div class="habit-parttwo-first">
                         <div class="habit-calendar">
-                            <div id="calendar">
-                                <div id="month-year">
-                                    <button id="prev">◀</button>
-                                    <span id="month-year-text"></span>
-                                    <button id="next">▶</button>
+                            <div class="calendar">
+                                <div class="calendar-header">
+                                    <button id="prevMonth">&lt;</button>
+                                    <span id="monthYear"></span>
+                                    <button id="nextMonth">&gt;</button>
                                 </div>
-                                <table id="calendar-days">
-                                    <thead>
-                                    <tr>
-                                        <th>일</th>
-                                        <th>월</th>
-                                        <th>화</th>
-                                        <th>수</th>
-                                        <th>목</th>
-                                        <th>금</th>
-                                        <th>토</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <div class="calendar-days">
+                                    <div class="day-name">일</div>
+                                    <div class="day-name">월</div>
+                                    <div class="day-name">화</div>
+                                    <div class="day-name">수</div>
+                                    <div class="day-name">목</div>
+                                    <div class="day-name">금</div>
+                                    <div class="day-name">토</div>
+                                </div>
+                                <div id="calendarBody" class="calendar-body"></div>
                             </div>
+
                         </div>
                         <div class="habit-week">habit-week</div>
                     </div>

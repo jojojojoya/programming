@@ -357,50 +357,63 @@ body {
     overflow: hidden;  /* 내부가 넘어가지 않도록 처리 */
 }
 
-#calendar {
-    height: 100%;  /* habit-calendar의 높이를 가득 채움 */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.calendar {
+    width: 280px; /* 너비 줄이기 */
+    margin: auto;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-#month-year {
+.calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 16px; /* 폰트 크기 줄이기 */
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-habit-calendar button {
-    background: none;
-    border: none;
-    font-size: 1.5em;
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    gap: 3px; /* 날짜 간격 줄이기 */
+}
+
+.day-name {
+    font-weight: bold;
+    padding: 3px;
+    background: #ddd;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px; /* 날짜 간격 줄이기 */
+}
+
+.calendar-day {
+    padding: 5px; /* 패딩 줄이기 */
+    text-align: center;
     cursor: pointer;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 12px; /* 폰트 크기 줄이기 */
+}
+
+.calendar-day:hover {
+    background: #28a745;
     color: white;
 }
 
-#calendar-days {
-    width: 100%;
-    height: calc(100% - 40px);  /* 버튼 영역을 제외한 나머지 공간을 차지하도록 설정 */
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-#calendar-days th, #calendar-days td {
-    width: 14.28%;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-}
-
-#calendar-days td {
-    cursor: pointer;
-    height: 30px;  /* 날짜 셀 높이를 조정 */
-}
-
-#calendar-days td:hover {
-    background-color: #f0f0f0;
+.selected {
+    background: #007bff !important;
+    color: white !important;
 }
 
 
