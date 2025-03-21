@@ -24,31 +24,6 @@ public class UserMypageC {
     private LiveChatService liveChatService;
 
 
-//    @GetMapping("/usermypage")
-//    public String usermypage(@RequestParam(value = "user_id", required = false) String user_id,
-//                             HttpSession session, Model model) {
-//        System.out.println("🔹 UserMyPageC 실행");
-//
-//        if (user_id == null || user_id.trim().isEmpty()) {
-//            System.out.println("⚠️ user_id가 없음! 기본값 user5 적용");
-//            user_id = "user5";
-//        } else {
-//            System.out.println("✅ 전달된 user_id: " + user_id);
-//        }
-//
-//        UserMyPageVO loggedInUser = (UserMyPageVO) session.getAttribute("loggedInUser");
-//        if (loggedInUser != null) {
-//            user_id = loggedInUser.getUser_id();
-//            model.addAttribute("user", loggedInUser);
-//            System.out.println("🔍 세션 user_id: " + user_id);
-//        }
-//
-//        List<UserMyPageVO> reservations = userMyPageService.getUserReservations(user_id);
-//        System.out.println(reservations);
-//        model.addAttribute("reservations", reservations);
-//
-//        return "usermypage/usermypage";
-//    }
 
     @GetMapping("/usermypage")
     public String usermypage(@RequestParam(value = "user_id", required = false) String user_id,
