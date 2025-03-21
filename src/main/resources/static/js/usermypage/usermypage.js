@@ -1,4 +1,81 @@
 document.addEventListener("DOMContentLoaded", function () {
+    mypageLoad();
+    reservationHandler();
+});
+
+// function reservationHandler() {
+//     console.log("🚀 usermypage 페이지 로드 완료!");
+//
+//     document.querySelectorAll(".reserved_reservation_box").forEach(reservationBox => {
+//         let counselingId = reservationBox.dataset.counselingId;
+//         let sessionId = reservationBox.dataset.sessionId;
+//         let status = reservationBox.dataset.status;
+//
+//         console.log(`🔍 상담 ID: ${counselingId}, 세션 ID: ${sessionId}, 상태: ${status}`);
+//
+//         let enterButton = reservationBox.querySelector(".enter_counseling_btn");
+//         let viewButton = reservationBox.querySelector(".view_counseling_btn");
+//
+//         if (enterButton) {
+//             enterButton.addEventListener("click", function () {
+//                 console.log(`▶️ 상담 입장: sessionId=${sessionId}, counselingId=${counselingId}`);
+//                 goToLiveChatDetail(sessionId, counselingId, false);
+//             });
+//         }
+//
+//         if (viewButton) {
+//             viewButton.addEventListener("click", function () {
+//                 console.log(`▶️ 상담 내용 보기: sessionId=${sessionId}, counselingId=${counselingId}`);
+//                 goToLiveChatDetail(sessionId, counselingId, true);
+//             });
+//         }
+//     });
+// }
+
+function reservationHandler() {
+    console.log("🚀 usermypage 페이지 로드 완료!");
+
+    document.querySelectorAll(".reserved_reservation_box").forEach(reservationBox => {
+        let counselingId = reservationBox.dataset.counselingId;
+        let sessionId = reservationBox.dataset.sessionId;
+        let status = reservationBox.dataset.status;
+        let counselingDate = reservationBox.dataset.counselingDate;
+        let counselingTime = parseInt(reservationBox.dataset.counselingTime); // 상담 시간 (24시간제)
+
+        // console.log(`🔍 상담 ID: ${counselingId}, 세션 ID: ${sessionId}, 상태: ${status}, 날짜: ${counselingDate}, 시간: ${counselingTime}`);
+
+        let enterButton = reservationBox.querySelector(".enter_counseling_btn");
+        let viewButton = reservationBox.querySelector(".view_counseling_btn");
+        console.log(enterButton)
+        console.log(viewButton)
+        enterButton?.addEventListener("click", () => {
+            console.log("aaa")
+            goToLiveChatDetail(sessionId, counselingId, false);
+
+        })
+
+        viewButton?.addEventListener("click", () => {
+            goToLiveChatDetail(sessionId, counselingId, true);
+        });
+        // 🕒 현재 시간 가져오기
+        let now = new Date();
+        let currentDate = now.toISOString().split("T")[0]; // YYYY-MM-DD 형식
+        let currentHour = now.getHours(); // 현재 시간 (24시간제)
+
+        // ✅ '대기' 상태이며 상담 시간이 현재 시각 기준 1시간 이내인지 확인
+        let isWithinOneHour = (counselingDate === currentDate) && (counselingTime - currentHour <= 1) && (counselingTime - currentHour >= 0);
+    });
+}
+
+
+function goToLiveChatDetail(sessionId, counselingId, isCompleted) {
+    let url = `/livechatdetail?sessionId=${sessionId}&counselingId=${counselingId}&isCompleted=${isCompleted}`;
+    console.log("📌 이동할 URL:", url);
+    window.location.href = url;
+}
+
+
+function mypageLoad() {
     console.log("🚀 페이지 로드 완료!");
 
     const passwordCheckModal = document.getElementById("passwordCheckModal");
@@ -30,8 +107,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         fetch("/checkPassword", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user_id: userId, password: enteredPassword })
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({user_id: userId, password: enteredPassword})
         })
             .then(response => response.json())
             .then(data => {
@@ -59,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         fetch("/profileupdate", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 user_id: userId,
                 user_nickname: newNickname,
@@ -92,8 +169,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    window.addEventListener("click", function (event) {
-        if (event.target === profileModal) profileModal.style.display = "none";
-        if (event.target === passwordCheckModal) passwordCheckModal.style.display = "none";
-    });
-});
+    // window.addEventListener("click", function (event) {
+    //     if (event.target === profileModal) profileModal.style.display = "none";
+    //     if (event.target === passwordCheckModal) passwordCheckModal.style.display = "none";
+    // });
+    //
+
+}
