@@ -103,17 +103,17 @@ function generateCalendar() {
                 window.location.href = `/diary`;
                 // [서버 세션 연동 예정] 로그인 세션 담당자 개발 완료 후 전환!
 
-                // fetch('/setSelectedDate', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify({ date: formattedDate })
-                // })
-                // .then(() => {
-                //     window.location.href = '/diary';
-                // })
-                // .catch(err => {
-                //     console.error("서버 세션 저장 실패:", err);
-                // });
+         /*       fetch('/setSelectedDate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ date: formattedDate })
+                    })
+                 .then(() => {
+                     window.location.href = '/diary';
+                 })
+                 .catch(err => {
+                     console.error("서버 세션 저장 실패:", err);
+                 });*/
             });
         } else if (currentMode === "weekly") {
             dayDiv.addEventListener("click", function () {

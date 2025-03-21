@@ -31,11 +31,11 @@
 
         if (!hasHabits) {
             taskList.innerHTML = `
-                <div class="no-habit-box">
-                    <p class="no-habit-text"> 아직 등록한 습관이 없습니다. </p>
-                    <button id="go-to-habit-page" class="register-btn"> 습관 등록하러 가기 </button>
-                </div>
-            `;
+            <div class="no-habit-box">
+                <p class="no-habit-text"> 아직 등록한 습관이 없습니다. </p>
+                <button id="go-to-habit-page" class="register-btn"> 습관 등록하러 가기 </button>
+            </div>
+        `;
             document.getElementById("go-to-habit-page").addEventListener("click", () => {
                 window.location.href = "/habit";
             });
@@ -44,12 +44,17 @@
 
         if (!Array.isArray(habitList) || habitList.length === 0) {
             taskList.innerHTML = `
-                <div class="no-habit-box">
-                    <p class="no-habit-text">이 날짜에 수행할 습관이 없습니다.</p>
-                </div>
-            `;
+            <div class="no-habit-box">
+                <p class="no-habit-text">이 날짜에 수행할 습관이 없습니다.</p>
+            </div>
+        `;
             return;
         }
+
+        const isToday = (dateString) => {
+            const today = new Date().toISOString().split("T")[0]; // 'YYYY-MM-DD' 포맷
+            return dateString === today;
+        };
 
         habitList.forEach(habit => {
             const listItem = document.createElement("li");
@@ -59,17 +64,14 @@
             checkbox.type = "checkbox";
             checkbox.checked = habit.completed === 1;
 
-            // 날짜 선택으로 보는 경우라면 체크박스 비활성화
-            if (habit.tracking_id === undefined) {
-                checkbox.disabled = true;
-            } else {
-                // 완료 상태 변경 허용
+            checkbox.disabled = !isToday(habit.tracking_date);
+
+            if (!checkbox.disabled) {
                 checkbox.addEventListener("change", function () {
                     toggleHabit(habit.tracking_id, checkbox.checked);
                     listItem.classList.toggle("completed", checkbox.checked);
                 });
             }
-
             const label = document.createElement("label");
             label.textContent = habit.habit_name;
 
