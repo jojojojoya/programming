@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/habit/habit.css">
+    <script src="/static/js/habit/habit.js"></script>
 </head>
 
 <body>
@@ -48,7 +49,7 @@
             <div class="habit-page">
                 <div class="habit-partone">
                     <div class="habit-list">
-                        <div class="myhabit">내 습관</div>
+                        <div class="myhabit">내 습관 </div>
                         <!-- 습관 리스트 출력 부분 -->
                         <div class="myhabit-list">
                             <c:forEach var="habit" items="${habits}">
@@ -60,17 +61,18 @@
                                 </div>
                             </c:forEach>
                         </div>
+                        <div><input type="text" id="habitInput" placeholder="새로운 습관 추가"><button id="addHabitBtn">+</button></div>
                     </div>
 
                     <div class="habit-recommend">
                         <div class="habit-tabs">
                             <div id="habit-tab-신체건강" class="habit-tab habit-active" onclick="habitShowTab('신체건강')">신체건강</div>
-                            <div id="habit-tab-정신건강" class="habit-tab" onclick="habitShowTab('정신건강')">정신건강</div>
+                            <div id="habit-tab-정신건강" class="habit-tab" onclick="habitShowTab('mental')">정신건강</div>
                         </div>
 
                         <div id="habit-신체건강" class="habit-content">
                             <div style="float: left; width: 25%;" >
-                                <p id="exercise">✅ 운동</p>
+                                <p id="exercise" >✅ 운동</p>
                                 <p id="meal">🍽️ 식사</p>
                                 <p id="diet">🏋️ 체중관리</p>
                             </div>
@@ -86,23 +88,49 @@
                             </div>
                         </div>
 
-                        <div id="habit-정신건강" class="habit-content habit-hidden">
-                            <div style="float: left; width: 40%;">
-                                <p id="music" >🎵 음악듣기</p>
-                                <p id="diary">📝 일기쓰기</p>
-                                <p id="draw">📝 그림그리기</p>
+                        <div id="habit-mental" class="habit-content habit-hidden" onclick="habitShowTab('mental')">
+                            <div class="habit-mental-part">
+                                <p id="walk">산책</p>
+                                <p id="meal">식사</p>
+                                <p id="talk">수다</p>
+                                <p id="friend">친구</p>
+                                <p id="exercise">운동</p>
+                                <p id="book">책</p>
+                                <p id="game">게임</p>
+                                <p id="water">물</p>
+                                <p id="movie">영화</p>
                             </div>
-                            <div style="float: left; width: 40%;">
-                                <p id="meditation">🎵 명상</p>
-                                <p id="book">📝 독서</p>
-                                <p id="breath">📝 호흡</p>
-                            </div>
-                            <div style="float: left; width: 40%;">
-                                <p id="smile">🎵 웃기</p>
-                                <p id="communication">📝 소통</p>
-                                <p id="compliment">📝 칭찬</p>
-                            </div>
+
                         </div>
+                    </div>
+                </div>
+                <div class="habit-parttwo">
+                    <div class="habit-parttwo-first">
+                        <div class="habit-calendar">
+                            <div class="calendar">
+                                <div class="calendar-header">
+                                    <button id="prevMonth">&lt;</button>
+                                    <span id="monthYear"></span>
+                                    <button id="nextMonth">&gt;</button>
+                                </div>
+                                <div class="calendar-days">
+                                    <div class="day-name">일</div>
+                                    <div class="day-name">월</div>
+                                    <div class="day-name">화</div>
+                                    <div class="day-name">수</div>
+                                    <div class="day-name">목</div>
+                                    <div class="day-name">금</div>
+                                    <div class="day-name">토</div>
+                                </div>
+                                <div id="calendarBody" class="calendar-body"></div>
+                            </div>
+
+                        </div>
+                        <div class="habit-week">habit-week</div>
+                    </div>
+                    <div class="habit-parttwo-second">
+                        <div class="habit-rate">habit-rate</div>
+                        <div class="habit-memo">habit-memo</div>
                     </div>
                 </div>
             </div>
@@ -114,13 +142,10 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="/static/js/habit/habit.js"></script>
 <script>
-    // 삭제 버튼 클릭 시 호출되는 함수
     function deleteHabit(habitId) {
-        // 사용자가 삭제를 확인하도록 알림창을 띄울 수도 있습니다.
         if (confirm("정말로 삭제하시겠습니까?")) {
-            // 삭제 요청을 서버로 보냄
             fetch('/habit/delete/' + habitId, {
-                method: 'DELETE', // HTTP DELETE 요청
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -136,6 +161,7 @@
                 .catch(error => console.error('Error:', error));
         }
     }
+
 </script>
 </body>
 </html>
