@@ -2,20 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.koyoi.main.mapper.SignupMapper">
+<mapper namespace="com.koyoi.main.mapper.SignUpMapper">
 
-<!-- 회원 가입 -->
-    <insert id="insertUser" parameterType="com.koyoi.main.dto.UserDTO">
-        INSERT INTO MAIN_USER (
-            user_id, user_password, user_name, user_nickname, user_email, user_img, user_type, created_at
+    <!-- 회원가입 INSERT -->
+    <insert id="insertUser">
+        INSERT INTO TEST_USER (
+            user_id,
+            user_type,
+            user_name,
+            user_nickname,
+            user_email,
+            user_password,
+            user_img,
+            created_at
         ) VALUES (
-                     #{user_id},
-                     #{user_password},
-                     #{user_name},
-                     #{user_nickname},
-                     #{user_email},
-                     #{user_img},
-                     #{user_type},
+                     #{userId},
+                     #{userType},
+                     #{userName},
+                     #{userNickname},
+                     #{userEmail},
+                     #{userPassword},
+                     #{userImg},
                      SYSDATE
                  )
     </insert>
