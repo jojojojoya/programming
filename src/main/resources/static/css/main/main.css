@@ -13,10 +13,10 @@ body {
 }
 
 .container {
-    width: 90vw;
-    height: 90vh;
+    width: 100vw;
+    height: 100vh;
     background-color: #fff3e7;
-    border-radius: 2vw;
+ /*   border-radius: 2vw;*/
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -27,13 +27,13 @@ body {
 /* header */
 .header-bar {
     width: 100%;
-    height: 10vh;
+    height: 12vh;
     background-color: #EDE0D4;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 30px;
-    border-radius: 30px 30px 0 0;
+   /* border-radius: 30px 30px 0 0;*/
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
 }
@@ -48,8 +48,8 @@ body {
 }
 
 .logo-icon {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
 }
 
 .logo-text {
@@ -95,10 +95,9 @@ body {
 .modal {
     display: none;
     position: fixed;
-    top: calc(10% + 4vh);
-    right: 15vw;
-    width: 35vw;
-    max-width: 700px;
+    top: 10%;
+    right: 10vw;
+    width: 40vw;
     background: white;
     border: 0.1vw solid #ccc;
     box-shadow: 0.2vw 0.2vw 1vw rgba(0, 0, 0, 0.1);
@@ -194,32 +193,79 @@ body {
 }
 
 /* 명언 */
+/* 명언 컨테이너 */
 .quotes-container {
-    padding: 10px;
-    border-radius: 10px;
+    padding: 15px;
     text-align: center;
-    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 96%;
+    position: relative; /* absolute 제거하고 relative로 변경 */
     z-index: 10;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
 }
 
+/* 슬라이더 스타일 */
 .swiper {
-    width: 1200px;
-    height: 28px;
+    width: 100%; /* 기존 80% -> 100%로 변경 */
+    max-width: 80vw; /* 너무 넓어지는 것 방지 */
+    height: auto;
+    display: flex;
+    justify-content: center; /* 내부 아이템 중앙 정렬 */
 }
 
-.swiper-button-prev:after{
-    color: #5D4037;
+/* 슬라이드 내부 텍스트 */
+.swiper-slide {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* 내부 컨텐츠도 가득 차도록 */
+    text-align: center;
 }
-.swiper-button-next:after {
-    color: #5D4037;
+
+/* 따옴표 스타일 */
+.quote-symbol {
+    font-size: 30px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 10px;
+}
+
+/* 명언 텍스트 */
+.quote-text {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    width: 100%; /* 텍스트가 영역 안에서 균형 있게 정렬되도록 */
+}
+
+/* 페이드인 효과 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 네비게이션 버튼 스타일 */
+.swiper-button-prev:after, .swiper-button-next:after {
+    color: #fff;
+    font-size: 20px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+}
+
+.swiper-button-prev:hover:after, .swiper-button-next:hover:after {
+    transform: scale(1.2);
 }
 
 .content-wrapper {
@@ -227,19 +273,19 @@ body {
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: stretch;
-    margin-top: 50px;
-    gap: 2vw;
+    gap: 6vw;
+    margin-top: 5px;
 }
 
 .left-content {
     display: flex;
     flex-direction: column;
-    flex: 0.8;
+    flex: 2;
     gap: 10px;
 }
 
 .right-content {
-    flex: 2.2;
+    flex: 1;
     min-width: 65%;
     padding-top: 15px;
     padding-right: 35px;
@@ -255,8 +301,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    max-height: 40vh;
-    transform: scale(0.9); /* 크기 축소 */
+    max-height: 45vh; /* 기존 40vh → 45vh로 증가 */
+    transform: scale(1); /* 기존 0.9 → 1 (원래 크기로 조정) */
+    width: 105%;
+    position: relative; /* 위치를 명확하게 제어 */
+    top: 15px; /* 기존보다 아래로 이동시켜 오른쪽 요소들과 맞춤 */
+    left: 20px;
 }
 
 .calendar-container img {
@@ -281,7 +331,7 @@ body {
     margin-right: 20px;
     display: flex;
     flex-direction: column;
-    height: 420px;
+    height: 65vh;
     overflow-y: auto;
 }
 
@@ -351,6 +401,7 @@ body {
 
 .mood-chart canvas {
     border-radius: 8px;
+    /*width: 33vw;*/
 }
 
 /* 챗봇, 라이브챗 연결 */
@@ -362,13 +413,13 @@ body {
 .chatbot, .livechat {
     padding: 10px 20px;
     border: none;
-    background: #4CAF50;
+    background: #D2C4D6;
     color: white;
     cursor: pointer;
     border-radius: 5px;
 }
 
 .chatbot:hover, .livechat:hover {
-    background: #45a049;
+    background: #e6d7f1;
 }
 

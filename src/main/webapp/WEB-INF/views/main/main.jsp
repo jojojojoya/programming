@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%  // 세션 체크 추가 부분 시작
+    HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
+    String userId = null;
 
+    if (session1 != null) {
+        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+    }
+
+    if (userId == null) {
+        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +28,6 @@
 <body>
 
 <div class="container">
-
     <header class="header-bar">
 
         <div class="logo-container">
@@ -31,7 +42,7 @@
                 <img src="/static/imgsource/chat.png" alt="message">
             </button>--%>
             <button class="header-btn">
-                <img src="/static/imgsource/logout.png" alt="logout">
+                <a href="/logout"> <img src="/static/imgsource/logout.png" alt="logout"> </a>
             </button>
             <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile">
         </div>
@@ -49,7 +60,7 @@
                         <a href="#">${announcement.title}</a>
                         <c:if test="${announcement.isNew == 'Y'}">
                         <span class="new-tag">New</span>
-                            </c:if>
+                        </c:if>
                     </li>
                 </c:forEach>
             </ul>
@@ -63,7 +74,9 @@
                 <div class="swiper-wrapper" id="quoteWrapper">
                     <c:forEach var="quote" items="${quotes}">
                         <div class="swiper-slide">
+                            <span class="quote-symbol">❝</span>
                             ${quote.content}
+                            <span class="quote-symbol">❞</span>
                         </div>
                     </c:forEach>
                 </div>
@@ -125,5 +138,6 @@
 
 </div>
 <script src="/static/js/main/main.js"></script>
+<script src="/static/js/main/todoList.js"></script>
 </body>
 </html>
