@@ -95,6 +95,7 @@ select *
 from TEST_USER;
 select *
 from TEST_LIVE_CHAT;
+select  * from TEST_COUNSELING_SUMMARY;
 
 SELECT table_name
 FROM all_tables
@@ -256,17 +257,28 @@ CREATE TABLE TEST_LIVE_CHAT_LOG
 
 select *
 from TEST_LIVE_CHAT_LOG;
-
+SELECT COLUMN_NAME FROM ALL_TAB_COLUMNS WHERE TABLE_NAME = 'TEST_LIVE_CHAT';
 select *
 from TEST_LIVE_CHAT;
 select *
 from TEST_COUNSELING_RESERVATION;
 
+DELETE FROM TEST_COUNSELING_RESERVATION;
+COMMIT;
+DELETE FROM TEST_LIVE_CHAT WHERE counseling_id IN (SELECT counseling_id FROM TEST_COUNSELING_RESERVATION);
+COMMIT;
+
+select  * from TEST_COUNSELING_RESERVATION;
 select *
 from TEST_USER;
-
+select *
+from TEST_LIVE_CHAT_LOG;
 select *
 from TEST_CHAT;
+
+
+
+COMMIT;
 
 CREATE TABLE Test_LIVE_CHAT
 (
@@ -316,6 +328,15 @@ WHERE cr.COUNSELING_ID = lc.counseling_id and cr.COUNSELING_ID = 398;
 
 SELECT * FROM test_user WHERE user_id = 'user5';
 
-
- create sequence TEST_LIVE_CHAT_LOG_SEQ;
+select  * from TEST_LIVE_CHAT_LOG;
+select  * from TEST_LIVE_CHAT;
+create sequence TEST_LIVE_CHAT_LOG_SEQ;
 UPDATE test_counseling_reservation  SET status = '완료' WHERE counseling_id = 444;
+CREATE SEQUENCE TEST_LIVE_CHAT_SEQ;
+
+SELECT test_live_chat_seq.CURRVAL FROM dual;
+SELECT test_live_chat_seq.NEXTVAL FROM dual;
+
+SELECT SEQUENCE_NAME
+FROM USER_SEQUENCES
+WHERE SEQUENCE_NAME = 'TEST_LIVE_CHAT_SEQ';

@@ -81,8 +81,12 @@ public class UserMypageC {
             }
         }
 
+        // ✅ 상담 내역을 가져오기 전에 상담 상태를 최신화
+        liveChatService.updateReservationsStatus();
+
         List<UserMyPageVO> reservations = userMyPageService.getUserReservations(user_id);
         model.addAttribute("reservations", reservations);
+
 
         return "usermypage/usermypage";
     }

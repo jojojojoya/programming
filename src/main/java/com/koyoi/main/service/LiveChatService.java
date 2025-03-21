@@ -20,17 +20,30 @@ public class LiveChatService {
     @Autowired
     private UserMyPageMapper userMyPageMapper;
 
-    // ✅ 상담 예약 저장 (트랜잭션 적용)
+    @Transactional
     public boolean reserveCounseling(LiveChatVO reservation) {
         try {
+            // ✅ 부모 테이블 (TEST_COUNSELING_RESERVATION)에 상담 예약 먼저 저장
             int result = liveChatMapper.reserveCounseling(reservation);
+
             if (result > 0) {
                 System.out.println("✅ 상담 예약 성공: " + reservation.getCounseling_id());
-                System.out.println(reservation);
+
+                // ✅ DB에 실제로 예약이 저장되었는지 확인 후 session_id 생성
+                Integer counselingId = reservation.getCounseling_id();
+                if (counselingId == null || counselingId <= 0) {
+                    throw new RuntimeException("🚨 예약된 상담 ID(counseling_id)가 존재하지 않습니다.");
+                }
+
+                // ✅ 상담 ID를 이용하여 채팅방 생성 (자식 테이블)
                 reservation.setStart_time(reservation.getCounseling_time());
                 Integer sessionId = liveChatMapper.createChatRoom(reservation);
-                System.out.println("sessionId =====>" + sessionId);
-                reservation.setSession_id(sessionId); // session_id
+
+                if (sessionId == null || sessionId <= 0) {
+                    throw new RuntimeException("🚨 세션 ID 생성 실패!");
+                }
+
+                reservation.setSession_id(sessionId);
                 return true;
             } else {
                 System.out.println("⚠️ 상담 예약 실패!");
@@ -41,6 +54,28 @@ public class LiveChatService {
             return false;
         }
     }
+
+//    // ✅ 상담 예약 저장 (트랜잭션 적용)
+//    public boolean reserveCounseling(LiveChatVO reservation) {
+//        try {
+//            int result = liveChatMapper.reserveCounseling(reservation);
+//            if (result > 0) {
+//                System.out.println("✅ 상담 예약 성공: " + reservation.getCounseling_id());
+//                System.out.println(reservation);
+//                reservation.setStart_time(reservation.getCounseling_time());
+//                Integer sessionId = liveChatMapper.createChatRoom(reservation);
+//                System.out.println("sessionId =====>" + sessionId);
+//                reservation.setSession_id(sessionId); // session_id
+//                return true;
+//            } else {
+//                System.out.println("⚠️ 상담 예약 실패!");
+//                return false;
+//            }
+//        } catch (Exception e) {
+//            System.err.println("🚨 상담 예약 중 오류 발생: " + e.getMessage());
+//            return false;
+//        }
+//    }
 
     // ✅ 예약된 상담 조회 (읽기 전용 트랜잭션)
     @Transactional(readOnly = true)
@@ -86,16 +121,35 @@ public class LiveChatService {
     // ✅ 실시간 채팅 메시지 저장
     @Transactional
     public void saveChatMessage(LiveChatVO message) {
-        System.out.println(message);
         try {
-            int result = liveChatMapper.insertChatMessage(message);
-            if (result > 0) {
-                System.out.println("✅ 채팅 메시지 저장 완료: " + message.getContent());
-            } else {
-                System.out.println("⚠️ 채팅 메시지 저장 실패!");
+            if (message == null) {
+                System.err.println("🚨 [오류] 저장할 메시지가 null 입니다.");
+                return;
             }
+
+            System.out.println("📩 [백엔드] 채팅 메시지 저장 시도: " + message);
+
+            if (message.getSession_id() == null || message.getSession_id() <= 0) {
+                System.err.println("🚨 [오류] session_id가 유효하지 않음: " + message.getSession_id());
+                return;
+            }
+
+            if (message.getSender() == null || message.getSender().trim().isEmpty()) {
+                System.err.println("🚨 [오류] sender 값이 비어있음");
+                return;
+            }
+
+            if (message.getMessage() == null || message.getMessage().trim().isEmpty()) {
+                System.err.println("🚨 [오류] message 값이 비어있음");
+                return;
+            }
+
+            liveChatMapper.insertChatMessage(message);
+            System.out.println("✅ [백엔드] 채팅 메시지 저장 완료: " + message.getMessage());
+
         } catch (Exception e) {
-            System.err.println("🚨 채팅 메시지 저장 중 오류 발생: " + e.getMessage());
+            System.err.println("🚨 [DB 오류] 채팅 메시지 저장 실패: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -199,13 +253,11 @@ public class LiveChatService {
         return liveChatMapper.findCounselingIdBySession(sessionId);
     }
 
+
+
+    // 특정 상담 종료 처리
     @Transactional
-    public void saveChatSummary(int sessionId, String summary) {
-        if (summary != null && !summary.isEmpty()) {
-            liveChatMapper.insertChatSummary(sessionId, summary);
-            System.out.println("✅ 채팅 요약 저장 완료 - sessionId: " + sessionId);
-        } else {
-            System.out.println("⚠️ 요약 저장 스킵 (내용 없음) - sessionId: " + sessionId);
-        }
+    public void completeChat(int sessionId) {
+        liveChatMapper.completeChat(sessionId);
     }
 }

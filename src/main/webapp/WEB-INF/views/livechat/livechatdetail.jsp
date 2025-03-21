@@ -50,7 +50,7 @@
                         <c:when test="${not empty chatLogs}">
                             <c:forEach var="chat" items="${chatLogs}">
                                 <div class="chat-message ${chat.user_type eq 'USER' ? 'user-msg' : 'counselor-msg'}">
-                                    <strong>${chat.sender}:</strong> ${chat.content}
+                                    <strong>${chat.sender}:</strong> ${chat.message}
                                 </div>
                             </c:forEach>
                         </c:when>
