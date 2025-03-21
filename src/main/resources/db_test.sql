@@ -4,6 +4,8 @@
 -- table 생성시 꼭 test table 로 생성!!!!!!!!!!!!!
 -- db는 같이 쓰는 db도 있으니 삭제 하거나 변동 주기 전에 서로 공유 꼭 한번씩 해주세요!!
 
+<<
+<<<<< HEAD
 
 -- ==========================================
 -- ========== TEST DATA INSERT ==========
@@ -66,13 +68,16 @@ VALUES (TEST_LIVE_CHAT_SEQ.NEXTVAL, 'user3', 'counselor3', SYSTIMESTAMP, SYSTIME
 
 
 -- TEST_COUNSELING_RESERVATION 테이블 데이터 삽입
-INSERT INTO TEST_COUNSELING_RESERVATION (counseling_id, user_id, counselor_id, counseling_date, counseling_time, category, status, created_at)
+INSERT INTO TEST_COUNSELING_RESERVATION (counseling_id, user_id, counselor_id, counseling_date, counseling_time,
+                                         category, status, created_at)
 VALUES (TEST_COUNSELING_RES_SEQ.NEXTVAL, 'user1', 'counselor1', SYSDATE + 1, 14, '건강', '대기', SYSDATE);
 
-INSERT INTO TEST_COUNSELING_RESERVATION (counseling_id, user_id, counselor_id, counseling_date, counseling_time, category, status, created_at)
+INSERT INTO TEST_COUNSELING_RESERVATION (counseling_id, user_id, counselor_id, counseling_date, counseling_time,
+                                         category, status, created_at)
 VALUES (TEST_COUNSELING_RES_SEQ.NEXTVAL, 'user2', 'counselor2', SYSDATE + 2, 16, '미래', '진행중', SYSDATE);
 
-INSERT INTO TEST_COUNSELING_RESERVATION (counseling_id, user_id, counselor_id, counseling_date, counseling_time, category, status, created_at)
+INSERT INTO TEST_COUNSELING_RESERVATION (counseling_id, user_id, counselor_id, counseling_date, counseling_time,
+                                         category, status, created_at)
 VALUES (TEST_COUNSELING_RES_SEQ.NEXTVAL, 'user3', 'counselor3', SYSDATE + 3, 18, '인간관계', '완료', SYSDATE);
 
 
@@ -86,17 +91,42 @@ VALUES (2, '미래에 대한 고민을 상담하였습니다.');
 INSERT INTO TEST_COUNSELING_CONTENT (counseling_id, counseling_content)
 VALUES (3, '인간관계에 대한 조언을 받았습니다.');
 
-select * from TEST_USER;
+select *
+from TEST_USER;
+select *
+from TEST_LIVE_CHAT;
+select  * from TEST_COUNSELING_SUMMARY;
+
+SELECT table_name
+FROM all_tables
+WHERE table_name = 'TEST_USER';
+SELECT column_name, data_type, data_length
+FROM all_tab_columns
+WHERE table_name = 'TEST_USER'
+  AND column_name = 'USER_ID';
+
+SELECT column_name, constraint_type
+FROM all_cons_columns
+         JOIN all_constraints
+              ON all_cons_columns.constraint_name = all_constraints.constraint_name
+WHERE all_constraints.table_name = 'TEST_USER';
+
+ALTER TABLE TEST_USER
+    ADD CONSTRAINT pk_test_user PRIMARY KEY (user_id);
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
 
+-- >>>>>>> 9ce381165894c55d2627bf310e0348c139fa15e2
+SELECT *
+FROM TEST_USER;
 
 
 -- TEST_HABIT 테이블 데이터 삽입
 INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
 VALUES (5, 'user5', '식사', SYSDATE);
-select *from TEST_HABIT;
+select *
+from TEST_HABIT;
 =======
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, USER_NICKNAME, user_email, user_password, user_img, created_at)
@@ -109,7 +139,9 @@ INSERT INTO TEST_QUOTE (admin_id, content, created_at)
 VALUES ('admin001', '"Happiness comes to those who are prepared." – Thomas Edison', sysdate);
 
 INSERT INTO TEST_QUOTE (admin_id, content, created_at)
-VALUES ('admin001', '"Success is not final, failure is not fatal: It is the courage to continue that counts." – Winston Churchill', sysdate);
+VALUES ('admin001',
+        '"Success is not final, failure is not fatal: It is the courage to continue that counts." – Winston Churchill',
+        sysdate);
 
 INSERT INTO TEST_QUOTE (admin_id, content, created_at)
 VALUES ('admin001', '"The biggest risk is not taking any risk." – Mark Zuckerberg', sysdate);
@@ -120,10 +152,11 @@ VALUES ('admin001', '"Make today better than yesterday." – Unknown', sysdate);
 INSERT INTO TEST_QUOTE (admin_id, content, created_at)
 VALUES ('admin001', '"Small changes make a big difference." – Unknown', sysdate);
 
-select * from TEST_QUOTE;
+select *
+from TEST_QUOTE;
 
 INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
-VALUES ( 'admin001', '서비스 점검 안내', '시스템 유지보수를 위해 3월 15일 오전 2시부터 4시까지 서비스가 중단됩니다.', SYSDATE);
+VALUES ('admin001', '서비스 점검 안내', '시스템 유지보수를 위해 3월 15일 오전 2시부터 4시까지 서비스가 중단됩니다.', SYSDATE);
 
 INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
 VALUES ('admin001', '신규 기능 업데이트', '새로운 AI 감정 분석 기능이 추가되었습니다. 많은 이용 부탁드립니다.', SYSDATE);
@@ -131,35 +164,179 @@ VALUES ('admin001', '신규 기능 업데이트', '새로운 AI 감정 분석 �
 INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
 VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일부터 시작됩니다. 다양한 혜택을 확인하세요!', SYSDATE);
 
-select * from TEST_ANNOUNCEMENT;
-select * from TEST_DIARY;
+select *
+from TEST_ANNOUNCEMENT;
+select *
+from TEST_DIARY;
+
+
+CREATE TABLE TEST_LIVE_CHAT_LOG
+(
+    log_id     NUMBER PRIMARY KEY,                                      -- 메시지 고유 ID
+    session_id NUMBER       NOT NULL,                                   -- 채팅 세션 ID
+    sender     VARCHAR2(50) NOT NULL,                                   -- 메시지 보낸 사용자
+    user_type  VARCHAR2(10) CHECK (user_type IN ('USER', 'COUNSELOR')), -- 발신자 유형
+    message    CLOB         NOT NULL,                                   -- 메시지 내용
+    timestamp  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,                     -- 메시지 전송 시간
+    CONSTRAINT fk_chat_log_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
+    CONSTRAINT fk_chat_log_sender FOREIGN KEY (sender) REFERENCES TEST_USER (user_id)
+);
+
+-- CREATE TABLE TEST_LIVE_CHAT_PARTICIPANTS
+-- (
+--     session_id NUMBER       NOT NULL,               -- 채팅방 ID
+--     user_id    VARCHAR2(50) NOT NULL,               -- 참여자 ID
+--     joined_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 채팅방 입장 시간
+--     left_at    TIMESTAMP,                           -- 퇴장 시간 (NULL이면 아직 참여 중)
+--     PRIMARY KEY (session_id, user_id),
+--     CONSTRAINT fk_chat_participant_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
+--     CONSTRAINT fk_chat_participant_user FOREIGN KEY (user_id) REFERENCES TEST_USER (user_id)
+-- );
+--
+-- CREATE TABLE TEST_LIVE_CHAT_NOTIFICATIONS
+-- (
+--     notification_id NUMBER PRIMARY KEY,                            -- 알림 고유 ID
+--     session_id      NUMBER        NOT NULL,                        -- 채팅방 ID
+--     user_id         VARCHAR2(50)  NOT NULL,                        -- 알림을 받는 사용자 ID
+--     message         VARCHAR2(500) NOT NULL,                        -- 알림 내용
+--     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,           -- 알림 생성 시간
+--     is_read         NUMBER(1) DEFAULT 0 CHECK (is_read IN (0, 1)), -- 읽음 여부 (0: 미확인, 1: 확인)
+--     CONSTRAINT fk_chat_notification_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
+--     CONSTRAINT fk_chat_notification_user FOREIGN KEY (user_id) REFERENCES TEST_USER (user_id)
+-- );
+-- CREATE TABLE TEST_COUNSELING_SUMMARY
+-- (
+--     summary_id         NUMBER PRIMARY KEY,                  -- 상담 요약 ID
+--     session_id         NUMBER NOT NULL,                     -- 상담 세션 ID
+--     counseling_summary CLOB,                                -- 상담 요약 내용
+--     feedback           VARCHAR2(500),                       -- 상담사 피드백
+--     created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 저장 시간
+--     CONSTRAINT fk_counseling_summary_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id)
+-- );
+--
+
+SELECT column_name, constraint_type
+FROM all_cons_columns
+         JOIN all_constraints
+              ON all_cons_columns.constraint_name = all_constraints.constraint_name
+WHERE all_constraints.table_name = 'TEST_LIVE_CHAT'
+  AND column_name = 'SESSION_ID';
+
+
+--라이브챗 >> 메인 테이블에서 오류나면 아래처럼 alter 후 다시 생성
+ALTER TABLE TEST_LIVE_CHAT
+    ADD CONSTRAINT pk_test_live_chat PRIMARY KEY (session_id);
+SELECT column_name, constraint_type
+FROM all_cons_columns
+         JOIN all_constraints
+              ON all_cons_columns.constraint_name = all_constraints.constraint_name
+WHERE all_constraints.table_name = 'TEST_USER'
+  AND column_name = 'USER_ID';
+
+--라이브챗 >> 메인 테이블에서 오류나면 아래처럼 alter 후 다시 생성
+ALTER TABLE TEST_USER
+    ADD CONSTRAINT pk_test_user PRIMARY KEY (user_id);
+
+SELECT *
+FROM all_tables
+WHERE table_name IN ('TEST_LIVE_CHAT', 'TEST_USER');
+
+CREATE TABLE TEST_LIVE_CHAT_LOG
+(
+    log_id     NUMBER PRIMARY KEY,                                      -- 메시지 고유 ID
+    session_id NUMBER       NOT NULL,                                   -- 채팅 세션 ID
+    sender     VARCHAR2(50) NOT NULL,                                   -- 메시지 보낸 사용자
+    user_type  VARCHAR2(10) CHECK (user_type IN ('USER', 'COUNSELOR')), -- 발신자 유형
+    message    CLOB         NOT NULL,                                   -- 메시지 내용
+    timestamp  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,                     -- 메시지 전송 시간
+    CONSTRAINT fk_chat_log_session FOREIGN KEY (session_id) REFERENCES TEST_LIVE_CHAT (session_id),
+    CONSTRAINT fk_chat_log_sender FOREIGN KEY (sender) REFERENCES TEST_USER (user_id)
+);
 
 
 
-=======
+select *
+from TEST_LIVE_CHAT_LOG;
+SELECT COLUMN_NAME FROM ALL_TAB_COLUMNS WHERE TABLE_NAME = 'TEST_LIVE_CHAT';
+select *
+from TEST_LIVE_CHAT;
+select *
+from TEST_COUNSELING_RESERVATION;
 
-INSERT INTO TEST_USER (user_id, user_type, user_name, user_nickname, user_email, user_password, user_img, created_at)
-VALUES ('test01', 1, 'test01','수정 테스트', 'test01@example.com', 'test01', '/imgsource/usermypage_profiletest.jpg', sysdate);
+DELETE FROM TEST_COUNSELING_RESERVATION;
+COMMIT;
+DELETE FROM TEST_LIVE_CHAT WHERE counseling_id IN (SELECT counseling_id FROM TEST_COUNSELING_RESERVATION);
+COMMIT;
 
-INSERT INTO TEST_USER (user_id, user_type, user_name, user_nickname, user_email, user_password, user_img, created_at)
-VALUES ('test02', 2, 'test02','수정 테스트', 'test02@example.com', 'test02', '/imgsource/usermypage_profiletest.jpg', sysdate);
+select  * from TEST_COUNSELING_RESERVATION;
+select *
+from TEST_USER;
+select *
+from TEST_LIVE_CHAT_LOG;
+select *
+from TEST_CHAT;
 
-select * from TEST_USER;
-select * from TEST_EMOTION;
 
-INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
-VALUES ('admin001', '서버 점검 안내', '3월 21일 02:00 - 05:00 서버 점검이 진행됩니다.', TIMESTAMP '2024-03-18 10:00:00');
 
-INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
-VALUES ('admin001', '보안 패치 적용', '보안 강화를 위한 패치가 적용되었습니다.', TIMESTAMP '2024-03-14 08:45:00');
+COMMIT;
 
-INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
-VALUES ('admin001', '이벤트 당첨자 발표', '이벤트 당첨자를 발표합니다! 확인하세요.', TIMESTAMP '2024-03-12 12:20:00');
+CREATE TABLE Test_LIVE_CHAT
+(
+    session_id   NUMBER PRIMARY KEY,                                                            -- 실시간 채팅 세션 고유 ID
+    user_id      VARCHAR2(50) NOT NULL,
+    counseling_id number(5),
+    counselor_id VARCHAR2(50),                                                                  -- 응답한 상담사 사용자 ID
+    start_time   number(2)    NOT NULL,                                                         -- 채팅 시작 시간
+    end_time     number(2),                                                                     -- 채팅 종료 시간 (종료 시점 기록)
+    status       VARCHAR2(50) NOT NULL,                                                         -- 채팅 상태 (예: 진행중, 종료 등)
+    CONSTRAINT fk_live_chat_user5 FOREIGN KEY (user_id) REFERENCES test_USER (user_id),          -- 사용자 외래키
+    CONSTRAINT fk_live_chat_counselor5 FOREIGN KEY (counselor_id) REFERENCES test_USER (user_id), -- 상담사 외래키
+    CONSTRAINT fk_live_chat_counseling5 FOREIGN KEY (counseling_id) REFERENCES TEST_COUNSELING_RESERVATION (COUNSELING_ID) -- 상담사 외래키
+);
 
-INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
-VALUES ('admin001',  '공지사항 테스트 데이터', '테스트를 위한 공지사항입니다.', TIMESTAMP '2024-03-10 18:00:00');
+drop table TEST_LIVE_CHAT cascade constraint purge;
 
-INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
-VALUES ('admin001', '고객센터 운영시간 변경', '고객센터 운영시간이 3월 20일부터 평일 9시~18시로 변경됩니다.', TIMESTAMP '2025-03-17 14:20:00');
+CREATE OR REPLACE TRIGGER trg_sync_live_chat_status
+    AFTER UPDATE OF status ON TEST_COUNSELING_RESERVATION
+    FOR EACH ROW
+BEGIN
+    UPDATE TEST_LIVE_CHAT
+    SET status = :NEW.status
+    WHERE counseling_id = :NEW.counseling_id;
+END;
 
-select * from TEST_HABIT_TRACKING;
+CREATE OR REPLACE TRIGGER trg_sync_counseling_status
+    AFTER UPDATE OF status ON TEST_LIVE_CHAT
+    FOR EACH ROW
+BEGIN
+    UPDATE TEST_COUNSELING_RESERVATION
+    SET status = :NEW.status
+    WHERE counseling_id = :NEW.counseling_id;
+END;
+
+CREATE OR REPLACE TRIGGER TRG_SYNC_COUNSELING_STATUS
+    BEFORE UPDATE ON TEST_COUNSELING_RESERVATION
+    FOR EACH ROW
+BEGIN
+    UPDATE TEST_LIVE_CHAT
+    SET STATUS = :NEW.STATUS
+    WHERE COUNSELING_ID = :NEW.COUNSELING_ID;
+END;
+
+SELECT cr.*, lc.session_id FROM TEST_COUNSELING_RESERVATION cr, TEST_LIVE_CHAT lc
+WHERE cr.COUNSELING_ID = lc.counseling_id and cr.COUNSELING_ID = 398;
+
+SELECT * FROM test_user WHERE user_id = 'user5';
+
+select  * from TEST_LIVE_CHAT_LOG;
+select  * from TEST_LIVE_CHAT;
+create sequence TEST_LIVE_CHAT_LOG_SEQ;
+UPDATE test_counseling_reservation  SET status = '완료' WHERE counseling_id = 444;
+CREATE SEQUENCE TEST_LIVE_CHAT_SEQ;
+
+SELECT test_live_chat_seq.CURRVAL FROM dual;
+SELECT test_live_chat_seq.NEXTVAL FROM dual;
+
+SELECT SEQUENCE_NAME
+FROM USER_SEQUENCES
+WHERE SEQUENCE_NAME = 'TEST_LIVE_CHAT_SEQ';

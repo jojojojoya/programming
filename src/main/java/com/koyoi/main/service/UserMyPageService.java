@@ -6,12 +6,21 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Service
 public class UserMyPageService {
 
-    @Autowired
+        private final DataSource dataSource;
+
+        @Autowired
+        public UserMyPageService(DataSource dataSource) {
+            this.dataSource = dataSource;
+        }
+
+
+        @Autowired
     private UserMyPageMapper userMyPageMapper;
 
     public boolean updateProfile(UserMyPageVO user) {

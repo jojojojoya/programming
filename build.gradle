@@ -1,3 +1,4 @@
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.2'
@@ -21,7 +22,10 @@ configurations {
 
 repositories {
     mavenCentral()
+    jcenter()  // 추가
+    maven { url "https://repo.spring.io/release" }  // Spring 공식 저장소 추가
 }
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -34,6 +38,12 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    
+    //라이브채팅 구현용
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-websocket'  // ✅ WebSocket만 유지
+
 
     // jsp 구동하기 위함. & jstl
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
