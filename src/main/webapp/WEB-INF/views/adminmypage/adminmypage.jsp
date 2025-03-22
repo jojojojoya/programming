@@ -46,7 +46,7 @@
 
         <main class="content">
             <h2 id="table-title" class="table-title"> Member List </h2>
-            <p id="memberTypeLabel" class="sub-title">Type: Users</p>
+            <p id="memberTypeLabel" class="sub-title"> Users </p>
 
             <%-- 회원 목록 --%>
             <div id="userTable" class="user-board">

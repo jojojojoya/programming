@@ -61,7 +61,7 @@
                     <li>
                         <a href="#">${announcement.title}</a>
                         <c:if test="${announcement.isNew == 'Y'}">
-                        <span class="new-tag">New</span>
+                        <span class="new-tag"> New </span>
                         </c:if>
                     </li>
                 </c:forEach>
@@ -76,9 +76,9 @@
                 <div class="swiper-wrapper" id="quoteWrapper">
                     <c:forEach var="quote" items="${quotes}">
                         <div class="swiper-slide">
-                            <span class="quote-symbol">❝</span>
+                            <span class="quote-symbol"> ❝ </span>
                             ${quote.content}
-                            <span class="quote-symbol">❞</span>
+                            <span class="quote-symbol"> ❞ </span>
                         </div>
                     </c:forEach>
                 </div>
@@ -115,7 +115,7 @@
             <div class="right-content">
                 <div class="right-inner">
                     <div class="checklist-container">
-                        <h3> 체크리스트 </h3>
+                        <h3> Daily Tasks </h3>
                         <ul id="task-list"></ul>
                     </div>
 
@@ -127,7 +127,7 @@
                         </div>
 
                         <div class="chat-connect">
-                            <button class="chatbot"> ChatBot</button>
+                            <button class="chatbot"> ChatBot </button>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> LiveChat </button>
                         </div>
 

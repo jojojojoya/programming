@@ -47,11 +47,16 @@ function generateCalendar() {
     let calendarEl = document.getElementById("calendar-grid");
     let monthYearEl = document.getElementById("calendar-month-year");
 
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
     let year = currentDate.getFullYear();
     let month = currentDate.getMonth() + 1;
     let formattedMonth = `${year}-${String(month).padStart(2, '0')}`;
 
-    monthYearEl.innerText = `${year}년 ${month}월`;
+    monthYearEl.innerText = `${monthNames[month - 1]} ${year}`;
     calendarEl.innerHTML = "";
 
     let firstDay = new Date(year, month - 1, 1).getDay();
@@ -94,7 +99,7 @@ function generateCalendar() {
                 let selectedDate = new Date(`${formattedDate}T00:00:00`); // 클릭한 날짜 객체 변환
 
                 if (selectedDate > today) {
-                    alert("미래의 일기는 작성할 수 없습니다.");
+                    alert("You can't write a journal for a future date.");
                     return;
                 }
 
@@ -123,7 +128,7 @@ function generateCalendar() {
                     el.classList.remove("selected-date");
                 });
 
-                // ✅ 현재 클릭한 날짜에만 추가
+                // 현재 클릭한 날짜에만 추가
                 this.classList.add("selected-date");
                 selectedCalendarDate = this;
 
@@ -230,7 +235,7 @@ function updateMoodChart(moodScores) {
         data: {
             labels: ['월', '화', '수', '목', '금', '토', '일'],
             datasets: [{
-                label: '기분 점수',
+                label: 'Weekly Mood Score',
                 data: moodScores,
                 backgroundColor: ['#ff9999', '#ffcc99', '#ffff99', '#99ff99', '#99ccff', '#cc99ff', '#ff99cc'],
                 borderColor: '#555',
