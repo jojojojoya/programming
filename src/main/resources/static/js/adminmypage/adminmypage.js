@@ -7,14 +7,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const counselorTable = document.getElementById("counselorTable");
 
     const lastView = sessionStorage.getItem("lastView") || "user";
+    const memberTypeLabel = document.getElementById("memberTypeLabel");
 
     if (lastView === "counselor") {
         userTable.style.display = "none";
         counselorTable.style.display = "table";
+        memberTypeLabel.textContent = "Counselors";
         sessionStorage.setItem("lastView", "user");
     } else {
         userTable.style.display = "table";
         counselorTable.style.display = "none";
+        memberTypeLabel.textContent = "Users";
         sessionStorage.setItem("lastView", "counselor");
     }
 
@@ -22,13 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
     userBtn.addEventListener("click", function () {
         userTable.style.display = "table";
         counselorTable.style.display = "none";
+        memberTypeLabel.textContent = "Users";
     });
 
     counselorBtn.addEventListener("click", function () {
         userTable.style.display = "none";
         counselorTable.style.display = "table";
-    });
+        memberTypeLabel.textContent = "Counselors";
 
+    });
 
     // 상세 정보 모달
     const userDetailButtons = document.querySelectorAll(".user-detail-btn");
@@ -86,10 +91,19 @@ document.addEventListener("DOMContentLoaded", function () {
                         modalUserName.textContent = data.user_name || "";
                         modalUserNickname.value = data.user_nickname || "";
                         modalUserEmail.value = data.user_email || "";
-                        modalUserType.textContent = (data.user_type === 2 ) ? "상담사" : "회원";
+                        modalUserType.textContent = (data.user_type === 2 ) ? "Counselor" : "User";
                         modalCreatedAt.textContent = data.formattedCreatedAt || "";
 
                         modal.style.display = "block";
+
+                        // 약간의 지연 후 스크롤 초기화
+                        setTimeout(() => {
+                            const scrollable = document.querySelector(".user-info-grid.scrollable");
+                            if (scrollable) {
+                                scrollable.scrollTop = 0;
+                            }
+                        }, 0); // 또는 50~100ms 정도 줘도 좋아
+
                     }
                 })
                 .catch(error => console.error("Error fetching user details:", error));
@@ -115,7 +129,7 @@ document.addEventListener("click", function (event) {
     if (event.target && event.target.id === "deleteUser") {
         const userId = document.getElementById("modalUserId").textContent;
 
-        if (!confirm("정말로 삭제하시겠습니까?")) {
+        if (!confirm("Are you sure you want to delete this member?")) {
             return;
         }
 
@@ -127,8 +141,8 @@ document.addEventListener("click", function (event) {
             })
             .then(result => {
                 if (result === "1") {
-                    alert("삭제 성공했습니다.");
-                    if (userType === "상담사") {
+                    alert("Successfully deleted.");
+                    if (userType === "Counselor") {
                         sessionStorage.setItem("lastView", "counselor");
                     } else {
                         sessionStorage.setItem("lastView", "user");
@@ -136,7 +150,7 @@ document.addEventListener("click", function (event) {
                     document.getElementById("userDetailModal").style.display = "none";
                     location.reload();
                 } else {
-                    alert("삭제에 실패했습니다. 다시 시도해주세요.");
+                    alert("Failed to delete. Please try again.");
                 }
             })
             .catch(error => console.error("삭제 요청 실패:", error));
@@ -152,7 +166,7 @@ document.addEventListener("click", function (event) {
         const updatedEmail = document.getElementById("modalUserEmail").value;
         const userType = document.getElementById("modalUserType").textContent.trim();
 
-        if (!confirm("정말로 수정하시겠습니까?")) {
+        if (!confirm("\tAre you sure you want to update this member?")) {
             return;
         }
 
@@ -171,8 +185,8 @@ document.addEventListener("click", function (event) {
             .then(response => response.text())
             .then(result => {
                 if (result === "1") {
-                    alert("수정했습니다.");
-                    if (userType === "상담사") {
+                    alert("Successfully updated.");
+                    if (userType === "Counselor") {
                         sessionStorage.setItem("lastView", "counselor");
                     } else {
                         sessionStorage.setItem("lastView", "user");
@@ -180,7 +194,7 @@ document.addEventListener("click", function (event) {
                     document.getElementById("userDetailModal").style.display = "none";
                     location.reload();
                 } else {
-                    alert("수정에 실패했습니다. 다시 시도해주세요.");
+                    alert("Failed to update. Please try again.");
                 }
             })
             .catch(error => console.error("수정 요청 실패:", error));

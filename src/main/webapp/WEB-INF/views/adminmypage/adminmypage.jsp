@@ -45,94 +45,104 @@
         </header>
 
         <main class="content">
-            <h2 id="table-title"> 회원 목록 </h2>
+            <h2 id="table-title" class="table-title"> Member List </h2>
+            <p id="memberTypeLabel" class="sub-title">Type: Users</p>
 
             <%-- 회원 목록 --%>
-            <table id="userTable">
-                <thead>
-                    <tr>
-                        <td> 번호 </td>
-                        <td> ID </td>
-                        <td> 이름 </td>
-                        <td> 닉네임 </td>
-                        <td> 이메일 </td>
-                        <td> 가입일 </td>
-                    </tr>
-                </thead>
-                <tbody id="userTableBody">
+            <div id="userTable" class="user-board">
+                <div class="user-board-header">
+                    <div class="col col-num"> No </div>
+                    <div class="col col-id"> ID </div>
+                    <div class="col col-name"> Name </div>
+                    <div class="col col-nickname"> Nickname </div>
+                    <div class="col col-email"> Email </div>
+                    <div class="col col-date"> Joined </div>
+                </div>
                 <c:set var="totalUsers" value="${fn:length(users)}" />
                 <c:forEach var="user" items="${users}" varStatus="status">
-                    <tr class="user-detail-btn" data-user-id="${user.user_id}" >
-                        <td>${totalUsers - status.index}</td>
-                        <td>${user.user_id}
-                            <%--<span class="user-detail-btn" data-user-id="${user.user_id}">${user.user_id}</span>--%>
-                        </td>
-                        <td>${user.user_name}</td>
-                        <td class="nickname">${user.user_nickname}</td>
-                        <td class="email">${user.user_email}</td>
-                        <td>${user.formattedCreatedAt}</td>
-                    </tr>
+                    <div class="user-row user-detail-btn" data-user-id="${user.user_id}">
+                        <div class="cell col-num">${totalUsers - status.index}</div>
+                        <div class="cell col-id">${user.user_id}</div>
+                        <div class="cell col-name">${user.user_name}</div>
+                        <div class="cell col-nickname">${user.user_nickname}</div>
+                        <div class="cell col-email">${user.user_email}</div>
+                        <div class="cell col-date">${user.formattedCreatedAt}</div>
+                    </div>
                 </c:forEach>
-                </tbody>
-            </table>
+            </div>
 
             <%-- 상담사 목록 --%>
-            <table id="counselorTable" style="display: none;">
-                <thead>
-                <tr>
-                    <td> 번호 </td>
-                    <td> ID </td>
-                    <td> 이름 </td>
-                    <td> 닉네임 </td>
-                    <td> 이메일 </td>
-                    <td> 가입일 </td>
-                </tr>
-                </thead>
-                <tbody id="counselorTableBody">
+            <div id="counselorTable" class="user-board" style="display: none;">
+                <div class="user-board-header">
+                    <div class="col col-num"> No </div>
+                    <div class="col col-id"> ID </div>
+                    <div class="col col-name"> Name </div>
+                    <div class="col col-nickname"> Nickname </div>
+                    <div class="col col-email"> Email </div>
+                    <div class="col col-date"> Joined </div>
+                </div>
                 <c:set var="totalCounselors" value="${fn:length(counselors)}" />
                 <c:forEach var="counselor" items="${counselors}" varStatus="status">
-                    <tr class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">
-                        <td>${totalCounselors - status.index}</td>
-                        <td>${counselor.user_id}
-                            <%--<span class="user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">${counselor.user_id}</span>--%>
-                        </td>
-                        <td>${counselor.user_name}</td>
-                        <td class="nickname">${counselor.user_nickname}</td>
-                        <td class="email">${counselor.user_email}</td>
-                        <td>${counselor.formattedCreatedAt}</td>
-                    </tr>
+                    <div class="user-row user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">
+                        <div class="cell col-num">${totalCounselors - status.index}</div>
+                        <div class="cell col-id">${counselor.user_id}</div>
+                        <div class="cell col-name">${counselor.user_name}</div>
+                        <div class="cell col-nickname">${counselor.user_nickname}</div>
+                        <div class="cell col-email">${counselor.user_email}</div>
+                        <div class="cell col-date">${counselor.formattedCreatedAt}</div>
+                    </div>
                 </c:forEach>
-                </tbody>
-            </table>
+            </div>
 
             <%-- 상세 데이터 모달 --%>
             <div id="userDetailModal" class="modal" style="display: none;">
                 <div class="modal-content">
                     <span class="close">&times;</span>
-                    <h2 id="modalTitle">회원 상세 정보</h2>
+                    <h2 id="modalTitle" class="modalTitle"> Details </h2>
 
                     <div class="profile-container">
                         <img id="modalUserImg" alt="profile">
                     </div>
 
-                    <table>
-                        <tr><th>ID</th> <td id="modalUserId"></td></tr>
-                        <tr><th>비밀번호</th>
-                            <td>
-                                <input type="password" id="modalUserPassword">
-                                <i class="fa-solid fa-eye password-toggle"></i>
-                            </td>
-                        </tr>
-                        <tr><th>이름</th> <td id="modalUserName"></td></tr>
-                        <tr><th>닉네임</th> <td><input type="text" id="modalUserNickname"></td></tr>
-                        <tr><th>이메일</th> <td><input type="email" id="modalUserEmail"></td></tr>
-                        <tr><th>타입</th> <td id="modalUserType"></td></tr>
-                        <tr><th>가입일</th> <td id="modalCreatedAt"></td></tr>
-                    </table>
+                    <div class="user-info-grid scrollable">
+                        <div class="field">
+                            <label> ID </label>
+                            <div id="modalUserId" class="value"></div>
+                        </div>
+                        <div class="field">
+                            <label> Password </label>
+                            <div class="input-wrap">
+                                <div class="input-inner">
+                                    <input type="password" id="modalUserPassword">
+                                    <i class="fa-solid fa-eye password-toggle" id="passwordToggleIcon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label> Name </label>
+                            <div id="modalUserName" class="value"></div>
+                        </div>
+                        <div class="field">
+                            <label> Nickname </label>
+                            <input type="text" id="modalUserNickname">
+                        </div>
+                        <div class="field">
+                            <label> Email </label>
+                            <input type="email" id="modalUserEmail">
+                        </div>
+                        <div class="field">
+                            <label> Type </label>
+                            <div id="modalUserType" class="value"></div>
+                        </div>
+                        <div class="field">
+                            <label> Joined </label>
+                            <div id="modalCreatedAt" class="value"></div>
+                        </div>
+                    </div>
 
                     <div class="modal-buttons">
-                        <button id="updateUser"> 수정 </button>
-                        <button id="deleteUser"> 삭제 </button>
+                        <button id="updateUser"> Update </button>
+                        <button id="deleteUser"> Delete </button>
                     </div>
                 </div>
             </div>
