@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
 
-/* 전체 배경 */
 body {
     font-family: 'Noto Sans JP', sans-serif;
     background-color: #f5f0ea;
@@ -11,41 +11,36 @@ body {
     height: 100vh;
 }
 
-/* 🟢 전체 컨테이너 */
 .container {
-    width: 1440px;
-    height: 90vh;
+    width: 100vw;
+    height: 100vh;
     background-color: #fff3e7;
-    border-radius: 30px;
+    /*border-radius: 30px;*/
     overflow: hidden;
     display: flex;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 🟠 왼쪽 컨테이너 (사이드바) */
 .left-container {
     width: 60px;
-    background-color: #FFF3E7; /* 오른쪽과 동일 */
+    background-color: #FFF3E7;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 5px;
     position: relative;
-    border-right: 1px solid #f4dfcd; /* 경계선 */
+    border-right: 1px solid #f4dfcd;
 }
 
-/* 🟣 사이드바 */
 .sidebar {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* 상단 정렬 */
+    justify-content: flex-start;
     gap: 15px;
 }
 
-
-/* 🔵 사이드바 버튼 */
 .sidebar-btn {
     position: relative;
     display: flex;
@@ -54,9 +49,8 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    margin: 36px 0; /* 위아래 간격 조정 */
+    margin: 36px 0;
 }
-
 
 .sidebar-btn::before {
     content: "...";
@@ -64,39 +58,36 @@ body {
     font-weight: bold;
     color: black;
     position: absolute;
-    top: -20px; /* 기존 -42px → -30px으로 조정 */
+    top: -20px;
     left: 50%;
     transform: translateX(-50%);
 }
 
-
-/* 버튼 내부 아이콘 */
 .sidebar-btn img {
     width: 24px;
     height: 24px;
 }
 
-/* 🔵 버튼 호버 효과 */
 .sidebar-btn:hover {
     transform: scale(1.1);
 }
 
-/* 배경 이미지 설정 */
+
+
 .right-container {
-    background-image: url('/static/imgsource/your_background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-/* 🟣 헤더 바 */
+
 .header-bar {
     width: 100%;
     height: 120px;
     background-color: #ede0d4;
-    display: flex; /* 🔹 flexbox 적용 */
-    align-items: center; /* 🔹 세로 중앙 정렬 */
-    justify-content: center; /* 🔹 가로 중앙 정렬 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0 30px;
     border-radius: 0px 0px 0 0;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -104,31 +95,65 @@ body {
 }
 
 
-/* 🌙 중앙 브랜드 로고 */
 .brand-title {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 150px; /* 🔹 적절한 너비 설정 */
-    height: 100px; /* 🔹 적절한 높이 설정 */
+    width: 150px;
+    height: 100px;
 }
 
 .brand-title img {
-    width: 100%; /* 🔹 부모 요소에 맞게 조정 */
+    width: 100%;
     height: auto;
-    max-width: 125px; /* 🔹 최대 크기 제한 */
+    max-width: 125px;
 }
 
-/* 🟡 우측 상단 아이콘 */
+
 .header-icons {
-    position: absolute;
-    right: 90px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    position: absolute;
+    right: 100px;
 }
 
-/* 프로필 이미지 */
+.header-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.header-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.header-btn:hover {
+    transform: scale(1.1);
+}
+
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+
+/* 마이프로필 이미지 */
 .myprofile-img {
     width: 40px;
     height: 40px;
@@ -178,20 +203,15 @@ body {
 .top-section {
     display: flex;
     gap: 30px;
-    justify-content: space-between;
-    width: 100%;
-    height: 330px;
+    justify-content: center;
 }
 
 /* 🔹 하단 (다이어리 + 상담) 그룹 */
 .bottom-section {
     display: flex;
     gap: 30px;
-    justify-content: space-between;
-    width: 100%;
-    height: 300px
+    justify-content: center;
 }
-
 
 /* 🔵 개별 테이블 스타일 */
 .profile_table, .chatbot_table,
@@ -205,21 +225,7 @@ body {
     text-align: center;
 }
 
-/* 🔹 상단 그룹 (프로필 + 챗봇) */
-.top-section {
-    display: flex;
-    gap: 30px; /* 🔹 간격 조정 (너무 넓지 않도록) */
-    justify-content: space-between;
-    width: 100%;
-}
 
-/* 🔹 하단 그룹 (다이어리 + 상담) */
-.bottom-section {
-    display: flex;
-    gap: 30px;
-    justify-content: space-between;
-    width: 100%;
-}
 
 /* 🟢 너비 조정 가능하도록 설정 */
 .profile_table {

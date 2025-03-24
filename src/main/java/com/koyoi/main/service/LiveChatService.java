@@ -5,10 +5,10 @@ import com.koyoi.main.mapper.UserMyPageMapper;
 import com.koyoi.main.vo.LiveChatVO;
 import com.koyoi.main.vo.UserMyPageVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -153,20 +153,20 @@ public class LiveChatService {
         }
     }
 
-    //    @Scheduled(fixedRate = 60000)
-//    @Transactional
-    public void updateReservationsStatus() {
-        try {
-//            int updatedToWaiting = liveChatMapper.updateToWaitingStatus();
-//            int updatedToCompleted = liveChatMapper.completeCounseling(null);
-
-//            System.out.println("🔄 상담 상태 업데이트 실행됨");
-//            System.out.println("▶ '대기'로 변경된 상담 개수: " + updatedToWaiting);
-//            System.out.println("▶ '완료'로 변경된 상담 개수: " + updatedToCompleted);
-        } catch (Exception e) {
-            System.err.println("🚨 상담 상태 업데이트 중 오류 발생: " + e.getMessage());
-        }
-    }
+//    //    @Scheduled(fixedRate = 60000)
+////    @Transactional
+//    public void updateReservationsStatus() {
+//        try {
+////            int updatedToWaiting = liveChatMapper.updateToWaitingStatus();
+////            int updatedToCompleted = liveChatMapper.completeCounseling(null);
+//
+////            System.out.println("🔄 상담 상태 업데이트 실행됨");
+////            System.out.println("▶ '대기'로 변경된 상담 개수: " + updatedToWaiting);
+////            System.out.println("▶ '완료'로 변경된 상담 개수: " + updatedToCompleted);
+//        } catch (Exception e) {
+//            System.err.println("🚨 상담 상태 업데이트 중 오류 발생: " + e.getMessage());
+//        }
+//    }
 
 
     // ✅ 특정 상담 완료 처리
@@ -229,7 +229,7 @@ public class LiveChatService {
         }
     }
 
-    // ✅ 특정 상담 상태 변경
+    // 자동으로 상태 업데이트 (시간 지남)
 
     @Transactional
     public boolean updateReservationStatus(int counselingId, String status) {
@@ -246,6 +246,28 @@ public class LiveChatService {
         return updatedRows > 0;
     }
 
+    
+    //사용자가 상담 종료하기 (나가기) 누를때 상태변경
+    public void updateReservationsStatus() {
+    List<UserMyPageVO> allReservations = userMyPageMapper.getAllReservations(); // 모든 예약 가져오기
+
+    LocalDateTime now = LocalDateTime.now();
+
+    for (UserMyPageVO reservation : allReservations) {
+        // 날짜 + 시간 → LocalDateTime
+        LocalDateTime counselingTime = reservation.getCounseling_date().toInstant()
+                .atZone(java.time.ZoneId.systemDefault())
+                .toLocalDate()
+                .atTime(reservation.getCounseling_time(), 0);
+
+        if ("대기".equals(reservation.getStatus()) && counselingTime.isBefore(now)) {
+            userMyPageMapper.updateCounselingStatus(reservation.getCounseling_id(), "완료");
+            System.out.println("🔁 상태 자동 업데이트 완료: 상담 ID " + reservation.getCounseling_id());
+        }
+    }
+}
+
+
     // (나가기 버튼 누를 시 ) 세션아이디 기반 추가
 
     @Transactional(readOnly = true)
@@ -253,6 +275,10 @@ public class LiveChatService {
         return liveChatMapper.findCounselingIdBySession(sessionId);
     }
 
+    // 로그인 유저 상단 프로필 띄우기
+    public List<UserMyPageVO> getUserInfoById(String userId) {
+        return userMyPageMapper.getUserById(userId); // 이미 MyPage에서 쓰고 있던 메서드
+    }
 
 
     // 특정 상담 종료 처리

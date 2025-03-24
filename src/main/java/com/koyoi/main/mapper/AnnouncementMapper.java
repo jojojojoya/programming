@@ -21,4 +21,6 @@ public interface AnnouncementMapper {
             ") WHERE ROWNUM <= 5")
     List<AnnouncementVO> getAllAnnouncements();
 
+    @Select("SELECT * FROM TEST_ANNOUNCEMENT WHERE announcement_id = #{id}")
+    AnnouncementVO getAnnouncementById(int id);
 }
