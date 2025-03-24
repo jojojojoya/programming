@@ -44,9 +44,9 @@
 
             <div class="header-icons">
                 <button class="header-btn">
-                    <img src="/static/imgsource/logout.png" alt="logout">
+                    <a href="/logout"> <img src="/static/imgsource/logout.png" alt="logout"> </a>
                 </button>
-                <img class="profile-img" src="<%=imgPath%>" alt="profile">
+                <img class="profile-img" src="/static<%=imgPath%>" alt="profile">
             </div>
         </header>
 

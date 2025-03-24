@@ -191,7 +191,6 @@ body {
     overflow: hidden;
 }
 
-/* 헤더 */
 .user-board-header {
     display: flex;
     background-color: #EDE0D4;
@@ -201,7 +200,6 @@ body {
     color: #4e342e;
 }
 
-/* 유저 행 */
 .user-row {
     display: flex;
     padding: 14px 10px;
@@ -215,7 +213,6 @@ body {
     cursor: pointer;
 }
 
-/* 셀 정렬 */
 .col, .cell {
     flex: 1;
     text-align: center;
@@ -224,12 +221,12 @@ body {
     font-size: 0.95rem;
 }
 
-.col-num     { flex: 0 0 50px; max-width: 50px; }   /* 번호: 고정 */
-.col-id      { flex: 1.2; }   /* 좁게 */
+.col-num     { flex: 0 0 50px; max-width: 50px; }
+.col-id      { flex: 1.2; }
 .col-name    { flex: 1.2; }
 .col-nickname{ flex: 1.2; }
 
-.col-email   { flex: 2; }   /* 넓게 */
+.col-email   { flex: 2; }
 .col-date    { flex: 2; }
 
 /* 마지막 행 구분선 제거 */
@@ -329,14 +326,13 @@ button:hover {
     display: flex !important;
 }
 
-/* 모달 본체 */
 .modal-content {
     background: linear-gradient(145deg, #fefaf6, #f2e9e4);
     padding: 1.5rem 2rem;
     border-radius: 1.2rem;
-    width: min(90vw, 480px); /* 반응형 너비 */
-    max-height: 70vh; /* 높이 제한 */
-    overflow: hidden; /* 스크롤 제거 */
+    width: min(90vw, 480px);
+    max-height: 70vh;
+    overflow: hidden;
     text-align: left;
     box-shadow: 0 0.6rem 2rem rgba(0, 0, 0, 0.1);
     position: relative;
@@ -351,8 +347,8 @@ button:hover {
     background: linear-gradient(145deg, #fefaf6, #f2e9e4);
     padding: 2rem 2.5rem;
     border-radius: 1.2rem;
-    width: min(95vw, 600px);   /* 너비: 최대 600px까지 키움 */
-    max-height: 80vh;          /* 높이: 최대 80% 화면 사용 */
+    width: min(95vw, 600px);
+    max-height: 80vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -383,8 +379,6 @@ button:hover {
     border-radius: 4px;
 }
 
-
-/* 닫기 버튼 */
 .close {
     position: absolute;
     top: 1rem;
@@ -398,7 +392,6 @@ button:hover {
     color: #5d4037;
 }
 
-/* 프로필 이미지 */
 .profile-container {
     text-align: center;
     margin-bottom: 1.5rem;
@@ -412,7 +405,6 @@ button:hover {
     background-color: white;
 }
 
-/* 사용자 필드 컨테이너 */
 .user-info-grid {
     display: flex;
     flex-direction: column;
@@ -421,7 +413,6 @@ button:hover {
     flex-grow: 1;
 }
 
-/* 개별 필드 */
 .field {
     display: flex;
     flex-direction: column;
@@ -432,6 +423,7 @@ button:hover {
     margin-bottom: 0.3rem;
     font-size: 0.95rem;
 }
+
 .field input,
 .field .value {
     padding: 0.6rem 0.9rem;
@@ -444,24 +436,27 @@ button:hover {
     box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.03);
     transition: border 0.2s ease;
 }
+
 .field input:focus {
     outline: none;
     border: 1px solid #bcaaa4;
     background-color: #fffaf6;
 }
+
 .field .value {
     border: none;
     box-shadow: none;
 }
 
-/* 비밀번호 input 안에 토글 아이콘 */
 .input-wrap {
     width: 100%;
 }
+
 .input-inner {
     position: relative;
     width: 100%;
 }
+
 .input-inner input {
     width: 100%;
     padding: 0.6rem 2.5rem 0.6rem 0.9rem;
@@ -475,13 +470,13 @@ button:hover {
     transition: border 0.2s ease;
     box-sizing: border-box;
 }
+
 .input-inner input:focus {
     outline: none;
     border: 1px solid #bcaaa4;
     background-color: #fffaf6;
 }
 
-/* 토글 아이콘 */
 .password-toggle {
     position: absolute;
     right: 0.8rem;
@@ -492,13 +487,13 @@ button:hover {
     cursor: pointer;
 }
 
-/* 버튼 영역 */
 .modal-buttons {
     margin-top: 1.5rem;
     display: flex;
     justify-content: space-between;
     gap: 0.75rem;
 }
+
 .modal-buttons button {
     flex: 1;
     padding: 0.6rem 1rem;
@@ -511,6 +506,7 @@ button:hover {
     transition: background 0.2s ease;
     font-size: 0.95rem;
 }
+
 .modal-buttons button:hover {
     background-color: #bcaaa4;
 }
