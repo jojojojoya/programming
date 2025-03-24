@@ -96,7 +96,8 @@ from TEST_USER;
 select *
 from TEST_LIVE_CHAT;
 select  * from TEST_COUNSELING_SUMMARY;
-
+select *
+from main_LIVE_CHAT;
 SELECT table_name
 FROM all_tables
 WHERE table_name = 'TEST_USER';
