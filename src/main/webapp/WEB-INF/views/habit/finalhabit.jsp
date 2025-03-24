@@ -53,7 +53,7 @@
                         <!-- 습관 리스트 출력 부분 -->
                         <div class="myhabit-list">
                             <c:forEach var="habit" items="${habits}">
-                                <div id="habit-${habit.habit_id}">
+                                <div id="habit-box-${habit.habit_id}">
                                     <input type="checkbox" id="habit-${habit.habit_id}" />
                                     <label for="habit-${habit.habit_id}">${habit.habit_name}</label>
                                     <!-- 삭제 버튼 추가 -->
@@ -156,7 +156,7 @@
                 .then(response => {
                     if (response.ok) {
                         // 성공적으로 삭제되면 해당 항목을 화면에서 제거
-                        document.getElementById('habit-' + habit_id).remove();
+                        document.getElementById('habit-box-' + habit_id).remove();
                     } else {
                         alert('삭제 실패');
                     }
