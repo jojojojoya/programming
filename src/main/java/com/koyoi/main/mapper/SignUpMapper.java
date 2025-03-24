@@ -14,8 +14,8 @@ public interface SignUpMapper {
     @Select("SELECT COUNT(*) FROM TEST_USER WHERE user_id = #{userId}")
     int existsById(String userId);
 
-    @Select("SELECT COUNT(*) FROM TEST_USER WHERE user_name = #{userName}")
-    int existsByName(String userName);
+    @Select("SELECT COUNT(*) FROM TEST_USER WHERE user_email = #{userEmail}")
+    int existsByName(String userEmail);
 
     @Select("SELECT COUNT(*) FROM TEST_USER WHERE user_nickname = #{userNickname}")
     int existsByNickname(String userNickname);

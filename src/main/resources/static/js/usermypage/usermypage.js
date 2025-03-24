@@ -3,34 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     reservationHandler();
 });
 
-// function reservationHandler() {
-//     console.log("🚀 usermypage 페이지 로드 완료!");
-//
-//     document.querySelectorAll(".reserved_reservation_box").forEach(reservationBox => {
-//         let counselingId = reservationBox.dataset.counselingId;
-//         let sessionId = reservationBox.dataset.sessionId;
-//         let status = reservationBox.dataset.status;
-//
-//         console.log(`🔍 상담 ID: ${counselingId}, 세션 ID: ${sessionId}, 상태: ${status}`);
-//
-//         let enterButton = reservationBox.querySelector(".enter_counseling_btn");
-//         let viewButton = reservationBox.querySelector(".view_counseling_btn");
-//
-//         if (enterButton) {
-//             enterButton.addEventListener("click", function () {
-//                 console.log(`▶️ 상담 입장: sessionId=${sessionId}, counselingId=${counselingId}`);
-//                 goToLiveChatDetail(sessionId, counselingId, false);
-//             });
-//         }
-//
-//         if (viewButton) {
-//             viewButton.addEventListener("click", function () {
-//                 console.log(`▶️ 상담 내용 보기: sessionId=${sessionId}, counselingId=${counselingId}`);
-//                 goToLiveChatDetail(sessionId, counselingId, true);
-//             });
-//         }
-//     });
-// }
 
 function reservationHandler() {
     console.log("🚀 usermypage 페이지 로드 완료!");
@@ -124,40 +96,93 @@ function mypageLoad() {
             })
             .catch(error => console.error("🚨 API 요청 오류:", error));
     });
-
+    //
+    // saveProfileBtn.addEventListener("click", function () {
+    //     const newNickname = editNicknameInput.value.trim();
+    //     const newPassword = editPwInput.value.trim();
+    //     const profileImgFile = document.getElementById("editProfileImg").files[0];
+    //
+    //     if (!newNickname) {
+    //         alert("닉네임을 입력해주세요.");
+    //         return;
+    //     }
+    //
+    //     fetch("/profileupdate", {
+    //         method: "POST",
+    //         headers: {"Content-Type": "application/json"},
+    //         body: JSON.stringify({
+    //             user_id: userId,
+    //             user_nickname: newNickname,
+    //             user_password: newPassword || null // 비밀번호 변경 없을 시 null
+    //         })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.updated) {
+    //                 alert("✅ 프로필이 성공적으로 수정되었습니다!");
+    //
+    //                 // 🌟 변경된 닉네임을 화면에 즉시 반영
+    //                 document.getElementById("nicknameDisplay").innerText = `닉네임: ${newNickname}`;
+    //
+    //                 profileModal.style.display = "none"; // 모달 닫기
+    //             } else {
+    //                 alert("❌ 프로필 수정 실패! 다시 시도해주세요.");
+    //             }
+    //         })
+    //         .catch(error => console.error("🚨 프로필 업데이트 오류:", error));
+    // });
     saveProfileBtn.addEventListener("click", function () {
         const newNickname = editNicknameInput.value.trim();
         const newPassword = editPwInput.value.trim();
+        const profileImgFile = document.getElementById("editProfileImg").files[0];
 
         if (!newNickname) {
             alert("닉네임을 입력해주세요.");
             return;
         }
 
-        fetch("/profileupdate", {
+        const formData = new FormData();
+        formData.append("user_id", userId);
+        formData.append("user_nickname", newNickname);
+        formData.append("user_password", newPassword || "");
+        if (profileImgFile) {
+            formData.append("user_img", profileImgFile);
+        }
+
+        fetch("/profileupdatewithimg", {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                user_id: userId,
-                user_nickname: newNickname,
-                user_password: newPassword || null // 비밀번호 변경 없을 시 null
-            })
+            body: formData
         })
             .then(response => response.json())
             .then(data => {
                 if (data.updated) {
                     alert("✅ 프로필이 성공적으로 수정되었습니다!");
 
-                    // 🌟 변경된 닉네임을 화면에 즉시 반영
-                    document.getElementById("nicknameDisplay").innerText = `닉네임: ${newNickname}`;
+                    // 프로필 이미지도 즉시 반영
+                    if (data.newImgPath) {
+                        document.querySelector(".profile_img img").src = data.newImgPath;
+                    }
 
-                    profileModal.style.display = "none"; // 모달 닫기
+                    document.getElementById("nicknameDisplay").innerText = `닉네임: ${newNickname}`;
+                    profileModal.style.display = "none";
                 } else {
-                    alert("❌ 프로필 수정 실패! 다시 시도해주세요.");
+                    alert("❌ 프로필 수정 실패!");
                 }
             })
             .catch(error => console.error("🚨 프로필 업데이트 오류:", error));
     });
+
+    document.getElementById("editProfileImg").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.querySelector("#profileModal .profile_img img").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
 
     // 모달 닫기 이벤트 추가
     document.querySelectorAll(".close").forEach(button => {
@@ -168,11 +193,4 @@ function mypageLoad() {
             passwordCheckInput.value = "";
         });
     });
-
-    // window.addEventListener("click", function (event) {
-    //     if (event.target === profileModal) profileModal.style.display = "none";
-    //     if (event.target === passwordCheckModal) passwordCheckModal.style.display = "none";
-    // });
-    //
-
 }

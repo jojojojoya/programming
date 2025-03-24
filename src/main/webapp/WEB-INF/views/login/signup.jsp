@@ -71,17 +71,26 @@
                            placeholder="Confirm your password" required>
                     <div id="pw-error" class="error-message"></div>
 
-                    <!-- Name -->
+                    <!-- User Type 선택 -->
                     <div class="form-group">
-                        <label for="user_name">Name</label>
-                        <div class="check-wrapper">
-                            <input type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
-                            <button type="button" id="checkNameBtn" class="check-btn small">Check</button>
+                        <label>User Type</label>
+                        <div class="user-type-selector">
+                            <button type="button" class="user-type-btn" data-type="2">General User</button>
+                            <button type="button" class="user-type-btn" data-type="1">Counselor</button>
                         </div>
+                        <!-- 실제 전송할 값 -->
+                        <input type="hidden" name="user_type" id="user_type" required>
+                        <div id="user-type-error" class="error-message"></div>
+                    </div>
+
+                    <!-- Name (이름 입력만 가능, 중복 확인 없음) -->
+                    <div class="form-group">
+                        <label for="user_name">User Name</label>
+                        <input type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
                         <div id="name-error" class="error-message"></div>
                     </div>
 
-                    <!-- Nickname -->
+                    <!-- Nickname (닉네임 중복 확인 버튼 유지) -->
                     <div class="form-group">
                         <label for="user_nickname">Nickname</label>
                         <div class="check-wrapper">
@@ -91,9 +100,16 @@
                         <div id="nickname-error" class="error-message"></div>
                     </div>
 
-                    <!-- Email -->
-                    <label for="user_email">Email</label>
-                    <input type="email" id="user_email" name="user_email" placeholder="Enter your email" required>
+                    <!-- Email (이메일 입력 후 중복 확인 버튼 추가) -->
+                    <div class="form-group">
+                        <label for="user_email">Email</label>
+                        <div class="check-wrapper">
+                            <input type="email" id="user_email" name="user_email" placeholder="Enter your email" required>
+                            <button type="button" id="checkEmailBtn" class="check-btn small">Check</button>
+                        </div>
+                        <div id="email-error" class="error-message"></div>
+                    </div>
+
 
                     <!-- Profile -->
                     <div class="form-group">
@@ -114,10 +130,6 @@
                     </div>
                 </form>
             </div>
-            <!-- 테스트 버튼 -->
-            <button type="button" onclick="location.href='/test'" style="margin-top: 20px;">
-                컨트롤러 테스트
-            </button>
         </div>
     </main>
 
