@@ -1,18 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% // 세션 체크 추가 부분 시작
-    HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
-    String userId = null;
-
-    if (session1 != null) {
-        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
-    }
-
-    if (userId == null) {
-        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
-        return;
-    }
-%>
 <link rel="stylesheet" href="/static/css/diary/diary.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
