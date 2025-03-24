@@ -118,7 +118,7 @@ ALTER TABLE TEST_USER
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
 
--- >>>>>>> 9ce381165894c55d2627bf310e0348c139fa15e2
+
 SELECT *
 FROM TEST_USER;
 
@@ -362,6 +362,10 @@ SELECT test_live_chat_seq.NEXTVAL FROM dual;
 SELECT SEQUENCE_NAME
 FROM USER_SEQUENCES
 WHERE SEQUENCE_NAME = 'TEST_LIVE_CHAT_SEQ';
+<<<<<<< HEAD
+
+select * from TEST_HABIT_TRACKING;
+=======
 >>>>>>> baa685546c203fb9cf5796b46b38ce25009a4f1b
 
 
@@ -508,3 +512,4 @@ select * from test_user;
 -- main유저 디비지우기
 
 select * from MAIN_CHAT;
+>>>>>>> 57ba4618b8c84b7d890b0dde623c5643cb000f3b

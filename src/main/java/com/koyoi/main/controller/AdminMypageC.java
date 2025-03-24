@@ -2,6 +2,7 @@ package com.koyoi.main.controller;
 
 import com.koyoi.main.mapper.AdminMypageMapper;
 import com.koyoi.main.service.AdminMypageService;
+import com.koyoi.main.service.AnnouncementService;
 import com.koyoi.main.vo.AdminMypageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,15 @@ public class AdminMypageC {
     @Autowired
     private AdminMypageService adminMypageService;
 
+    @Autowired
+    private AnnouncementService announcementService;
+
     @GetMapping("/admin")
     public String admin(Model model) {
 
         model.addAttribute("users", adminMypageService.getAllUsers());
         model.addAttribute("counselors", adminMypageService.getAllCounselors());
+        model.addAttribute("announcements", announcementService.getAllAnnouncements());
         return "adminmypage/adminmypage";
 
     }
