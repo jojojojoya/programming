@@ -1,4 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%  // 세션 체크 추가 부분 시작
+    HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
+    String userId = null;
+
+    if (session1 != null) {
+        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+    }
+
+    if (userId == null) {
+        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,11 +23,10 @@
     <link rel="stylesheet" href="/static/css/finalindex.css">
     <link rel="stylesheet" href="/static/css/diary/diary.css">
     <script src="/static/js/diary/diary.js" defer></script>
-    <!-- 서버세션으로 전환 후 활성화
     <script>
         const selectedDate = "${selectedDate}"; // 서버에서 내려준 값
         console.log("✅ 서버에서 받은 selectedDate:", selectedDate);
-    </script> -->
+    </script>
 
 </head>
 <body>

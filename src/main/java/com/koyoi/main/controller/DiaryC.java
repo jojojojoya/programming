@@ -19,6 +19,15 @@ public class DiaryC {
 
     private final DiaryService diaryService;
 
+    // 세션에서 userId 갖고 오는 메소드
+    private String getLoginUserId(HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            throw new IllegalStateException("로그인이 필요합니다.");
+        }
+        return userId;
+    }
+
     // 메인페이지에서 넘어온 날짜를 세션에 저장
     @PostMapping("/setSelectedDate")
     @ResponseBody
@@ -29,7 +38,7 @@ public class DiaryC {
             return ResponseEntity.badRequest().body("날짜 값이 없습니다.");
         }
 
-        session.setAttribute("selectedDate", selectedDate);  // 세션에 날짜 저장!
+        session.setAttribute("selectedDate", selectedDate);  // 세션에 날짜 저장
 
         return ResponseEntity.ok().build();
     }
@@ -37,11 +46,7 @@ public class DiaryC {
     // 뷰 페이지 렌더링
     @GetMapping
     public String diaryPage(HttpSession session, Model model) {
-        String userId = (String) session.getAttribute("userId");
-        if (userId == null) {
-            return "redirect:/login";  // 로그인 상태 확인
-        }
-//        String userId = "user1";
+        String userId = getLoginUserId(session);
 
         List<Map<String, Object>> diaryEvents = diaryService.getDiaryEvents(userId);
         model.addAttribute("diaryEvents", diaryEvents);
@@ -63,28 +68,23 @@ public class DiaryC {
     /* 캘린더 이모지 이벤트 조회 */
     @GetMapping("/events")
     @ResponseBody
-    public List<Map<String, Object>> getDiaryEvents() {
-        String userId = "user1";
-        List<Map<String, Object>> events = diaryService.getDiaryEvents(userId);
+    public List<Map<String, Object>> getDiaryEvents(HttpSession session) {
+        String userId = getLoginUserId(session);
 
+        List<Map<String, Object>> events = diaryService.getDiaryEvents(userId);
         System.out.println("이벤트 리스트: " + events);
 
         return events;
-
-//        String userId = "user1";
-//        return diaryService.getDiaryEvents(userId);
     }
 
-    /* 일기 상세 조회 (일기 ID 기준) */
+    /* 일기 상세 조회 (일기 ID 기준) - 유저 검증은 생략 (필요 시 추가) */
     @GetMapping("/{diaryId}")
     @ResponseBody
     public ResponseEntity<?> getDiaryById(@PathVariable int diaryId) {
-        System.out.println("[DiaryController] 요청받은 diaryId: " + diaryId);
-
         DiaryVO vo = diaryService.getDiaryById(diaryId);
 
         if (vo == null) {
-            System.out.println("[DiaryController] 일기 없음, diaryId: " + diaryId);
+            System.out.println("[DiaryC] 일기 없음, diaryId: " + diaryId);
             return ResponseEntity.status(404).body(Map.of("message",  "일기를 찾을 수 없습니다."));
         }
 
@@ -96,8 +96,8 @@ public class DiaryC {
     /* 일기 날짜 조회 */
     @GetMapping("/date/{date}")
     @ResponseBody
-    public DiaryVO getDiaryByDate(@PathVariable String date) {
-        String userId = "user1"; // 로그인 연동 시 세션에서 userId 가져오기!
+    public DiaryVO getDiaryByDate(@PathVariable String date, HttpSession session) {
+        String userId = getLoginUserId(session);
 
         return diaryService.getDiaryByDate(userId, date);
     }
@@ -105,9 +105,11 @@ public class DiaryC {
     /* 일기 등록 */
     @PostMapping("/save")
     @ResponseBody
-    public Map<String, Object> saveDiary(@RequestBody DiaryVO diaryVO) {
+    public Map<String, Object> saveDiary(@RequestBody DiaryVO diaryVO, HttpSession session) {
+        String userId = getLoginUserId(session);
         System.out.println("[DiaryC] 받은 diaryVO: " + diaryVO);
-        diaryVO.setUser_id("user1"); // 하드코딩
+
+        diaryVO.setUser_id(userId);
         diaryService.saveDiary(diaryVO);
 
         return Map.of("message", "일기 등록 완료!", "diaryId", diaryVO.getDiary_id());
@@ -116,29 +118,35 @@ public class DiaryC {
     /* 일기 수정 */
     @PutMapping("/update")
     @ResponseBody
-    public Map<String, Object> updateDiary(@RequestBody DiaryVO diaryVO) {
-        diaryVO.setUser_id("userId");
+    public Map<String, Object> updateDiary(@RequestBody DiaryVO diaryVO, HttpSession session) {
+        String userId = getLoginUserId(session);
+
+        diaryVO.setUser_id(userId);
         diaryService.updateDiaryAndEmotion(diaryVO);
 
         return Map.of("message", "일기 수정 완료!");
     }
 
-    /* 일기 삭제 */
+    /* 일기 삭제 (추가로 userId 검증 넣어도 좋음) */
     @DeleteMapping("/delete/{diaryId}")
     @ResponseBody
-    public Map<String, Object> deleteDiary(@PathVariable int diaryId) {
-        diaryService.deleteDiary(diaryId);
+    public Map<String, Object> deleteDiary(@PathVariable int diaryId, HttpSession session) {
+        String userId = getLoginUserId(session);    // 유저 검증시 필요
+
+        diaryService.deleteDiary(diaryId, userId);
         return Map.of("message", "일기 삭제 완료!");
     }
 
     /* 감정 점수 저장 */
     @PutMapping("/emotion/score")
     @ResponseBody
-    public Map<String, Object> saveEmotionScore(@RequestBody Map<String, Object> scoreData) {
+    public Map<String, Object> saveEmotionScore(@RequestBody Map<String, Object> scoreData, HttpSession session) {
+        String userId = getLoginUserId(session);
+
         int diaryId = (int) scoreData.get("diary_id");
         int emotionScore = (int) scoreData.get("emotion_score");
 
-        diaryService.saveEmotionScore(diaryId, emotionScore);
+        diaryService.saveEmotionScore(diaryId, emotionScore, userId);
         return Map.of("message", "감정 점수 저장 완료!");
     }
 }

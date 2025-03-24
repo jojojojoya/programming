@@ -59,11 +59,13 @@ public interface DiaryMapper {
     @Update("UPDATE TEST_DIARY " +
             "SET title = #{title}, " +
             "    diary_content = #{diary_content} " +
-            "WHERE diary_id = #{diary_id}")
+            "WHERE diary_id = #{diary_id}" +
+            "AND user_id = #{userId}")
     int updateDiary(DiaryVO diaryVO);
 
     // 일기 삭제
     @Delete("DELETE FROM TEST_DIARY " +
-            "WHERE diary_id = #{diaryId}")
-    int deleteDiary(@Param("diaryId") int diaryId);
+            "WHERE diary_id = #{diaryId}" +
+            "AND user_id = #{userId}")
+    int deleteDiary(@Param("diaryId") int diaryId, @Param("userId") String userId);
 }
