@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -32,13 +34,20 @@ public class DiaryC {
     @PostMapping("/setSelectedDate")
     @ResponseBody
     public ResponseEntity<?> setSelectedDate(@RequestBody Map<String, String> requestBody, HttpSession session) {
-        String selectedDate = requestBody.get("date");
+        String selectedDateStr = requestBody.get("date"); // "YYYY-MM-DD"
 
-        if (selectedDate == null || selectedDate.isEmpty()) {
+        if (selectedDateStr == null || selectedDateStr.isEmpty()) {
+            System.out.println("❌ 넘어온 날짜 값 없음!");
             return ResponseEntity.badRequest().body("날짜 값이 없습니다.");
         }
 
-        session.setAttribute("selectedDate", selectedDate);  // 세션에 날짜 저장
+        // String → LocalDateTime 변환 (00:00:00 시간 추가)
+        LocalDateTime selectedDate = LocalDate.parse(selectedDateStr).atStartOfDay();
+
+        // 세션에 저장
+        session.setAttribute("selectedDate", selectedDate);
+
+        System.out.println("✅ 세션에 저장된 selectedDate(LocalDateTime): " + selectedDate);
 
         return ResponseEntity.ok().build();
     }
@@ -52,15 +61,23 @@ public class DiaryC {
         model.addAttribute("diaryEvents", diaryEvents);
 
         // 세션에서 선택 날짜 꺼내기
-        String selectedDate = (String) session.getAttribute("selectedDate");
+        LocalDateTime selectedDate = (LocalDateTime) session.getAttribute("selectedDate");
 
-        if (selectedDate != null && !selectedDate.isEmpty()) {
-            DiaryVO diary = diaryService.getDiaryByDate(userId, selectedDate);
-            model.addAttribute("selectedDiary", diary);
-            model.addAttribute("selectedDate", selectedDate);
-
-            session.removeAttribute("selectedDate");  // 사용 후 초기화 (선택)
+        if (selectedDate == null) {
+            selectedDate = LocalDateTime.now();
+            System.out.println("❌ 세션에 selectedDate 없음 → 오늘 날짜로 기본값 설정: " + selectedDate);
+        } else {
+            System.out.println("✅ 세션에서 꺼낸 selectedDate: " + selectedDate);
         }
+
+        DiaryVO diary = diaryService.getDiaryByDate(userId, selectedDate);
+
+        String selectedDateStr = selectedDate.toLocalDate().toString();
+        System.out.println("✅ 프론트로 내려줄 selectedDate: " + selectedDateStr);
+
+        model.addAttribute("selectedDiary", diary);
+        model.addAttribute("selectedDate", selectedDateStr);
+
 
         return "diary/diary";
     }
@@ -99,7 +116,10 @@ public class DiaryC {
     public DiaryVO getDiaryByDate(@PathVariable String date, HttpSession session) {
         String userId = getLoginUserId(session);
 
-        return diaryService.getDiaryByDate(userId, date);
+        LocalDate localDate = LocalDate.parse(date); // 문자열(YYYY-MM-DD)을 LocalDate로 변환
+        LocalDateTime dateTime = localDate.atStartOfDay(); // 시간 정보 추가해서 LocalDateTime 만들기
+
+        return diaryService.getDiaryByDate(userId, dateTime);
     }
 
     /* 일기 등록 */

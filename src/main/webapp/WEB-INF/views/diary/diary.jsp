@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="/static/css/diary/diary.css">
     <script src="/static/js/diary/diary.js" defer></script>
     <script>
-        const selectedDate = "${selectedDate}"; // 서버에서 내려준 값
+        window.selectedDate = "${selectedDate}"; // 서버에서 내려준 값
         console.log("✅ 서버에서 받은 selectedDate:", selectedDate);
     </script>
 

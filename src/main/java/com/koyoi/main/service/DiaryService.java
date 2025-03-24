@@ -51,8 +51,12 @@ public class DiaryService {
     }
 
     // 일기 조회 (날짜기준)
-    public DiaryVO getDiaryByDate(String userId, String date) {
-        return diaryMapper.getDiaryByDate(userId, date);
+    public DiaryVO getDiaryByDate(String userId, LocalDateTime date) {
+        String dateStr = date.toLocalDate().toString();
+
+        System.out.println("✅ DiaryService.getDiaryByDate() → 날짜 기준 조회 date: " + dateStr);
+
+        return diaryMapper.getDiaryByDate(userId, dateStr);
     }
 
     // 일기 + 감정 등록
