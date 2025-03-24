@@ -32,8 +32,8 @@
         if (!hasHabits) {
             taskList.innerHTML = `
             <div class="no-habit-box">
-                <p class="no-habit-text"> 아직 등록한 습관이 없습니다. </p>
-                <button id="go-to-habit-page" class="register-btn"> 습관 등록하러 가기 </button>
+                <p class="no-habit-text"> No habits registered yet. </p>
+                <button id="go-to-habit-page" class="register-btn"> Create a Habit </button>
             </div>
         `;
             document.getElementById("go-to-habit-page").addEventListener("click", () => {
@@ -45,7 +45,7 @@
         if (!Array.isArray(habitList) || habitList.length === 0) {
             taskList.innerHTML = `
             <div class="no-habit-box">
-                <p class="no-habit-text">이 날짜에 수행할 습관이 없습니다.</p>
+                <p class="no-habit-text"> Nothing scheduled for this date. </p>
             </div>
         `;
             return;

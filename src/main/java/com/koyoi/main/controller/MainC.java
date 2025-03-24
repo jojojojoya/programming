@@ -2,13 +2,8 @@ package com.koyoi.main.controller;
 
 import com.koyoi.main.dto.CompletedDTO;
 import com.koyoi.main.dto.TodayHabitDTO;
-import com.koyoi.main.service.AnnouncementService;
-import com.koyoi.main.service.EmotionService;
-import com.koyoi.main.service.HabitTrackingService;
-import com.koyoi.main.service.QuoteService;
-import com.koyoi.main.vo.AnnouncementVO;
-import com.koyoi.main.vo.EmotionVO;
-import com.koyoi.main.vo.HabitTrackingVO;
+import com.koyoi.main.service.*;
+import com.koyoi.main.vo.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,11 +30,21 @@ public class MainC {
 
     @Autowired
     private HabitTrackingService habitTrackingService;
+    @Autowired
+    private AdminMypageService adminMypageService;
 
     @GetMapping("/main")
-    public String main(Model model) {
+    public String main(HttpSession session, Model model) {
         model.addAttribute("announcements", announcementService.getAllAnnouncements());
         model.addAttribute("quotes", quoteService.getAllQuotes());
+
+        String userId = (String) session.getAttribute("userId");
+
+        if(userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
+
         return "main/main";
     }
 

@@ -1,6 +1,13 @@
+<%@ page import="com.koyoi.main.vo.AdminMypageVO" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    AdminMypageVO user = (AdminMypageVO) request.getAttribute("user");
+    String imgPath = (user != null && user.getUser_img() != null)
+            ? user.getUser_img()
+            : "/static/imgsource/testprofile.png"; // 기본 이미지
+%>
 <%  // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
@@ -45,7 +52,7 @@
                 <a href="/logout"> <img src="/static/imgsource/logout.png" alt="logout"> </a>
             </button>
             <button class="profile-btn">
-                <a href="/usermypage">  <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile"> </a>
+                <a href="/usermypage">  <img class="profile-img" src="/static<%=imgPath%>" alt="profile"> </a>
             </button>
         </div>
 
@@ -55,13 +62,13 @@
     <div id="notice-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn"> &times; </span>
-            <h3> Notice </h3>
+            <a href="/announcement"> <h3> Notice </h3> </a>
             <ul id="notice-lists">
                 <c:forEach var="announcement" items="${announcements}">
                     <li>
-                        <a href="#">${announcement.title}</a>
+                        <a href="/announcement/view/${announcement.announcement_id}">${announcement.title}</a>
                         <c:if test="${announcement.isNew == 'Y'}">
-                        <span class="new-tag">New</span>
+                        <span class="new-tag"> New </span>
                         </c:if>
                     </li>
                 </c:forEach>
@@ -76,9 +83,9 @@
                 <div class="swiper-wrapper" id="quoteWrapper">
                     <c:forEach var="quote" items="${quotes}">
                         <div class="swiper-slide">
-                            <span class="quote-symbol">❝</span>
+                            <span class="quote-symbol"> ❝ </span>
                             ${quote.content}
-                            <span class="quote-symbol">❞</span>
+                            <span class="quote-symbol"> ❞ </span>
                         </div>
                     </c:forEach>
                 </div>
@@ -115,7 +122,7 @@
             <div class="right-content">
                 <div class="right-inner">
                     <div class="checklist-container">
-                        <h3> 체크리스트 </h3>
+                        <h3> Daily Tasks </h3>
                         <ul id="task-list"></ul>
                     </div>
 
@@ -127,7 +134,7 @@
                         </div>
 
                         <div class="chat-connect">
-                            <button class="chatbot"> ChatBot</button>
+                            <button class="chatbot"> ChatBot </button>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> LiveChat </button>
                         </div>
 
