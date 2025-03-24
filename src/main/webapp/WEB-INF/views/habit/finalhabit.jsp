@@ -53,7 +53,7 @@
                         <!-- 습관 리스트 출력 부분 -->
                         <div class="myhabit-list">
                             <c:forEach var="habit" items="${habits}">
-                                <div id="habit-${habit.habit_id}">
+                                <div id="habit-box-${habit.habit_id}">
                                     <input type="checkbox" id="habit-${habit.habit_id}" />
                                     <label for="habit-${habit.habit_id}">${habit.habit_name}</label>
                                     <!-- 삭제 버튼 추가 -->
@@ -123,8 +123,10 @@
                                     <div class="day-name">토</div>
                                 </div>
                                 <div id="calendarBody" class="calendar-body"></div>
+                                <div id="selectedDateDisplay" style="margin-top: 10px; font-weight: bold;">
+                                    선택한 날짜: 없음
+                                </div>
                             </div>
-
                         </div>
                         <div class="habit-week">habit-week</div>
                     </div>
@@ -142,9 +144,10 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="/static/js/habit/habit.js"></script>
 <script>
-    function deleteHabit(habitId) {
+    function deleteHabit(habit_id) {
+
         if (confirm("정말로 삭제하시겠습니까?")) {
-            fetch('/habit/delete/' + habitId, {
+            fetch('/habit/delete/' + habit_id, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -153,7 +156,7 @@
                 .then(response => {
                     if (response.ok) {
                         // 성공적으로 삭제되면 해당 항목을 화면에서 제거
-                        document.getElementById('habit-' + habitId).remove();
+                        document.getElementById('habit-box-' + habit_id).remove();
                     } else {
                         alert('삭제 실패');
                     }

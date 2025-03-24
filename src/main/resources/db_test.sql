@@ -4,9 +4,6 @@
 -- table 생성시 꼭 test table 로 생성!!!!!!!!!!!!!
 -- db는 같이 쓰는 db도 있으니 삭제 하거나 변동 주기 전에 서로 공유 꼭 한번씩 해주세요!!
 
-<<
-<<<<< HEAD
-
 -- ==========================================
 -- ========== TEST DATA INSERT ==========
 -- ==========================================
@@ -136,12 +133,6 @@ INSERT INTO TEST_HABIT_TRACKING (tracking_id, habit_id, user_id, completed, week
 VALUES (2, 3, 'user1', 0, null, TO_DATE('2025-03-20', 'YYYY-MM-DD'), SYSTIMESTAMP);
 select * from TEST_HABIT_TRACKING;
 
-=======
-VALUES (5, 'user5', '식사', SYSDATE);
-select *
-from TEST_HABIT;
-=======
->>>>>>> baa685546c203fb9cf5796b46b38ce25009a4f1b
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, USER_NICKNAME, user_email, user_password, user_img, created_at)
 VALUES ('admin001', 3, 'admin', 'admin', 'admin001@example.com', 'admin001', '/imgsource/admin001.jpg', SYSDATE);
@@ -178,14 +169,6 @@ VALUES ('admin001', '신규 기능 업데이트', '새로운 AI 감정 분석 �
 INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
 VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일부터 시작됩니다. 다양한 혜택을 확인하세요!', SYSDATE);
 
-<<<<<<< HEAD
-select * from TEST_ANNOUNCEMENT;
-select * from TEST_DIARY;
-select * from TEST_HABIT;
-
-
-
-=======
 select *
 from TEST_ANNOUNCEMENT;
 select *
@@ -362,12 +345,8 @@ SELECT test_live_chat_seq.NEXTVAL FROM dual;
 SELECT SEQUENCE_NAME
 FROM USER_SEQUENCES
 WHERE SEQUENCE_NAME = 'TEST_LIVE_CHAT_SEQ';
-<<<<<<< HEAD
 
 select * from TEST_HABIT_TRACKING;
-=======
->>>>>>> baa685546c203fb9cf5796b46b38ce25009a4f1b
-
 
 select * from MAIN_USER;
 select * from test_USER;
@@ -512,4 +491,3 @@ select * from test_user;
 -- main유저 디비지우기
 
 select * from MAIN_CHAT;
->>>>>>> 57ba4618b8c84b7d890b0dde623c5643cb000f3b
