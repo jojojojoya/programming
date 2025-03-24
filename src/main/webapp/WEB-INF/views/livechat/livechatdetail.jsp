@@ -45,7 +45,7 @@
         <header class="header-bar">
             <div class="brand-title"><img src="/static/imgsource/logo.png" alt="KOYOI 로고"></div>
             <div class="header-icons">
-                <img class="myprofile-img" src="/static/imgsource/testprofile.png" alt="프로필">
+                <img class="myprofile-img" src="${user.user_img}?v=${now}" alt="프로필">
             </div>
         </header>
         <!--나중에 유저 생기면 userid는 userid로 교체-->

@@ -131,12 +131,10 @@ CREATE TABLE MAIN_LIVE_CHAT
     start_time   number(2)    NOT NULL,                                                         -- 채팅 시작 시간
     end_time     number(2),                                                                     -- 채팅 종료 시간 (종료 시점 기록)
     status       VARCHAR2(50) NOT NULL,                                                         -- 채팅 상태 (예: 진행중, 종료 등)
-    CONSTRAINT fk_live_chat_users FOREIGN KEY (user_id) REFERENCES test_USER (user_id),          -- 사용자 외래키
-    CONSTRAINT fk_live_chat_counselors FOREIGN KEY (counselor_id) REFERENCES test_USER (user_id), -- 상담사 외래키
-    CONSTRAINT fk_live_chat_counselings FOREIGN KEY (counseling_id) REFERENCES TEST_COUNSELING_RESERVATION (COUNSELING_ID) -- 상담사 외래키
+    CONSTRAINT fk_live_chat_userss FOREIGN KEY (user_id) REFERENCES MAIN_USER (user_id),          -- 사용자 외래키
+    CONSTRAINT fk_live_chat_counselorss FOREIGN KEY (counselor_id) REFERENCES MAIN_USER (user_id), -- 상담사 외래키
+    CONSTRAINT fk_live_chat_counselingss FOREIGN KEY (counseling_id) REFERENCES MAIN_COUNSELING_RESERVATION (COUNSELING_ID) -- 상담사 외래키
 );
-
-
 
 
 -- 예약된 상담 내역 저장 테이블
@@ -313,6 +311,7 @@ END;
 /
 
 CREATE SEQUENCE MAIN_LIVE_CHAT_SEQ START WITH 1 INCREMENT BY 1;
+
 CREATE OR REPLACE TRIGGER MAIN_LIVE_CHAT_TRG
     BEFORE INSERT
     ON MAIN_LIVE_CHAT

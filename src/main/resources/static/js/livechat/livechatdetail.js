@@ -40,29 +40,6 @@ function formatDate(counselingDate) {
 }
 
 
-// 커넥트 메소드 쌤이랑한거 원본
-// function connect(sessionId) {
-//     console.log("✅ WebSocket 연결 시도...");
-//
-//     let socket = new SockJS("/ws");
-//     stompClient = Stomp.over(socket);
-//
-//     stompClient.connect({}, function (frame) {
-//         console.log("✅ WebSocket 연결 성공: " + frame);
-//         reconnectAttempts = 0;
-//
-//         stompClient.subscribe("/topic/chat/" + sessionId, function (message) {
-//             let chatMessage = JSON.parse(message.body);
-//             console.log("📩 수신된 메시지:", chatMessage);
-//             saveChatToLocal(chatMessage);
-//             showMessage(chatMessage);
-//         });
-//
-//     }, function (error) {
-//         console.error("🚨 WebSocket 연결 실패: ", error);
-//     });
-// }
-
 function connect(sessionId) {
     if (!sessionId || sessionId === "undefined") {
         console.warn("⚠️ WebSocket 연결 대기: sessionId가 아직 없음. 2초 후 다시 시도...");
@@ -97,39 +74,6 @@ function connect(sessionId) {
 }
 
 
-//
-// function startCounseling() {
-//     let chatContainer = document.querySelector(".chat-container");
-//     let sessionId = chatContainer.dataset.sessionId;
-//     let category = chatContainer.dataset.category;
-//     let counselingDate = chatContainer.dataset.counselingDate;
-//     let counselingTime = chatContainer.dataset.counselingTime;
-//
-//     console.log("📌 [startCounseling] counselingDate 원본:", counselingDate);
-//
-//     let formattedDate = formatDate(counselingDate);  // ✅ 수정된 formatDate 사용
-//     let formattedTime = String(counselingTime).padStart(2, "0") + "시 00분"; // 시간 변환
-//
-//     let welcomeMessage = {
-//         session_id: sessionId,
-//         sender: "상담사",
-//         content: `안녕하세요! ${formattedDate} ${formattedTime}에 예약된 '${category}' 관련 상담을 도와드리겠습니다.<br>😊 편하게 하고 싶은 말씀을 들려주세요.`,
-//         type: "COUNSELOR"
-//     };
-//
-//     console.log("📨 상담사 자동 메시지 생성됨:", welcomeMessage);
-//
-//     removeNoMessagesText();
-//     showMessage(welcomeMessage);
-//     saveChatToLocal(welcomeMessage);
-//
-//     if (stompClient && stompClient.connected) {
-//         stompClient.send("/app/chat", {}, JSON.stringify(welcomeMessage));
-//         console.log("✅ WebSocket을 통해 상담사 메시지 전송 완료");
-//     } else {
-//         console.error("🚨 WebSocket이 연결되지 않아 메시지를 보낼 수 없음");
-//     }
-// }
 async function startCounseling() {
     let chatContainer = document.querySelector(".chat-container");
     let sessionId = chatContainer.dataset.sessionId;
@@ -243,47 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
-//
-//
-// function sendMessage() {
-//     let chatInput = document.getElementById("chatInput");
-//     let messageContent = chatInput.value.trim();
-//
-//     if (messageContent === "") return;
-//
-//     let chatContainer = document.querySelector(".chat-container");
-//     let sessionId = chatContainer.dataset.sessionId;
-//     let userId = chatContainer.dataset.userId;
-//
-//     let message = {
-//         session_id: sessionId,
-//         sender: userId,
-//         content: messageContent,
-//         type: "USER",
-//         timestamp: new Date().toISOString()
-//     };
-//
-//     showMessage(message);
-//     saveChatToLocal(message);
-//
-//     // 메시지 저장
-//     fetch("/chatmessage", {
-//         method: "POST",
-//         headers: {"Content-Type": "application/json"},
-//         body: JSON.stringify(message)
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (!data.success) {
-//                 console.error("❌ 메시지 저장 실패");
-//             }
-//         })
-//         .catch(error => console.error("🚨 메시지 저장 오류:", error));
-//
-//     stompClient.send("/app/chat", {}, JSON.stringify(message));
-//
-//     chatInput.value = "";
-// }
+
 
 function sendMessage() {
     let chatInput = document.getElementById("chatInput");
@@ -332,116 +236,8 @@ function sendMessage() {
 function goBack() {
     window.location.href = "/usermypage";
 }
-//쌤이랑 한거
-// function confirmExit() {
-//     let isConfirmed = confirm("정말 상담을 종료하시겠습니까?");
-//     if (isConfirmed) {
-//         let chatContainer = document.querySelector(".chat-container");
-//         let sessionId = chatContainer.dataset.sessionId;
-//
-//         // 채팅 로그 가져오기
-//         let chatLogs = JSON.parse(localStorage.getItem("chat_" + sessionId) || "[]");
-//
-//         // 채팅 로그 요약 (50자까지만 저장)
-//         // let summary = chatLogs.map(chat => chat.content).join(" ").substring(0, 50);
-//         //
-//         let summary = chatLogs.length > 0
-//             ? chatLogs.map(chat => chat.content).join(" ").substring(0, 50)
-//             : "상담 내용 없음";
-//
-//         console.log("📌 [DEBUG] 상담 종료 요청 - summary:", summary); // Debugging
-//
-//
-//
-//         fetch("/livechat/complete", {
-//             method: "POST",
-//             headers: { "Content-Type": "application/json" },
-//             body: JSON.stringify({ session_id: parseInt(sessionId, 10), summary: summary })
-//         })
-//             .then(response => response.json())
-//             .then(data => {
-//                 if (data.success) {
-//                     alert("✅ 상담이 완료되었습니다!");
-//                     localStorage.removeItem(`chat_${sessionId}`);
-//                     window.location.href = "/usermypage";
-//                 } else {
-//                     alert("❌ 상담 종료 실패. 다시 시도해주세요.");
-//                 }
-//             })
-//             .catch(error => console.error("🚨 상담 종료 오류:", error));
-//     }
-// }
-//
-// function confirmExit() {
-//     let chatContainer = document.querySelector(".chat-container");
-//     let sessionId = chatContainer.dataset.sessionId;
-//
-//     if (!sessionId || sessionId === "undefined") {
-//         console.error("🚨 [오류] sessionId가 undefined! 상담 종료를 진행할 수 없습니다.");
-//         alert("세션 정보가 없습니다. 다시 시도해주세요.");
-//         return;
-//     }
-//
-//     let parsedSessionId = isNaN(parseInt(sessionId, 10)) ? null : parseInt(sessionId, 10);
-//
-//     if (!parsedSessionId) {
-//         console.error("🚨 [오류] sessionId 변환 실패!");
-//         alert("잘못된 세션 ID입니다. 다시 시도해주세요.");
-//         return;
-//     }
-//
-//     let chatLogs = JSON.parse(localStorage.getItem("chat_" + sessionId) || "[]");
-//
-//     let summary = chatLogs.length > 0
-//         ? chatLogs.map(chat => chat.content).join(" ").substring(0, 50)
-//         : "상담 내용 없음";
-//
-//     console.log("📌 [DEBUG] 상담 종료 요청 - summary:", summary);
-//
-//     fetch("/livechat/complete", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ session_id: parsedSessionId, summary: summary })
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.success) {
-//                 alert("✅ 상담이 완료되었습니다!");
-//                 localStorage.removeItem(`chat_${sessionId}`);
-//                 window.location.href = "/usermypage";
-//             } else {
-//                 alert("❌ 상담 종료 실패. 다시 시도해주세요.");
-//             }
-//         })
-//         .catch(error => console.error("🚨 상담 종료 오류:", error));
-// }
-//
-// function confirmExit() {
-//     let chatContainer = document.querySelector(".chat-container");
-//     let sessionId = chatContainer.dataset.sessionId;
-//
-//     if (!sessionId) {
-//         console.error("🚨 [오류] sessionId가 없습니다!");
-//         alert("세션 정보가 없습니다. 다시 시도해주세요.");
-//         return;
-//     }
-//
-//     fetch("/livechat/complete", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ session_id: sessionId })
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.success) {
-//                 alert("✅ 상담이 종료되었습니다!");
-//                 window.location.href = "/usermypage";
-//             } else {
-//                 alert("❌ 상담 종료 실패. 다시 시도해주세요.");
-//             }
-//         })
-//         .catch(error => console.error("🚨 상담 종료 오류:", error));
-// }
+
+
 function confirmExit() {
     let chatContainer = document.querySelector(".chat-container");
     let sessionId = chatContainer.dataset.sessionId;

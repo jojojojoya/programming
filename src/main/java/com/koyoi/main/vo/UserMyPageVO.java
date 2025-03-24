@@ -10,13 +10,13 @@ import java.util.Date;
 
 @Data
 public class UserMyPageVO {
-    private String user_id;
-    private int user_type;
-    private String user_name;
-    private String user_nickname;
-    private String user_email;
-    private String user_password;
-    private String user_img;
+    private String user_id; // 유저 ID
+    private int user_type; // 유저 타입
+    private String user_name; // 유저 이름
+    private String user_nickname; // 유저 닉네임
+    private String user_email; // 유저 메일
+    private String user_password; // 유저 비밀번호
+    private String user_img; // 유저 사진
     private LocalDateTime create_time;
     private int session_id;
 
@@ -31,8 +31,8 @@ public class UserMyPageVO {
     private String category;
 
 
-    private int chat_id;
-    private String chat_summary;
+    private int chat_id; // 유저 챗봇 상담 id
+    private String chat_summary; // 유저 챗봇 상담 내역 요약
 
 
 
