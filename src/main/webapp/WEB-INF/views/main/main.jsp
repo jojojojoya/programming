@@ -31,21 +31,21 @@
     <header class="header-bar">
 
         <div class="logo-container">
-            <img class="logo-icon" src="/static/imgsource/logo.png" alt="KOYOI">
+            <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI">
         </div>
         <div class="header-icons">
             <button class="header-btn" id="notice">
-                <img src="/static/imgsource/notice.png" alt="notice">
+                <img src="/static/imgsource/main/notice.png" alt="notice">
             </button>
             <%--추후 알림창 설정--%>
 <%--            <button class="header-btn" id="message">
-                <img src="/static/imgsource/chat.png" alt="message">
+                <img src="/static/imgsource/layout/chat.png" alt="message">
             </button>--%>
             <button class="header-btn">
-                <a href="/logout"> <img src="/static/imgsource/logout.png" alt="logout"> </a>
+                <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
             </button>
             <button class="profile-btn">
-                <a href="/usermypage">  <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile"> </a>
+                <a href="/usermypage">  <img class="profile-img" src="/static/imgsource/layout/testprofile.png" alt="profile"> </a>
             </button>
         </div>
 

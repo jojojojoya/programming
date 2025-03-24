@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data.user_img) {
                         modalUserImg.src = `/static/${data.user_img}`;
                     } else {
-                        modalUserImg.src = "/static/imgsource/testprofile.png"; // 기본 이미지
+                        modalUserImg.src = "/static/imgsource/layout/testprofile.png"; // 기본 이미지
                     }
 
                     if (data) {

@@ -31,14 +31,14 @@
         <aside class="sidebar">
             <nav class="sidebar-menu">
                 <button class="sidebar-btn">
-                    <img src="/static/imgsource/home.png" alt="홈">
+                    <img src="/static/imgsource/layout/home.png" alt="홈">
                 </button>
-                <button class="sidebar-btn"><img src="/static/imgsource/calandar.png" alt="목록"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/pencil.png" alt="채팅"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/chat.png" alt="공유"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/settingss.png" alt="설정"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="목록"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="채팅"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="공유"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/settingss.png" alt="설정"></button>
                 <div class="bbiyak">
-                    <img src="/static/imgsource/bbiyak.png">
+                    <img src="/static/imgsource/layout/bbiyak.png">
                 </div>
             </nav>
         </aside>
@@ -47,11 +47,11 @@
     <div class="right-container">
         <header class="header-bar">
             <div class="brand-title">
-                <img src="/static/imgsource/logo.png" alt="KOYOI 로고">
+                <img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고">
             </div>
 
             <div class="header-icons">
-                <img class="myprofile-img" src="/static/imgsource/testprofile.png" alt="프로필">
+                <img class="myprofile-img" src="/static/imgsource/layout/testprofile.png" alt="프로필">
             </div>
         </header>
 

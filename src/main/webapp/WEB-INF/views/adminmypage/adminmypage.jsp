@@ -21,10 +21,10 @@
         <aside class="sidebar">
             <nav class="sidebar-menu">
                 <button class="sidebar-btn" id="user">
-                    <img src="/static/imgsource/user.png" alt="user">
+                    <img src="/static/imgsource/profile/user.png" alt="user">
                 </button>
                 <button class="sidebar-btn" id="counselor">
-                    <img src="/static/imgsource/counselor.png" alt="counselor">
+                    <img src="/static/imgsource/profile/counselor.png" alt="counselor">
                 </button>
             </nav>
         </aside>
@@ -33,14 +33,14 @@
     <div class="right-container">
         <header class="header-bar">
             <div class="brand-title">
-                <img src="/static/imgsource/logo.png" alt="KOYOI">
+                <img src="/static/imgsource/layout/logo.png" alt="KOYOI">
             </div>
 
             <div class="header-icons">
                 <button class="header-btn">
-                    <img src="/static/imgsource/logout.png" alt="logout">
+                    <img src="/static/imgsource/layout/logout.png" alt="logout">
                 </button>
-                <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile">
+                <img class="profile-img" src="/static/imgsource/layout/testprofile.png" alt="profile">
             </div>
         </header>
 

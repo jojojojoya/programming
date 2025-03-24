@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%  // 세션 체크 추가 부분 시작
+<% // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
 
@@ -32,12 +32,12 @@
     <div class="left-container">
         <aside class="sidebar">
             <nav class="sidebar-menu">
-                <button class="sidebar-btn"><img src="/static/imgsource/home.png" alt="홈"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/calandar.png" alt="목록"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/pencil.png" alt="채팅"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/chat.png" alt="공유"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/settingss.png" alt="설정"></button>
-                <div class="bbiyak"><img src="/static/imgsource/bbiyak.png"></div>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/home.png" alt="홈"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="목록"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="채팅"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="공유"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/settingss.png" alt="설정"></button>
+                <div class="bbiyak"><img src="/static/imgsource/layout/bbiyak.png"></div>
             </nav>
         </aside>
     </div>
@@ -45,9 +45,9 @@
     <!-- 우측 컨텐츠 -->
     <div class="right-container">
         <header class="header-bar">
-            <div class="brand-title"><img src="/static/imgsource/logo.png" alt="KOYOI 로고"></div>
+            <div class="brand-title"><img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고"></div>
             <div class="header-icons">
-                <img class="myprofile-img" src="/static/imgsource/testprofile.png" alt="프로필">
+                <img class="myprofile-img" src="/static/imgsource/layout/testprofile.png" alt="프로필">
             </div>
         </header>
 
@@ -60,18 +60,18 @@
                         </div>
                         <div class="profile_info">
                             <div class="profile_item">
-                                <img src="/static/imgsource/personicon.png" alt="">
+                                <img src="/static/imgsource/profile/personicon.png" alt="">
                                 <span>ID: ${user.user_id}</span>
                             </div>
 
                             <input type="hidden" id="hiddenUserId" value="${user.user_id}"> <!-- 🔥 여기에 추가 -->
 
                             <div class="profile_item">
-                                <img src="/static/imgsource/lockicon.png" alt="">
+                                <img src="/static/imgsource/profile/lockicon.png" alt="비밀번호">
                                 <span> PW: ******** </span>
                             </div>
                             <div class="profile_item">
-                                <img src="/static/imgsource/personicon.png" alt="">
+                                <img src="/static/imgsource/profile/personicon.png" alt="">
                                 <span id="nicknameDisplay">닉네임: ${user.user_nickname} </span>
                             </div>
                             <button class="profile_edit_btn" id="openPasswordCheckModal">프로필 수정하기</button>
@@ -98,7 +98,7 @@
             <div class="bottom-section">
                 <div class="diary_table">
                     <div class="diary_background_img">
-                        <img src="/static/imgsource/calandarback.png" alt="달력 이미지">
+                        <img src="/static/imgsource/background/calandarback.png" alt="달력 이미지">
                     </div>
                 </div>
 
@@ -110,10 +110,10 @@
                     <div class="counseling_no_reservation">
                         <div class="nonreserved_counseling_table">
                             <!-- 갈색 배경 안에 텍스트 포함 -->
-                            <img src="/static/imgsource/padoo2.png">
+                            <img src="/static/imgsource/background/padoo2.png">
 
                             <div class="nonreserved_counseling_table_comment">
-                                <div><img style="width: 70px" src="/static/imgsource/shining5.png"></div>
+                                <div><img style="width: 70px" src="/static/imgsource/background/shining5.png"></div>
                                 <p>現在、予定されている相談はありません。<br>お話ししましょうか？</p>
                                 <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">상담
                                     예약하기
@@ -151,7 +151,8 @@
 
                                         <div><strong>[상담 카테고리] </strong>${reservation.category}</div>
                                         <div><strong>[상담사 ID] </strong>${reservation.counselor_id}</div>
-                                        <div class="counseling_status"><strong>[상담 상태] </strong>${reservation.status}</div>
+                                        <div class="counseling_status"><strong>[상담 상태] </strong>${reservation.status}
+                                        </div>
 
                                         <c:choose>
                                             <c:when test="${reservation.status eq '대기'}">
@@ -166,12 +167,10 @@
                                 </c:forEach>
 
 
-
-
-                            </div>
                             </div>
                         </div>
-                        </c:if> <!-- ✅ 닫음 -->
+                    </div>
+                    </c:if> <!-- ✅ 닫음 -->
         </main>
     </div>
 </div>
