@@ -3,7 +3,6 @@ let calendar;
 let currentDiaryId = null;
 let selectedEmoji = "🙂";
 let isViewMode = false;
-let selectedDate = null;
 
 
 // 유틸 함수
@@ -53,21 +52,15 @@ function resetDiaryForm() {
 /* 페이지 로드 후 초기 세팅 */
 document.addEventListener('DOMContentLoaded', function() {
     const today = new Date().toISOString().slice(0, 10);
-    // 여기부터 서버 세션 사용하면 필요 x
-    // const storedDate = sessionStorage.getItem("selectedDate");
-    //
-    // selectedDate = storedDate || today;
-    //
-    // if (storedDate) {
-    //     sessionStorage.removeItem("selectedDate");  // 한 번 쓰고 초기화
-    // }
 
     // 서버에서 내려준 selectedDate가 존재하면 사용 (JSP에서 넘긴 값)
-    selectedDate = (typeof selectedDate !== "undefined" && selectedDate) ? selectedDate : today;
+    if (!window.selectedDate || window.selectedDate === "null" || window.selectedDate === "undefined") {
+        window.selectedDate = today;
+    }
 
-    console.log("✅ 초기 selectedDate:", selectedDate);
+    console.log("✅ 초기 selectedDate:", window.selectedDate);
 
-    document.getElementById("diaryDate").innerText = selectedDate;  // 기능은 똑같고 가독성만 높임
+    document.getElementById("diaryDate").innerText = window.selectedDate;  // 기능은 똑같고 가독성만 높임
     selectedEmoji = "🙂";
     currentDiaryId = null;
 
@@ -81,17 +74,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     initCalendar();
-    highlightSelectedDate(selectedDate);
-    loadDiaryByDate(selectedDate);
+    highlightSelectedDate(window.selectedDate);
+    loadDiaryByDate(window.selectedDate);
     });
 
 /* 캘린더 초기화 함수 */
 function initCalendar() {
     const calendarEl = document.getElementById('calendar');
 
+    const today = new Date().toISOString().slice(0, 10);
+    const initialDate = window.selectedDate || today;
+
+    console.log("🎯 캘린더 초기 날짜:", initialDate);
+
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        initialDate: selectedDate,
+        initialDate: initialDate,
         locale: 'en',
         timeZone: 'local',
         expandRows: true,
@@ -118,22 +116,22 @@ function initCalendar() {
 
         // 날짜 클릭 → 작성 모드
         dateClick: function(info) {
-            selectedDate = info.dateStr;
+            window.selectedDate = info.dateStr;
 
-            if (isFutureDate(selectedDate)) {
+            if (isFutureDate(window.selectedDate)) {
                 alert("미래의 일기는 작성할 수 없습니다.");
                 return;
             }
 
-            document.getElementById("diaryDate").innerText = selectedDate;
+            document.getElementById("diaryDate").innerText = window.selectedDate;
             openWriteMode(info.dateStr); // 신규 일기 작성 모드
-            highlightSelectedDate(selectedDate);
+            highlightSelectedDate(window.selectedDate);
         },
 
         // 이벤트 클릭 → 상세 조회
         eventClick: function(info) {
             const diaryId = info.event.extendedProps?.diary_id || info.event.extendedProps?.DIARY_ID || info.event.extendedProps?.diaryId;
-            selectedDate = info.event.startStr || info.event.start;
+            window.selectedDate = info.event.startStr || info.event.start;
 
             if (!diaryId) {
                 alert("일기 ID가 없습니다!");
@@ -141,7 +139,7 @@ function initCalendar() {
             }
 
             loadDiaryById(diaryId); // 상세 조회 함수 호출
-            highlightSelectedDate(selectedDate);
+            highlightSelectedDate(window.selectedDate);
         },
 
         // 이벤트 렌더링 → 이모지로 출력
@@ -150,10 +148,10 @@ function initCalendar() {
         },
 
         datesSet: function(info) {
-            if (!selectedDate) {
-                    selectedDate = calendar.getDate().toISOString().slice(0, 10);
-                    highlightSelectedDate(selectedDate);
-                    loadDiaryByDate(selectedDate);
+            if (!window.selectedDate) {
+                window.selectedDate = calendar.getDate().toISOString().slice(0, 10);
+                    highlightSelectedDate(window.selectedDate);
+                    loadDiaryByDate(window.selectedDate);
                 }
         }
 
@@ -168,9 +166,9 @@ function initCalendar() {
 function saveDiary() {
     const diaryTitle = document.getElementById("diaryTitle")?.value || "제목 없음";
     const diaryContent = document.getElementById("diaryContent").value;
-    const diaryDateTime = `${selectedDate}T00:00:00`;
+    const diaryDateTime = `${window.selectedDate}T00:00:00`;
 
-    if (isFutureDate(selectedDate)) {
+    if (isFutureDate(window.selectedDate)) {
         alert("미래의 일기는 저장할 수 없습니다.");
         return;
     }
@@ -225,7 +223,7 @@ function updateDiary() {
         diary_id: currentDiaryId,
         title: diaryTitle,
         diary_content: diaryContent,
-        created_at: `${selectedDate}T00:00:00`, // 기존 날짜 유지 (필요시 수정 가능)
+        created_at: `${window.selectedDate}T00:00:00`, // 기존 날짜 유지 (필요시 수정 가능)
         emotion_emoji: selectedEmoji
     };
 
@@ -267,9 +265,9 @@ function deleteDiary() {
             alert("일기 삭제 완료!");
 
             currentDiaryId = null;
-            loadDiaryByDate(selectedDate);
+            loadDiaryByDate(window.selectedDate);
             refreshCalendarEvents();
-            openWriteMode(selectedDate);
+            openWriteMode(window.selectedDate);
         })
         .catch(error => {
             console.error("❌ 삭제 실패:", error);
