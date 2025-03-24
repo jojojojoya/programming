@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
 
-/* 전체 배경 */
 body {
     font-family: 'Noto Sans JP', sans-serif;
     background-color: #f5f0ea;
@@ -11,41 +11,36 @@ body {
     height: 100vh;
 }
 
-/* 🟢 전체 컨테이너 */
 .container {
-    width: 1440px;
-    height: 90vh;
+    width: 100vw;
+    height: 100vh;
     background-color: #fff3e7;
-    border-radius: 30px;
+    /*border-radius: 30px;*/
     overflow: hidden;
     display: flex;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 🟠 왼쪽 컨테이너 (사이드바) */
 .left-container {
     width: 60px;
-    background-color: #FFF3E7; /* 오른쪽과 동일 */
+    background-color: #FFF3E7;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 5px;
     position: relative;
-    border-right: 1px solid #f4dfcd; /* 경계선 */
+    border-right: 1px solid #f4dfcd;
 }
 
-/* 🟣 사이드바 */
 .sidebar {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* 상단 정렬 */
+    justify-content: flex-start;
     gap: 15px;
 }
 
-
-/* 🔵 사이드바 버튼 */
 .sidebar-btn {
     position: relative;
     display: flex;
@@ -54,9 +49,8 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    margin: 36px 0; /* 위아래 간격 조정 */
+    margin: 36px 0;
 }
-
 
 .sidebar-btn::before {
     content: "...";
@@ -64,74 +58,100 @@ body {
     font-weight: bold;
     color: black;
     position: absolute;
-    top: -20px; /* 기존 -42px → -30px으로 조정 */
+    top: -20px;
     left: 50%;
     transform: translateX(-50%);
 }
 
-
-/* 버튼 내부 아이콘 */
 .sidebar-btn img {
     width: 24px;
     height: 24px;
 }
 
-/* 🔵 버튼 호버 효과 */
 .sidebar-btn:hover {
     transform: scale(1.1);
 }
 
-/* 배경 이미지 설정 */
+
+
 .right-container {
-    background-image: url('/static/imgsource/your_background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: calc(100% - 60px);  /* ✅ 전체 컨테이너에서 sidebar(60px)만큼 제외 */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;  /* 내부 요소 중앙 정렬 */
 }
 
 
-/* 🟣 헤더 바 */
 .header-bar {
-    width: calc(100% - 60px);  /* ✅ 사이드바 제외한 크기 설정 */
-    max-width: 1440px;
+    width: 100%;
     height: 120px;
     background-color: #ede0d4;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 30px;
+    border-radius: 0px 0px 0 0;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
 
-/* 🌙 중앙 브랜드 로고 */
 .brand-title {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 150px; /* 🔹 적절한 너비 설정 */
-    height: 100px; /* 🔹 적절한 높이 설정 */
+    width: 150px;
+    height: 100px;
 }
 
 .brand-title img {
-    width: 100%; /* 🔹 부모 요소에 맞게 조정 */
+    width: 100%;
     height: auto;
-    max-width: 125px; /* 🔹 최대 크기 제한 */
+    max-width: 125px;
 }
 
-/* 🟡 우측 상단 아이콘 */
+
 .header-icons {
-    position: absolute;
-    right: 90px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    position: absolute;
+    right: 100px;
 }
+
+.header-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.header-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.header-btn:hover {
+    transform: scale(1.1);
+}
+
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
 
 /* 프로필 이미지 */
 .myprofile-img {
@@ -146,7 +166,6 @@ body {
 /* 🟡 메인 콘텐츠 */
 .content {
     width: calc(100% - 60px);  /* ✅ sidebar 제외한 크기로 설정 */
-    max-width: 1440px;
     padding: 20px;
     text-align: center;
     font-size: 18px;
@@ -232,47 +251,43 @@ body {
     flex-basis: 65%; /* 🔹 기본 크기 65% */
     background-color: white;
 }
-
-/* 🟣 채팅 컨테이너 */
 .chat-container {
     width: 100%;
-    max-width: 1300px;
-    background-color: #fff3e7;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
     border-radius: 20px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    margin: 0 auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #3f2e29; /* 갈색 배경은 여기에 지정 */
 }
 
-/* 🟡 채팅 박스 */
 .chat-box {
-    width: 99%;
-    height: 750px;
+    flex-grow: 1;
+    height: 550px;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    background-color: #3f2e29;
-    border-radius: 20px;
+    padding: 20px;
+    background-color: transparent; /* 이미 부모가 갈색이니까 투명 처리 */
 }
 
-/* 🟡 채팅 입력창 (상담 시작 전에는 보이지 않도록 설정) */
 .chat-input {
-    display: none; /* ✅ `!important` 제거 */
+    display: none;
+    padding: 10px 20px;
+    background-color: #ede0d4;
+    display: flex;
     align-items: center;
-    width: 99%;
-    padding: 10px;
-    background: #ede0d4;
-    border-top: 1px solid #ede0d4;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    margin-top: -128px;
+    gap: 10px;
+    border-top: 1px solid #c7b4a2;
 }
 
-
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
 
 
 .no-messages {
@@ -302,7 +317,7 @@ body {
 /* 나가기 버튼 */
 #exitButton {
     display: block;
-    margin: 20px auto;
+    margin: auto;
     padding: 10px 20px;
     background-color: #ffd27a;
     cursor: pointer;
@@ -357,27 +372,14 @@ body {
     font-size: 14px;
 }
 
-.chat-input {
-    display: none;
-    align-items: center;
-    width: 98%;
-    padding: 10px;
-    background: #ede0d4;
-    border-top: 1px solid #ede0d4;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    margin-top: -92px;
-    margin-left: 21px;
-}
 
-
-/* 🔹 입력창 내부 스타일 */
 .chat-input input {
-    flex-grow: 1;
+    flex: 1;
     padding: 10px;
-    border: 1px solid #ede0d4;
     border-radius: 20px;
+    border: none;
     outline: none;
+    font-size: 14px;
 }
 
 
