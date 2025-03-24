@@ -1,7 +1,9 @@
 package com.koyoi.main.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,6 +13,7 @@ public class DiaryVO {
     private String user_id;
     private String title;
     private String diary_content;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime created_at;
 
     private String emotion_emoji;

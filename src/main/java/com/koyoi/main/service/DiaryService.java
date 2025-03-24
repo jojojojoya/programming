@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,7 @@ public class DiaryService {
 
     private final DiaryMapper diaryMapper;
     private final EmotionMapper emotionMapper;
+    private final DataSource dataSource;
 
     // 캘린더에 이모지 이벤트 반환
     public List<Map<String, Object>> getDiaryEvents(String userId) {
@@ -41,39 +44,88 @@ public class DiaryService {
 
     // 일기 상세 조회 (diaryId 기준)
     public DiaryVO getDiaryById(int diaryId) {
-        return diaryMapper.getDiaryById(diaryId);
+        DiaryVO diary = diaryMapper.getDiaryById(diaryId);
+
+        System.out.println("[DiaryService] 조회된 DiaryVO: " + diary);
+
+        return diary;
+//        return diaryMapper.getDiaryById(diaryId);
+    }
+
+    // 일기 조회 (날짜기준)
+    public DiaryVO getDiaryByDate(String userId, String date) {
+        return diaryMapper.getDiaryByDate(userId, date);
     }
 
     // 일기 + 감정 등록
     @Transactional
     public void saveDiary(DiaryVO diaryVO) {
+        // 1. 초기값 점검
+        System.out.println("[saveDiary] 받은 diaryVO 값: " + diaryVO);
+
+        if (diaryVO.getUser_id() == null || diaryVO.getUser_id().isEmpty()) {
+            diaryVO.setUser_id("user1"); // 하드코딩 테스트 값
+        }
+
         // 일기 저장
         diaryMapper.addDiary(diaryVO);
+        System.out.println("[saveDiary] 일기 저장 완료");
 
-        // 감정 저장 (일기 저장 후 ID 필요)
+        // diary_id 가져오기 (created_at은 LocalDate → String으로 변환해서 전달)
+        LocalDateTime createdAtStr = diaryVO.getCreated_at();
+
+        Integer diaryId = diaryMapper.findDiaryId(
+                diaryVO.getUser_id(),
+                diaryVO.getTitle(),
+                createdAtStr
+        );
+        System.out.println("[saveDiary] 조회된 diary_id: " + diaryId);
+
+        if (diaryId == null) {
+            throw new IllegalStateException("일기 저장 후 diary_id를 찾을 수 없습니다.");
+        }
+
+        diaryVO.setDiary_id(diaryId);
+
+        // 5. 감정 저장 (일기 저장 후 ID 필요)
         EmotionVO emotionVO = new EmotionVO();
-        emotionVO.setDiary_id(diaryVO.getDiary_id());
+        emotionVO.setDiary_id(diaryId);
         emotionVO.setUser_id(diaryVO.getUser_id());
         emotionVO.setEmotion_emoji(diaryVO.getEmotion_emoji());
         emotionVO.setEmotion_score(0); // 기본 점수는 0 → 나중에 업데이트 가능
-
+        emotionVO.setRecorded_at(diaryVO.getCreated_at());
         emotionMapper.addEmotion(emotionVO);
 
-        System.out.println("[DiaryService] 다이어리 + 감정 등록 완료 - diaryId: " + diaryVO.getDiary_id());
+        System.out.println("[DiaryService] 다이어리 + 감정 등록 완료 - diaryId: " + diaryId);
     }
 
     // 일기 수정 (일기 + 감정 둘 다 수정)
-    public void updateDiary(DiaryVO diaryVO) {
-        // 일기 내용 수정
-        diaryMapper.updateDiary(diaryVO);
+    @Transactional
+    public void updateDiaryAndEmotion(DiaryVO diaryVO) {
+        System.out.println("[updateDiaryAndEmotion] 수정 요청 받은 diaryVO: " + diaryVO);
 
-        // 감정 이모지 수정 (감정 점수는 별도로 관리)
-        emotionMapper.updateEmotion(diaryVO.getDiary_id(), diaryVO.getEmotion_emoji());
+        // 1. 일기 수정
+        int diaryUpdateResult = diaryMapper.updateDiary(diaryVO);
+        if (diaryUpdateResult == 0) {
+            throw new IllegalStateException("일기 수정 실패! diary_id: " + diaryVO.getDiary_id());
+        }
 
-        System.out.println("[DiaryService] 일기 수정 완료 - diaryId: " + diaryVO.getDiary_id());
+        // 2. 감정 이모지 + recorded_at 동시 수정
+        int emotionUpdateResult = emotionMapper.updateEmotionWithDate(
+                diaryVO.getDiary_id(),
+                diaryVO.getEmotion_emoji(),
+                diaryVO.getCreated_at()  // recorded_at으로 사용할 값
+        );
+
+        if (emotionUpdateResult == 0) {
+            throw new IllegalStateException("감정 수정 실패! diary_id: " + diaryVO.getDiary_id());
+        }
+
+        System.out.println("[updateDiaryAndEmotion] 일기 + 감정 수정 완료! diary_id: " + diaryVO.getDiary_id());
     }
 
     // 일기 삭제 (감정 + 일기 순으로 삭제)
+
     public void deleteDiary(int diaryId) {
         // 감정 정보 삭제
         emotionMapper.deleteEmotion(diaryId);
@@ -90,4 +142,5 @@ public class DiaryService {
 
         System.out.println("[DiaryService] 감정 점수 저장 완료 - diaryId: " + diaryId + ", score: " + emotionScore);
     }
+
 }
