@@ -342,14 +342,21 @@ body {
 }
 
 .img-preview {
+    width: 30vw;         /* 뷰포트 기준 너비 */
+    max-width: 200px;    /* 최대 크기 제한 */
+    aspect-ratio: 1 / 1; /* 정사각형 비율 유지 */
+    border: 1px solid #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1vh;
+    overflow: hidden;
+    border-radius: 8px;  /* 둥글게 하고 싶을 경우 */
+    margin: 0 auto;      /* 가운데 정렬 (필요 시) */
 }
 
 .img-preview img {
-    border: 1px solid #ddd;
-    padding: 5px;
-    background-color: #f9f9f9;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
+

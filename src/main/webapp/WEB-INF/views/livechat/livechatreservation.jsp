@@ -1,4 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%  // 세션 체크 추가 부분 시작
+    HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
+    String userId = null;
+
+    if (session1 != null) {
+        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+    }
+
+    if (userId == null) {
+        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
+        return;
+    }
+%>
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -44,7 +59,7 @@
 
             <div class="top-section">
                 <div class="livechat_table">
-                    <div> LIVE CHAT </div>
+                    <div style="color: #D8D2C2; font-size: 20px;"  > 전문가와의 상담 예약을 원하시나요? </div>
                     <div class="livechat_info">
 
                         <div id="livechat_step1" class="show">
@@ -56,6 +71,9 @@
                             <div class="livechat_list"> 해당 일자에 가장 코요이한 시간을 선택해주세요. </div>
                             <select id="livechat_reserve_time" onchange="showNext('step3')">
                                 <option value="">시간 선택</option>
+                                <option value="01:00">01:00</option>
+                                <option value="02:00">02:00</option>
+                                <option value="03:00">03:00</option>
                                 <option value="10:00">10:00</option>
                                 <option value="11:00">11:00</option>
                                 <option value="12:00">12:00</option>
@@ -90,9 +108,12 @@
                         </div>
 
                         <div id="conformation">
-                            <div class="livechat_list"> 해당 문의를 조합해 적합한 상담사님을 배정해드렸어요. </div>
-                            <button id="livechat_exit_btn" onclick="location.href='/usermypage'"> 나가기 </button>
+                            <div id="conformation_text" class="livechat_list" style="display: none;">
+                                해당 문의를 조합해 적합한 상담사님을 배정해드렸어요.
+                            </div>
+                            <button id="livechat_exit_btn" class="hide">나가기</button>
                         </div>
+
 
                     </div>
                 </div>

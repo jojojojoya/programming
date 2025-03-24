@@ -1,11 +1,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%  // 세션 체크 추가 부분 시작
+    HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
+    String userId = null;
+
+    if (session1 != null) {
+        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+    }
+
+    if (userId == null) {
+        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="/static/css/usermypage/usermypage.css">
 </head>
 <body>
@@ -72,7 +89,7 @@
                             </c:forEach>
                         </c:if>
                         <c:if test="${empty chats}">
-                            <div class="chatbot_list"> 챗봇 이용 내역이 없습니다. </div>
+                            <div class="chatbot_list"> 챗봇 이용 내역이 없습니다.</div>
                         </c:if>
                     </div>
                 </div>
@@ -90,48 +107,71 @@
                     <!-- 상담 내역 없는 경우 -->
 
                     <c:if test="${empty reservations}">
-                        <div class="counseling_no_reservation">
-                            <div class="nonreserved_counseling_table">
-                                <!-- 갈색 배경 안에 텍스트 포함 -->
-                                <img src="/static/imgsource/padoo2.png">
+                    <div class="counseling_no_reservation">
+                        <div class="nonreserved_counseling_table">
+                            <!-- 갈색 배경 안에 텍스트 포함 -->
+                            <img src="/static/imgsource/padoo2.png">
 
-                                <div class="nonreserved_counseling_table_comment">
-                                    <div><img style="width: 70px" src="/static/imgsource/shining5.png"></div>
-                                    <p>現在、予定されている相談はありません。<br>お話ししましょうか？</p>
-                                    <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">상담 예약하기</button>
-                                </div>
+                            <div class="nonreserved_counseling_table_comment">
+                                <div><img style="width: 70px" src="/static/imgsource/shining5.png"></div>
+                                <p>現在、予定されている相談はありません。<br>お話ししましょうか？</p>
+                                <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">상담
+                                    예약하기
+                                </button>
                             </div>
                         </div>
+                    </div>
                     </c:if>
 
 
-
-                    <!-- 상담 내역이 있는 경우 -->
                     <c:if test="${not empty reservations}">
-                        <div class="counseling_table">
-                            <div class="reserved_counseling_table_comment">
-                                <ul>📅 予約された相談
-                                    <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">상담 예약하기</button>
-                                </ul>
-                            </div>
+                    <div class="counseling_table">
+                        <div class="reserved_counseling_table_comment">
+                            <div>📅 予約された相談 (대기 건은, 1시간 전 상담 입장가능)</div>
+                            <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">추가상담
+                                예약
+                            </button>
+                        </div>
 
-                            <div class="reservation_slider">
-                                <div class="reservation_list">
-                                    <c:forEach var="reservation" items="${reservations}">
-                                        <div class="reserved_reservation_box">
-                                            <div><strong>[상담일시] </strong></div>${reservation.counseling_date} ${reservation.counseling_time}:00
-                                            <div><strong>[상담 카테고리] </strong></div>${reservation.category}
-                                            <div><strong>[상담사 ID] </strong>${reservation.counselor_id}</div>
-                                            <div><strong>[상담 상태] </strong>${reservation.status}</div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
+                        <div class="reservation_slider">
+                            <div class="reservation_list">
+
+                                <c:forEach var="reservation" items="${reservations}">
+                                    <div class="reserved_reservation_box"
+                                         data-counseling-id="${reservation.counseling_id}"
+                                         data-session-id="${reservation.session_id}"
+                                         data-counseling-date="<fmt:formatDate value='${reservation.counseling_date}' pattern='yyyy-MM-dd'/>"
+                                         data-counseling-time="${reservation.counseling_time}"
+                                         data-status="${reservation.status}">
+
+
+                                        <div><strong>[상담일시] </strong></div>
+                                        <fmt:formatDate value="${reservation.counseling_date}" pattern="yyyy년 MM월 dd일"/>
+                                            ${reservation.counseling_time}시 00분
+
+                                        <div><strong>[상담 카테고리] </strong>${reservation.category}</div>
+                                        <div><strong>[상담사 ID] </strong>${reservation.counselor_id}</div>
+                                        <div class="counseling_status"><strong>[상담 상태] </strong>${reservation.status}</div>
+
+                                        <c:choose>
+                                            <c:when test="${reservation.status eq '대기'}">
+                                                <button type="button" class="enter_counseling_btn">상담 입장하기</button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button type="button" class="view_counseling_btn">상담 내용보기</button>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                    </div>
+                                </c:forEach>
+
+
+
+
+                            </div>
                             </div>
                         </div>
-                    </c:if>
-
-                </div>
-            </div>
+                        </c:if> <!-- ✅ 닫음 -->
         </main>
     </div>
 </div>
@@ -156,7 +196,7 @@
 
 
         <label>새 비밀번호</label>
-        <input type="password" id="editPw" placeholder="새 비밀번호 입력" >
+        <input type="password" id="editPw" placeholder="새 비밀번호 입력">
         <br>
 
         <label>닉네임</label>

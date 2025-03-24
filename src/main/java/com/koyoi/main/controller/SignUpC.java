@@ -1,17 +1,17 @@
 package com.koyoi.main.controller;
 
-import com.koyoi.main.dto.UserDTO;
+import com.koyoi.main.vo.UserVO;
 import com.koyoi.main.service.SignUpService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 public class SignUpC {
@@ -27,17 +27,61 @@ public class SignUpC {
         return "login/signup"; // signup.jsp
     }
 
-    // 회원가입 처리
+    @Autowired
+    private SignUpService signUpService;
+
+
     @PostMapping("/signup")
-    public String signupProcess(@ModelAttribute UserDTO userDTO, Model model) {
+    public String signup(@RequestParam("user_id") String userId,
+                         @RequestParam("user_pw") String userPw,
+                         @RequestParam("user_name") String userName,
+                         @RequestParam("user_nickname") String userNickname,
+                         @RequestParam("user_email") String userEmail,
+                         @RequestParam("user_img") MultipartFile userImg,
+                         HttpSession session) {
 
-        boolean isSuccess = signupService.registerUser(userDTO);
+        Logger log = LoggerFactory.getLogger(this.getClass());
 
-        if (isSuccess) {
-            return "redirect:/login";
-        } else {
-            model.addAttribute("signupFailed", "Signup failed. Try again.");
-            return "login/signup";
+        // 진입 시점 로그
+        log.info("[SignUpC] 회원가입 요청 시작");
+        log.debug("user_id={}, user_name={}, user_nickname={}, user_email={}", userId, userName, userNickname, userEmail);
+
+        // UserVO 생성 후 확인
+        UserVO user = new UserVO();
+        user.setUserId(userId);
+        user.setUserName(userName);
+        user.setUserNickname(userNickname);
+        user.setUserEmail(userEmail);
+        user.setUserPassword(userPw); // 암호화는 서비스에서 처리
+        user.setUserType(2); // 일반 유저 기본값
+
+        System.out.println("logtest: " + userId);
+
+        log.debug("[SignUpC] UserVO 생성 완료: {}", user);
+
+        boolean result = false;
+
+        try {
+            result = signUpService.registerUser(user, userImg);
+
+            if (result) {
+                log.info("[SignUpC] 회원가입 성공 - userId: {}", userId);
+
+                // 세션 처리 로그
+                session.setAttribute("loginId", userId);
+                log.debug("[SignUpC] 세션 저장 완료 - loginId: {}", userId);
+
+                return "redirect:/login";
+            } else {
+                log.warn("[SignUpC] 회원가입 실패 - userId: {}", userId);
+                return "redirect:/signup?error=fail"; // 실패 시 에러 메시지 전달
+            }
+
+        } catch (Exception e) {
+            log.error("[SignUpC] 회원가입 중 예외 발생", e);
+            return "redirect:/signup?error=exception";
+        } finally {
+            log.info("[SignUpC] 회원가입 요청 종료 - userId: {}", userId);
         }
     }
 
@@ -79,7 +123,5 @@ public class SignUpC {
 
         return response;
     }
-
-
 
 }

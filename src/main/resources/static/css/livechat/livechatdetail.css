@@ -1,5 +1,4 @@
 
-
 /* 전체 배경 */
 body {
     font-family: 'Noto Sans JP', sans-serif;
@@ -88,11 +87,11 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-        width: calc(100% - 60px);  /* ✅ 전체 컨테이너에서 sidebar(60px)만큼 제외 */
-        display: flex;
-        flex-direction: column;
-        align-items: center;  /* 내부 요소 중앙 정렬 */
-    }
+    width: calc(100% - 60px);  /* ✅ 전체 컨테이너에서 sidebar(60px)만큼 제외 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* 내부 요소 중앙 정렬 */
+}
 
 
 /* 🟣 헤더 바 */
@@ -234,168 +233,163 @@ body {
     background-color: white;
 }
 
-.livechat_table {
+/* 🟣 채팅 컨테이너 */
+.chat-container {
     width: 100%;
-    max-width: 1400px;
-    padding: 32px;
-    height: 458px;
-    background-color: #3f2e29;
-    text-align: center;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.livechat_info {
-    margin-top: 30px;
-}
-
-
-#livechat_reserve_btn {
-    padding: 10px 15px;
-    background-color: #ffd27a;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-
-}
-
-
-.livechat_detail_table {
-    flex-grow: 3; /* 🔹 상대적으로 큰 크기 */
-    flex-basis: 60%;
-    background-color: #ede0d4;
-    height: 100%; /* 🔹 부모 높이에 맞춤 */
-}
-
-
-.livechat_list {
-    border: none;
-    background-color: #f5f0ea;
-    margin: 10px;
-    border-radius: 10px;
-    height: 35px;
-    text-align: center;
-    align-content: center;
-}
-
-
-
-
-#conformation.show {
-    display: flex !important; /* ✅ 강제 표시 */
-    opacity: 1;
-    visibility: visible;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ✅ livechat 단계별 컨트롤 - 중복 제거 */
-#livechat_step1, #step2, #step3, #reserveSection{
-    display: none;  /* 기본적으로 숨김 */
-    opacity: 0;
-    transition: opacity 0.6s ease-in-out;
-    width: 100%;
-}
-
-/* ✅ 활성화될 때 자연스럽게 나타나도록 설정 */
-#livechat_step1.show, #step2.show, #step3.show, #reserveSection.show {
-    display: block;
-    opacity: 1;
-}
-
-
-
-/* ✅ input 및 select 스타일 */
-#livechat_reserve_date, #livechat_reserve_time, #livechat_reserve_category {
-    border: none;
-    background-color: #ffffff;
-    border-radius: 10px;
-    height: 31px;
-    width: 200px;
-    text-align: center;
-    font-size: 17px;
-}
-
-
-
-
-
-
-/* ✅ 예약하기 버튼과 상담사 멘트, 나가기 버튼 위치 동일하게 정렬 */
-#reserveSection, #conformation {
+    max-width: 1300px;
+    background-color: #fff3e7;
+    border-radius: 20px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 중앙 정렬 */
-    justify-content: center; /* 세로 중앙 정렬 */
-    width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ✅ 예약하기 버튼과 동일한 스타일 적용 */
-#livechat_reserve_btn {
+/* 🟡 채팅 박스 */
+.chat-box {
+    width: 99%;
+    height: 750px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #3f2e29;
+    border-radius: 20px;
+}
+
+/* 🟡 채팅 입력창 (상담 시작 전에는 보이지 않도록 설정) */
+.chat-input {
+    display: none; /* ✅ `!important` 제거 */
+    align-items: center;
+    width: 99%;
+    padding: 10px;
+    background: #ede0d4;
+    border-top: 1px solid #ede0d4;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-top: -128px;
+}
+
+
+
+
+.no-messages {
+    color: #FFD27A; /* 원하는 색상 코드로 변경 */
+    font-size: 16px;  /* 글자 크기 */
+    font-weight: bold; /* 글자 굵기 */
+    text-align: center; /* 가운데 정렬 */
+    margin-top: 20px;
+}
+/* 상담 시작 버튼 */
+/* 상담 시작 버튼 */
+#enterButton {
+    display: block; /* 🔥 강제 표시 */
+    margin: 20px auto;
     padding: 10px 15px;
-    background-color: #ffd27a; /* 예약하기 버튼과 동일한 색상 */
+    background-color: #3f2e29;
+    color: #ffd27a;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
-    margin-top: 19px;
-    width: 200px; /* 동일한 크기 유지 */
     text-align: center;
-    font-weight: bold;
-    transition: background-color 0.3s ease-in-out;
+    width: 150px;
 }
 
-/* ✅ 버튼 호버 효과 (예약 버튼과 동일하게) */
-#livechat_reserve_btn:hover, #livechat_exit_btn:hover {
-    background-color: #ffcc66; /* 살짝 어두운 색으로 변경 */
-}
 
-/* ✅ 상담사 배정 멘트 위치 조정 */
-#conformation_text {
-    display: none;
-    text-align: center;
-    font-size: 17px;
-    color: #3f2e29;
-    background-color: #fdf8f2;
-    padding: 1px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    padding-left: 360px;
-    padding-right: 360px;
-}
-
-/* ✅ 상담사 멘트가 나타날 때 효과 */
-#conformation_text.show {
-    display: block !important;
-    opacity: 1;
-    visibility: visible;
-    position: relative;
-    z-index: 10;
-}
-
-/* ✅ 나가기 버튼 숨김 → 상담사 배정 후 보이게 */
-#livechat_exit_btn {
-    display: block; /* ✅ 버튼을 보이게 설정 */
-    opacity: 0; /* 처음에는 보이지 않도록 설정 */
-    transition: opacity 0.3s ease-in-out;
-    padding: 10px 15px;
-    background-color: #ffd27a; /* 예약하기 버튼과 동일한 색상 */
-    border: none;
-    border-radius: 6px;
+/* 나가기 버튼 */
+#exitButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #ffd27a;
     cursor: pointer;
-    font-size: 12px;
-    margin-top: 2px;
-    width: 200px; /* 동일한 크기 유지 */
+    font-size: 14px;
+    color: #3f2e29;
+    transition: background-color 0.2s;
+    border-radius: 6px;
+    border: none;
     text-align: center;
+}
+/* 🔹 전송 버튼 스타일 */
+.chat-input button {
+    margin-left: 10px;
+    padding: 8px 15px;
+    background-color: #ffd27a;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
     font-weight: bold;
 }
 
-/* ✅ 상담사 배정 후 나가기 버튼이 나타나는 효과 */
-#livechat_exit_btn.show {
-    display: block !important;
-    opacity: 1;
-    visibility: visible;
-    position: relative;
-    z-index: 10;
+.chat-input button:hover {
+    background-color: #ffcc66;
+}
+
+
+/* 🔵 채팅 메시지 */
+.user-msg {
+    align-self: flex-end;
+    background-color: #ede0d4;
+    color: #3f2e29;
+    border-radius: 15px 15px 0 15px;
+    padding: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-align: right;
+}
+
+
+
+.chat-message {
+    align-self: flex-end;
+    background-color: #ede0d4;
+    color: #3f2e29;
+    border-radius: 15px 15px 0 15px;
+    padding: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.chat-input {
+    display: none;
+    align-items: center;
+    width: 98%;
+    padding: 10px;
+    background: #ede0d4;
+    border-top: 1px solid #ede0d4;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-top: -92px;
+    margin-left: 21px;
+}
+
+
+/* 🔹 입력창 내부 스타일 */
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ede0d4;
+    border-radius: 20px;
+    outline: none;
+}
+
+
+.counselor-msg{
+    align-self: flex-start;
+    background-color: #ede0d4;
+    color: #3f2e29;
+    border-radius: 15px 15px 15px 0px;
+    padding: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-align: left;
 }
