@@ -180,7 +180,7 @@ body {
     margin-bottom: 20px;
 }
 
-.user-board {
+.notice-board {
     width: 100%;
     background: linear-gradient(145deg, #fefaf6, #f2e9e4);
     border-radius: 12px;
@@ -191,7 +191,7 @@ body {
     overflow: hidden;
 }
 
-.user-board-header {
+.notice-board-header {
     display: flex;
     background-color: #EDE0D4;
     font-weight: bold;
@@ -200,7 +200,7 @@ body {
     color: #4e342e;
 }
 
-.user-row {
+.notice-row {
     display: flex;
     padding: 14px 10px;
     align-items: center;
@@ -208,7 +208,7 @@ body {
     transition: background 0.2s;
 }
 
-.user-row:hover {
+.notice-row:hover {
     background-color: #f9f5f2;
     cursor: pointer;
 }
@@ -222,64 +222,13 @@ body {
 }
 
 .col-num     { flex: 0 0 50px; max-width: 50px; }
-.col-id      { flex: 1.2; }
-.col-name    { flex: 1.2; }
-.col-nickname{ flex: 1.2; }
-
-.col-email   { flex: 2; }
-.col-date    { flex: 2; }
+.col-title      { flex: 2; }
+.col-id    { flex: 1; }
+.col-created   { flex: 1; }
 
 /* 마지막 행 구분선 제거 */
-.user-board .user-row:last-child {
+.notice-board .notice-row:last-child {
     border-bottom: none;
-}
-
-.user-row:hover {
-    background-color: #f9f9f9;
-    cursor: pointer;
-}
-
-.user-info-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-/* 공지사항 리스트 전체 영역 */
-.announcement-board {
-    width: 100%;
-    background: linear-gradient(145deg, #fefaf6, #f2e9e4);
-    border-radius: 12px;
-    border: 1px solid #e0d8cc;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 30px;
-    font-size: 15px;
-    overflow: hidden;
-}
-
-/* 공지사항 헤더 */
-.announcement-board-header {
-    display: flex;
-    background-color: #EDE0D4;
-    font-weight: bold;
-    padding: 14px 10px;
-    border-bottom: 1px solid #d7ccc8;
-    color: #4e342e;
-}
-
-.col-notice-num { flex: 0 0 50px; max-width: 50px;}
-.col-notice-id { flex: 1 }
-.col-notice-title { flex: 2 }
-.col-notice-created { flex: 1 }
-
-/* 공지사항 행 */
-.notice-row {
-    display: flex;
-    padding: 14px 10px;
-    align-items: center;
-    border-bottom: 1px solid #f0e6de;
-    transition: background 0.2s;
 }
 
 .notice-row:hover {
@@ -287,9 +236,11 @@ body {
     cursor: pointer;
 }
 
-/* 셀 공통 */
-.notice-row .cell {
-    padding: 6px 8px;
+.notice-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 .field {

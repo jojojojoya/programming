@@ -62,11 +62,11 @@
     <div id="notice-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn"> &times; </span>
-            <h3> Notice </h3>
+            <a href="/announcement"> <h3> Notice </h3> </a>
             <ul id="notice-lists">
                 <c:forEach var="announcement" items="${announcements}">
                     <li>
-                        <a href="#">${announcement.title}</a>
+                        <a href="/announcement/view/${announcement.announcement_id}">${announcement.title}</a>
                         <c:if test="${announcement.isNew == 'Y'}">
                         <span class="new-tag"> New </span>
                         </c:if>

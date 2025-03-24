@@ -37,4 +37,8 @@ public class AnnouncementService {
         }
         return announcements;
     }
+
+    public AnnouncementVO getAnnouncementById(int id) {
+        return announcementMapper.getAnnouncementById(id);
+    }
 }

@@ -5,34 +5,60 @@ document.addEventListener("DOMContentLoaded", function () {
     const counselorBtn = document.getElementById("counselor");
     const userTable = document.getElementById("userTable");
     const counselorTable = document.getElementById("counselorTable");
+    const announcementBtn = document.getElementById("announcement");
+    const announcementTable = document.getElementById("announcementTable");
 
     const lastView = sessionStorage.getItem("lastView") || "user";
+    const tableTitle = document.getElementById("table-title");
     const memberTypeLabel = document.getElementById("memberTypeLabel");
 
     if (lastView === "counselor") {
         userTable.style.display = "none";
         counselorTable.style.display = "table";
+        announcementTable.style.display = "none";
+        tableTitle.textContent = "Member List";
         memberTypeLabel.textContent = "Counselors";
-        sessionStorage.setItem("lastView", "user");
+    } else if (lastView === "announcement") {
+        userTable.style.display = "none";
+        counselorTable.style.display = "none";
+        announcementTable.style.display = "table";
+        tableTitle.textContent = "Announcements";
+        memberTypeLabel.textContent = "Announcement List";
     } else {
         userTable.style.display = "table";
         counselorTable.style.display = "none";
+        announcementTable.style.display = "none";
+        tableTitle.textContent = "Member List";
         memberTypeLabel.textContent = "Users";
-        sessionStorage.setItem("lastView", "counselor");
     }
+    sessionStorage.setItem("lastView", lastView);
 
 
     userBtn.addEventListener("click", function () {
         userTable.style.display = "table";
         counselorTable.style.display = "none";
+        announcementTable.style.display = "none";
         memberTypeLabel.textContent = "Users";
+        tableTitle.textContent = "Member List";
+        sessionStorage.setItem("lastView", "user");
     });
 
     counselorBtn.addEventListener("click", function () {
         userTable.style.display = "none";
+        announcementTable.style.display = "none";
         counselorTable.style.display = "table";
         memberTypeLabel.textContent = "Counselors";
+        tableTitle.textContent = "Member List";
+        sessionStorage.setItem("lastView", "counselor");
+    });
 
+    announcementBtn.addEventListener("click", function () {
+        userTable.style.display = "none";
+        counselorTable.style.display = "none";
+        announcementTable.style.display = "table";
+        tableTitle.textContent = "Announcements";
+        memberTypeLabel.textContent = "Announcement List";
+        sessionStorage.setItem("lastView", "announcement");
     });
 
     // 상세 정보 모달
