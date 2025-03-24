@@ -505,5 +505,6 @@ WHERE user_id = 'user5';
 select * from main_user;
 select * from test_user;
 
-delete from MAIN_USER;
 -- main유저 디비지우기
+
+select * from MAIN_CHAT;
