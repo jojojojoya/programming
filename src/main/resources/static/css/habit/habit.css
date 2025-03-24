@@ -347,73 +347,56 @@ body {
     padding-left: 20px;
 }
 
-.habit-calendar {
-    width: 50%;
-    height: 250px;
-    background-color: #3D2C2E;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    overflow: hidden;  /* 내부가 넘어가지 않도록 처리 */
-}
-
+/* 🟦 전체 달력 박스 */
 .calendar {
-    width: 280px; /* 너비 줄이기 */
-    margin: auto;
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px; /* 폰트 크기 줄이기 */
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
+/* 🗓️ 요일 (일~토) 줄 */
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
-    gap: 3px; /* 날짜 간격 줄이기 */
-}
-
-.day-name {
     font-weight: bold;
-    padding: 3px;
-    background: #ddd;
-    border-radius: 3px;
-    font-size: 12px;
+    margin-bottom: 8px;
 }
 
+/* 🗓️ 날짜 셀을 담는 그리드 */
 .calendar-body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 3px; /* 날짜 간격 줄이기 */
+    gap: 4px;
+    min-height: 240px;
 }
 
+/* 🔲 날짜 셀 스타일 */
 .calendar-day {
-    padding: 5px; /* 패딩 줄이기 */
+    padding: 10px;
     text-align: center;
     cursor: pointer;
-    background: #fff;
-    border-radius: 3px;
+    background: #f9f9f9;
+    border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    font-size: 12px; /* 폰트 크기 줄이기 */
+    font-size: 14px;
 }
 
-.calendar-day:hover {
-    background: #28a745;
+/* ✅ 선택한 날짜 */
+.calendar-day.selected {
+    background-color: #007bff;
     color: white;
+    font-weight: bold;
 }
 
-.selected {
-    background: #007bff !important;
-    color: white !important;
+/* 🟢 마우스 오버 */
+.calendar-day:hover {
+    background-color: #28a745;
+    color: white;
 }
 
 
@@ -423,6 +406,7 @@ body {
     height: 200px;
     background-color: #C6F6D5;
     margin-top: 30px;
+    margin-left: 100px;
 }
 
 .habit-parttwo-second {

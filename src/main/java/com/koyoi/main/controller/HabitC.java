@@ -1,6 +1,7 @@
 package com.koyoi.main.controller;
 
 import com.koyoi.main.service.HabitService;
+import com.koyoi.main.vo.HabitTrackingVO;
 import com.koyoi.main.vo.HabitVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -91,37 +92,38 @@ public class HabitC {
 //    }
 //
 
-@PostMapping("/addNewHabit")
-public ResponseEntity<?> addNewHabit(@RequestBody Map<String, String> request) {
-    String habitName = request.get("habit_name");
-    String userId = "user1"; // 테스트용 유저 ID
+//@PostMapping("/addNewHabit")
+//public ResponseEntity<?> addNewHabit(@RequestBody Map<String, String> request) {
+//    String habitName = request.get("habit_name");
+//    String userId = "user1"; // 테스트용 유저 ID
+//
+//    System.out.println("📌 [DEBUG] 받은 habit_name: " + habitName);
+//
+//    // VO 생성 및 세팅
+//    HabitVO habit = new HabitVO();
+//    habit.setHabit_name(habitName);
+//    habit.setUser_id(userId);
+//
+//    try {
+//        habitService.addNewHabit(habit);  // 서비스로 VO 전달
+//        return ResponseEntity.ok(Map.of(
+//                "status", "success",
+//                "message", "습관이 성공적으로 추가되었습니다."
+//        ));
+//    } catch (Exception e) {
+//        e.printStackTrace();
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+//                "status", "error",
+//                "message", "습관 추가 중 오류 발생!"
+//        ));
+//    }
+//}
 
-    System.out.println("📌 [DEBUG] 받은 habit_name: " + habitName);
 
-    // VO 생성 및 세팅
-    HabitVO habit = new HabitVO();
-    habit.setHabit_name(habitName);
-    habit.setUser_id(userId);
-
-    try {
-        habitService.addNewHabit(habit);  // 서비스로 VO 전달
-        return ResponseEntity.ok(Map.of(
-                "status", "success",
-                "message", "습관이 성공적으로 추가되었습니다."
-        ));
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-                "status", "error",
-                "message", "습관 추가 중 오류 발생!"
-        ));
-    }
-}
-
-
-    @DeleteMapping("/habit/delete/{habitId}")
+    @DeleteMapping("/delete/{habitId}")
     @ResponseBody
     public String deleteHabit(@PathVariable int habitId) {
+
         String userId = "user1";  // user_id를 "user1"로 고정
         System.out.println("삭제 요청 - userId: " + userId + ", habitId: " + habitId); // 로깅 추가
 
@@ -134,6 +136,41 @@ public ResponseEntity<?> addNewHabit(@RequestBody Map<String, String> request) {
             return "{\"status\":\"fail\"}";
         }
     }
+
+
+
+
+
+
+
+
+
+    @PostMapping("/addHabitWithTracking")
+    @ResponseBody
+    public ResponseEntity<?> addHabitWithTracking(@RequestBody HabitTrackingVO vo) {
+        System.out.println("📥 받은 VO: " + vo);
+        System.out.println("📌 habit_name: " + vo.getHabit_name());
+        System.out.println("📌 tracking_date: " + vo.getTracking_date());
+        try {
+            // habit_id와 tracking_id 둘 다 생성 및 insert
+            habitService.addHabitWithTracking(vo);
+
+            return ResponseEntity.ok(Map.of(
+                    "status", "success",
+                    "message", "습관 + 추적 정보 등록 성공"
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "status", "error",
+                    "message", "습관 등록 중 오류 발생!"
+            ));
+        }
+    }
+
+
+
+
 
 }
 

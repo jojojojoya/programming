@@ -123,8 +123,10 @@
                                     <div class="day-name">토</div>
                                 </div>
                                 <div id="calendarBody" class="calendar-body"></div>
+                                <div id="selectedDateDisplay" style="margin-top: 10px; font-weight: bold;">
+                                    선택한 날짜: 없음
+                                </div>
                             </div>
-
                         </div>
                         <div class="habit-week">habit-week</div>
                     </div>
@@ -142,9 +144,10 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="/static/js/habit/habit.js"></script>
 <script>
-    function deleteHabit(habitId) {
+    function deleteHabit(habit_id) {
+
         if (confirm("정말로 삭제하시겠습니까?")) {
-            fetch('/habit/delete/' + habitId, {
+            fetch('/habit/delete/' + habit_id, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -153,7 +156,7 @@
                 .then(response => {
                     if (response.ok) {
                         // 성공적으로 삭제되면 해당 항목을 화면에서 제거
-                        document.getElementById('habit-' + habitId).remove();
+                        document.getElementById('habit-' + habit_id).remove();
                     } else {
                         alert('삭제 실패');
                     }
