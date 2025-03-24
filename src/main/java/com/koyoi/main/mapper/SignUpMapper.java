@@ -1,6 +1,6 @@
 package com.koyoi.main.mapper;
 
-import com.koyoi.main.dto.UserDTO;
+import com.koyoi.main.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 public interface SignUpMapper {
 
     // 회원가입
-    int insertUser(UserDTO userDTO);
+    int insertUser(UserVO user);            // 회원가입 처리 (XML 사용)
 
     // XML or Annotation
     @Select("SELECT COUNT(*) FROM TEST_USER WHERE user_id = #{userId}")

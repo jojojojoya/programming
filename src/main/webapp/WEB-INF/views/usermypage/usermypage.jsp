@@ -2,6 +2,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%  // 세션 체크 추가 부분 시작
+    HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
+    String userId = null;
+
+    if (session1 != null) {
+        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+    }
+
+    if (userId == null) {
+        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -29,11 +43,26 @@
     </div>
 
     <!-- 우측 컨텐츠 -->
+<%--    <div class="right-container">--%>
+<%--        <header class="header-bar">--%>
+<%--            <div class="brand-title"><img src="/static/imgsource/logo.png" alt="KOYOI 로고"></div>--%>
+<%--            <div class="header-icons">--%>
+<%--                <img class="myprofile-img" src="${user.user_img}?v=${now}" alt="프로필">--%>
+<%--            </div>--%>
+<%--        </header>--%>
+
+
     <div class="right-container">
         <header class="header-bar">
-            <div class="brand-title"><img src="/static/imgsource/logo.png" alt="KOYOI 로고"></div>
+            <div class="brand-title">
+                <img src="/static/imgsource/logo.png" alt="KOYOI">
+            </div>
+
             <div class="header-icons">
-                <img class="myprofile-img" src="/static/imgsource/testprofile.png" alt="프로필">
+                <button class="header-btn">
+                    <img src="/static/imgsource/logout.png" alt="logout">
+                </button>
+                <img class="myprofile-img" src="${user.user_img}?v=${now}" alt="프로필">
             </div>
         </header>
 
@@ -42,7 +71,8 @@
                 <div class="profile_table">
                     <div class="profile_content">
                         <div class="profile_img">
-                            <img src="/static/${user.user_img}" alt="프로필 이미지">
+                            <img src="${user.user_img}?v=${now}" alt="프로필 이미지">
+
                         </div>
                         <div class="profile_info">
                             <div class="profile_item">
@@ -113,7 +143,7 @@
                     <c:if test="${not empty reservations}">
                     <div class="counseling_table">
                         <div class="reserved_counseling_table_comment">
-                            <div>📅 予約された相談 (대기 건은, 1시간 전 상담 입장가능)</div>
+                            <div>📅 予約された相談 (예약 1시간 전 상담 입장가능)</div>
                             <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">추가상담
                                 예약
                             </button>
@@ -176,6 +206,16 @@
 <div id="profileModal" class="modal" style="display: none;">
     <div class="modal-content">
         <h3>프로필 수정</h3>
+
+        <!-- 기존 프로필 이미지 -->
+        <div class="profile_img">
+            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/static/imgsource/default.png'">
+        </div>
+
+        <label> 사진 선택</label>
+        <input type="file" id="editProfileImg" accept="image/*">
+        <br>
+
         <label>아이디 </label>
         <input type="text" id="editId" readonly>
         <br>

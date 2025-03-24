@@ -114,7 +114,10 @@
                     </div>
                 </form>
             </div>
-
+            <!-- 테스트 버튼 -->
+            <button type="button" onclick="location.href='/test'" style="margin-top: 20px;">
+                컨트롤러 테스트
+            </button>
         </div>
     </main>
 

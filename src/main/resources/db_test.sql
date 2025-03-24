@@ -96,7 +96,8 @@ from TEST_USER;
 select *
 from TEST_LIVE_CHAT;
 select  * from TEST_COUNSELING_SUMMARY;
-
+select *
+from main_LIVE_CHAT;
 SELECT table_name
 FROM all_tables
 WHERE table_name = 'TEST_USER';
@@ -125,7 +126,6 @@ FROM TEST_USER;
 
 -- TEST_HABIT 테이블 데이터 삽입
 INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
-<<<<<<< HEAD
 VALUES (1, 'user1', '운동', SYSDATE);
 select *from TEST_HABIT;
 
@@ -136,12 +136,6 @@ INSERT INTO TEST_HABIT_TRACKING (tracking_id, habit_id, user_id, completed, week
 VALUES (2, 3, 'user1', 0, null, TO_DATE('2025-03-20', 'YYYY-MM-DD'), SYSTIMESTAMP);
 select * from TEST_HABIT_TRACKING;
 
-=======
-VALUES (5, 'user5', '식사', SYSDATE);
-select *
-from TEST_HABIT;
-=======
->>>>>>> baa685546c203fb9cf5796b46b38ce25009a4f1b
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, USER_NICKNAME, user_email, user_password, user_img, created_at)
 VALUES ('admin001', 3, 'admin', 'admin', 'admin001@example.com', 'admin001', '/imgsource/admin001.jpg', SYSDATE);
@@ -362,7 +356,156 @@ SELECT test_live_chat_seq.NEXTVAL FROM dual;
 SELECT SEQUENCE_NAME
 FROM USER_SEQUENCES
 WHERE SEQUENCE_NAME = 'TEST_LIVE_CHAT_SEQ';
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> baa685546c203fb9cf5796b46b38ce25009a4f1b
+
+
+select * from MAIN_USER;
+select * from test_USER;
+
+INSERT INTO MAIN_USER (
+    user_id,
+    user_type,
+    user_name,
+    user_nickname,
+    user_email,
+    user_password,
+    user_img,
+    created_at
+) VALUES (
+             'user5',                            -- user_id
+             2,                                 -- user_type (2 = 일반 유저)
+             '조조양',                            -- user_name
+             '조조테스트걸',                    -- user_nickname
+             'jojo@example.com',               -- user_email
+             'jojo',                            -- user_password (실제로는 암호화 필요!)
+             '/imgsource/usermypage_profiletest.jpg', -- user_img
+             SYSDATE                            -- created_at
+         );
+
+
+
+SELECT * from MAIN_USER;
+
+INSERT INTO MAIN_CHAT (
+    chat_id,
+    user_id,
+    chat_summary
+) VALUES (
+             MAIN_CHAT_SEQ.NEXTVAL,   -- 자동 증가 시퀀스
+             'jojo',
+             '오늘은 스트레스를 많이 받았어요. 일에 대한 고민이 많습니다.'
+         );
+
+INSERT INTO MAIN_USER (
+    user_id,
+    user_type,
+    user_name,
+    user_nickname,
+    user_email,
+    user_password,
+    user_img,
+    created_at
+) VALUES (
+             'user5',                            -- 사용자 ID
+             2,                                  -- 사용자 유형 (2 = 유저)
+             '유저오',                            -- 사용자 이름 (원하는 이름으로 수정 가능)
+             '유저오',                      -- 닉네임 (jojo와 동일하게 테스트용)
+             'user5@example.com',                -- 이메일
+             'user5',                            -- 비밀번호 (암호화 전 예시)
+             '/imgsource/usermypage_profiletest.jpg', -- 이미지 경로
+             SYSDATE                             -- 생성일시
+         );
+
+
+INSERT INTO MAIN_CHAT (
+    chat_id,
+    user_id,
+    chat_summary
+) VALUES (
+             MAIN_CHAT_SEQ.NEXTVAL,         -- chat_id 자동 증가
+             'user5',                       -- user_id
+             '오늘은 기분이 좋아서 산책을 다녀왔어요. 챗봇과의 대화도 즐거웠어요.' -- 요약 내용
+         );
+
+INSERT INTO MAIN_USER (user_id, user_type, user_name, user_nickname, user_email, user_password, user_img)
+VALUES ('counselor001', 1, '상담사', '상담선생님', 'counselor001@example.com', 'test1234', '/imgsource/usermypage_profiletest.jpg');
+SELECT * FROM MAIN_USER WHERE user_id = 'user5';
+SELECT * FROM MAIN_USER WHERE user_id = 'counselor001';
+SELECT LENGTH(user_id), user_id FROM MAIN_USER WHERE user_id = 'user5';
+COMMIT;
+
+SELECT * FROM MAIN_COUNSELING_RESERVATION WHERE user_id NOT IN (SELECT user_id FROM MAIN_USER);
+UPDATE MAIN_USER
+SET user_id = TRIM(user_id);
+COMMIT;
+SELECT * FROM USER_CONSTRAINTS
+WHERE TABLE_NAME = 'MAIN_COUNSELING_RESERVATION'
+  AND CONSTRAINT_NAME = 'FK_CR_USER';
+
+SELECT user_id, LENGTH(user_id) FROM MAIN_USER WHERE user_id = 'counselor001';
+SELECT user_id, LENGTH(user_id) FROM MAIN_USER WHERE user_id = 'user5';
+-- 지금 상태 확인
+SELECT user_id FROM MAIN_USER;
+
+-- 없다면 삽입
+INSERT INTO MAIN_USER (
+    user_id, user_type, user_name, user_nickname, user_email, user_password
+) VALUES (
+             'user5', 2, '테스트유저', '유저5', 'user5@example.com', '1234'
+         );
+COMMIT;
+SELECT user_id, LENGTH(user_id) FROM MAIN_USER WHERE user_id LIKE '%user%';
+
+SELECT column_name, data_type, data_length
+FROM all_tab_columns
+WHERE table_name = 'MAIN_USER' AND column_name = 'USER_ID';
+SELECT user_id, LENGTH(user_id), DUMP(user_id)
+FROM MAIN_USER
+WHERE user_id = 'user5';
+SELECT * FROM MAIN_USER WHERE user_id IN ('user5', 'counselor001');
+
+
+-- 혹시 'user5' 비슷한 게 있으면 먼저 삭제
+DELETE FROM MAIN_USER WHERE TRIM(user_id) = 'user5';
+COMMIT;
+
+-- 다시 정확히 삽입
+INSERT INTO MAIN_USER (
+    user_id,
+    user_type,
+    user_name,
+    user_nickname,
+    user_email,
+    user_password,
+    user_img,
+    created_at
+) VALUES (
+             'user5',
+             2,
+             '테스트유저',
+             '테스트닉네임',
+             'user5@example.com',
+             'user5',
+             '/imgsource/usermypage_profiletest.jpg',
+             SYSDATE
+         );
+COMMIT;
+
+-- 삽입 후 다시 확인
+SELECT user_id, LENGTH(user_id), DUMP(user_id)
+FROM MAIN_USER
+WHERE user_id = 'user5';
+
+select * from main_user;
+select * from test_user;
+
+-- main유저 디비지우기
+
+select * from MAIN_CHAT;
+>>>>>>> 347ee61b112b82c88362b58b57976149dd8e9ff3
