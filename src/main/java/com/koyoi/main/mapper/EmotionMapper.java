@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper
 public interface EmotionMapper {
     // 감정 데이터 등록 (emotion_emoji 포함)
-    @Insert("INSERT INTO TEST_EMOTION (emotion_id, user_id, diary_id, emotion_emoji, emotion_score, recorded_at) " +
-            "VALUES (TEST_EMOTION_SEQ.NEXTVAL, #{user_id}, #{diary_id}, #{emotion_emoji}, #{emotion_score}, #{recorded_at})")
+    @Insert("INSERT INTO TEST_EMOTION (user_id, diary_id, emotion_emoji, emotion_score, recorded_at) " +
+            "VALUES (#{user_id}, #{diary_id}, #{emotion_emoji}, #{emotion_score}, #{recorded_at})")
     int addEmotion(EmotionVO emotionVO);
 
     // 감정 이모지와 recorded_at 동시 수정
