@@ -55,7 +55,13 @@ public class SignUpC {
         user.setUserPassword(userPw); // 암호화는 서비스에서 처리
         user.setUserType(2); // 일반 유저 기본값
 
-        System.out.println("logtest: " + userId);
+        // 추후 삭제 디버깅용
+        System.out.println("login info : " + userId);
+        System.out.println("login info : " + userName);
+        System.out.println("login info : " + userNickname);
+        System.out.println("login info : " + userEmail);
+        System.out.println("login info : " + userPw);
+        System.out.println("login info : " + userId);
 
         log.debug("[SignUpC] UserVO 생성 완료: {}", user);
 
@@ -104,9 +110,9 @@ public class SignUpC {
                 exists = signupService.isUserIdDuplicate(value);
                 System.out.println("[SignUpC/checkDuplicate] ID 중복 여부: " + exists);
                 break;
-            case "name":
-                exists = signupService.isUserNameDuplicate(value);
-                System.out.println("[SignUpC/checkDuplicate] NAME 중복 여부: " + exists);
+            case "email":
+                exists = signupService.isUserEMailDuplicate(value);
+                System.out.println("[SignUpC/checkDuplicate] EMAIL 중복 여부: " + exists);
                 break;
             case "nickname":
                 exists = signupService.isUserNicknameDuplicate(value);
