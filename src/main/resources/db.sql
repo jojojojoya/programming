@@ -10,7 +10,6 @@ DROP TRIGGER MAIN_LIVE_CHAT_TRG;
 DROP TRIGGER MAIN_COUNSELING_RES_TRG;
 DROP TRIGGER MAIN_ANNOUNCEMENT_TRG;
 DROP TRIGGER MAIN_QUOTE_TRG;
-DROP TRIGGER MAIN_HABIT_TRG;
 DROP TRIGGER MAIN_HABIT_TRACKING_TRG;
 
 DROP TRIGGER TEST_DIARY_TRG;
@@ -20,7 +19,6 @@ DROP TRIGGER TEST_LIVE_CHAT_TRG;
 DROP TRIGGER TEST_COUNSELING_RES_TRG;
 DROP TRIGGER TEST_ANNOUNCEMENT_TRG;
 DROP TRIGGER TEST_QUOTE_TRG;
-DROP TRIGGER TEST_HABIT_TRG;
 DROP TRIGGER TEST_HABIT_TRACKING_TRG;
 
 -- Drop Sequences
@@ -118,6 +116,7 @@ CREATE TABLE MAIN_CHAT
     chat_id      NUMBER PRIMARY KEY,                                             -- 챗봇 대화 고유 ID
     user_id      VARCHAR2(50) NOT NULL,                                          -- 대화한 사용자 ID
     chat_summary CLOB         NOT NULL,                                          -- 대화 요약 내용 (전체 내용 저장 가능)
+    create_at TIMESTAMP DEFAULT SYSDATE NOT NULL,                                -- 대화 일시
     CONSTRAINT fk_chat_user FOREIGN KEY (user_id) REFERENCES MAIN_USER (user_id) -- 사용자 외래키
 );
 
@@ -135,8 +134,6 @@ CREATE TABLE MAIN_LIVE_CHAT
     CONSTRAINT fk_live_chat_counselors FOREIGN KEY (counselor_id) REFERENCES test_USER (user_id), -- 상담사 외래키
     CONSTRAINT fk_live_chat_counselings FOREIGN KEY (counseling_id) REFERENCES TEST_COUNSELING_RESERVATION (COUNSELING_ID) -- 상담사 외래키
 );
-
-
 
 
 -- 예약된 상담 내역 저장 테이블
@@ -236,46 +233,77 @@ CREATE TABLE TEST_USER AS
 SELECT *
 FROM MAIN_USER
 WHERE 1 = 2;
+
 CREATE TABLE TEST_DIARY AS
 SELECT *
 FROM MAIN_DIARY
 WHERE 1 = 2;
+
 CREATE TABLE TEST_EMOTION AS
 SELECT *
 FROM MAIN_EMOTION
 WHERE 1 = 2;
+
 CREATE TABLE TEST_CHAT AS
 SELECT *
 FROM MAIN_CHAT
 WHERE 1 = 2;
+
 CREATE TABLE TEST_LIVE_CHAT AS
 SELECT *
 FROM MAIN_LIVE_CHAT
 WHERE 1 = 2;
+
 CREATE TABLE TEST_COUNSELING_RESERVATION AS
 SELECT *
 FROM MAIN_COUNSELING_RESERVATION
 WHERE 1 = 2;
+
 CREATE TABLE TEST_COUNSELING_CONTENT AS
 SELECT *
 FROM MAIN_COUNSELING_CONTENT
 WHERE 1 = 2;
+
 CREATE TABLE TEST_ANNOUNCEMENT AS
 SELECT *
 FROM MAIN_ANNOUNCEMENT
 WHERE 1 = 2;
+
 CREATE TABLE TEST_QUOTE AS
 SELECT *
 FROM MAIN_QUOTE
 WHERE 1 = 2;
-CREATE TABLE TEST_HABIT AS
-SELECT *
-FROM MAIN_HABIT
-WHERE 1 = 2;
-CREATE TABLE TEST_HABIT_TRACKING AS
-SELECT *
-FROM MAIN_HABIT_TRACKING
-WHERE 1 = 2;
+
+-- 습관 관리 테이블 (MAIN_HABIT)
+CREATE TABLE TEST_HABIT
+(
+    habit_id   NUMBER PRIMARY KEY,                                                -- 습관 고유 ID
+    user_id    VARCHAR2(50)              NOT NULL,                                -- 습관을 등록한 사용자 ID
+    habit_name VARCHAR2(100)             NOT NULL,                                -- 습관 이름 (예: 아침 운동)
+    created_at TIMESTAMP DEFAULT SYSDATE NOT NULL,                                -- 습관 생성일시
+    CONSTRAINT fk_test_habit_user FOREIGN KEY (user_id) REFERENCES TEST_USER (user_id) -- 사용자 외래키
+);
+
+-- 습관 추적 기록 테이블 (MAIN_HABIT_TRACKING)
+CREATE TABLE TEST_HABIT_TRACKING (
+                                     tracking_id NUMBER PRIMARY KEY,                                     -- 습관 추적 고유 ID (기본키)
+                                     habit_id NUMBER NOT NULL,                                           -- 추적 대상 습관 ID (외래키)
+                                     user_id VARCHAR2(50) NOT NULL,                                      -- 습관을 추적한 사용자 ID (외래키) - 길이 50으로 수정
+                                     completed NUMBER(1) DEFAULT 0,                                      -- 완료 플래그 (0=미완료, 1=완료)
+                                     weekly_feedback CLOB,                                               -- 주간 피드백 (긴 내용 가능)
+                                     tracking_date DATE NOT NULL,                                        -- 습관 수행 일자 (기존 date 컬럼 → tracking_date로 변경)
+                                     created_at TIMESTAMP DEFAULT SYSDATE NOT NULL,                      -- 기록일시 (기본값: 현재 시간)
+
+                                     CONSTRAINT fk_test_tracking_habit FOREIGN KEY (habit_id)
+                                         REFERENCES TEST_HABIT(habit_id)
+                                             ON DELETE CASCADE,                                              -- 습관 삭제 시 자동으로 추적 데이터 삭제
+
+                                     CONSTRAINT fk_test_tracking_user FOREIGN KEY (user_id)
+                                         REFERENCES TEST_USER(user_id)
+                                             ON DELETE CASCADE                                               -- 사용자 삭제 시 자동으로 추적 데이터 삭제
+);
+
+
 
 
 -- ==========================================
@@ -363,14 +391,14 @@ END;
 /
 
 CREATE SEQUENCE MAIN_HABIT_SEQ START WITH 1 INCREMENT BY 1;
-CREATE OR REPLACE TRIGGER MAIN_HABIT_TRG
-    BEFORE INSERT
-    ON MAIN_HABIT
-    FOR EACH ROW
-BEGIN
-    SELECT MAIN_HABIT_SEQ.NEXTVAL INTO :NEW.habit_id FROM DUAL;
-END;
-/
+-- CREATE OR REPLACE TRIGGER MAIN_HABIT_TRG
+--     BEFORE INSERT
+--     ON MAIN_HABIT
+--     FOR EACH ROW
+-- BEGIN
+--     SELECT MAIN_HABIT_SEQ.NEXTVAL INTO :NEW.habit_id FROM DUAL;
+-- END;
+-- /
 
 CREATE SEQUENCE MAIN_HABIT_TRACKING_SEQ START WITH 1 INCREMENT BY 1;
 CREATE OR REPLACE TRIGGER MAIN_HABIT_TRACKING_TRG
@@ -472,14 +500,14 @@ END;
 /
 
 CREATE SEQUENCE TEST_HABIT_SEQ START WITH 1 INCREMENT BY 1;
-CREATE OR REPLACE TRIGGER TEST_HABIT_TRG
-    BEFORE INSERT
-    ON TEST_HABIT
-    FOR EACH ROW
-BEGIN
-    SELECT TEST_HABIT_SEQ.NEXTVAL INTO :NEW.habit_id FROM DUAL;
-END;
-/
+-- CREATE OR REPLACE TRIGGER TEST_HABIT_TRG
+--     BEFORE INSERT
+--     ON TEST_HABIT
+--     FOR EACH ROW
+-- BEGIN
+--     SELECT TEST_HABIT_SEQ.NEXTVAL INTO :NEW.habit_id FROM DUAL;
+-- END;
+-- /
 
 CREATE SEQUENCE TEST_HABIT_TRACKING_SEQ START WITH 1 INCREMENT BY 1;
 CREATE OR REPLACE TRIGGER TEST_HABIT_TRACKING_TRG
@@ -564,3 +592,38 @@ ALTER TABLE TEST_DIARY
 SELECT *
 FROM TEST_COUNSELING_RESERVATION
 WHERE counseling_id = 366;
+
+
+ALTER TABLE MAIN_CHAT ADD (create_at DATE DEFAULT SYSDATE);
+ALTER TABLE TEST_CHAT ADD (create_at DATE DEFAULT SYSDATE);
+
+
+
+
+SELECT constraint_name, constraint_type, table_name
+FROM user_constraints
+WHERE table_name IN ('TEST_DIDARY', 'TEST_EMOTION');
+
+SELECT MAIN_HABIT_SEQ.NEXTVAL FROM DUAL;
+SELECT MAIN_HABIT_SEQ.CURRVAL FROM DUAL;
+
+INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
+VALUES (MAIN_HABIT_SEQ.NEXTVAL, 'user001', '아침 운동', SYSDATE);
+
+select * from TEST_HABIT_TRACKING;
+
+SELECT constraint_name, delete_rule
+FROM user_constraints
+WHERE table_name = 'TEST_HABIT_TRACKING'
+  AND constraint_type = 'R';
+
+ALTER TABLE TEST_HABIT_TRACKING
+    ADD CONSTRAINT fk_tracking_habit
+        FOREIGN KEY (habit_id)
+            REFERENCES TEST_HABIT(habit_id)
+                ON DELETE CASCADE;
+
+
+
+DELETE FROM TEST_HABIT_TRACKING
+WHERE  tracking_id = 3;

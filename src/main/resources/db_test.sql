@@ -125,7 +125,6 @@ FROM TEST_USER;
 
 -- TEST_HABIT 테이블 데이터 삽입
 INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
-<<<<<<< HEAD
 VALUES (1, 'user1', '운동', SYSDATE);
 select *from TEST_HABIT;
 
