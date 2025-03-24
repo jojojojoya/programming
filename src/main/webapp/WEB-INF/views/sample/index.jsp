@@ -14,21 +14,21 @@
 <div class="container">
     <header class="header-bar">
         <h1 class="logo">
-            <img class="logo-icon" src="/static/imgsource/logo.png" alt="로고 아이콘">
+            <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="로고 아이콘">
 
         </h1>
         <!-- 우측 상단 헤더 아이콘 컨테이너 -->
         <div class="header-icons">
             <button class="header-btn">
-                <img src="/static/imgsource/chat.png" alt="채팅">
+                <img src="/static/imgsource/layout/chat.png" alt="채팅">
             </button>
             <button class="header-btn">
-                <img src="/static/imgsource/settingss.png" alt="설정">
+                <img src="/static/imgsource/layout/settingss.png" alt="설정">
             </button>
             <button class="header-btn">
-                <img src="/static/imgsource/logout.png" alt="로그아웃">
+                <img src="/static/imgsource/layout/logout.png" alt="로그아웃">
             </button>
-            <img class="profile-img" src="/static/imgsource/testprofile.png" alt="프로필">
+            <img class="profile-img" src="/static/imgsource/layout/testprofile.png" alt="프로필">
         </div>
 
     </header>
@@ -39,7 +39,7 @@
         <p>메인 콘텐츠 영역</p>
     </main>
     <div class="bbiyak">
-        <img src="/static/imgsource/bbiyak.png">
+        <img src="/static/imgsource/layout/bbiyak.png">
     </div>
     <!-- 파도 추가 -->
     <div class="wave-container"></div>

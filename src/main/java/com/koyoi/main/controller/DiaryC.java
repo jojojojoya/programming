@@ -65,19 +65,14 @@ public class DiaryC {
 
         if (selectedDate == null) {
             selectedDate = LocalDateTime.now();
-            System.out.println("❌ 세션에 selectedDate 없음 → 오늘 날짜로 기본값 설정: " + selectedDate);
         } else {
-            System.out.println("✅ 세션에서 꺼낸 selectedDate: " + selectedDate);
         }
 
         DiaryVO diary = diaryService.getDiaryByDate(userId, selectedDate);
-
         String selectedDateStr = selectedDate.toLocalDate().toString();
-        System.out.println("✅ 프론트로 내려줄 selectedDate: " + selectedDateStr);
 
         model.addAttribute("selectedDiary", diary);
         model.addAttribute("selectedDate", selectedDateStr);
-
         model.addAttribute("diaryContent", "diary/diary.jsp");
 
         return "finalindex";
