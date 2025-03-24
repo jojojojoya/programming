@@ -78,8 +78,9 @@ public class DiaryC {
         model.addAttribute("selectedDiary", diary);
         model.addAttribute("selectedDate", selectedDateStr);
 
+        model.addAttribute("diaryContent", "diary/diary.jsp");
 
-        return "diary/diary";
+        return "finalindex";
     }
 
     /* 캘린더 이모지 이벤트 조회 */
