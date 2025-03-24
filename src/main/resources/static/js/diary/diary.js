@@ -7,14 +7,12 @@ let selectedDate = null;
 
 
 // 유틸 함수
-/* 미래 날짜 여부 확인
- * @param {string} dateStr - YYYY-MM-DD 형식의 날짜 문자열
- * @returns {boolean} 미래 날짜이면 true 반환 */
+/* 미래 날짜 여부 확인 */
 function isFutureDate(dateStr) {
     const today = new Date();
-    const targetDate = new Date(dateStr);
+    const targetDate = new Date(dateStr);   // @param {string} dateStr - YYYY-MM-DD 형식의 날짜 문자열
 
-    return targetDate > today; // 미래 날짜면 true
+    return targetDate > today; // @returns {boolean} 미래 날짜이면 true 반환
 }
 
 /* 이모지 선택 초기화 함수
@@ -23,10 +21,6 @@ function isFutureDate(dateStr) {
  * @param {boolean} isEditable - 수정 가능 여부 (true: pointer / false: default) */
 /* 이모지 선택 초기화 */
 function resetEmojiSelection(sectionId, emoji, isEditable = true) {
-    console.log("✅ resetEmojiSelection 호출됨!");
-    console.log("sectionId:", sectionId);
-    console.log("emoji:", emoji);
-
     document.querySelectorAll(`#${sectionId} .emoji-option`).forEach(option => {
         option.classList.remove("selected");
         option.style.cursor = isEditable ? "pointer" : "default";
@@ -38,10 +32,20 @@ function resetEmojiSelection(sectionId, emoji, isEditable = true) {
 
     if (emojiElement) {
         emojiElement.classList.add("selected");
-        console.log(`✅ ${prefix}-${emoji} 하이라이트 완료`);
     } else {
         console.warn(`❗ ${prefix}-${emoji} 요소를 찾을 수 없습니다!`);
     }
+}
+
+/* 작성 폼 초기화 함수 */
+function resetDiaryForm() {
+    // 제목 초기화
+    document.getElementById("diaryTitle").value = "";
+    // 내용 초기화
+    document.getElementById("diaryContent").value = "";
+    // 이모지 초기화
+    selectedEmoji = "🙂";
+    resetEmojiSelection("diaryWriteSection", selectedEmoji);
 }
 
 
@@ -50,20 +54,18 @@ function resetEmojiSelection(sectionId, emoji, isEditable = true) {
 document.addEventListener('DOMContentLoaded', function() {
     const today = new Date().toISOString().slice(0, 10);
     // 여기부터 서버 세션 사용하면 필요 x
-    const storedDate = sessionStorage.getItem("selectedDate");
-    console.log("✅ storedDate:", storedDate);  // 테스트용 로그
-
-    selectedDate = storedDate || today;
-    console.log("✅ 초기 selectedDate:", selectedDate);
-
-    if (storedDate) {
-        sessionStorage.removeItem("selectedDate");  // 한 번 쓰고 초기화
-    }
-
-    // // 서버에서 내려준 selectedDate가 존재하면 사용 (JSP에서 넘긴 값)
-    // selectedDate = (typeof selectedDate !== "undefined" && selectedDate) ? selectedDate : today;
+    // const storedDate = sessionStorage.getItem("selectedDate");
     //
-    // console.log("✅ 초기 selectedDate:", selectedDate);
+    // selectedDate = storedDate || today;
+    //
+    // if (storedDate) {
+    //     sessionStorage.removeItem("selectedDate");  // 한 번 쓰고 초기화
+    // }
+
+    // 서버에서 내려준 selectedDate가 존재하면 사용 (JSP에서 넘긴 값)
+    selectedDate = (typeof selectedDate !== "undefined" && selectedDate) ? selectedDate : today;
+
+    console.log("✅ 초기 selectedDate:", selectedDate);
 
     document.getElementById("diaryDate").innerText = selectedDate;  // 기능은 똑같고 가독성만 높임
     selectedEmoji = "🙂";
@@ -78,8 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
         emojiEl.classList.add("selected");
     }
 
-    console.log("✅ 초기 selectedDate:", selectedDate);
-
     initCalendar();
     highlightSelectedDate(selectedDate);
     loadDiaryByDate(selectedDate);
@@ -93,10 +93,9 @@ function initCalendar() {
         initialView: 'dayGridMonth',
         initialDate: selectedDate,
         locale: 'en',
-        height: 400,
-        contentHeight: 400,
+        timeZone: 'local',
         expandRows: true,
-        fixedWeekCount: true,
+        fixedWeekCount: false,
         aspectRatio: 1.8,
 
         headerToolbar: {
@@ -105,13 +104,10 @@ function initCalendar() {
             right: 'next today'
         },
 
-        // 이모지 이벤트 불러오고 넘기기!
         events: function(fetchInfo, successCallback, failureCallback) {
             fetch('/diary/events')
                 .then(response => response.json())
                 .then(data => {
-                    console.log("서버 응답 데이터: ", data);
-
                     successCallback(data);
                 })
                 .catch(error => {
@@ -159,7 +155,6 @@ function initCalendar() {
                     highlightSelectedDate(selectedDate);
                     loadDiaryByDate(selectedDate);
                 }
-            console.log("📅 datesSet selectedDate 최종:", selectedDate);
         }
 
     });
@@ -171,7 +166,6 @@ function initCalendar() {
 // CRUD 함수
 /* 일기 등록 */
 function saveDiary() {
-    console.log("✏️ updateDiary() 호출됨");
     const diaryTitle = document.getElementById("diaryTitle")?.value || "제목 없음";
     const diaryContent = document.getElementById("diaryContent").value;
     const diaryDateTime = `${selectedDate}T00:00:00`;
@@ -215,7 +209,6 @@ function saveDiary() {
 
 /* 일기 수정 */
 function updateDiary() {
-    console.log("✏️ updateDiary() 호출됨");
     if (!currentDiaryId) {
         alert("수정할 일기가 없습니다.");
         return;
@@ -258,8 +251,6 @@ function updateDiary() {
 
 /* 일기 삭제 */
 function deleteDiary() {
-    console.log("🗑️ deleteDiary() 호출됨");
-    console.log("삭제 시도! currentDiaryId:", currentDiaryId);
     if (!currentDiaryId) {
         alert("삭제할 일기가 없습니다.");
         return;
@@ -293,8 +284,6 @@ function deleteDiary() {
 function loadDiaryById(diaryId) {
     isViewMode = true;
 
-    console.log("🔎 loadDiaryById 호출됨, diaryId:", diaryId); // ← 여기에 추가!
-
     fetch(`/diary/${diaryId}`)
         .then(async (response) => {
             if (!response.ok) {
@@ -304,8 +293,6 @@ function loadDiaryById(diaryId) {
             return response.json();
         })
         .then(data => {
-            console.log("가져온 일기 데이터:", data);
-
             if (!data || !data.diary_id) {
                 alert("일기를 불러오지 못했습니다.");
                 return;
@@ -343,7 +330,6 @@ function loadDiaryById(diaryId) {
 
 /* 날짜 기준 조회 */
 function loadDiaryByDate(dateStr) {
-    console.log("📅 loadDiaryByDate() 호출됨 | dateStr:", dateStr);
     fetch(`/diary/date/${dateStr}`)
         .then(async (response) => {
             if (!response.ok) {
@@ -400,7 +386,6 @@ function loadDiaryByDate(dateStr) {
 
 /* 수정하기 버튼 클릭 → 수정 모드 전환 */
 function switchToEditMode() {
-    console.log("📝 switchToEditMode() 호출됨");
     isViewMode = false;
 
     document.getElementById("diaryViewSection").style.display = "none";
@@ -419,7 +404,7 @@ function switchToEditMode() {
         selectedEmoji = emoji;
     } else {
         selectedEmoji = "🙂";
-        console.warn("선택된 이모지가 없습니다. 기본값으로 초기화!");
+        console.warn("선택된 이모지 없음. 기본값으로 초기화!");
     }
 
     document.getElementById("saveBtn").style.display = "none";
@@ -430,7 +415,6 @@ function switchToEditMode() {
 // 오늘의 점수 함수
 /* 오늘의 감정 점수 모달 열기 */
 function openEmotionModal(existingScore = 50) {
-    console.log("😊 openEmotionModal() 호출됨");
     const modal = document.getElementById("emotionScoreModal");
     modal.style.display = "flex";
 
@@ -439,14 +423,12 @@ function openEmotionModal(existingScore = 50) {
 
 /* 오늘의 감정 점수 모달 닫기 */
 function closeEmotionModal() {
-    console.log("❌ closeEmotionModal() 호출됨");
     const modal = document.getElementById("emotionScoreModal");
     modal.style.display = "none";
 }
 
 /* 오늘의 점수 가져오는 함수 */
 function loadEmotionScoreByDiaryId(diaryId) {
-    console.log("🔍 loadEmotionScoreByDiaryId() 호출됨 | diaryId:", diaryId);
     if (!diaryId) {
         console.warn("❗ diaryId가 없습니다. 감정 점수 조회 불가");
         return;
@@ -464,8 +446,6 @@ function loadEmotionScoreByDiaryId(diaryId) {
 
                 // 전역 변수도 세팅 (선택 사항)
                 currentEmotionScore = score;
-
-                console.log("✅ 감정 점수 조회 성공:", score);
             } else {
                 console.warn("❗ 감정 점수 없음, 기본값 사용");
             }
@@ -477,7 +457,6 @@ function loadEmotionScoreByDiaryId(diaryId) {
 
 /* 감정 점수 저장 */
 function saveEmotionScore() {
-    console.log("💾 saveEmotionScore() 호출됨");
     const score = document.getElementById("emotionScoreInput").value;
 
     if (!currentDiaryId) {
@@ -507,6 +486,8 @@ function saveEmotionScore() {
 
                 // currentDiaryId 초기화
                 currentDiaryId = null;
+
+                resetDiaryForm();
             } else {
                 alert("감정 점수 저장 실패");
             }
@@ -515,7 +496,6 @@ function saveEmotionScore() {
 
 /* 오늘의 점수 입력값 변경*/
 function updateScoreValue(value) {
-    console.log("📝 updateScoreValue() 호출됨 | value:", value);
     document.getElementById("scoreDisplay").innerText = value;
 }
 
@@ -523,7 +503,6 @@ function updateScoreValue(value) {
 // UI 보조 함수
 /* 뷰모드 -> 작성 모드 전환 */
 function openWriteMode(dateStr) {
-    console.log("✍️ openWriteMode() 호출됨 | dateStr:", dateStr);
     if (isFutureDate(dateStr)) {
         alert("미래의 일기는 작성할 수 없습니다.");
         return;
@@ -552,7 +531,6 @@ function openWriteMode(dateStr) {
 
 /* 캘린더 날짜 하이라이트 강조 */
 function highlightSelectedDate(dateStr) {
-    console.log("🎯 highlightSelectedDate() 호출됨 | dateStr:", dateStr);
     const dateCells = document.querySelectorAll('.fc-daygrid-day');
 
     dateCells.forEach(cell => {
@@ -561,7 +539,6 @@ function highlightSelectedDate(dateStr) {
 
         const cellDate = cell.getAttribute('data-date');
         if (cellDate === dateStr) {
-            console.log("📌 선택된 날짜:", cellDate);
             cell.classList.add('fc-day-selected');
         }
     });
@@ -569,7 +546,6 @@ function highlightSelectedDate(dateStr) {
 
 /* 이모지 선택 */
 function selectEmoji(emoji) {
-    console.log("😀 selectEmoji() 호출됨 | emoji:", emoji);
     if (isViewMode) {
         return;
     }
@@ -587,9 +563,7 @@ function selectEmoji(emoji) {
 
 /* 캘린더 이벤트 리프레시 */
 function refreshCalendarEvents() {
-    console.log("🔄 refreshCalendarEvents() 호출됨");
         if (calendar) {
-            console.log("✅ 캘린더 이벤트 다시 불러오는 중!");
             calendar.refetchEvents();
         } else {
             console.warn("❗ 캘린더 인스턴스를 찾을 수 없음");

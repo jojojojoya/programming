@@ -1,47 +1,66 @@
-/* ✅ 캘린더 + 다이어리 섹션 레이아웃 */
+/* ======================================================== */
+/* ✅ 메인 콘텐츠 영역 레이아웃 */
+/* ======================================================== */
+html, body {
+    overflow: hidden; /* ✅ 전체 스크롤 막기 */
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 캘린더:다이어리 비율 */
+    gap: 2vw;
+    min-height: calc(100vh - 120px);  /* 헤더 제외한 높이 */
+    box-sizing: border-box;
+    padding: 2vh 2vw;
+    overflow: hidden;
+    height: 100%;
+}
+
+/* ======================================================== */
+/* ✅ 캘린더 영역 */
+/* ======================================================== */
+
 .calendar-container {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 30px;
-    margin: 0 auto;
-    padding: 20px 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2vh;
 }
 
-/* ✅ 캘린더 */
 #calendar {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    background-color: #9A6E50;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    color: #fff3e7;
-    margin-bottom: 30px;
     box-sizing: border-box;
+    background-color: #9A6E50;
+    color: #fff3e7;
+    padding: 2vh 2vw;
+    border-radius: 1rem;
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+    min-height: 350px;
+    max-height: 700px;
+    overflow: hidden;
 }
 
-/* ✅ 위클리 이모지 요약 리스트 */
+/* ======================================================== */
+/* ✅ 주간 감정 요약 */
+/* ======================================================== */
 .weekly-summary {
     width: 100%;
+    box-sizing: border-box;
     flex-grow: 1;
-    background-color: #fff3e7;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(63, 46, 41, 0.1);
-    overflow-y: auto;
+    background-color: #ede0d4;
+    border-radius: 1rem;
+    padding: 2vh 2vw;
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
 }
 
-/* ✅ 리스트 타이틀 */
-.weekly-summary h3 {
-    margin-bottom: 15px;
-    font-size: 18px;
-    color: #3f2e29;
+.weekly-summary-title {
     text-align: center;
+    margin: 0.5vh;
+    font-size: 1.8vh;
+    font-weight: bold;
+    color: #3f2e29;
 }
 
-/* ✅ 이모지 리스트 */
 .weekly-summary ul {
     list-style: none;
     padding: 0;
@@ -51,10 +70,10 @@
 .weekly-summary li {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 10px 0;
+    padding: 1vh 0;
     border-bottom: 1px solid #e0d4c0;
-    font-size: 16px;
+    font-size: 1.6vh;
+    color: #3F2E29;
 }
 
 .weekly-summary li:last-child {
@@ -62,24 +81,22 @@
 }
 
 .weekly-summary .emoji {
-    font-size: 24px;
-    margin-right: 10px;
+    font-size: 2vh;
+    margin-right: 1vw;
 }
 
-/* ✅ 캘린더 타이틀 */
+/* 캘린더 내 버튼 및 텍스트 스타일 */
 .fc-toolbar-title {
-    font-size: 23px;
-    color: #fff3e7;
-
+    font-size: 2.5vh !important;
+    color: #fff3e7 !important;
 }
 
-/* ✅ 캘린더 버튼 */
 .fc .fc-button {
     background-color: #ffd27a;
     color: #3f2e29;
-    border-radius: 8px;
-    padding: 4px 8px;
-    font-size: 12px;
+    border-radius: 1vh;
+    padding: 0.5vh 1vw;
+    font-size: 1.2vh;
     font-weight: bold;
     border: none;
 }
@@ -89,32 +106,30 @@
 }
 
 .fc .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 0.5em;
-    padding: 0 15px;
+    margin-bottom: 1vh;
+    padding: 0 1.5vw;
 }
 
 .fc-today-button {
-    margin-left: 10px;
+    margin-left: 1vw;
 }
 
 .fc .fc-today-button:hover {
     color: #3f2e29;
 }
 
-/* ✅ 캘린더 요일 헤더 */
 .fc .fc-col-header-cell {
     background-color: #3f2e29;
     color: #fff3e7;
-    font-size: 12px;
+    font-size: 1.2vh;
     text-transform: uppercase;
-    padding: 8px 0;
+    padding: 1vh 0;
 }
 
-/* ✅ 캘린더 날짜 기본 스타일 */
 .fc .fc-daygrid-day {
     background-color: #fff3e7;
     color: #3f2e29;
-    border-radius: 8px;
+    border-radius: 1vh;
     border: none;
 }
 
@@ -122,30 +137,21 @@
     background-color: #ffd27a;
 }
 
-/* ✅ 오늘 날짜 강조 */
-.fc-day-today {
-    background-color: #ffd27a !important;
-    color: #3f2e29;
-    border-radius: 8px;
-}
-
-/* 선택된 날짜에 오늘 강조 스타일 적용 */
+.fc-day-today,
 .fc-day-selected {
     background-color: #ffd27a !important;
     color: #3f2e29;
-    border-radius: 8px;
+    border-radius: 1vh;
 }
 
-/* ✅ 날짜 숫자 */
 .fc-daygrid-day-number {
-    font-size: 14px;
+    font-size: 1.4vh;
     color: #3f2e29;
     font-weight: bold;
     z-index: 1;
     transition: opacity 0.3s ease;
 }
 
-/* ✅ 날짜 셀 정렬 */
 .fc-daygrid-day-frame {
     display: flex;
     justify-content: center;
@@ -153,23 +159,19 @@
     position: relative;
 }
 
-/* ✅ 이모지가 들어가면 날짜 숫자는 안 보임 */
 .fc-daygrid-day-frame:has(.fc-event) .fc-daygrid-day-number {
     display: none;
 }
 
-/* ✅ 캘린더 이모지 이벤트 */
-.fc-daygrid-event {
+.fc-daygrid-event,
+.emoji-event {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
 }
 
 .emoji-event {
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 3vh;
     height: 100%;
     width: 100%;
     background: none;
@@ -187,46 +189,59 @@
     margin: 0 !important;
 }
 
-/* ✅ 다이어리 뷰 전체 컨테이너 */
+/* ======================================================== */
+/* ✅ 다이어리 영역 */
+/* ======================================================== */
+
 .diary-section-container {
-    flex-grow: 1;
+    background-color: #fff3e7;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    padding: 2vh 2vw;                    /* ✅ 반응형 패딩 */
+    border-radius: 1rem;
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    height: 100%;
+    min-height: 90%;
+    overflow: hidden;
 }
 
-/* ✅ 작성 / 조회 공통 스타일 */
+/* ✅ 작성 영역과 뷰 영역 공통 스타일 */
 #diaryWriteSection,
 #diaryViewSection {
-    flex-grow: 1;
-    height: 95%;
-    background-color: #fff3e7;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(63, 46, 41, 0.1);
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    overflow: hidden;
+    height: 100%;
 }
 
-/* ✅ 공통 이모지 기본 스타일 (조회/작성 동일한 비주얼 유지) */
+/* ✅ 날짜 스타일 */
+#diaryDate,
+#viewDiaryDate {
+    font-weight: bold;
+    margin-bottom: 1vh;
+    font-size: 1.8vh;
+}
+
+/* ======================================================== */
+/* ✅ 이모지 선택 옵션 */
+/* ======================================================== */
 .emoji-option {
-    font-size: 24px;
-    margin: 5px;
+    font-size: 3vh;                      /* ✅ 폰트 크기 반응형 */
+    margin: 1vh;
+    padding: 1vh;
     display: inline-block;
-    padding: 5px;
     border-radius: 50%;
     background-color: #ede0d4;
     transition: transform 0.2s ease;
 }
 
-/* ✅ 선택된 이모지 스타일 (조회/작성 동일하게 강조) */
 .emoji-option.selected {
-    border: 2px solid #996d4f;
+    border: 0.3vh solid #996d4f;
     background-color: #ffd27a;
 }
 
-/* ✅ 작성 뷰에서만 호버/클릭 효과를 추가로 줌 */
 #diaryWriteSection .emoji-option {
     cursor: pointer;
 }
@@ -236,91 +251,92 @@
     background-color: #ffd27a;
 }
 
-/* ✅ 조회 뷰에서는 커서 기본값으로만 고정 (클릭 막기) */
 #diaryViewSection .emoji-option {
     cursor: default;
 }
 
-/* ✅ 작성/수정 버튼 스타일 */
-#diaryWriteSection button,
-#diaryViewSection button {
-    background-color: #ffd27a;
-    color: #3f2e29;
-    border: none;
-    padding: 8px 16px;
-    font-size: 14px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-#diaryWriteSection button:hover,
-#diaryViewSection button:hover {
-    background-color: #ffcf60;
-    box-shadow: 0 4px 6px rgba(63, 46, 41, 0.25);
-}
-
-/* ✅ 삭제 버튼 스타일 (강조) */
-.btn-delete {
-    background-color: #e57373;
-    color: #fff;
-}
-
-.btn-delete:hover {
-    background-color: #d32f2f;
-    box-shadow: 0 4px 6px rgba(63, 46, 41, 0.25);
-}
-
-/* ✅ 일기 작성 textarea */
-#diaryContent {
+/* ✅ 다이어리 작성 타이틀 (input) */
+#diaryTitle, #viewDiaryTitle {
     width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border: 1px solid #ede0d4;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 14px;
-    background-color: #ffffff;
-    color: #3f2e29;
-    resize: none;
-    flex-grow: 1;
-}
-
-#diaryTitle,
-#viewDiaryTitle {
-    width: 100%;
+    height: 6vh;
     box-sizing: border-box;
     border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 18px;
+    border-radius: 1rem;
+    padding: 1vh 1vw;
+    font-size: 1.8vh;
     background-color: #f9f9f9;
-    color: #000000;
-    margin: 10px 0;
-    display: block;
-}
-
-/* ✅ 조회 뷰에서 일기 내용 */
-.diary-content-view {
-    background-color: #ffffff;
     color: #3f2e29;
-    border-radius: 10px;
-    border: 1px solid #ede0d4;
-    padding: 15px;
-    min-height: 300px;
-    height: 100%;
-    overflow-y: auto;
-    white-space: pre-wrap;
-    font-size: 14px;
-    flex-grow: 1;
+    margin: 1vh 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 }
 
-/* ✅ 감정 점수 입력 모달 */
+#diaryTitle {
+    line-height: 1.5;
+    margin: 1vh 0;
+    text-align: center;
+    word-break: break-word;
+}
+
+/* ✅ 다이어리 조회 타이틀 (div) */
+#viewDiaryTitle {
+    text-align: center;
+}
+
+/* 일기 내용 부분 공통사항 */
+#diaryContent,
+#viewDiaryContent {
+    flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2vh 2vw;
+
+    min-height: 420px;
+    /*height: 100%;*/
+
+    overflow-y: auto;
+
+    border-radius: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ede0d4;
+    color: #3f2e29;
+
+    font-size: 1.5vh;
+    margin-bottom: 2vh;
+    resize: none;
+}
+
+
+
+button{
+    padding: 1.5vh 3vw;
+    background-color: #ffd27a;
+    color: #3f2e29;
+    font-size: 1.6vh;
+    font-weight: bold;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    margin-top: 1vh;
+}
+
+button:hover {
+    background-color: #ffcf60;
+    box-shadow: 0 0.5vh 1vh rgba(63, 46, 41, 0.25);
+}
+
+/* ======================================================== */
+/* ✅ 감정 점수 모달 */
+/* ======================================================== */
+
 .modal-overlay {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
@@ -330,43 +346,47 @@
 
 .modal-container {
     background-color: #fff8f0;
-    border-radius: 16px;
-    padding: 30px 20px;
-    width: 300px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 1.5rem;
+    padding: 3vh 2vw;                /* ✅ 패딩 반응형 */
+    width: 30vw;                     /* ✅ 기본 너비 */
+    max-width: 400px;                /* ✅ 최대 너비 제한 */
+    min-width: 300px;                /* ✅ 최소 너비 */
+    box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
 .modal-container h2 {
-    margin-bottom: 10px;
+    margin-bottom: 2vh;
     color: #3f2e29;
+    font-size: 2vh;                  /* ✅ 반응형 텍스트 */
 }
 
 .modal-container p {
-    font-size: 14px;
+    font-size: 1.6vh;
     color: #3f2e29;
 }
 
-/* ✅ 슬라이더 */
-.score-slider-container input[type="range"] {
+.score-slider-container input[type='range'] {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 2vh;
 }
 
+/* ✅ 감정 점수 값 */
 .score-value {
-    margin-top: 10px;
-    font-size: 18px;
+    margin: 2vh 0;
+    font-size: 2vh;
     color: #3f2e29;
 }
 
-/* ✅ 모달 버튼 */
+/* ✅ 버튼 기본 스타일 */
 .modal-buttons button {
-    padding: 10px 20px;
-    margin: 10px 5px 0 5px;
-    border-radius: 10px;
+    padding: 1.5vh 3vw;             /* ✅ 반응형 패딩 */
+    border-radius: 1rem;
     font-weight: bold;
     cursor: pointer;
     border: none;
+    font-size: 1.6vh;               /* ✅ 반응형 폰트 크기 */
+    margin: 0 0.5vw;
 }
 
 .btn-confirm {

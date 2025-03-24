@@ -47,16 +47,21 @@
                 <div id="calendar"></div>
 
                 <div class="weekly-summary">
-                    <h3>이번주 감정 요약</h3>
+                    <div class="weekly-summary-title">이번주 감정 요약</div>
                     <ul>
-                        <li><span class="emoji">😊</span> 2025-03-18</li>
-                        <li><span class="emoji">😢</span> 2025-03-19</li>
-                        <li><span class="emoji">😡</span> 2025-03-20</li>
+                        <li><span class="emoji">😊</span> 2025-03-09 예시~~</li>
+                        <li><span class="emoji">😢</span> 2025-03-10 예시~~</li>
+                        <li><span class="emoji">😡</span> 2025-03-11 예시~~</li>
+                        <li><span class="emoji">😆</span> 2025-03-12 예시~~</li>
+                        <li><span class="emoji">😡</span> 2025-03-13 예시~~</li>
+                        <li><span class="emoji">😆</span> 2025-03-14 예시~~</li>
+                        <li><span class="emoji">🥰</span> 2025-03-15 예시~~</li>
                     </ul>
                 </div>
             </div>
 
             <div class="diary-section-container">
+                <div class="diary-wrapper">
                 <!-- ✅ 일기 작성 뷰 -->
                 <div id="diaryWriteSection" style="display: block;">
                     <!-- 날짜 -->
@@ -72,10 +77,10 @@
                     </div>
 
                     <!-- 타이틀 입력 -->
-                    <input type="text" id="diaryTitle" placeholder="오늘 하루를 한 줄로 표현해 보세요!" style="width: 100%; padding: 10px; margin-bottom: 10px; font-size: 1em; border-radius: 8px; border: 1px solid #ccc;">
+                    <input type="text" id="diaryTitle" placeholder="오늘 하루를 한 줄로 표현해 보세요!">
 
                     <!-- 일기 내용 입력 -->
-                    <textarea id="diaryContent" rows="10" cols="50" placeholder="오늘 있었던 일이나 감정을 적어보세요 :)"></textarea><br>
+                    <textarea id="diaryContent" placeholder="오늘 있었던 일이나 감정을 적어보세요 :)"></textarea><br>
 
                     <!-- 버튼 -->
                     <button id="saveBtn" onclick="saveDiary()">일기 등록하기</button>
@@ -85,7 +90,7 @@
                 <!-- 상세 조회 뷰 -->
                 <div id="diaryViewSection" style="display: none;">
                     <!-- 날짜 -->
-                    <p>TODAY: <span id="viewDiaryDate"></span></p>
+                    <p><strong>TODAY:</strong> <span id="viewDiaryDate"></span></p>
 
 
                     <!-- 이모지 선택 (비활성화 모드) -->
@@ -97,7 +102,7 @@
                         <span id="view-🥰" class="emoji-option readonly" onclick="selectEmoji('🥰')">🥰</span>
                     </div>
                     <!-- 타이틀 출력 -->
-                    <h3 id="viewDiaryTitle" style="margin: 10px 0; font-size: 1.5em;">오늘의 타이틀</h3>
+                    <div id="viewDiaryTitle">오늘의 타이틀</div>
 
                     <!-- 일기 내용 출력 -->
                     <div id="viewDiaryContent" class="diary-content-view"></div>
@@ -105,6 +110,7 @@
                     <!-- 수정/삭제 버튼 -->
                     <button id="editBtn" class="btn-edit" onclick="switchToEditMode()">일기 수정하기</button>
                     <button id="deleteBtn" class="btn-delete" onclick="deleteDiary()">일기 삭제하기</button>
+                </div>
                 </div>
             </div>
         </main>
