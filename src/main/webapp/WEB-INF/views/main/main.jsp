@@ -1,6 +1,13 @@
+<%@ page import="com.koyoi.main.vo.AdminMypageVO" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    AdminMypageVO user = (AdminMypageVO) request.getAttribute("user");
+    String imgPath = (user != null && user.getUser_img() != null)
+            ? user.getUser_img()
+            : "/static/imgsource/testprofile.png"; // 기본 이미지
+%>
 <%  // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
@@ -45,7 +52,7 @@
                 <a href="/logout"> <img src="/static/imgsource/logout.png" alt="logout"> </a>
             </button>
             <button class="profile-btn">
-                <a href="/usermypage">  <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile"> </a>
+                <a href="/usermypage">  <img class="profile-img" src="/static<%=imgPath%>" alt="profile"> </a>
             </button>
         </div>
 

@@ -166,7 +166,7 @@ document.addEventListener("click", function (event) {
         const updatedEmail = document.getElementById("modalUserEmail").value;
         const userType = document.getElementById("modalUserType").textContent.trim();
 
-        if (!confirm("\tAre you sure you want to update this member?")) {
+        if (!confirm("Are you sure you want to update this member?")) {
             return;
         }
 

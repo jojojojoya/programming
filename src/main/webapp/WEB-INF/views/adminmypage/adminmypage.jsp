@@ -1,9 +1,15 @@
+<%@ page import="com.koyoi.main.vo.AdminMypageVO" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%
+    AdminMypageVO user = (AdminMypageVO) request.getAttribute("user");
+    String imgPath = (user != null && user.getUser_img() != null)
+            ? user.getUser_img()
+            : "/static/imgsource/testprofile.png"; // 기본 이미지
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +46,7 @@
                 <button class="header-btn">
                     <img src="/static/imgsource/logout.png" alt="logout">
                 </button>
-                <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile">
+                <img class="profile-img" src="<%=imgPath%>" alt="profile">
             </div>
         </header>
 
@@ -146,8 +152,6 @@
                     </div>
                 </div>
             </div>
-
-
         </main>
     </div>
 </div>
