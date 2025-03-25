@@ -1,41 +1,84 @@
+// ✅ habit.js 최종 통합 버전
+
+// ✅ 주간 달성이력 + 격려 데이터 로딩
+function loadWeeklySummary() {
+    const selectedDate = getSelectedDate();
+
+    fetch(`/habit/week/status?date=${selectedDate}`)
+        .then(res => res.json())
+        .then(data => {
+            renderWeeklyMemo(data);        // .habit-week
+            renderEncouragement(data);    // .habit-rate
+        });
+}
+
+// ✅ 주간 이력 테이블 출력
+function renderWeeklyMemo(data) {
+    const tbody = document.getElementById("weeklyHabitBody");
+    tbody.innerHTML = "";
+
+    data.forEach(habit => {
+        const tracking = habit.tracking;
+        let row = `<tr><td>${habit.habit_name}</td>`;
+
+        for (let i = 0; i < 7; i++) {
+            row += `<td>${tracking[i] ? 'O' : 'X'}</td>`;
+        }
+
+        row += "</tr>";
+        tbody.innerHTML += row;
+    });
+}
+
+// ✅ 격려 문구 출력
+function renderEncouragement(data) {
+    const list = document.getElementById("encouragementList");
+    list.innerHTML = "";
+
+    data.forEach(habit => {
+        list.innerHTML += `<li><strong>${habit.habit_name}</strong>: ${habit.encouragement}</li>`;
+    });
+}
+
+// ✅ 날짜 클릭 시 호출할 함수 (달력 이벤트 연결 시 활용 가능)
+function onCalendarDateClick(dateStr) {
+    document.getElementById('selectedDateDisplay').textContent = `선택한 날짜: ${dateStr}`;
+
+    loadTrackingStatus();
+    attachCheckboxEvents();
+    loadWeeklySummary(); // 🔥 추가된 부분
+}
+
+// ✅ 본문 스크립트 실행
+
+
 document.addEventListener("DOMContentLoaded", function () {
     console.log("📌 JavaScript 로드 완료!");
 
-    // ✅ 전역 변수
     let selectedDate = null;
     let currentMonth = new Date().getMonth();
     let currentYear = new Date().getFullYear();
 
-    // ✅ 습관 추가 함수 (날짜 포함)
     function addHabit() {
         const habitName = document.getElementById("habitInput").value.trim();
-
         if (!habitName) {
             alert("습관 이름을 입력해주세요.");
             return;
         }
 
-        if (!selectedDate) {
-            alert("날짜를 선택해주세요.");
-            return;
-        }
-        // ✅ 날짜를 YYYY-MM-DD 형식으로 가공
-        const formattedDate = new Date(selectedDate).toISOString().split("T")[0];
         const data = {
             habit_name: habitName,
-            user_id: "user1", // 임시 고정값
-            tracking_date: selectedDate
+            user_id: "user1"
         };
-        // ✅ 바로 여기!
-        console.log("📤 서버로 보낼 전체 data:", data);
-        fetch("/habit/addHabitWithTracking", {
+
+        fetch("/habit/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         })
             .then(response => response.json())
             .then(data => {
-                if (data.status === "success") {
+                if (data.habit_id || data.status === "success") {
                     alert("습관 추가 성공!");
                     location.reload();
                 } else {
@@ -48,32 +91,26 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // ✅ 습관 추가 버튼 이벤트 등록
     function addClickListener() {
-        let addHabitBtn = document.getElementById("addHabitBtn");
-
-        if (addHabitBtn) {
-            addHabitBtn.removeEventListener("click", addHabit); // 중복 방지
+        const addHabitBtn = document.getElementById("addHabitBtn");
+        if (addHabitBtn && !addHabitBtn.dataset.listenerAttached) {
+            addHabitBtn.setAttribute("type", "button");
             addHabitBtn.addEventListener("click", addHabit);
-        } else {
-            console.error("❌ [ERROR] addHabitBtn 버튼을 찾을 수 없습니다.");
+            addHabitBtn.dataset.listenerAttached = "true";
         }
     }
 
     addClickListener();
 
-    // ✅ 동적 요소 추가 감지 시 리스너 재등록
-    const observer = new MutationObserver(function (mutations) {
-        mutations.forEach(function (mutation) {
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
             if (mutation.addedNodes.length) {
                 addClickListener();
             }
         });
     });
-
     observer.observe(document.body, { childList: true, subtree: true });
 
-    // ✅ 탭 기능
     function habitShowTab(tab) {
         const allTabs = document.querySelectorAll('.habit-content');
         const allTabButtons = document.querySelectorAll('.habit-tab');
@@ -87,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     habitShowTab('신체건강');
 
-    // ✅ 추천 습관 클릭 시 DB에 추가
     const habitItems = document.querySelectorAll('.habit-recommend p');
     habitItems.forEach(item => {
         item.addEventListener('click', function () {
@@ -97,23 +133,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function addHabitToDatabase(habitName) {
-        const userId = 'current_user_id'; // 세션 연동 시 수정
-
         const requestData = {
-            userId: userId,
+            userId: 'user1',
             habitName: habitName
         };
 
         fetch('/habit/add', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestData)
         })
             .then(response => response.json())
             .then(data => {
-                if (data) {
+                if (data.habit_id || data.status === "success") {
                     updateHabitList(data);
                 } else {
                     alert('습관 추가 실패');
@@ -134,7 +166,6 @@ document.addEventListener("DOMContentLoaded", function () {
         habitList.appendChild(newHabitDiv);
     }
 
-    // ✅ 달력 생성 함수
     function generateCalendar(month, year) {
         const calendarBody = document.getElementById("calendarBody");
         calendarBody.innerHTML = "";
@@ -145,11 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const firstDay = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-        console.log("✅ 달력 생성 시작:", year, month + 1);
-        console.log("📌 첫째 날 요일:", firstDay);
-        console.log("📌 날짜 수:", daysInMonth);
-
-        // 빈 셀 생성
         for (let i = 0; i < firstDay; i++) {
             const emptyCell = document.createElement("div");
             emptyCell.classList.add("calendar-day");
@@ -157,7 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
             calendarBody.appendChild(emptyCell);
         }
 
-        // 날짜 셀 생성
         for (let day = 1; day <= daysInMonth; day++) {
             const dateCell = document.createElement("div");
             dateCell.classList.add("calendar-day");
@@ -170,20 +195,18 @@ document.addEventListener("DOMContentLoaded", function () {
             dateCell.addEventListener("click", function () {
                 document.querySelectorAll(".calendar-day").forEach(cell => cell.classList.remove("selected"));
                 this.classList.add("selected");
+
                 selectedDate = this.dataset.date;
                 document.getElementById("selectedDateDisplay").innerText = `선택한 날짜: ${selectedDate}`;
-                // ✅ 로그 확인
-                console.log("✅ 선택된 날짜 (selectedDate):", selectedDate);
+
+                loadTrackingStatus();
+                loadWeeklySummary(); // ✅ 추가된 호출
             });
 
             calendarBody.appendChild(dateCell);
-            console.log("📆 날짜 셀 추가:", dateCell.dataset.date);
         }
-
-        console.log("✅ 셀 개수:", calendarBody.children.length);
     }
 
-    // ✅ 달력 이전/다음 버튼
     document.getElementById("prevMonth").addEventListener("click", function () {
         currentMonth--;
         if (currentMonth < 0) {
@@ -202,6 +225,75 @@ document.addEventListener("DOMContentLoaded", function () {
         generateCalendar(currentMonth, currentYear);
     });
 
-    // ✅ 초기 달력 생성
     generateCalendar(currentMonth, currentYear);
+
+    function loadTrackingStatus() {
+        if (!selectedDate) return;
+
+        fetch(`/habit/tracking/status?date=${selectedDate}`)
+            .then(response => response.json())
+            .then(result => {
+                console.log("✅ 서버 응답:", result);
+                const trackedHabitIds = Array.isArray(result) ? result : result.data;
+
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    const habitId = parseInt(checkbox.id.split('-')[1]);
+                    checkbox.checked = trackedHabitIds.includes(habitId);
+                });
+
+                attachCheckboxEvents();
+            })
+            .catch(error => {
+                console.error("습관 상태 로드 실패:", error);
+            });
+    }
+
+    function attachCheckboxEvents() {
+        document.querySelectorAll('input[type="checkbox"]').forEach(oldCheckbox => {
+            const newCheckbox = oldCheckbox.cloneNode(true);
+            oldCheckbox.replaceWith(newCheckbox);
+        });
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener("change", function () {
+                const habitId = parseInt(this.id.split('-')[1]);
+                const isChecked = this.checked ? 1 : 0;
+
+                if (!selectedDate) {
+                    alert("먼저 날짜를 선택해주세요!");
+                    this.checked = !this.checked;
+                    return;
+                }
+
+                const formattedDate = new Date(selectedDate).toISOString().split("T")[0];
+
+                const payload = {
+                    habit_id: habitId,
+                    completed: isChecked,
+                    tracking_date: formattedDate,
+                    user_id: "user1"
+                };
+                console.log("📤 서버로 보낼 payload:", payload);
+
+                fetch("/habit/tracking", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            alert("습관 상태 저장 실패");
+                            this.checked = !isChecked;
+                        }
+                    })
+                    .catch(error => {
+                        console.error("저장 에러:", error);
+                        this.checked = !isChecked;
+                    });
+            });
+        });
+    }
+
+    // ✅ 여기 마지막에 주간 데이터 호출 추가
+    loadWeeklySummary();
 });
