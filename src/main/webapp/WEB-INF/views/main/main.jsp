@@ -134,7 +134,7 @@
                         </div>
 
                         <div class="chat-connect">
-                            <button class="chatbot"> ChatBot </button>
+                            <button class="chatbot" onclick="location.href='/chat'"> ChatBot </button>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> LiveChat </button>
                         </div>
 
