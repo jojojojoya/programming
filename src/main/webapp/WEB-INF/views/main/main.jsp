@@ -62,7 +62,7 @@
     <div id="notice-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn"> &times; </span>
-            <a href="/announcement"> <h3> Notice </h3> </a>
+            <h3 class="modal-title"> <a href="/announcement/list">  Notice  </a> </h3>
             <ul id="notice-lists">
                 <c:forEach var="announcement" items="${announcements}">
                     <li>

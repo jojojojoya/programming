@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
@@ -51,7 +52,15 @@
             </div>
         </header>
         <main class="content">
-            <jsp:include page="${diaryContent}"/>
+            <c:if test="${not empty diaryContent}">
+                <jsp:include page="${diaryContent}" />
+            </c:if>
+            <c:if test="${not empty announcementList}">
+                <jsp:include page="${announcementList}" />
+            </c:if>
+            <c:if test="${not empty announcementDetail}">
+                <jsp:include page="${announcementDetail}" />
+            </c:if>
         </main>
     </div>
 </div>

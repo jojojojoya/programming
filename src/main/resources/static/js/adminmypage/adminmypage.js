@@ -1,179 +1,212 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // 목록 토글 처리
+    const views = {
+        user: {
+            button: document.getElementById("user"),
+            table: document.getElementById("userTable"),
+            title: "Member List",
+            label: "Users"
+        },
+        counselor: {
+            button: document.getElementById("counselor"),
+            table: document.getElementById("counselorTable"),
+            title: "Member List",
+            label: "Counselors"
+        },
+        announcement: {
+            button: document.getElementById("announcement"),
+            table: document.getElementById("announcementTable"),
+            title: "Announcements",
+            label: "Announcement List"
+        }
+    };
 
-    // 유저, 상담사 목록 토글
-    const userBtn = document.getElementById("user");
-    const counselorBtn = document.getElementById("counselor");
-    const userTable = document.getElementById("userTable");
-    const counselorTable = document.getElementById("counselorTable");
-    const announcementBtn = document.getElementById("announcement");
-    const announcementTable = document.getElementById("announcementTable");
-
-    const lastView = sessionStorage.getItem("lastView") || "user";
     const tableTitle = document.getElementById("table-title");
     const memberTypeLabel = document.getElementById("memberTypeLabel");
 
-    if (lastView === "counselor") {
-        userTable.style.display = "none";
-        counselorTable.style.display = "table";
-        announcementTable.style.display = "none";
-        tableTitle.textContent = "Member List";
-        memberTypeLabel.textContent = "Counselors";
-    } else if (lastView === "announcement") {
-        userTable.style.display = "none";
-        counselorTable.style.display = "none";
-        announcementTable.style.display = "table";
-        tableTitle.textContent = "Announcements";
-        memberTypeLabel.textContent = "Announcement List";
-    } else {
-        userTable.style.display = "table";
-        counselorTable.style.display = "none";
-        announcementTable.style.display = "none";
-        tableTitle.textContent = "Member List";
-        memberTypeLabel.textContent = "Users";
+    function showView(viewName) {
+        Object.values(views).forEach(view => view.table.style.display = "none");
+        views[viewName].table.style.display = "table";
+        tableTitle.textContent = views[viewName].title;
+        memberTypeLabel.textContent = views[viewName].label;
+        sessionStorage.setItem("lastView", viewName);
     }
-    sessionStorage.setItem("lastView", lastView);
 
+    const lastView = sessionStorage.getItem("lastView") || "user";
+    showView(lastView);
 
-    userBtn.addEventListener("click", function () {
-        userTable.style.display = "table";
-        counselorTable.style.display = "none";
-        announcementTable.style.display = "none";
-        memberTypeLabel.textContent = "Users";
-        tableTitle.textContent = "Member List";
-        sessionStorage.setItem("lastView", "user");
+    Object.entries(views).forEach(([name, view]) => {
+        view.button.addEventListener("click", () => showView(name));
     });
 
-    counselorBtn.addEventListener("click", function () {
-        userTable.style.display = "none";
-        announcementTable.style.display = "none";
-        counselorTable.style.display = "table";
-        memberTypeLabel.textContent = "Counselors";
-        tableTitle.textContent = "Member List";
-        sessionStorage.setItem("lastView", "counselor");
-    });
-
-    announcementBtn.addEventListener("click", function () {
-        userTable.style.display = "none";
-        counselorTable.style.display = "none";
-        announcementTable.style.display = "table";
-        tableTitle.textContent = "Announcements";
-        memberTypeLabel.textContent = "Announcement List";
-        sessionStorage.setItem("lastView", "announcement");
-    });
-
-    // 상세 정보 모달
-    const userDetailButtons = document.querySelectorAll(".user-detail-btn");
-    const modal = document.getElementById("userDetailModal");
-    const closeBtn = document.querySelector(".close");
-
-    const passwordInput = document.getElementById("modalUserPassword");
-    const toggleIcon = document.querySelector(".password-toggle");
-
-    toggleIcon.addEventListener("click", function () {
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            toggleIcon.classList.remove("fa-eye");
-            toggleIcon.classList.add("fa-eye-slash"); // 눈 감은 아이콘
-        } else {
-            passwordInput.type = "password";
-            toggleIcon.classList.remove("fa-eye-slash");
-            toggleIcon.classList.add("fa-eye"); // 눈 뜬 아이콘
-        }
-    });
-
-    // 모달 내부 요소
-    const modalUserId = document.getElementById("modalUserId");
-    const modalUserPassword = document.getElementById("modalUserPassword");
-    const modalUserName = document.getElementById("modalUserName");
-    const modalUserEmail = document.getElementById("modalUserEmail");
-    const modalUserType = document.getElementById("modalUserType");
-    const modalCreatedAt = document.getElementById("modalCreatedAt");
-
-    const saveUserChanges = document.getElementById("saveUserChanges"); // 수정 버튼
-    const deleteUser = document.getElementById("deleteUser"); // 삭제 버튼
-
-    // 유저 상세 정보 클릭 이벤트 추가
-    userDetailButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const userId = this.getAttribute("data-user-id");
-            const userType = this.getAttribute("data-type") || "user"; // 기본값은 'user'
-
-            document.getElementById("userDetailModal").setAttribute("data-user-id", userId);
-
-            // API 호출하여 사용자 상세 정보 가져오기
-            fetch(`/admin/userDetail?userId=${userId}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log("불러온 이미지 경로:", data.user_img); // 경로 확인용
-                    if (data.user_img) {
-                        modalUserImg.src = `/static/${data.user_img}`;
-                    } else {
-                        modalUserImg.src = "/static/imgsource/layout/testprofile.png"; // 기본 이미지
-                    }
-
-                    if (data) {
-                        modalUserId.textContent = data.user_id || "";
-                        modalUserPassword.value = data.user_password || "";
-                        modalUserName.textContent = data.user_name || "";
-                        modalUserNickname.value = data.user_nickname || "";
-                        modalUserEmail.value = data.user_email || "";
-                        modalUserType.textContent = (data.user_type === 2 ) ? "Counselor" : "User";
-                        modalCreatedAt.textContent = data.formattedCreatedAt || "";
-
+    // 공통 모달 처리 함수
+    function setupModal(detailButtons, modal, closeBtn, apiUrl, fillModalData) {
+        detailButtons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.stopPropagation();
+                const id = this.getAttribute("data-user-id");
+                fetch(`${apiUrl}${id}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        fillModalData(data);
                         modal.style.display = "block";
-
-                        // 약간의 지연 후 스크롤 초기화
                         setTimeout(() => {
-                            const scrollable = document.querySelector(".user-info-grid.scrollable");
-                            if (scrollable) {
-                                scrollable.scrollTop = 0;
-                            }
-                        }, 0); // 또는 50~100ms 정도 줘도 좋아
-
-                    }
-                })
-                .catch(error => console.error("Error fetching user details:", error));
+                            const scrollable = modal.querySelector(".scrollable");
+                            if (scrollable) scrollable.scrollTop = 0;
+                        }, 0);
+                    })
+                    .catch(err => console.error("Error:", err));
+            });
         });
-    });
 
-    // 모달 창 닫기 (X 버튼, 모달 창 바깥 클릭)
-    closeBtn.addEventListener("click", function () {
-        modal.style.display = "none";
-    });
+        closeBtn.addEventListener("click", () => modal.style.display = "none");
+        window.addEventListener("click", e => {
+            if (e.target === modal) modal.style.display = "none";
+        });
+    }
 
-    window.addEventListener("click", function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
+    // 유저 상세 모달 설정
+    setupModal(
+        document.querySelectorAll(".user-detail-btn"),
+        document.getElementById("userDetailModal"),
+        document.querySelector("#userDetailModal .close"),
+        "/admin/userDetail?userId=",
+        data => {
+            document.getElementById("modalUserId").textContent = data.user_id || "";
+            document.getElementById("modalUserPassword").value = data.user_password || "";
+            document.getElementById("modalUserName").textContent = data.user_name || "";
+            document.getElementById("modalUserNickname").value = data.user_nickname || "";
+            document.getElementById("modalUserEmail").value = data.user_email || "";
+            document.getElementById("modalUserType").textContent = data.user_type === 2 ? "Counselor" : "User";
+            document.getElementById("modalCreatedAt").textContent = data.formattedCreatedAt || "";
+            const modalUserImg = document.getElementById("modalUserImg");
+            modalUserImg.src = data.user_img ? `/static/${data.user_img}` : "/static/imgsource/layout/testprofile.png";
         }
-    });
+    );
 
+    // 공지사항 상세 모달 설정
+    setupModal(
+        document.querySelectorAll(".announcement-detail-btn"),
+        document.getElementById("announcementModal"),
+        document.querySelector("#announcementModal .modal-close-btn"),
+        "/admin/announcementDetail/",
+        data => {
+            document.getElementById("modalAnnouncementTitle").value = data.title || "";
+            document.getElementById("modalAnnouncementAdminId").textContent = data.admin_id || "";
+            document.getElementById("modalAnnouncementCreated").textContent = data.formattedCreatedAt || "";
+            document.getElementById("modalAnnouncementContent").value = data.content || "";
+            document.getElementById("announcementModal").setAttribute("data-user-id", data.announcement_id);
+        }
+    );
 });
 
-// 유저 정보 삭제
-document.addEventListener("click", function (event) {
-    // 클릭된 요소가 deleteUser 버튼인지 확인
-    if (event.target && event.target.id === "deleteUser") {
-        const userId = document.getElementById("modalUserId").textContent;
+// 유저 삭제 및 수정 이벤트 위임 처리 유지 가능
+document.addEventListener("click", event => {
+    const modalUserId = document.getElementById("modalUserId").textContent;
+    const userType = document.getElementById("modalUserType").textContent.trim();
 
-        if (!confirm("Are you sure you want to delete this member?")) {
-            return;
-        }
+    if (event.target.id === "deleteUser") {
+        if (!confirm("Are you sure you want to delete this member?")) return;
 
-        fetch(`/admin/deleteUser?userId=${userId}`, {
-            method: "DELETE"
-        })
-            .then(response => {
-                return response.text();
-            })
+        fetch(`/admin/deleteUser?userId=${modalUserId}`, { method: "DELETE" })
+            .then(res => res.text())
             .then(result => {
                 if (result === "1") {
                     alert("Successfully deleted.");
-                    if (userType === "Counselor") {
-                        sessionStorage.setItem("lastView", "counselor");
-                    } else {
-                        sessionStorage.setItem("lastView", "user");
-                    }
+                    sessionStorage.setItem("lastView", userType === "Counselor" ? "counselor" : "user");
                     document.getElementById("userDetailModal").style.display = "none";
+                    location.reload();
+                } else {
+                    alert("Failed to delete. Please try again.");
+                }
+            })
+            .catch(err => console.error("삭제 요청 실패:", err));
+    }
+
+    if (event.target.id === "updateUser") {
+        const userData = {
+            user_id: modalUserId,
+            user_password: document.getElementById("modalUserPassword").value,
+            user_nickname: document.getElementById("modalUserNickname").value,
+            user_email: document.getElementById("modalUserEmail").value
+        };
+
+        if (!confirm("Are you sure you want to update this member?")) return;
+
+        fetch(`/admin/updateUser`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData)
+        })
+            .then(res => res.text())
+            .then(result => {
+                if (result === "1") {
+                    alert("Successfully updated.");
+                    sessionStorage.setItem("lastView", userType === "Counselor" ? "counselor" : "user");
+                    document.getElementById("userDetailModal").style.display = "none";
+                    location.reload();
+                } else {
+                    alert("Failed to update. Please try again.");
+                }
+            })
+            .catch(err => console.error("수정 요청 실패:", err));
+    }
+});
+
+// 공지사항 업데이트
+document.addEventListener("click", function (event) {
+    if (event.target && event.target.id === "updateAnnouncement") {
+        const announcementId = document.getElementById("announcementModal").getAttribute("data-user-id");
+        console.log("announcement_id:", announcementId);
+        const updatedTitle = document.getElementById("modalAnnouncementTitle").value;
+        const updatedContent = document.getElementById("modalAnnouncementContent").value;
+
+        if (!confirm("Are you sure you want to update this announcement?")) {
+            return;
+        }
+
+        const announcementData = {
+            announcement_id: announcementId,
+            title: updatedTitle,
+            content: updatedContent
+        };
+
+        fetch(`/admin/updateAnnouncement`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(announcementData)
+        })
+            .then(response => response.text())
+            .then(result => {
+                if (result === "1") {
+                    alert("Successfully updated.");
+                    document.getElementById("announcementModal").style.display = "none";
+                    location.reload();
+                } else {
+                    alert("Failed to update. Please try again.");
+                }
+            })
+            .catch(error => console.error("업데이트 요청 실패:", error));
+    }
+});
+
+// 공지사항 삭제
+document.addEventListener("click", function (event) {
+    if (event.target && event.target.id === "deleteAnnouncement") {
+        const announcementId = document.getElementById("announcementModal").getAttribute("data-user-id");
+
+        if (!confirm("Are you sure you want to delete this announcement?")) {
+            return;
+        }
+
+        fetch(`/admin/deleteAnnouncement?announcement_id=${announcementId}`, {
+            method: "DELETE"
+        })
+            .then(response => response.text())
+            .then(result => {
+                if (result === "1") {
+                    alert("Successfully deleted.");
+                    document.getElementById("announcementModal").style.display = "none";
                     location.reload();
                 } else {
                     alert("Failed to delete. Please try again.");
@@ -183,48 +216,56 @@ document.addEventListener("click", function (event) {
     }
 });
 
-// 유저 정보 수정
-document.addEventListener("click", function (event) {
-    if (event.target && event.target.id === "updateUser") {
-        const userId = document.getElementById("modalUserId").textContent;
-        const updatedPassword = document.getElementById("modalUserPassword").value;
-        const updatedNickname = document.getElementById("modalUserNickname").value;
-        const updatedEmail = document.getElementById("modalUserEmail").value;
-        const userType = document.getElementById("modalUserType").textContent.trim();
+/* 공지사항 작성 모달 */
+document.addEventListener("DOMContentLoaded", function () {
+    const createBtn = document.querySelector(".announcement-create-btn");
+    const createModal = document.getElementById("announcementCreateModal");
+    const createCloseBtn = document.querySelector(".create-close");
 
-        if (!confirm("Are you sure you want to update this member?")) {
+    createBtn.addEventListener("click", function () {
+        createModal.style.display = "flex";
+    });
+
+    createCloseBtn.addEventListener("click", function () {
+        createModal.style.display = "none";
+    });
+
+    window.addEventListener("click", function (e) {
+        if (e.target === createModal) {
+            createModal.style.display = "none";
+        }
+    });
+
+    // 작성 완료 버튼 클릭 시 POST 요청
+    document.getElementById("submitAnnouncement").addEventListener("click", function () {
+        const title = document.getElementById("createAnnouncementTitle").value.trim();
+        const content = document.getElementById("createAnnouncementContent").value.trim();
+
+        if (!title || !content) {
+            alert("Please enter both the title and content.");
             return;
         }
 
-        const userData = {
-            user_id: userId,
-            user_password: updatedPassword,
-            user_nickname: updatedNickname,
-            user_email: updatedEmail
+        const announcementData = {
+            title: title,
+            content: content
         };
 
-        fetch(`/admin/updateUser`, {
+        fetch("/admin/createAnnouncement", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userData)
+            body: JSON.stringify(announcementData)
         })
             .then(response => response.text())
             .then(result => {
                 if (result === "1") {
-                    alert("Successfully updated.");
-                    if (userType === "Counselor") {
-                        sessionStorage.setItem("lastView", "counselor");
-                    } else {
-                        sessionStorage.setItem("lastView", "user");
-                    }
-                    document.getElementById("userDetailModal").style.display = "none";
+                    alert("Announcement has been successfully created.");
+                    createModal.style.display = "none";
                     location.reload();
                 } else {
-                    alert("Failed to update. Please try again.");
+                    alert("Failed to create announcement. Please try again.");
                 }
             })
-            .catch(error => console.error("수정 요청 실패:", error));
-    }
+            .catch(err => console.error("작성 요청 실패:", err));
+    });
 });
-
-

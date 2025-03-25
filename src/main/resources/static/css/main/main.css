@@ -126,6 +126,16 @@ body {
     color: #5D4037;
 }
 
+.modal-title a {
+    color: #5D4037;
+    text-decoration: none;
+}
+
+#notice-title a:visited {
+    color: #5D4037;
+    text-decoration: none;
+}
+
 .close-btn {
     color: #5D4037;
     position: absolute;
