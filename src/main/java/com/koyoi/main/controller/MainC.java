@@ -35,7 +35,7 @@ public class MainC {
 
     @GetMapping("/main")
     public String main(HttpSession session, Model model) {
-        model.addAttribute("announcements", announcementService.getAllAnnouncements());
+        model.addAttribute("announcements", announcementService.getFiveAnnouncements());
         model.addAttribute("quotes", quoteService.getAllQuotes());
 
         String userId = (String) session.getAttribute("userId");

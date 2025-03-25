@@ -15,7 +15,7 @@
     <div class="left-container">
         <!-- 🌙 달 로고 -->
         <div>
-            <img class="sidebar-logo" src="/static/imgsource/logo.png" alt="KOYOI 로고">
+            <img class="sidebar-logo" src="/static/imgsource/layout/logo.png" alt="KOYOI 로고">
         </div>
 
         <!-- 🟣 사이드바 -->
@@ -23,11 +23,11 @@
             <nav class="sidebar-menu">
                 <button class="sidebar-btn"><img src="/static/imgsource/smile.png" alt="프로필"></button>
                 <button onclick="location.href= '/diary'" class="sidebar-btn">
-                    <img src="/static/imgsource/calandar.png" alt="캘린더">
+                    <img src="/static/imgsource/layout/calandar.png" alt="캘린더">
                 </button>
-                <button class="sidebar-btn"><img src="/static/imgsource/pencil.png" alt="메모"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/chat.png" alt="채팅"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/settingss.png" alt="설정"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="메모"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="채팅"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/settingss.png" alt="설정"></button>
             </nav>
         </aside>
     </div>
@@ -39,12 +39,12 @@
             <h1 class="brand-title">KOYOI</h1>
             <div class="header-icons">
                 <button class="header-btn">
-                    <img src="/static/imgsource/chat.png" alt="채팅">
+                    <img src="/static/imgsource/layout/chat.png" alt="채팅">
                 </button>
                 <button class="header-btn">
-                    <img src="/static/imgsource/settingss.png" alt="설정">
+                    <img src="/static/imgsource/layout/settingss.png" alt="설정">
                 </button>
-                <img class="profile-img" src="/static/imgsource/testprofile.png" alt="프로필">
+                <img class="profile-img" src="/static/imgsource/layout/testprofile.png" alt="프로필">
             </div>
         </header>
 

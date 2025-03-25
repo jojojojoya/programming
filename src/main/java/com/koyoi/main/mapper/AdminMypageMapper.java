@@ -22,4 +22,10 @@ public interface AdminMypageMapper {
 
     @Update("update test_user set user_password = #{user_password}, user_nickname = #{user_nickname}, user_email = #{user_email} where user_id = #{user_id}")
     int updateUser(AdminMypageVO adminMypageVO);
+
+/*    @Select("SELECT COUNT(*) FROM TEST_USER WHERE user_type = 1")
+    int selectUserTotalCount();
+
+    @Select("SELECT * FROM TEST_USER WHERE user_type = 1 ORDER BY created_at DESC LIMIT #{size} OFFSET #{offset}")
+    List<AdminMypageVO> selectUserPage(int offset, int size);*/
 }

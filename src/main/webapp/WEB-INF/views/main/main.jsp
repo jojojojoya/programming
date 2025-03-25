@@ -38,18 +38,18 @@
     <header class="header-bar">
 
         <div class="logo-container">
-            <img class="logo-icon" src="/static/imgsource/logo.png" alt="KOYOI">
+            <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI">
         </div>
         <div class="header-icons">
             <button class="header-btn" id="notice">
-                <img src="/static/imgsource/notice.png" alt="notice">
+                <img src="/static/imgsource/main/notice.png" alt="notice">
             </button>
             <%--추후 알림창 설정--%>
 <%--            <button class="header-btn" id="message">
-                <img src="/static/imgsource/chat.png" alt="message">
+                <img src="/static/imgsource/layout/chat.png" alt="message">
             </button>--%>
             <button class="header-btn">
-                <a href="/logout"> <img src="/static/imgsource/logout.png" alt="logout"> </a>
+                <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
             </button>
             <button class="profile-btn">
                 <a href="/usermypage">  <img class="profile-img" src="/static<%=imgPath%>" alt="profile"> </a>
@@ -62,7 +62,7 @@
     <div id="notice-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn"> &times; </span>
-            <a href="/announcement"> <h3> Notice </h3> </a>
+            <h3 class="modal-title"> <a href="/announcement/list">  Notice  </a> </h3>
             <ul id="notice-lists">
                 <c:forEach var="announcement" items="${announcements}">
                     <li>
@@ -134,7 +134,7 @@
                         </div>
 
                         <div class="chat-connect">
-                            <button class="chatbot"> ChatBot </button>
+                            <button class="chatbot" onclick="location.href='/chat'"> ChatBot </button>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> LiveChat </button>
                         </div>
 

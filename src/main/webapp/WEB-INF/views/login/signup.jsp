@@ -19,7 +19,7 @@
 
     <header class="header-bar">
         <div class="header-logo-center">
-            <img src="/static/imgsource/logo.png" alt="KOYOI 로고" class="header-logo">
+            <img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고" class="header-logo">
         </div>
     </header>
 
