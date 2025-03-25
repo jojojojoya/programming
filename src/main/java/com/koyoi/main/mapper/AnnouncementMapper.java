@@ -38,4 +38,10 @@ public interface AnnouncementMapper {
     @Insert("INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)" +
             "VALUES (#{admin_id}, #{title}, #{content}, SYSDATE)")
     int createAnnouncement(AnnouncementVO announcementVO);
+
+    @Select("SELECT * FROM TEST_ANNOUNCEMENT ORDER BY created_at DESC OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY")
+    List<AnnouncementVO> selectAnnouncementPage(int offset, int size);
+
+    @Select("SELECT COUNT(*) FROM TEST_ANNOUNCEMENT")
+    int selectAnnouncementTotalCount();
 }
