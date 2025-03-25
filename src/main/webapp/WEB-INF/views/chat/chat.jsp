@@ -12,10 +12,8 @@
 
 <input type="text" id="user-input" placeholder="메시지를 입력하세요" style="width:400px;">
 <button onclick="sendMessage()">보내기</button>
-
 <button onclick="endChat()">대화 종료</button>
 
-<!-- ✅ 외부 JS 파일 연결 -->
 <script src="/static/js/chat/chat.js"></script>
 </body>
 </html>
