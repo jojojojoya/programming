@@ -91,8 +91,11 @@ VALUES (2, '미래에 대한 고민을 상담하였습니다.');
 INSERT INTO TEST_COUNSELING_CONTENT (counseling_id, counseling_content)
 VALUES (3, '인간관계에 대한 조언을 받았습니다.');
 
-select *
-from TEST_USER;
+
+
+select * from MAIN_USER;
+select * from KOYOI.TEST_USER;
+
 select *
 from TEST_LIVE_CHAT;
 select  * from TEST_COUNSELING_SUMMARY;

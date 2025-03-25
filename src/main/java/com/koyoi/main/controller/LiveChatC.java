@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -23,50 +22,53 @@ import java.util.HashMap;
 @Controller
 public class LiveChatC {
 
+    // 라이브챗 서비스 담당
     @Autowired
     private LiveChatService liveChatService;
 
-    // ✅ "입장하기" 버튼이 필요한 상담 조회
     @GetMapping("/available")
     public ResponseEntity<List<LiveChatVO>> getAvailableReservations() {
         liveChatService.updateReservationsStatus(); // 상담 상태 업데이트 반영
         List<LiveChatVO> reservations = liveChatService.getAvailableReservations();
 
         if (reservations.isEmpty()) {
+            // 예약 상담 없음
             System.out.println("⚠️ 예약된 상담 없음.");
         } else {
+            // 예약 상담 개수
             System.out.println("🔍 예약된 상담 개수: " + reservations.size());
         }
 
         return ResponseEntity.ok(reservations);
     }
 
-    //  상담 예약 페이지
+    //  상담 예약 페이지 진입
     @GetMapping("/livechatreservation")
     public String showLiveChatReservations(Model model, HttpSession session) {
-        // 1. 세션에서 로그인된 유저 가져오기
+        // 로그인된 유저 가져오기
         UserMyPageVO loggedInUser = (UserMyPageVO) session.getAttribute("loggedInUser");
 
-        // 2. 로그인 유저 없을 경우 기본값 user5로 대체
+        // 로그인 유저 없을 경우 기본값을 user5로 대체
         if (loggedInUser == null) {
             List<UserMyPageVO> userList = liveChatService.getUserInfoById("user5");
             if (!userList.isEmpty()) {
                 loggedInUser = userList.get(0);
-                System.out.println("⚠️ 로그인된 유저 없음 → 기본 user5 로딩");
+                System.out.println("로그인된 유저 없음 → 기본 user5 로딩");
             }
         }
 
-        // 3. 예약 가능한 상담 목록 추가
+        // 예약 가능한 상담 목록 추가
         List<LiveChatVO> availableReservations = liveChatService.getAvailableReservations();
 
-        // 4. 모델에 추가
+        // 모델에 추가
         model.addAttribute("availableReservations", availableReservations);
-        model.addAttribute("user", loggedInUser); // ✔️ JSP에서 ${user.user_img}로 사용
+        model.addAttribute("user", loggedInUser); // 로그인된 유저 객체를 user에 담고 ${user.user_img}로 사용
 
         return "/livechat/livechatreservation";
     }
 
 
+    // 라이브 상담 디테일 보기
     @GetMapping("/livechatdetail")
     public String showLiveChatDetails(@RequestParam(value = "sessionId", required = false) Integer sessionId,
                                       @RequestParam(value = "counselingId", required = false) Integer counselingId,
@@ -93,15 +95,22 @@ public class LiveChatC {
             counselingDetail.setSession_id(sessionId);
         }
 
-        // ✅ 채팅 로그 가져오기
+        // 채팅 로그 가져오기
         List<LiveChatVO> chatLogs = liveChatService.getChatLogs(sessionId);
         if (chatLogs.isEmpty()) {
+            // 세션 id(채팅방 번호)가 없으면, 채팅기록 없을 수 밖에 없음
             System.out.println("⚠️ 채팅 기록 없음: sessionId=" + sessionId);
         }
 
+        // 세션 id가 있으면, 상담 디테일을 counseling에 싣고
         model.addAttribute("counseling", counselingDetail);
+        // 세션 id가 있으면, 챗로그를 chatlogs에 싣고
+
         model.addAttribute("chatLogs", chatLogs);
+        // 세션 id가 있으면, 상담 예약 완료 여부를 iscompleted에 싣고
+
         model.addAttribute("isCompleted", isCompleted);
+
 
         System.out.println("✅ 상담 상세 페이지 로드 완료: sessionId=" + sessionId + ", isCompleted=" + isCompleted);
         return "/livechat/livechatdetail";
@@ -111,7 +120,7 @@ public class LiveChatC {
     @PostMapping("/livechatreservation")
     public ResponseEntity<Map<String, Object>> reserveLiveChat(@RequestBody Map<String, String> request, HttpSession session) {
 
-        // ✅ 세션에서 로그인 유저 정보 가져오기
+        // 세션에서 로그인 유저 정보 가져오기
         UserMyPageVO loggedInUser = (UserMyPageVO) session.getAttribute("loggedInUser");
         String userId;
 
@@ -124,7 +133,7 @@ public class LiveChatC {
 
 
     try {
-        // ✅ 1. 요청값 검증 (Null 체크)
+        // 요청값 검증 (Null 체크)
         String dateString = request.get("livechatreservedate");
         String timeString = request.get("livechatreservetime");
         String category = request.get("livechatcategory");
@@ -138,7 +147,7 @@ public class LiveChatC {
 
         System.out.println("📌 [서버] 예약 요청 데이터: 날짜=" + dateString + ", 시간=" + timeString + ", 카테고리=" + category);
 
-        // ✅ 2. 날짜 변환 오류 방지
+        // 날짜 변환 오류 방지 (formatter에 패턴 담기)
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate;
         try {
@@ -152,7 +161,7 @@ public class LiveChatC {
 
         Date sqlDate = Date.valueOf(localDate);
 
-        // ✅ 3. 시간 변환 오류 방지
+        // 시간 변환 오류 방지
         int counselingTime;
         try {
             counselingTime = Integer.parseInt(timeString.split(":")[0]);
@@ -163,7 +172,7 @@ public class LiveChatC {
             ));
         }
 
-        // ✅ 4. LiveChatVO 객체 생성
+        // LiveChatVO 객체 생성
         LiveChatVO reservation = new LiveChatVO();
         reservation.setUser_id(userId);
         reservation.setCounseling_date(sqlDate);
@@ -172,7 +181,7 @@ public class LiveChatC {
         reservation.setStatus("대기");
         reservation.setCounselor_id("counselor001");
 
-        // ✅ 5. 예약 처리
+        // 예약 처리
         boolean isReserved = liveChatService.reserveCounseling(reservation);
         System.out.println("🔍 user_id: [" + reservation.getUser_id() + "]");
         System.out.println("🔍 counselor_id: [" + reservation.getCounselor_id() + "]");
@@ -201,14 +210,14 @@ public class LiveChatC {
 
 
 
-    // 특정 세션의 채팅 내역 가져오기
+    // 특정 채팅방 세션 id로 채팅 내역 가져오기
     @GetMapping("/chatlogs/{sessionId}")
     public List<LiveChatVO> getChatLogs(@PathVariable int sessionId) {
         return liveChatService.getChatLogs(sessionId);
     }
 
 
-
+    // 특정 채팅방 세션 id의 채팅 내역 저장하기
     @PostMapping("/chatmessage")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> saveChatMessage(@RequestBody LiveChatVO message) {
@@ -238,7 +247,7 @@ public class LiveChatC {
         return ResponseEntity.ok(Map.of("success", true, "message", "대기 상태 업데이트 완료"));
     }
 
-    // ✅ 상담 상태 업데이트 (완료 상태)
+    // 상담 상태 업데이트 (완료 상태)
     @GetMapping("/updateCompletedStatus")
     public ResponseEntity<Map<String, Object>> updateCompletedStatus() {
         liveChatService.updateCompletedStatus();
@@ -300,7 +309,7 @@ public class LiveChatC {
         return response;
     }
 
-
+// 상담 종료하기 누를 시 
 @PostMapping("/livechat/complete")
 @ResponseBody
 public Map<String, Object> completeChat(@RequestBody Map<String, Object> requestData) {
@@ -328,6 +337,7 @@ public Map<String, Object> completeChat(@RequestBody Map<String, Object> request
     return response;
 }
 
+    // 세션 id로 해당 채팅 내역을 조회
     @GetMapping("/livechat/getCounselingId")
     @ResponseBody
     public Map<String, Object> getCounselingIdBySession(@RequestParam int sessionId) {
@@ -350,7 +360,8 @@ public Map<String, Object> completeChat(@RequestBody Map<String, Object> request
 
         return response;
     }
-
+    
+    // 상담 상태 업데이트된 버전을 post
     @PostMapping("/livechat/updateStatus")
     @ResponseBody
     public Map<String, Object> updateStatus(@RequestBody Map<String, Object> request) {

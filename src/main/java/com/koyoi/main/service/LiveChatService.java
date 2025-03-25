@@ -23,19 +23,19 @@ public class LiveChatService {
     @Transactional
     public boolean reserveCounseling(LiveChatVO reservation) {
         try {
-            // ✅ 부모 테이블 (TEST_COUNSELING_RESERVATION)에 상담 예약 먼저 저장
+            // 부모 테이블 (TEST_COUNSELING_RESERVATION)에 상담 예약 먼저 저장
             int result = liveChatMapper.reserveCounseling(reservation);
 
             if (result > 0) {
                 System.out.println("✅ 상담 예약 성공: " + reservation.getCounseling_id());
 
-                // ✅ DB에 실제로 예약이 저장되었는지 확인 후 session_id 생성
+                // DB에 실제로 예약이 저장되었는지 확인 후 session_id 생성
                 Integer counselingId = reservation.getCounseling_id();
                 if (counselingId == null || counselingId <= 0) {
                     throw new RuntimeException("🚨 예약된 상담 ID(counseling_id)가 존재하지 않습니다.");
                 }
 
-                // ✅ 상담 ID를 이용하여 채팅방 생성 (자식 테이블)
+                // 상담 ID를 이용하여 채팅방 생성 (자식 테이블)
                 reservation.setStart_time(reservation.getCounseling_time());
                 Integer sessionId = liveChatMapper.createChatRoom(reservation);
 
@@ -55,29 +55,8 @@ public class LiveChatService {
         }
     }
 
-//    // ✅ 상담 예약 저장 (트랜잭션 적용)
-//    public boolean reserveCounseling(LiveChatVO reservation) {
-//        try {
-//            int result = liveChatMapper.reserveCounseling(reservation);
-//            if (result > 0) {
-//                System.out.println("✅ 상담 예약 성공: " + reservation.getCounseling_id());
-//                System.out.println(reservation);
-//                reservation.setStart_time(reservation.getCounseling_time());
-//                Integer sessionId = liveChatMapper.createChatRoom(reservation);
-//                System.out.println("sessionId =====>" + sessionId);
-//                reservation.setSession_id(sessionId); // session_id
-//                return true;
-//            } else {
-//                System.out.println("⚠️ 상담 예약 실패!");
-//                return false;
-//            }
-//        } catch (Exception e) {
-//            System.err.println("🚨 상담 예약 중 오류 발생: " + e.getMessage());
-//            return false;
-//        }
-//    }
 
-    // ✅ 예약된 상담 조회 (읽기 전용 트랜잭션)
+    // 예약된 상담 조회 (읽기 전용 트랜잭션)
     @Transactional(readOnly = true)
     public List<LiveChatVO> getAvailableReservations() {
         List<LiveChatVO> reservations = liveChatMapper.findAvailableReservations();
@@ -89,19 +68,19 @@ public class LiveChatService {
         return reservations;
     }
 
-    // ✅ 완료된 상담 조회 (읽기 전용 트랜잭션)
+    // 완료된 상담 조회 (읽기 전용 트랜잭션)
     @Transactional(readOnly = true)
     public List<LiveChatVO> getCompletedReservations() {
         return liveChatMapper.findCompletedReservations();
     }
 
-    // ✅ 상담 ID로 상담 내역 조회 (읽기 전용 트랜잭션)
+    // 상담 ID로 상담 내역 조회 (읽기 전용 트랜잭션)
     @Transactional(readOnly = true)
     public LiveChatVO getCounselingDetail(int counselingId) {
         return liveChatMapper.findReservationById(counselingId);
     }
 
-    // ✅ 상담 ID로 채팅 내역 가져오기 (읽기 전용 트랜잭션)
+    // 상담 ID로 채팅 내역 가져오기 (읽기 전용 트랜잭션)
     @Transactional(readOnly = true)
     public List<LiveChatVO> getChatLogs(int sessionId) {
         if (sessionId <= 0) {
@@ -118,7 +97,7 @@ public class LiveChatService {
         return chatLogs;
     }
 
-    // ✅ 실시간 채팅 메시지 저장
+    // 실시간 채팅 메시지 저장
     @Transactional
     public void saveChatMessage(LiveChatVO message) {
         try {
@@ -153,23 +132,7 @@ public class LiveChatService {
         }
     }
 
-//    //    @Scheduled(fixedRate = 60000)
-////    @Transactional
-//    public void updateReservationsStatus() {
-//        try {
-////            int updatedToWaiting = liveChatMapper.updateToWaitingStatus();
-////            int updatedToCompleted = liveChatMapper.completeCounseling(null);
-//
-////            System.out.println("🔄 상담 상태 업데이트 실행됨");
-////            System.out.println("▶ '대기'로 변경된 상담 개수: " + updatedToWaiting);
-////            System.out.println("▶ '완료'로 변경된 상담 개수: " + updatedToCompleted);
-//        } catch (Exception e) {
-//            System.err.println("🚨 상담 상태 업데이트 중 오류 발생: " + e.getMessage());
-//        }
-//    }
-
-
-    // ✅ 특정 상담 완료 처리
+    // 특정 상담 완료 처리
     @Transactional
     public int completeCounseling(Integer counselingId) {
         try {
@@ -186,7 +149,7 @@ public class LiveChatService {
         }
     }
 
-    // ✅ 특정 상담의 상태를 '대기'로 변경
+    // 특정 상담의 상태를 '대기'로 변경
     @Transactional
     public void updateReservationStatusToWaiting(int counselingId) {
         try {
@@ -201,13 +164,13 @@ public class LiveChatService {
         }
     }
 
-    // ✅ 예약 내역 조회 (읽기 전용 트랜잭션)
+    //예약 내역 조회 (읽기 전용 트랜잭션)
     @Transactional(readOnly = true)
     public List<UserMyPageVO> getUserReservations(String userId) {
         return userMyPageMapper.getUserReservations(userId);
     }
 
-    // ✅ **추가: 전체 상담을 '대기' 상태로 업데이트하는 기능**
+    // 전체 상담을 '대기' 상태로 업데이트하는 기능
     @Transactional
     public void updateWaitingStatus() {
         try {
@@ -218,7 +181,7 @@ public class LiveChatService {
         }
     }
 
-    // ✅ **추가: 완료된 상담 업데이트 기능**
+    // 완료된 상담 업데이트 기능
     @Transactional
     public void updateCompletedStatus() {
         try {
