@@ -145,287 +145,121 @@ body {
 
 
 
-
-
+/* ✅ 전체 3x2 레이아웃 */
 .habit-page {
-    display: flex;
-    flex-wrap: wrap; /* 자식 요소들이 넘칠 경우 자동으로 줄 바꿈 */
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.habit-list {
-    height: 30%;
-    margin-bottom: 10px;
-    background-color: #bbbbbb;
-}
-.myhabit{
-    font-size: 20pt;
-    text-align: center;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-.myhabit > div{
-    text-decoration: black underline solid;
-    text-align: left;
-
-}
-.myhabit-list{
-    font-size: 10pt;
-    display: flex;
-    flex-wrap: wrap; /* 줄바꿈 허용 */
-    gap: 10px; /* 간격 조정 */
-
-}
-.myhabit-list div {
-    width: calc(50% - 5px); /* 2개씩 배치 */
-    min-width: 150px; /* 최소 너비 설정 */
-}
-
-
-
-.habit-recommend {
-    margin-bottom: 20px;
-    padding: 5px;
-    padding-bottom: 20px;
-    background-color: #FDD7E4;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: auto;
-    flex-grow: 1;
-    overflow: visible;
-}
-
-.habit-tabs {
-    display: flex;
-    justify-content: center;
-    background-color: #FDD7E4;
-    padding: 8px;
-    border-radius: 20px;
-    width: 300px;
-    margin: 20px auto;
-
-}
-
-.habit-tab {
-    flex: 1;
-    padding: 10px;
-    cursor: pointer;
-    color: #777;
-    transition: 0.3s;
-    font-weight: normal;
-}
-
-
-
-.habit-active {
-    color: #FF69B4; /* 분홍색 */
-    font-weight: bold; /* 글씨 굵게 */
-}
-
-
-.habit-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 250px;
-    height: auto;
-    margin: auto;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow: visible;
-    padding-bottom: 5px;
-
-
-}
-.habit-content p {
-    font-size: 12px;
-    margin: 3px 0;
-    line-height: 1.3;
-    word-break: break-word;
-    white-space: nowrap;
-}
-/* habit-mental 내용이 숨겨지지 않도록 수정 */
-#habit-mental {
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
-    max-height: 1000px; /* 필요에 맞게 설정 */
-    display: none;  /* 기본적으로 숨겨져 있음 */
-}
-
-/* .habit-hidden 클래스가 없는 경우 보이게 처리 */
-#habit-mental:not(.habit-hidden) {
-    display: block;  /* 클릭 시 활성화되면 보이도록 처리 */
-}
-
-/* 탭 활성화 스타일 */
-.habit-tab.habit-active {
-    color: #ff4081;
-    font-weight: bold;
-    background-color: #FDD7E4;
-}
-
-/* .habit-hidden 클래스는 숨김 처리 */
-.habit-hidden {
-    display: none;
-}
-
-
-.habit-hidden {
-    display: none;
-}
-
-
-
-/* .habit-hidden 클래스를 가진 요소는 기본적으로 숨겨짐 */
-.habit-hidden {
-    display: none;
-}
-
-
-
-
-
-/* 텍스트 크기 및 여백 축소 */
-.habit-recommend p {
-    font-size: 12px; /* 텍스트 크기 축소 */
-    margin: 3px 0; /* 문단 간 간격 축소 */
-    line-height: 1.3; /* 줄 간격 축소 */
-    white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 처리 */
-}
-
-
-.habit-mental-part {
-    display: flex;
-    flex-wrap: wrap; /* 항목이 넘칠 경우 자동으로 줄 바꿈 */
-    gap: 10px; /* 항목 간 간격을 조정 */
-    justify-content: space-between; /* 항목들을 좌우로 균등 배치 */
-}
-
-.habit-mental-part p {
-    width: calc(33.333% - 10px); /* 한 줄에 3개의 항목 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    font-size: 12px;
-    margin: 0px 0; /* 위아래 간격 */
-    white-space: normal; /* 텍스트가 한 줄에 맞게 표시되도록 처리 */
-    word-break: break-word; /* 단어가 너무 길 경우 자동 줄 바꿈 */
-    line-height: 1.3; /* 줄 간격 설정 */
-}
-
-
-/* habit-content는 기본적으로 숨김 처리 */
-.habit-hidden {
-    display: none;
-}
-
-
-
-
-
-
-
-.habit-partone {
-    width: 30%;
-    height: 450px;
-}
-
-.habit-partone > div {
-    height: 47%;
-}
-
-.habit-parttwo {
-    width: 70%;
-    height: 500px;
-}
-
-.habit-parttwo-first {
-    display: flex;
-    padding-bottom: 30px;
-    padding-top: 0px;
-    padding-left: 20px;
-}
-
-/* 🟦 전체 달력 박스 */
-.calendar {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 16px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* 🗓️ 요일 (일~토) 줄 */
-.calendar-days {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 8px;
+    grid-template-columns: repeat(3, 22vw);   /* ✅ 위젯 너비는 그대로 */
+    grid-template-rows: auto auto;            /* ✅ 자동으로 높이 조절! */
+    gap: 3vh 3vw;
+    justify-content: center;
+    padding: 3vh 4vw;
+    box-sizing: border-box;
 }
 
-/* 🗓️ 날짜 셀을 담는 그리드 */
+
+/* ✅ 모든 위젯에 공통 적용할 카드 스타일 */
+.widget-box {
+    padding: 1vw;
+    border-radius: 1vw;
+    box-shadow: 0 0.3vw 0.6vw rgba(0, 0, 0, 0.1);
+    overflow: auto;
+}
+
+/* ✅ 개별 위젯 높이 설정 (필요에 따라 조절 가능) */
+.habit-list,
+.habit-recommend,
+.habit-calendar,
+.habit-week,
+.habit-rate,
+.habit-memo {
+    min-height: 300px;
+}
+
+/* ✅ 타이틀 중앙 정렬 */
+.habit-list .myhabit,
+.habit-week h3,
+.habit-rate h3 {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+/* ✅ 달력 정렬 개선 */
+.calendar-days,
 .calendar-body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    min-height: 240px;
-}
-
-/* 🔲 날짜 셀 스타일 */
-.calendar-day {
-    padding: 10px;
     text-align: center;
-    cursor: pointer;
-    background: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
+    gap: 4px;
 }
 
-/* ✅ 선택한 날짜 */
+.calendar-day {
+    padding: 8px;
+    border-radius: 6px;
+    background-color: #f3f3f3;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 .calendar-day.selected {
     background-color: #007bff;
     color: white;
     font-weight: bold;
 }
 
-/* 🟢 마우스 오버 */
-.calendar-day:hover {
-    background-color: #28a745;
-    color: white;
+/* ✅ 주간 이력 테이블 */
+.week-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
 }
 
-
-
-.habit-week {
-    width: 50%;
-    height: 200px;
-    background-color: #C6F6D5;
-    margin-top: 30px;
-    margin-left: 100px;
+.week-table th,
+.week-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
 }
 
-.habit-parttwo-second {
+/* ✅ 격려의 말 스타일 */
+#encouragementList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    text-align: center;
+}
+
+#encouragementList li {
+    margin: 6px 0;
+    color: #333;
+}
+
+/* ✅ 추천 습관 탭 스타일 */
+.habit-tabs {
     display: flex;
-    padding-left: 20px;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
-.habit-rate {
-    width: 50%;
-    height: 200px;
-    background-color: #bbbbbb;
-    margin-right: 10px;
+.habit-tab {
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #f2f2f2;
+    transition: 0.3s;
 }
 
-.habit-memo {
-    width: 50%;
-    height: 200px;
-    background-color: #d8c3a5;
+.habit-tab.habit-active {
+    background-color: #ff8ac0;
+    color: white;
+    font-weight: bold;
 }
+
+
 
 .bbiyak {
     position: absolute;
