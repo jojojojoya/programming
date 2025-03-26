@@ -42,7 +42,7 @@
     <div class="right-container">
         <header class="header-bar">
             <div class="brand-title">
-                <img src="/static/imgsource/layout/logo.png" alt="KOYOI">
+                <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
             </div>
 
             <div class="header-icons">

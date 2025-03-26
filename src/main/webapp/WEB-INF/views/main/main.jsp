@@ -54,7 +54,7 @@
     <header class="header-bar">
 
         <div class="logo-container">
-            <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI">
+            <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
         </div>
         <div class="header-icons">
             <button class="header-btn" id="notice">
