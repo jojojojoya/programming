@@ -61,8 +61,8 @@ body {
 /* 회원가입 폼 전체 */
 .signup-wrapper {
     display: flex;
-    width: 75vw; /* 화면 너비 75% */
-    height: 80vh; /* 화면 높이 80% */
+    width: 70vw; /* 화면 너비 70% */
+    height: 75vh; /* 화면 높이 75% */
     background-color: #ffffff;
     box-shadow: 0 1vh 3vh rgba(0, 0, 0, 0.1);
     border-radius: 2vw;
