@@ -20,22 +20,22 @@
         fetch(`/habit-tracking/list/by-date?date=${dateString}`)
             .then(response => response.json())
             .then(data => {
-                renderChecklist(true, data); // renderChecklist는 날짜별 목록을 그려주는 함수
+                renderChecklist(true, data, dateString); // renderChecklist는 날짜별 목록을 그려주는 함수
             })
             .catch(error => console.error("체크리스트 불러오기 실패:", error));
     }
 
     // 체크리스트 렌더링 함수 (공통)
-    function renderChecklist(hasHabits, habitList) {
+    function renderChecklist(hasHabits, habitList, dateString) {
         taskList.innerHTML = "";
 
         if (!hasHabits) {
             taskList.innerHTML = `
-            <div class="no-habit-box">
-                <p class="no-habit-text"> No habits registered yet. </p>
-                <button id="go-to-habit-page" class="register-btn"> Create a Habit </button>
-            </div>
-        `;
+        <div class="no-habit-box">
+            <p class="no-habit-text"> No habits registered yet. </p>
+            <button id="go-to-habit-page" class="register-btn"> Create a Habit </button>
+        </div>
+    `;
             document.getElementById("go-to-habit-page").addEventListener("click", () => {
                 window.location.href = "/habit";
             });
@@ -44,50 +44,89 @@
 
         if (!Array.isArray(habitList) || habitList.length === 0) {
             taskList.innerHTML = `
-            <div class="no-habit-box">
-                <p class="no-habit-text"> Nothing scheduled for this date. </p>
-            </div>
-        `;
+        <div class="no-habit-box">
+            <p class="no-habit-text"> Nothing scheduled for this date. </p>
+        </div>
+    `;
             return;
         }
 
         const isToday = (dateString) => {
-            const today = new Date().toISOString().split("T")[0]; // 'YYYY-MM-DD' 포맷
+            const today = new Date().toISOString().split("T")[0];
             return dateString === today;
         };
+
+        const isPast = (dateString) => {
+            const today = new Date().toISOString().split("T")[0];
+            return dateString < today;
+        };
+
+        const isFuture = (dateString) => {
+            const today = new Date().toISOString().split("T")[0];
+            return dateString > today;
+        };
+
 
         habitList.forEach(habit => {
             const listItem = document.createElement("li");
             listItem.classList.add("task-item");
 
+            const label = document.createElement("label");
+            label.classList.add("custom-checkbox");
+
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.checked = habit.completed === 1;
 
-            checkbox.disabled = !isToday(habit.tracking_date);
+            const checkmark = document.createElement("span");
+            checkmark.classList.add("checkmark");
 
-            if (!checkbox.disabled) {
+            label.appendChild(checkbox);
+            label.appendChild(checkmark);
+            label.appendChild(document.createTextNode(habit.habit_name));
+
+            // 체크박스 비활성화 조건 처리
+            if (isPast(dateString) || isFuture(dateString)) {
+                checkbox.disabled = true;
+                checkbox.classList.add("disabled-checkbox");
+            } else {
+                checkbox.disabled = false;
                 checkbox.addEventListener("change", function () {
-                    toggleHabit(habit.tracking_id, checkbox.checked);
+                    toggleHabit(habit.habit_id, checkbox.checked);
                     listItem.classList.toggle("completed", checkbox.checked);
                 });
             }
-            const label = document.createElement("label");
-            label.textContent = habit.habit_name;
 
             if (checkbox.checked) {
                 listItem.classList.add("completed");
             }
 
-            listItem.appendChild(checkbox);
             listItem.appendChild(label);
             taskList.appendChild(listItem);
         });
+
+        const spacing = document.createElement("div");
+        spacing.style.height = "30px";
+        taskList.appendChild(spacing);
+
+        const habitPageLinkBox = document.createElement("div");
+        habitPageLinkBox.classList.add("habit-page-link-box");
+
+        const habitButton = document.createElement("button");
+        habitButton.classList.add("habit-link-btn");
+        habitButton.textContent = "Go to Habit Page";
+        habitButton.onclick = function () {
+            window.location.href = "/habit";
+        };
+
+        habitPageLinkBox.appendChild(habitButton);
+        taskList.appendChild(habitPageLinkBox);
     }
 
+
     // 체크박스 클릭 시 완료 상태 업데이트
-    function toggleHabit(trackingId, completed) {
-        fetch(`/habit-tracking/toggle/${trackingId}`, {
+    function toggleHabit(habitId, completed) {
+        fetch(`/habit-tracking/toggle/${habitId}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ completed: completed ? 1 : 0 })
