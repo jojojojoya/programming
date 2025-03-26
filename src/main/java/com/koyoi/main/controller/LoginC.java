@@ -8,14 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
 @Controller
 public class LoginC {
 
     private final LoginService loginService;
+    private final ResourceUrlProvider resourceUrlProvider;
 
-    public LoginC(LoginService loginService) {
+    public LoginC(LoginService loginService, ResourceUrlProvider resourceUrlProvider) {
         this.loginService = loginService;
+        this.resourceUrlProvider = resourceUrlProvider;
     }
 
     @GetMapping("/login")
@@ -46,7 +49,12 @@ public class LoginC {
             System.out.println("usernickname = " + user.getUserNickname());
             System.out.println("userType = " + user.getUserType());
 
-            return "redirect:/main";
+            if(user.getUserType() == 3 ){
+                return "redirect:/admin";
+            } else {
+                return "redirect:/main";
+            }
+
         } else {
             model.addAttribute("loginFailed", true);
             return "login/login";
