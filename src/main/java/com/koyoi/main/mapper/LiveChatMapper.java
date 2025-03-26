@@ -50,7 +50,7 @@ public interface LiveChatMapper {
     int reserveCounseling(LiveChatVO reservation);
 
 
-    // ✅ 예약된 상담 조회
+    // 예약된 상담 조회
     @Select("""
         SELECT * 
         FROM MAIN_COUNSELING_RESERVATION 
@@ -77,7 +77,7 @@ public interface LiveChatMapper {
                 """)
     LiveChatVO findReservationById(@Param("counseling_id") int counselingId);
 
-    // ✅ 특정 상담의 상태를 '대기'로 변경
+    // 특정 상담의 상태를 '대기'로 변경
     @Update("""
         UPDATE MAIN_COUNSELING_RESERVATION
         SET status = '대기'

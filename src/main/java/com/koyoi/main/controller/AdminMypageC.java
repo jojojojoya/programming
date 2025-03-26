@@ -26,24 +26,36 @@ public class AdminMypageC {
     @GetMapping("/admin")
     public String admin(Model model) {
 
-        model.addAttribute("users", adminMypageService.getAllUsers());
-        model.addAttribute("counselors", adminMypageService.getAllCounselors());
-        model.addAttribute("announcements", announcementService.getAllAnnouncements());
+        /*model.addAttribute("users", adminMypageService.getAllUsers());*/
+        /*model.addAttribute("counselors", adminMypageService.getAllCounselors());*/
+        /*model.addAttribute("announcements", announcementService.getAllAnnouncements());*/
         return "adminmypage/adminmypage";
 
     }
 
-/*    @GetMapping("/admin/userList")
+    @GetMapping("/admin/userList")
     @ResponseBody
     public AdminPageDTO<AdminMypageVO> getUserList(@RequestParam(defaultValue = "1") int page,
-                                                   @RequestParam(defaultValue = "10") int size) {
+                                                   @RequestParam(defaultValue = "5") int size) {
 
         int offset = (page - 1) * size;
         List<AdminMypageVO> users = adminMypageService.getPagedUserList(offset, size);
         int total = adminMypageService.getUserTotalCount();
 
         return new AdminPageDTO<>(users, total);
-    }*/
+    }
+
+    @GetMapping("/admin/counselorList")
+    @ResponseBody
+    public AdminPageDTO<AdminMypageVO> getcounselorList(@RequestParam(defaultValue = "1") int page,
+                                                        @RequestParam(defaultValue = "5") int size) {
+
+        int offset = (page - 1) * size;
+        List<AdminMypageVO> users = adminMypageService.getPagedCounselorList(offset, size);
+        int total = adminMypageService.getCounselorTotalCount();
+
+        return new AdminPageDTO<>(users, total);
+    }
 
     @GetMapping("/admin/userDetail")
     @ResponseBody
@@ -64,6 +76,18 @@ public class AdminMypageC {
     }
 
     /* 공지사항 */
+
+    @GetMapping("/admin/announcementList")
+    @ResponseBody
+    public AdminPageDTO<AnnouncementVO> getAnnouncementList(@RequestParam(defaultValue = "1") int page,
+                                                            @RequestParam(defaultValue = "5") int size) {
+        int offset = (page - 1) * size;
+        List<AnnouncementVO> list = announcementService.getPagedAnnouncementList(offset, size);
+        int total = announcementService.getTotalCount();
+        return new AdminPageDTO<>(list, total);
+    }
+
+
     @GetMapping("/admin/announcementDetail/{id}")
     @ResponseBody
     public AnnouncementVO announcementDetail(@PathVariable("id") int id) {
