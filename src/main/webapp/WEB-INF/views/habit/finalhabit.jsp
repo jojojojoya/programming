@@ -130,7 +130,13 @@
                     </div>
                     <div class="habit-parttwo-second">
                         <div class="habit-rate">habit-rate</div>
-                        <div class="habit-memo">habit-memo</div>
+                        <div class="habit-memo">habit-memo
+                        <button id="habit-memo-write" type="button" onclick="/" > 작성하기 </button>
+
+
+
+
+                        </div>
                     </div>
                 </div>
             </div>

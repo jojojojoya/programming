@@ -95,6 +95,9 @@ VALUES (3, '인간관계에 대한 조언을 받았습니다.');
 
 select * from MAIN_USER;
 select * from KOYOI.TEST_USER;
+select * from TEST_HABIT_TRACKING;
+select * from TEST_HABIT_TRACKING;
+
 
 select *
 from TEST_LIVE_CHAT;
