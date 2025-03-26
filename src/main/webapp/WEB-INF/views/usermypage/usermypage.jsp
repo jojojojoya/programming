@@ -42,15 +42,6 @@
         </aside>
     </div>
 
-    <!-- 우측 컨텐츠 -->
-<%--    <div class="right-container">--%>
-<%--        <header class="header-bar">--%>
-<%--            <div class="brand-title"><img src="/static/imgsource/logo.png" alt="KOYOI 로고"></div>--%>
-<%--            <div class="header-icons">--%>
-<%--                <img class="myprofile-img" src="${user.user_img}?v=${now}" alt="프로필">--%>
-<%--            </div>--%>
-<%--        </header>--%>
-
 
     <div class="right-container">
         <header class="header-bar">
