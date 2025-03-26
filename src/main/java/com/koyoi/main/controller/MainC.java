@@ -40,7 +40,7 @@ public class MainC {
 
         String userId = (String) session.getAttribute("userId");
 
-        if(userId != null) {
+        if (userId != null) {
             AdminMypageVO user = adminMypageService.getUserById(userId);
             model.addAttribute("user", user);
         }
@@ -53,7 +53,7 @@ public class MainC {
     public List<EmotionVO> getAllEmotions(HttpSession session) {
         String userId = (String) session.getAttribute("userId");
 
-        if(userId == null) {
+        if (userId == null) {
             throw new IllegalStateException("로그인 정보가 없습니다");
         }
         return emotionService.getUserAllEmotions(userId);
@@ -64,7 +64,7 @@ public class MainC {
     public List<EmotionVO> getWeeklyMoodScores(HttpSession session, @RequestParam("start") String startDate, @RequestParam("end") String endDate) {
         String userId = (String) session.getAttribute("userId");
 
-        if(userId == null) {
+        if (userId == null) {
             throw new IllegalStateException("로그인 정보가 없습니다");
         }
 
@@ -76,7 +76,7 @@ public class MainC {
     public List<HabitTrackingVO> getHabitTrackingList(HttpSession session) {
         String userId = (String) session.getAttribute("userId");
 
-        if(userId == null) {
+        if (userId == null) {
             throw new IllegalStateException("로그인 정보가 없습니다");
         }
         List<HabitTrackingVO> habits = habitTrackingService.getHabitTrackingByUser(userId);
@@ -103,7 +103,7 @@ public class MainC {
     public TodayHabitDTO getTodayHabitTrackingList(HttpSession session) {
         String userId = (String) session.getAttribute("userId");
 
-        if(userId == null) {
+        if (userId == null) {
             throw new IllegalStateException("로그인 정보가 없습니다");
         }
 
@@ -117,7 +117,7 @@ public class MainC {
 
     @GetMapping("/habit-tracking/list/by-date")
     @ResponseBody
-    public List<HabitTrackingVO> getHabitTrackingListByDate(HttpSession session, @RequestParam("date")  String formattedDate) {
+    public List<HabitTrackingVO> getHabitTrackingListByDate(HttpSession session, @RequestParam("date") String formattedDate) {
         String userId = (String) session.getAttribute("userId");
 
         if (userId == null) {
@@ -147,6 +147,5 @@ public class MainC {
         return "OK";
     }
 
-
-
 }
+
