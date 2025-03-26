@@ -1,16 +1,11 @@
 package com.koyoi.main.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.lang.annotation.Repeatable;
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "MAIN_CHAT")
+@Table(name = "TEST_CHAT")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,6 +24,6 @@ public class ChatSummary {
     @Column(name = "chat_summary", nullable = false)
     private String chatSummary;
 
-    @Column(name = "create_at")
-    private LocalDateTime createAt = LocalDateTime.now();
+    @Column(name = "create_at", insertable = false, updatable = false)
+    private LocalDateTime createAt;
 }

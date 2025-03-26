@@ -28,13 +28,13 @@ public class SignUpService {
         // 프로필 이미지 업로드 처리
         if (!userImg.isEmpty()) {
 
-            // ✅ 프로젝트 경로 기준으로 절대경로 만들기
+            // 프로젝트 경로 기준으로 절대경로 만들기
             String projectPath = System.getProperty("user.dir"); // 현재 프로젝트 루트 경로
             String uploadDirPath = projectPath + "/src/main/resources/static/imgsource/userProfile";
 
             File uploadDir = new File(uploadDirPath);
 
-            // ✅ 폴더가 존재하지 않으면 생성
+            // 폴더가 존재하지 않으면 생성
             if (!uploadDir.exists()) {
                 boolean dirCreated = uploadDir.mkdirs();
                 if (!dirCreated) {

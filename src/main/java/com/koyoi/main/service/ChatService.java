@@ -4,32 +4,22 @@ import com.koyoi.main.entity.ChatSummary;
 import com.koyoi.main.repository.ChatSummaryRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ChatService {
 
-    // ✅ OpenAI API 호출에 사용될 URL, API 키 값을 주입받음
     @Value("${openai.api.url}")
     private String apiUrl;
 
     @Value("${openai.api.key}")
     private String apiKey;
 
-    // ✅ REST 통신을 위한 RestTemplate 객체 생성
     private final RestTemplate restTemplate = new RestTemplate();
-
-    // ✅ DB에 요약을 저장하기 위한 Repository 주입
     private final ChatSummaryRepository chatSummaryRepository;
 
     @Autowired
@@ -37,16 +27,11 @@ public class ChatService {
         this.chatSummaryRepository = chatSummaryRepository;
     }
 
-    /**
-     * ✅ 실시간 GPT 채팅 처리 메서드
-     * @param userMessage - 사용자의 입력 메시지
-     * @return GPT 응답 문자열
-     */
+    // chat prompt
     public String askGpt(String userMessage) {
-        // 시스템 역할과 사용자 입력 메시지 설정
         Map<String, Object> systemPrompt = Map.of(
                 "role", "system",
-                "content", "너는 공감 능력이 뛰어난 심리 상담사야. 사용자의 감정을 이해하고 위로해주는 답변을 해야 해. 의학적 조언은 하지 않는다."
+                "content", "あなたは共感力の高い心理カウンセラーです。ユーザーがどの言語で入力しても、必ず日本語でのみ返答してください。ユーザーの感情を理解し、全てに共感する必要はありませんが、問題の本質に集中して助言してください。医学的な助言は避け、ユーザーの立場でできる実践的な解決策を提案してください。意図を読み取り、必要に応じて質問もしてください。すべての返答は300文字以内の簡潔な日本語にしてください。日本語以外での出力は禁止されています。"
         );
 
         Map<String, Object> userPrompt = Map.of(
@@ -54,82 +39,64 @@ public class ChatService {
                 "content", userMessage
         );
 
-        // GPT API 요청 바디 설정
-        Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("model", "gpt-3.5-turbo");
-        requestBody.put("messages", List.of(systemPrompt, userPrompt));
-        requestBody.put("temperature", 0.7);
-        requestBody.put("max_tokens", 150);
-
-        // ✅ 헤더 설정 (Authorization에 반드시 Bearer 추가)
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + apiKey);
-
-        // 요청 엔티티 생성
-        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
-
-        // GPT API 호출 및 응답 수신
-        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(apiUrl, requestEntity, Map.class);
-
-        // 응답에서 choices 추출 후 메시지 반환
-        List<Map<String, Object>> choices = (List<Map<String, Object>>) responseEntity.getBody().get("choices");
-        Map<String, Object> message = (Map<String, Object>) choices.get(0).get("message");
-
-        return (String) message.get("content");
+        return callGptApi(List.of(systemPrompt, userPrompt), 300); // 글자수 제한 (사실상 무제한)
     }
 
-    /**
-     * ✅ 상담 종료 후 대화 내용 요약 메서드
-     * @param messages - 전체 대화 기록
-     * @return GPT 요약 결과 문자열
-     */
+    // summary prompt
     public String createSummary(List<Map<String, Object>> messages) {
-        List<Map<String, Object>> gptMessages = new ArrayList<>();
+        List<Map<String, Object>> prompt = new ArrayList<>();
+        prompt.add(Map.of("role", "system", "content", "다음 대화를 감정 중심으로 500자 이내로 요약해줘. 사용자의 감정을 반영하고 상담 내용을 간결하게 정리해."));
+        prompt.addAll(messages);
 
-        // 시스템 프롬프트 추가 (요약 명령)
-        gptMessages.add(Map.of(
-                "role", "system",
-                "content", "다음 대화를 감정 중심으로 500자 이내로 요약해줘. 사용자의 감정을 반영하고 상담 내용을 간결하게 정리해."
-        ));
+        return callGptApi(prompt, 500); //글자수 500자 이내
+    }
 
-        // 유저 대화 메시지 추가
-        gptMessages.addAll(messages);
-
-        // GPT API 요청 바디 설정
+    private String callGptApi(List<Map<String, Object>> messages, int maxTokens) {
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("model", "gpt-3.5-turbo");
-        requestBody.put("messages", gptMessages);
-        requestBody.put("temperature", 0.5);
-        requestBody.put("max_tokens", 300);
+        requestBody.put("messages", messages);
+        requestBody.put("temperature", 0.7);
+        requestBody.put("max_tokens", maxTokens);
 
-        // ✅ 헤더 설정 (Authorization에 반드시 Bearer 추가)
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + apiKey);
 
-        // 요청 엔티티 생성
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        // GPT API 호출 및 응답 수신
-        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(apiUrl, requestEntity, Map.class);
+        int retryCount = 0;
+        int maxRetries = 3;
 
-        // 응답에서 choices 추출 후 요약 메시지 반환
-        List<Map<String, Object>> choices = (List<Map<String, Object>>) responseEntity.getBody().get("choices");
-        Map<String, Object> message = (Map<String, Object>) choices.get(0).get("message");
+        while (retryCount < maxRetries) {
+            try {
+                ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, requestEntity, Map.class);
+                Map<String, Object> message = (Map<String, Object>) ((List<Map<String, Object>>) response.getBody().get("choices")).get(0).get("message");
+                return (String) message.get("content");
+            } catch (org.springframework.web.client.HttpClientErrorException.TooManyRequests e) {
+                retryCount++;
+                String retryAfter = e.getResponseHeaders() != null ? e.getResponseHeaders().getFirst("Retry-After") : null;
+                int waitTime = retryAfter != null ? Integer.parseInt(retryAfter) : 5;
 
-        return (String) message.get("content");
+                System.out.println("🔁 429 에러 발생! " + waitTime + "초 대기 후 재시도 (" + retryCount + "/" + maxRetries + ")");
+                try {
+                    Thread.sleep(waitTime * 1000L);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException("스레드 인터럽트 발생", ie);
+                }
+            }
+        }
+
+        throw new RuntimeException("GPT 요청 실패: 여러 번 재시도 했지만 실패했습니다.");
     }
 
-    /**
-     * ✅ 생성된 상담 요약을 DB에 저장하는 메서드
-     * @param userId - 사용자 아이디
-     * @param summary - 요약 문자열
-     */
     public void saveSummary(String userId, String summary) {
         ChatSummary chatSummary = new ChatSummary();
         chatSummary.setUserId(userId);
         chatSummary.setChatSummary(summary);
         chatSummaryRepository.save(chatSummary);
     }
+
 }
+
+
