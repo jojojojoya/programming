@@ -35,13 +35,22 @@ public class AdminMypageService {
     public AdminMypageVO getUserById(String userId) {
         return adminMypageMapper.getUserById(userId);
     }
-
+    
     // 삭제
     public int deleteUserById(String userId) {
         return adminMypageMapper.deleteUserById(userId);
     }
 
+    // 수정
     public int updateUser(AdminMypageVO adminMypageVO) {
         return adminMypageMapper.updateUser(adminMypageVO);
     }
+
+/*    public int getUserTotalCount() {
+        return adminMypageMapper.selectUserTotalCount();
+    }
+
+    public List<AdminMypageVO> getPagedUserList(int offset, int size) {
+        return adminMypageMapper.selectUserPage(offset, size);
+    }*/
 }

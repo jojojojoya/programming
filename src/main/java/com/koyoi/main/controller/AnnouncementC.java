@@ -18,18 +18,22 @@ public class AnnouncementC {
     @Autowired
     private AnnouncementService announcementService;
 
-    @GetMapping("/announcement")
-    public String showAllAnnouncements(Model model) {
+    /* 전체 공지사항 목록 */
+    @GetMapping("/announcement/list")
+    public String getAllAnnouncements(Model model) {
         List<AnnouncementVO> announcements = announcementService.getAllAnnouncements();
         model.addAttribute("announcements", announcements);
-        return "announcement/announcementList";
+        model.addAttribute("announcementList", "announcement/announcementList.jsp");
+        return "finalindex";
     }
 
+    /* 공지사항 상세 페이지 이동 */
     @GetMapping("/announcement/view/{id}")
     public String showAnnouncement(@PathVariable("id") int id, Model model) {
         AnnouncementVO announcement = announcementService.getAnnouncementById(id);
         model.addAttribute("announcement", announcement);
-        return "announcement/announcementView";
+        model.addAttribute("announcementDetail", "announcement/announcementDetail.jsp");
+        return "finalindex";
     }
 
 
