@@ -58,4 +58,12 @@ public class AnnouncementService {
     public int createAnnouncement(AnnouncementVO announcementVO) {
         return announcementMapper.createAnnouncement(announcementVO);
     }
+
+    public List<AnnouncementVO> getPagedAnnouncementList(int offset, int size) {
+        return announcementMapper.selectAnnouncementPage(offset, size);
+    }
+
+    public int getTotalCount() {
+        return announcementMapper.selectAnnouncementTotalCount();
+    }
 }

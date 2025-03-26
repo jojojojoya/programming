@@ -1,7 +1,10 @@
 package com.koyoi.main.dto;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class AdminPageDTO<T> {
 
     private List<T> list;
@@ -12,12 +15,5 @@ public class AdminPageDTO<T> {
         this.total = total;
     }
 
-    public List<T> getList() {
-        return list;
-    }
-
-    public int getTotal() {
-        return total;
-    }
 
 }
