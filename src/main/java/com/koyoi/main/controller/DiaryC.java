@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,25 +55,43 @@ public class DiaryC {
 
     // 뷰 페이지 렌더링
     @GetMapping
-    public String diaryPage(HttpSession session, Model model) {
+    public String diaryPage(@RequestParam(value = "selectedDate", required = false) String selectedDateParam, HttpSession session, Model model) {
         String userId = getLoginUserId(session);
 
+        // 캘린더 이벤트
         List<Map<String, Object>> diaryEvents = diaryService.getDiaryEvents(userId);
         model.addAttribute("diaryEvents", diaryEvents);
 
-        // 세션에서 선택 날짜 꺼내기
-        LocalDateTime selectedDate = (LocalDateTime) session.getAttribute("selectedDate");
-
-        if (selectedDate == null) {
-            selectedDate = LocalDateTime.now();
-        } else {
+        // 마이페이지에서 날짜 클릭
+        if (selectedDateParam != null && !selectedDateParam.isEmpty()) {
+            try {
+                LocalDateTime parsedDate = LocalDate.parse(selectedDateParam).atStartOfDay();
+                session.setAttribute("selectedDate", parsedDate);
+                System.out.println("📅 전달된 selectedDate → 세션 저장: " + parsedDate);
+            } catch (Exception e) {
+                System.err.println("❌ 날짜 파싱 실패: " + selectedDateParam);
+            }
         }
 
-        DiaryVO diary = diaryService.getDiaryByDate(userId, selectedDate);
+        // 세션에서 선택 날짜 꺼내기
+        LocalDateTime selectedDate = (LocalDateTime) session.getAttribute("selectedDate");
+        if (selectedDate == null) {
+            selectedDate = LocalDateTime.now();
+        }
+        LocalDate selectedDateOnly = selectedDate.toLocalDate();
         String selectedDateStr = selectedDate.toLocalDate().toString();
-
-        model.addAttribute("selectedDiary", diary);
         model.addAttribute("selectedDate", selectedDateStr);
+
+        // 상세 일기
+        DiaryVO diary = diaryService.getDiaryByDate(userId, selectedDate);
+        model.addAttribute("selectedDiary", diary);
+
+        // 주간 요약 리스트
+        List<DiaryVO> weeklyDiaries = diaryService.getWeeklyDiaries(userId, selectedDateOnly);
+        System.out.println("✅ weeklyDiaries size = " + weeklyDiaries.size());
+        model.addAttribute("weeklyDiaries", weeklyDiaries);
+
+        // jsp 포함 위치
         model.addAttribute("diaryContent", "diary/diary.jsp");
 
         return "finalindex";
@@ -98,13 +117,12 @@ public class DiaryC {
 
         if (vo == null) {
             System.out.println("[DiaryC] 일기 없음, diaryId: " + diaryId);
-            return ResponseEntity.status(404).body(Map.of("message",  "일기를 찾을 수 없습니다."));
+            return ResponseEntity.status(404).body(Map.of("message", "일기를 찾을 수 없습니다."));
         }
 
         System.out.println("[DiaryC] 반환할 DiaryVO: " + vo);
         return ResponseEntity.ok(vo);
     }
-
 
     /* 일기 날짜 조회 */
     @GetMapping("/date/{date}")
@@ -116,6 +134,20 @@ public class DiaryC {
         LocalDateTime dateTime = localDate.atStartOfDay(); // 시간 정보 추가해서 LocalDateTime 만들기
 
         return diaryService.getDiaryByDate(userId, dateTime);
+    }
+
+    /* 위클리 ajax 호출 */
+    @GetMapping("/weekly")
+    @ResponseBody
+    public List<DiaryVO> getWeeklySummary(@RequestParam String date, HttpSession session) {
+        String userId = getLoginUserId(session);
+        LocalDate selectedDate = LocalDate.parse(date);
+
+        List<DiaryVO> weeklyDiaries = diaryService.getWeeklyDiaries(userId, selectedDate);
+        System.out.println("🗓️ 주간 조회 범위: " + selectedDate.with(DayOfWeek.SUNDAY) + " ~ " + selectedDate.with(DayOfWeek.SATURDAY));
+        System.out.println("✅ Ajax용 weeklyDiaries size = " + weeklyDiaries.size());
+
+        return weeklyDiaries;
     }
 
     /* 일기 등록 */
