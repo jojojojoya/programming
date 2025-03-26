@@ -1,19 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%  // 세션 체크 추가 부분 시작
-    HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
-    String userId = null;
-
-    if (session1 != null) {
-        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
-    }
-
-    if (userId == null) {
-        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
-        return;
-    }
-%>
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,41 +9,6 @@
     <link rel="stylesheet" href="/static/css/livechat/livechatreservation.css">
 </head>
 <body>
-
-<div class="container">
-
-    <div class="left-container">
-        <aside class="sidebar">
-            <nav class="sidebar-menu">
-                <button class="sidebar-btn">
-                    <img src="/static/imgsource/layout/home.png" alt="홈">
-                </button>
-                <button class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="목록"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="채팅"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="공유"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/layout/settingss.png" alt="설정"></button>
-                <div class="bbiyak">
-                    <img src="/static/imgsource/layout/bbiyak.png">
-                </div>
-            </nav>
-        </aside>
-    </div>
-
-    <div class="right-container">
-        <header class="header-bar">
-            <div class="brand-title">
-                <img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고">
-            </div>
-
-            <div class="header-icons">
-                <button class="header-btn">
-                    <img src="/static/imgsource/layout/logout.png" alt="logout">
-                </button>
-                <img class="myprofile-img" src="${user.user_img}?v=${now}" alt="프로필">
-            </div>
-        </header>
-
-
         <main class="content">
 
             <div class="top-section">
@@ -121,8 +71,6 @@
                 </div>
             </div>
         </main>
-    </div>
-</div>
 <script src="/static/js/livechat/livechatreservation.js"></script>
 
 </body>

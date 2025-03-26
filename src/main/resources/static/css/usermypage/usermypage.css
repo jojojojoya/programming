@@ -214,8 +214,8 @@ body {
 }
 
 /* 🔵 개별 테이블 스타일 */
-.profile_table, .chatbot_table,
-.diary_table, .counseling_table, nonreserved_counseling_table, .chatbot_detail_table {
+.profile_table, .chatbot_table,.calendar-container,
+.diary_table, .counseling_table,.chatbot_detail_table {
     min-width: 440px; /* 🔹 최소 크기 증가 */
     max-width: 700px; /* 🔹 최대 크기 줄여서 균형 조정 */
     padding: 20px;
@@ -240,27 +240,18 @@ body {
     background-color: #ede0d4;
     height: 86%; /* 🔹 부모 높이에 맞춤 */
 }
-
-
-
-.diary_table {
-    flex-grow: 2; /* 🔹 다이어리는 중간 크기 */
-    flex-basis: 45%; /* 🔹 기본 크기 45% */
-    background-color: #3D2C2E;
-    height: 400px;
-
+.calendar-container {
+    flex: 0 0 60%;
+    min-width: 237px;
+    max-width: 528px;
 }
 
-.counseling_table {
-    display: flex;
-    flex-direction: column; /* 요소들을 세로로 정렬 */
-    align-items: center;
-    justify-content: flex-start; /* 위쪽 정렬 */
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    position: relative; /* 내부 요소가 부모 안에 있도록 설정 */
+.counseling_wrapper {
+    flex: 0 0 40%;
+    min-width: 400px;
 }
+
+
 
 
 
@@ -410,6 +401,9 @@ body {
     margin: 10px;
     border-radius: 10px;
     height: 35px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .modal {
     display: none; /* 기본적으로 숨김 */
@@ -643,12 +637,10 @@ input:invalid::placeholder {
     margin-right: 5px; /* 🔥 박스 사이 간격 */
 }
 
-/* ✅ 마지막 박스의 오른쪽 마진 제거 */
 .reserved_reservation_box:last-child {
     margin-right: 0;
 }
 
-/* ✅ 예약 리스트가 .counseling_table 내부에서 맨 좌측부터 시작 */
 .reservation_slider {
     width: 100%;  /* 🔥 부모 요소(counseling_table) 너비와 동일 */
     overflow-x: auto;  /* 🔥 가로 스크롤 가능하도록 설정 */
