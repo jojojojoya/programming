@@ -1,7 +1,7 @@
 package com.koyoi.main.service;
 
 import com.koyoi.main.mapper.LoginMapper;
-import com.koyoi.main.mapper.SampleMapper;
+import com.koyoi.main.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +30,10 @@ public class LoginService {
         } else {
             return false; // 로그인 실패
         }
+    }
+
+    // 세션 유지용 get user
+    public UserVO getUserInfo(String userId) {
+        return loginMapper.getUserInfoById(userId);
     }
 }

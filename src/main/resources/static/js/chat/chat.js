@@ -45,13 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const endBtn = document.getElementById("end-btn");
 
     // 자동 인사 출력
-    if (userName) {
-        const welcomeMessage = `안녕 ${userName}! 오늘 하루는 어땠어?`;
-        const chatBox = document.getElementById("chat-box");
-        chatBox.innerHTML += `<p><b>GPT:</b> ${welcomeMessage}</p>`;
-
-        chatHistory.push({ role: "assistant", content: welcomeMessage });
-    }
+    const welcomeMessage = `안녕 ${userName}! 오늘 하루는 어땠어?`;
+    document.getElementById("chat-box").innerHTML += `<p><b>GPT:</b> ${welcomeMessage}</p>`;
+    chatHistory.push({ role: "assistant", content: welcomeMessage });
 
     // 엔터키 이벤트 (Shift+Enter = 줄바꿈, Enter = 전송)
     input.addEventListener("keydown", function (event) {
