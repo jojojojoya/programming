@@ -20,7 +20,7 @@ public interface LiveChatMapper {
     """)
     int completeCounseling(@Param("counseling_id") Integer counselingId);
 
-    //대기가 아니면 상태변경
+    //대기가 아니면 상태를 변경
     @Update("""
     UPDATE TEST_COUNSELING_RESERVATION 
     SET status = #{status}

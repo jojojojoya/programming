@@ -12,7 +12,7 @@ public interface UserMyPageMapper {
 
     // 유저 관련 DB를 리스팅
     @Select("SELECT * FROM test_user WHERE user_id = #{user_id}")
-    List<UserMyPageVO> getUserById(@Param("user_id") String user_id);
+    List<UserMyPageVO> getUserById(@Param("user_id") String user_id); 
 
     // 패스워드를 확인하기 위해 불러오기 (대조)
     @Select("SELECT user_password FROM test_user WHERE user_id = #{user_id}")
@@ -29,7 +29,7 @@ public interface UserMyPageMapper {
 """)
     int updateProfile(UserMyPageVO user);
 
-    // 챗봇 대화 요약내역 조회
+    // 챗봇 대화 요약내역 조회함
     @Select("SELECT chat_summary FROM test_chat WHERE user_id = #{user_id}")
     List<UserMyPageVO> getUserChatBotDetail(@Param("user_id") String user_id);
 
