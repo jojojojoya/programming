@@ -55,7 +55,7 @@ html, body {
 
 .weekly-summary-title {
     text-align: center;
-    margin: 1.5vh;
+    margin: 1.5vh 0;
     font-size: 1.8vh;
     font-weight: bold;
     color: #3f2e29;
@@ -67,23 +67,30 @@ html, body {
     margin: 0;
 }
 
-.weekly-summary li {
+.weekly-item {
     display: flex;
     align-items: center;
     padding: 1vh 0;
     border-bottom: 1px solid #e0d4c0;
     font-size: 1.6vh;
     color: #3F2E29;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.weekly-summary li:last-child {
+.weekly-item:hover {
+    background-color: #f5ebe0;
+}
+
+.weekly-item:last-child {
     border-bottom: none;
 }
 
-.weekly-summary .emoji {
+.weekly-item-emoji {
     font-size: 2vh;
     margin-right: 1vw;
 }
+
 
 /* 캘린더 내 버튼 및 텍스트 스타일 */
 .fc-toolbar-title {

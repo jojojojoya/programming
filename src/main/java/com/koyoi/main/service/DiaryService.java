@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +59,20 @@ public class DiaryService {
         System.out.println("✅ DiaryService.getDiaryByDate() → 날짜 기준 조회 date: " + dateStr);
 
         return diaryMapper.getDiaryByDate(userId, dateStr);
+    }
+
+    // 주간 조회
+    public List<DiaryVO> getWeeklyDiaries(String userId, LocalDate selectedDate) {
+        DayOfWeek dayOfWeek = selectedDate.getDayOfWeek();
+        LocalDate start = selectedDate.minusDays(dayOfWeek.getValue() % 7); // 일요일
+        LocalDate end = start.plusDays(7); // 다음 일요일
+
+        System.out.println("🗓️ 주간 조회 범위: " + start + " ~ " + end.minusDays(1));
+        return diaryMapper.getWeeklyDiaries(
+                userId,
+                start.toString(),  // YYYY-MM-DD
+                end.toString()
+        );
     }
 
     // 일기 + 감정 등록
@@ -136,7 +152,6 @@ public class DiaryService {
     }
 
     // 일기 삭제 (감정 + 일기 순으로 삭제)
-
     public void deleteDiary(int diaryId, String userId) {
         DiaryVO diary = diaryMapper.getDiaryById(diaryId);
 
