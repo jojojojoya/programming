@@ -38,3 +38,30 @@ async function endChat() {
 
     window.location.href = "/main";
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("user-input");
+    const sendBtn = document.getElementById("send-btn");
+    const endBtn = document.getElementById("end-btn");
+
+    // 자동 인사 출력
+    if (userName) {
+        const welcomeMessage = `안녕 ${userName}! 오늘 하루는 어땠어?`;
+        const chatBox = document.getElementById("chat-box");
+        chatBox.innerHTML += `<p><b>GPT:</b> ${welcomeMessage}</p>`;
+
+        chatHistory.push({ role: "assistant", content: welcomeMessage });
+    }
+
+    // 엔터키 이벤트 (Shift+Enter = 줄바꿈, Enter = 전송)
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
+    // 버튼 클릭 이벤트 따로 연결
+    sendBtn.addEventListener("click", sendMessage);
+    endBtn.addEventListener("click", endChat);
+});

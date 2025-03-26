@@ -27,10 +27,11 @@ public class ChatService {
         this.chatSummaryRepository = chatSummaryRepository;
     }
 
+    // chat prompt
     public String askGpt(String userMessage) {
         Map<String, Object> systemPrompt = Map.of(
                 "role", "system",
-                "content", "너는 공감 능력이 뛰어난 심리 상담사야. 사용자의 감정을 이해하고 위로해주는 답변을 해야 해. 의학적 조언은 하지 않는다."
+                "content", "あなたは共感力の高い心理カウンセラーです。ユーザーがどの言語で入力しても、必ず日本語でのみ返答してください。ユーザーの感情を理解し、全てに共感する必要はありませんが、問題の本質に集中して助言してください。医学的な助言は避け、ユーザーの立場でできる実践的な解決策を提案してください。意図を読み取り、必要に応じて質問もしてください。すべての返答は300文字以内の簡潔な日本語にしてください。日本語以外での出力は禁止されています。"
         );
 
         Map<String, Object> userPrompt = Map.of(
@@ -38,15 +39,16 @@ public class ChatService {
                 "content", userMessage
         );
 
-        return callGptApi(List.of(systemPrompt, userPrompt), 150);
+        return callGptApi(List.of(systemPrompt, userPrompt), 300); // 글자수 제한 (사실상 무제한)
     }
 
+    // summary prompt
     public String createSummary(List<Map<String, Object>> messages) {
         List<Map<String, Object>> prompt = new ArrayList<>();
         prompt.add(Map.of("role", "system", "content", "다음 대화를 감정 중심으로 500자 이내로 요약해줘. 사용자의 감정을 반영하고 상담 내용을 간결하게 정리해."));
         prompt.addAll(messages);
 
-        return callGptApi(prompt, 300);
+        return callGptApi(prompt, 500); //글자수 500자 이내
     }
 
     private String callGptApi(List<Map<String, Object>> messages, int maxTokens) {
@@ -94,4 +96,7 @@ public class ChatService {
         chatSummary.setChatSummary(summary);
         chatSummaryRepository.save(chatSummary);
     }
+
 }
+
+
