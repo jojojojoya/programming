@@ -3,6 +3,7 @@ package com.koyoi.main.vo;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 public class AnnouncementVO {
@@ -14,5 +15,13 @@ public class AnnouncementVO {
     private String content;
     private LocalDateTime created_at;
     private String isNew; // 최신 공지사항
+
+    public String getFormattedCreatedAt() {
+        if (created_at != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            return created_at.format(formatter);
+        }
+        return null;
+    }
 
 }

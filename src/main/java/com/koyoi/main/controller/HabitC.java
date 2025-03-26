@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,18 +36,19 @@ public class HabitC {
 
     @PostMapping("/add")
     public ResponseEntity<?> addHabit(@RequestBody HabitVO habitVO) {
-        String userId = "user1";
+        String userId = "user1";  // 테스트용
         try {
-            // HabitService를 통해 습관을 추가하고, 추가된 습관 객체를 반환
-            HabitVO newHabit = habitService.addHabit(habitVO);
+            System.out.println("📥 습관 추가 요청: " + habitVO); // ✅ 로그 찍어보기
 
-            // 성공적으로 추가되면 새 습관 객체를 반환하고 200 OK 상태 반환
+            HabitVO newHabit = habitService.addHabit(habitVO);
             return ResponseEntity.status(HttpStatus.OK).body(newHabit);
+
         } catch (Exception e) {
-            // 에러 발생 시, 내부 서버 오류 상태와 에러 메시지 반환
+            e.printStackTrace(); // ✅ 반드시 콘솔에 에러 출력되도록!
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("습관 추가 실패");
         }
     }
+
 
 //    @PostMapping("/addNewHabit")
 //// ❌ 아래 줄 삭제!!
@@ -145,31 +148,71 @@ public class HabitC {
 
 
 
-    @PostMapping("/addHabitWithTracking")
-    @ResponseBody
-    public ResponseEntity<?> addHabitWithTracking(@RequestBody HabitTrackingVO vo) {
-        System.out.println("📥 받은 VO: " + vo);
-        System.out.println("📌 habit_name: " + vo.getHabit_name());
-        System.out.println("📌 tracking_date: " + vo.getTracking_date());
-        try {
-            // habit_id와 tracking_id 둘 다 생성 및 insert
-            habitService.addHabitWithTracking(vo);
+//    @PostMapping("/addHabitWithTracking")
+//    @ResponseBody
+//    public ResponseEntity<?> addHabitWithTracking(@RequestBody HabitTrackingVO vo) {
+//        System.out.println("📥 받은 VO: " + vo);
+//        System.out.println("📌 habit_name: " + vo.getHabit_name());
+//        System.out.println("📌 tracking_date: " + vo.getTracking_date());
+//        try {
+//            // habit_id와 tracking_id 둘 다 생성 및 insert
+//            habitService.addHabitWithTracking(vo);
+//
+//            return ResponseEntity.ok(Map.of(
+//                    "status", "success",
+//                    "message", "습관 + 추적 정보 등록 성공"
+//            ));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+//                    "status", "error",
+//                    "message", "습관 등록 중 오류 발생!"
+//            ));
+//        }
+//    }
 
-            return ResponseEntity.ok(Map.of(
-                    "status", "success",
-                    "message", "습관 + 추적 정보 등록 성공"
-            ));
+
+
+    // ✅ 해당 날짜의 완료된 습관 목록 조회 (체크 상태 표시용)
+    @GetMapping("/tracking/status")
+    @ResponseBody
+    public List<Integer> getCompletedHabits(@RequestParam String date) {
+        String userId = "user1"; // 로그인 사용자로 대체 가능
+        return habitService.getCompletedHabitIds(userId, date);
+    }
+
+    // ✅ 습관 체크/해제 저장
+    @PostMapping("/tracking")
+    @ResponseBody
+    public ResponseEntity<?> saveHabitTracking(@RequestBody HabitTrackingVO vo) {
+        String userId = "user1"; // 로그인 사용자로 대체 가능
+        vo.setUser_id(userId);
+
+        try {
+            System.out.println("📥 받은 Tracking VO: " + vo); // ✅ 로그 찍자
+            habitService.saveOrUpdateTracking(vo);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-                    "status", "error",
-                    "message", "습관 등록 중 오류 발생!"
-            ));
+            e.printStackTrace(); // ✅ 로그 꼭 남겨줘야 함!
+            return ResponseEntity.status(500).body("저장 실패");
         }
     }
 
+    @GetMapping("/week/status")
+    @ResponseBody
+    public ResponseEntity<?> getWeeklyStatus(@RequestParam String date) {
+        String userId = "user1"; // 로그인 유저로 대체 가능
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date selectedDate = sdf.parse(date);
 
-
+            List<Map<String, Object>> result = habitService.getWeeklySummary(userId, selectedDate);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("주간 정보 조회 실패");
+        }
+    }
 
 
 }

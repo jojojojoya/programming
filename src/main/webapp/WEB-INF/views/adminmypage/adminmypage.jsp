@@ -8,7 +8,7 @@
     AdminMypageVO user = (AdminMypageVO) request.getAttribute("user");
     String imgPath = (user != null && user.getUser_img() != null)
             ? user.getUser_img()
-            : "/imgsource/testprofile.png"; // 기본 이미지
+            : "/imgsource/usermypage_profiletest.jpg"; // 기본 이미지
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,15 +47,9 @@
 
             <div class="header-icons">
                 <button class="header-btn">
-<<<<<<< HEAD
-                    <img src="/static/imgsource/layout/logout.png" alt="logout">
-                </button>
-                <img class="profile-img" src="/static/imgsource/layout/testprofile.png" alt="profile">
-=======
-                    <a href="/logout"> <img src="/static/imgsource/logout.png" alt="logout"> </a>
+                    <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
                 </button>
                 <img class="profile-img" src="/static<%=imgPath%>" alt="profile">
->>>>>>> 665f79712c2f0fc6ea52b7a29711d39434c45fda
             </div>
         </header>
 
@@ -73,7 +67,7 @@
                     <div class="col col-email"> Email </div>
                     <div class="col col-date"> Joined </div>
                 </div>
-                <c:set var="totalUsers" value="${fn:length(users)}" />
+              <%--  <c:set var="totalUsers" value="${fn:length(users)}" />
                 <c:forEach var="user" items="${users}" varStatus="status">
                     <div class="user-row user-detail-btn" data-user-id="${user.user_id}">
                         <div class="cell col-num">${totalUsers - status.index}</div>
@@ -83,7 +77,7 @@
                         <div class="cell col-email">${user.user_email}</div>
                         <div class="cell col-date">${user.formattedCreatedAt}</div>
                     </div>
-                </c:forEach>
+                </c:forEach>--%>
             </div>
 
             <%-- 상담사 목록 --%>
@@ -96,7 +90,7 @@
                     <div class="col col-email"> Email </div>
                     <div class="col col-date"> Joined </div>
                 </div>
-                <c:set var="totalCounselors" value="${fn:length(counselors)}" />
+                <%--<c:set var="totalCounselors" value="${fn:length(counselors)}" />
                 <c:forEach var="counselor" items="${counselors}" varStatus="status">
                     <div class="user-row user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">
                         <div class="cell col-num">${totalCounselors - status.index}</div>
@@ -106,7 +100,7 @@
                         <div class="cell col-email">${counselor.user_email}</div>
                         <div class="cell col-date">${counselor.formattedCreatedAt}</div>
                     </div>
-                </c:forEach>
+                </c:forEach>--%>
             </div>
 
             <%-- 상세 데이터 모달 --%>
@@ -164,22 +158,81 @@
 
             <%-- 공지사항 목록 --%>
             <div id="announcementTable" class="announcement-board" style="display: none;">
+                <button class="announcement-create-btn"> Create </button>
                 <div class="announcement-board-header">
-                    <div class="col col-notice-num"> No </div>
-                    <div class="col col-notice-id"> Admin Id </div>
-                    <div class="col col-notice-title"> Title </div>
-                    <div class="col col-notice-created"> Created </div>
+                    <div class="col col-announcement-num"> No </div>
+                    <div class="col col-announcement-id"> Admin Id </div>
+                    <div class="col col-announcement-title"> Title </div>
+                    <div class="col col-announcement-created"> Created </div>
                 </div>
-                <c:set var="totalNotices" value="${fn:length(announcements)}" />
-                <c:forEach var="notice" items="${announcements}" varStatus="status">
-                <div class="notice-row notice-detail-btn" data-user-id="${notice.announcement_id}">
-                    <div class="cell col-notice-num">${totalNotices - status.index}</div>
-                    <div class="cell col-notice-id">${notice.admin_id}</div>
-                    <div class="cell col-notice-title">${notice.title}</div>
-                    <div class="cell col-notice-created">${notice.created_at}</div>
+                <%--<c:set var="totalAnnouncements" value="${fn:length(announcements)}" />
+                <c:forEach var="announcement" items="${announcements}" varStatus="status">
+                <div class="announcement-row announcement-detail-btn" data-user-id="${announcement.announcement_id}">
+                    <div class="cell col-announcement-num">${totalAnnouncements - status.index}</div>
+                    <div class="cell col-announcement-id">${announcement.admin_id}</div>
+                    <div class="cell col-announcement-title">${announcement.title}</div>
+                    <div class="cell col-announcement-created">${announcement.formattedCreatedAt}</div>
                 </div>
-                </c:forEach>
+                </c:forEach>--%>
             </div>
+
+            <%-- 공지사항 상세 모달 --%>
+            <div id="announcementModal" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close-btn">&times;</span>
+                    <div class="modalTitle">Announcement Detail</div>
+                    <div class="announcement-modal scrollable">
+                        <div class="announcement-info-grid">
+                            <div class="field">
+                                <label>Title</label>
+                                <input type="text" id="modalAnnouncementTitle" class="value" />
+                            </div>
+                            <div class="field">
+                                <label>Admin ID</label>
+                                <div id="modalAnnouncementAdminId" class="value"></div>
+                            </div>
+                            <div class="field">
+                                <label>Created At</label>
+                                <div id="modalAnnouncementCreated" class="value"></div>
+                            </div>
+                            <div class="field">
+                                <label>Content</label>
+                                <textarea id="modalAnnouncementContent" class="value" rows="8"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button id="updateAnnouncement" data-announcement-id=""> Update </button>
+                        <button id="deleteAnnouncement" data-announcement-id=""> Delete </button>
+                    </div>
+                </div>
+            </div>
+
+            <%-- 공지사항 작성 모달 --%>
+            <div id="announcementCreateModal" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close-btn create-close">&times;</span>
+                    <div class="modalTitle">Create Announcement</div>
+                    <div class="announcement-modal scrollable">
+                        <div class="announcement-info-grid">
+                            <div class="field">
+                                <label>Title</label>
+                                <input type="text" id="createAnnouncementTitle" class="value" />
+                            </div>
+                            <div class="field">
+                                <label>Content</label>
+                                <textarea id="createAnnouncementContent" class="value" rows="8"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-buttons">
+                        <button id="submitAnnouncement"> Submit </button>
+                    </div>
+                </div>
+            </div>
+            <div id="commonPagination" class="pagination"></div>
+
         </main>
     </div>
 </div>

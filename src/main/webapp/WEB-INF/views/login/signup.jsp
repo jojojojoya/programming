@@ -71,26 +71,26 @@
                            placeholder="Confirm your password" required>
                     <div id="pw-error" class="error-message"></div>
 
-                    <!-- User Type 선택 -->
+                    <!-- User Type -->
                     <div class="form-group">
                         <label>User Type</label>
                         <div class="user-type-selector">
-                            <button type="button" class="user-type-btn" data-type="2">General User</button>
-                            <button type="button" class="user-type-btn" data-type="1">Counselor</button>
+                            <button type="button" class="user-type-btn" data-type="1">User</button>
+                            <button type="button" class="user-type-btn" data-type="2">Counselor</button>
                         </div>
                         <!-- 실제 전송할 값 -->
-                        <input type="hidden" name="user_type" id="user_type" required>
+                        <input type="hidden" name="user_type" id="user_type" value="" required>
                         <div id="user-type-error" class="error-message"></div>
                     </div>
 
-                    <!-- Name (이름 입력만 가능, 중복 확인 없음) -->
+                    <!-- Name -->
                     <div class="form-group">
                         <label for="user_name">User Name</label>
                         <input type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
                         <div id="name-error" class="error-message"></div>
                     </div>
 
-                    <!-- Nickname (닉네임 중복 확인 버튼 유지) -->
+                    <!-- Nickname -->
                     <div class="form-group">
                         <label for="user_nickname">Nickname</label>
                         <div class="check-wrapper">
@@ -100,7 +100,7 @@
                         <div id="nickname-error" class="error-message"></div>
                     </div>
 
-                    <!-- Email (이메일 입력 후 중복 확인 버튼 추가) -->
+                    <!-- Email -->
                     <div class="form-group">
                         <label for="user_email">Email</label>
                         <div class="check-wrapper">
