@@ -27,12 +27,33 @@ public class SignUpService {
 
         // 프로필 이미지 업로드 처리
         if (!userImg.isEmpty()) {
-            String uploadDir = "static/imgsource/userProfile";
+
+            // 프로젝트 경로 기준으로 절대경로 만들기
+            String projectPath = System.getProperty("user.dir"); // 현재 프로젝트 루트 경로
+            String uploadDirPath = projectPath + "/src/main/resources/static/imgsource/userProfile";
+
+            File uploadDir = new File(uploadDirPath);
+
+            // 폴더가 존재하지 않으면 생성
+            if (!uploadDir.exists()) {
+                boolean dirCreated = uploadDir.mkdirs();
+                if (!dirCreated) {
+                    log.error("디렉터리 생성 실패! 경로: {}", uploadDirPath);
+                    return false;
+                }
+            }
+
+            // ✅ 파일명 생성 (타임스탬프 + 원본 파일명)
             String imgFileName = System.currentTimeMillis() + "_" + userImg.getOriginalFilename();
 
             try {
+                // ✅ 실제 저장할 파일 경로
                 File saveFile = new File(uploadDir, imgFileName);
+
+                // ✅ 파일 저장 처리
                 userImg.transferTo(saveFile);
+
+                // ✅ DB에 저장할 값은 보통 상대경로만 저장 (이미지 출력할 때 상대경로 기준)
                 user.setUserImg(imgFileName);
 
                 log.info("이미지 업로드 성공: {}", imgFileName);
@@ -41,6 +62,7 @@ public class SignUpService {
                 log.error("이미지 업로드 실패!", e);
                 return false;
             }
+
         } else {
             log.info("이미지 파일 없음");
         }
@@ -57,9 +79,9 @@ public class SignUpService {
         return signupMapper.existsById(userId) > 0;
     }
 
-    // name 중복 체크
-    public boolean isUserNameDuplicate(String userName) {
-        return signupMapper.existsByName(userName) > 0;
+    // email 중복 체크
+    public boolean isUserEMailDuplicate(String userEmail) {
+        return signupMapper.existsByName(userEmail) > 0;
     }
 
     // nickname 중복 체크

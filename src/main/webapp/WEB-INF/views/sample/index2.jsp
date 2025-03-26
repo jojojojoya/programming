@@ -14,21 +14,21 @@
     <header class="header-bar">
         <!-- 로고 & 브랜드명 -->
         <div class="logo-container">
-            <img class="logo-icon" src="/static/imgsource/logo.png" alt="KOYOI 로고">
+            <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI 로고">
         </div>
 
         <!-- 우측 상단 아이콘 -->
         <div class="header-icons">
             <button class="header-btn">
-                <img src="/static/imgsource/chat.png" alt="채팅">
+                <img src="/static/imgsource/layout/chat.png" alt="채팅">
             </button>
             <button class="header-btn">
-                <img src="/static/imgsource/settingss.png" alt="설정">
+                <img src="/static/imgsource/layout/settingss.png" alt="설정">
             </button>
             <button class="header-btn">
                 <img src="/static/imgsource/6.png" alt="로그아웃">
             </button>
-            <img class="profile-img" src="/static/imgsource/testprofile.png" alt="프로필">
+            <img class="profile-img" src="/static/imgsource/layout/testprofile.png" alt="프로필">
         </div>
     </header>
 

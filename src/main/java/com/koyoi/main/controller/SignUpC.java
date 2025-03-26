@@ -30,7 +30,6 @@ public class SignUpC {
     @Autowired
     private SignUpService signUpService;
 
-
     @PostMapping("/signup")
     public String signup(@RequestParam("user_id") String userId,
                          @RequestParam("user_pw") String userPw,
@@ -38,13 +37,14 @@ public class SignUpC {
                          @RequestParam("user_nickname") String userNickname,
                          @RequestParam("user_email") String userEmail,
                          @RequestParam("user_img") MultipartFile userImg,
+                         @RequestParam("user_type") Integer userType,
                          HttpSession session) {
 
         Logger log = LoggerFactory.getLogger(this.getClass());
 
         // 진입 시점 로그
         log.info("[SignUpC] 회원가입 요청 시작");
-        log.debug("user_id={}, user_name={}, user_nickname={}, user_email={}", userId, userName, userNickname, userEmail);
+        log.debug("user_id={}, user_name={}, user_nickname={}, user_email={}, user_email={}", userId, userName, userNickname, userEmail, userType);
 
         // UserVO 생성 후 확인
         UserVO user = new UserVO();
@@ -53,9 +53,17 @@ public class SignUpC {
         user.setUserNickname(userNickname);
         user.setUserEmail(userEmail);
         user.setUserPassword(userPw); // 암호화는 서비스에서 처리
-        user.setUserType(2); // 일반 유저 기본값
+        user.setUserType(userType); // 일반 유저 기본값
 
-        System.out.println("logtest: " + userId);
+        // 추후 삭제 디버깅용
+        System.out.println("login info : " + userId);
+        System.out.println("login info : " + userName);
+        System.out.println("login info : " + userNickname);
+        System.out.println("login info : " + userEmail);
+        System.out.println("login info : " + userPw);
+        System.out.println("login info : " + userId);
+        System.out.println("login info : " + userType);
+
 
         log.debug("[SignUpC] UserVO 생성 완료: {}", user);
 
@@ -104,9 +112,9 @@ public class SignUpC {
                 exists = signupService.isUserIdDuplicate(value);
                 System.out.println("[SignUpC/checkDuplicate] ID 중복 여부: " + exists);
                 break;
-            case "name":
-                exists = signupService.isUserNameDuplicate(value);
-                System.out.println("[SignUpC/checkDuplicate] NAME 중복 여부: " + exists);
+            case "email":
+                exists = signupService.isUserEMailDuplicate(value);
+                System.out.println("[SignUpC/checkDuplicate] EMAIL 중복 여부: " + exists);
                 break;
             case "nickname":
                 exists = signupService.isUserNicknameDuplicate(value);

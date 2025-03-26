@@ -19,7 +19,7 @@
 
     <header class="header-bar">
         <div class="header-logo-center">
-            <img src="/static/imgsource/logo.png" alt="KOYOI 로고" class="header-logo">
+            <img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고" class="header-logo">
         </div>
     </header>
 
@@ -71,13 +71,22 @@
                            placeholder="Confirm your password" required>
                     <div id="pw-error" class="error-message"></div>
 
+                    <!-- User Type -->
+                    <div class="form-group">
+                        <label>User Type</label>
+                        <div class="user-type-selector">
+                            <button type="button" class="user-type-btn" data-type="1">User</button>
+                            <button type="button" class="user-type-btn" data-type="2">Counselor</button>
+                        </div>
+                        <!-- 실제 전송할 값 -->
+                        <input type="hidden" name="user_type" id="user_type" value="" required>
+                        <div id="user-type-error" class="error-message"></div>
+                    </div>
+
                     <!-- Name -->
                     <div class="form-group">
-                        <label for="user_name">Name</label>
-                        <div class="check-wrapper">
-                            <input type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
-                            <button type="button" id="checkNameBtn" class="check-btn small">Check</button>
-                        </div>
+                        <label for="user_name">User Name</label>
+                        <input type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
                         <div id="name-error" class="error-message"></div>
                     </div>
 
@@ -92,8 +101,15 @@
                     </div>
 
                     <!-- Email -->
-                    <label for="user_email">Email</label>
-                    <input type="email" id="user_email" name="user_email" placeholder="Enter your email" required>
+                    <div class="form-group">
+                        <label for="user_email">Email</label>
+                        <div class="check-wrapper">
+                            <input type="email" id="user_email" name="user_email" placeholder="Enter your email" required>
+                            <button type="button" id="checkEmailBtn" class="check-btn small">Check</button>
+                        </div>
+                        <div id="email-error" class="error-message"></div>
+                    </div>
+
 
                     <!-- Profile -->
                     <div class="form-group">
@@ -114,10 +130,6 @@
                     </div>
                 </form>
             </div>
-            <!-- 테스트 버튼 -->
-            <button type="button" onclick="location.href='/test'" style="margin-top: 20px;">
-                컨트롤러 테스트
-            </button>
         </div>
     </main>
 

@@ -1,12 +1,25 @@
+<%@ page import="com.koyoi.main.vo.AdminMypageVO" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    AdminMypageVO user = (AdminMypageVO) request.getAttribute("user");
+    String imgPath = (user != null && user.getUser_img() != null)
+            ? user.getUser_img()
+            : "/static/imgsource/testprofile.png"; // 기본 이미지
+%>
 <%  // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
+    String userType = null;
 
     if (session1 != null) {
         userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
+
+        if (userTypeObj != null) {
+            userType = userTypeObj.toString(); // int → String 안전하게 변환
+        }
     }
 
     if (userId == null) {
@@ -23,7 +36,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var userType = "<%= userType %>";
 
+        function goToMyPage() {
+            if (userType === "1") {
+                location.href = "/usermypage";
+            } else if (userType === "2") {
+                location.href = "/Counselormypage";
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -31,21 +54,21 @@
     <header class="header-bar">
 
         <div class="logo-container">
-            <img class="logo-icon" src="/static/imgsource/logo.png" alt="KOYOI">
+            <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI">
         </div>
         <div class="header-icons">
             <button class="header-btn" id="notice">
-                <img src="/static/imgsource/notice.png" alt="notice">
+                <img src="/static/imgsource/main/notice.png" alt="notice">
             </button>
             <%--추후 알림창 설정--%>
 <%--            <button class="header-btn" id="message">
-                <img src="/static/imgsource/chat.png" alt="message">
+                <img src="/static/imgsource/layout/chat.png" alt="message">
             </button>--%>
             <button class="header-btn">
-                <a href="/logout"> <img src="/static/imgsource/logout.png" alt="logout"> </a>
+                <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
             </button>
-            <button class="profile-btn">
-                <a href="/usermypage">  <img class="profile-img" src="/static/imgsource/testprofile.png" alt="profile"> </a>
+            <button class="profile-btn" onclick="goToMyPage()">
+                <img class="profile-img" src="/static<%=imgPath%>" alt="profile">
             </button>
         </div>
 
@@ -55,13 +78,13 @@
     <div id="notice-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn"> &times; </span>
-            <h3> Notice </h3>
+            <h3 class="modal-title"> <a href="/announcement/list">  Notice  </a> </h3>
             <ul id="notice-lists">
                 <c:forEach var="announcement" items="${announcements}">
                     <li>
-                        <a href="#">${announcement.title}</a>
+                        <a href="/announcement/view/${announcement.announcement_id}">${announcement.title}</a>
                         <c:if test="${announcement.isNew == 'Y'}">
-                        <span class="new-tag">New</span>
+                        <span class="new-tag"> New </span>
                         </c:if>
                     </li>
                 </c:forEach>
@@ -76,9 +99,9 @@
                 <div class="swiper-wrapper" id="quoteWrapper">
                     <c:forEach var="quote" items="${quotes}">
                         <div class="swiper-slide">
-                            <span class="quote-symbol">❝</span>
+                            <span class="quote-symbol"> ❝ </span>
                             ${quote.content}
-                            <span class="quote-symbol">❞</span>
+                            <span class="quote-symbol"> ❞ </span>
                         </div>
                     </c:forEach>
                 </div>
@@ -115,7 +138,7 @@
             <div class="right-content">
                 <div class="right-inner">
                     <div class="checklist-container">
-                        <h3> 체크리스트 </h3>
+                        <h3> Daily Tasks </h3>
                         <ul id="task-list"></ul>
                     </div>
 
@@ -127,7 +150,7 @@
                         </div>
 
                         <div class="chat-connect">
-                            <button class="chatbot"> ChatBot</button>
+                            <button class="chatbot" onclick="location.href='/chat'"> ChatBot </button>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> LiveChat </button>
                         </div>
 

@@ -28,12 +28,12 @@
     <div class="left-container">
         <aside class="sidebar">
             <nav class="sidebar-menu">
-                <button class="sidebar-btn"><img src="/static/imgsource/home.png" alt="홈"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/calandar.png" alt="목록"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/pencil.png" alt="채팅"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/chat.png" alt="공유"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/settingss.png" alt="설정"></button>
-                <div class="bbiyak"><img src="/static/imgsource/bbiyak.png"></div>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/home.png" alt="홈"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="목록"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="채팅"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="공유"></button>
+                <button class="sidebar-btn"><img src="/static/imgsource/layout/settingss.png" alt="설정"></button>
+                <div class="bbiyak"><img src="/static/imgsource/layout/bbiyak.png"></div>
             </nav>
         </aside>
     </div>
@@ -41,10 +41,14 @@
     <!-- 오른쪽 메인 컨텐츠 -->
     <div class="right-container">
         <header class="header-bar">
-            <div class="brand-title"><img src="/static/imgsource/logo.png" alt="KOYOI 로고"></div>
+            <div class="brand-title"><img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고"></div>
             <div class="header-icons">
+<<<<<<< HEAD
+                <img class="myprofile-img" src="/static/imgsource/layout/testprofile.png" alt="프로필">
+=======
                 <button class="header-btn"><img src="/static/imgsource/logout.png" alt="logout"></button>
                 <img class="myprofile-img" src="${user.user_img}?v=${now}" alt="프로필">
+>>>>>>> 665f79712c2f0fc6ea52b7a29711d39434c45fda
             </div>
         </header>
 

@@ -4,9 +4,6 @@
 -- table 생성시 꼭 test table 로 생성!!!!!!!!!!!!!
 -- db는 같이 쓰는 db도 있으니 삭제 하거나 변동 주기 전에 서로 공유 꼭 한번씩 해주세요!!
 
-<<
-<<<<< HEAD
-
 -- ==========================================
 -- ========== TEST DATA INSERT ==========
 -- ==========================================
@@ -124,7 +121,7 @@ ALTER TABLE TEST_USER
 INSERT INTO TEST_USER (user_id, user_type, user_name, user_email, user_password, user_img, created_at)
 VALUES ('user5', 1, '조조님', 'user5@example.com', 'password5', '/imgsource/usermypage_profiletest.jpg', SYSDATE);
 
--- >>>>>>> 9ce381165894c55d2627bf310e0348c139fa15e2
+
 SELECT *
 FROM TEST_USER;
 
@@ -132,7 +129,6 @@ FROM TEST_USER;
 
 -- TEST_HABIT 테이블 데이터 삽입
 INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
-<<<<<<< HEAD
 VALUES (1, 'user1', '운동', SYSDATE);
 select *from TEST_HABIT;
 
@@ -143,12 +139,6 @@ INSERT INTO TEST_HABIT_TRACKING (tracking_id, habit_id, user_id, completed, week
 VALUES (2, 3, 'user1', 0, null, TO_DATE('2025-03-20', 'YYYY-MM-DD'), SYSTIMESTAMP);
 select * from TEST_HABIT_TRACKING;
 
-=======
-VALUES (5, 'user5', '식사', SYSDATE);
-select *
-from TEST_HABIT;
-=======
->>>>>>> baa685546c203fb9cf5796b46b38ce25009a4f1b
 
 INSERT INTO TEST_USER (user_id, user_type, user_name, USER_NICKNAME, user_email, user_password, user_img, created_at)
 VALUES ('admin001', 3, 'admin', 'admin', 'admin001@example.com', 'admin001', '/imgsource/admin001.jpg', SYSDATE);
@@ -185,14 +175,6 @@ VALUES ('admin001', '신규 기능 업데이트', '새로운 AI 감정 분석 �
 INSERT INTO TEST_ANNOUNCEMENT (admin_id, title, content, created_at)
 VALUES ('admin001', '이벤트 안내', '사용자 감사 이벤트가 4월 1일부터 시작됩니다. 다양한 혜택을 확인하세요!', SYSDATE);
 
-<<<<<<< HEAD
-select * from TEST_ANNOUNCEMENT;
-select * from TEST_DIARY;
-select * from TEST_HABIT;
-
-
-
-=======
 select *
 from TEST_ANNOUNCEMENT;
 select *
@@ -369,8 +351,8 @@ SELECT test_live_chat_seq.NEXTVAL FROM dual;
 SELECT SEQUENCE_NAME
 FROM USER_SEQUENCES
 WHERE SEQUENCE_NAME = 'TEST_LIVE_CHAT_SEQ';
->>>>>>> baa685546c203fb9cf5796b46b38ce25009a4f1b
 
+select * from TEST_HABIT_TRACKING;
 
 select * from MAIN_USER;
 select * from test_USER;
