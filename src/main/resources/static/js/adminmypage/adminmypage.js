@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(res => res.text())
                     .then(result => {
                         if (result === "1") {
-                            alert("Deleted.");
+                            alert("The member has been successfully deleted.");
                             location.reload();
                         }
                     });
@@ -254,26 +254,49 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (event.target.id === "updateUser") {
-            const data = {
-                user_id: document.getElementById("modalUserId").textContent,
-                user_password: document.getElementById("modalUserPassword").value,
-                user_nickname: document.getElementById("modalUserNickname").value,
-                user_email: document.getElementById("modalUserEmail").value
-            };
-            if (confirm("Update this member?")) {
-                fetch("/admin/updateUser", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                })
-                    .then(res => res.text())
-                    .then(result => {
-                        if (result === "1") {
-                            alert("Updated.");
-                            location.reload();
-                        }
-                    });
-            }
+            const userId = document.getElementById("modalUserId").textContent;
+            const newNickname = document.getElementById("modalUserNickname").value.trim();
+            const newPassword = document.getElementById("modalUserPassword").value;
+            const newEmail = document.getElementById("modalUserEmail").value;
+
+            // 닉네임 중복 체크
+            fetch("/checkNicknameDuplicate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nickname: newNickname, user_id: userId })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.duplicate) {
+                        alert("Sorry, this nickname is already taken. Kindly choose another one.");
+                        return;
+                    }
+
+                    // 중복이 아니라면 업데이트 진행
+                    if (confirm("Update this member?")) {
+                        const data = {
+                            user_id: userId,
+                            user_password: newPassword,
+                            user_nickname: newNickname,
+                            user_email: newEmail
+                        };
+
+                        fetch("/admin/updateUser", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(data)
+                        })
+                            .then(res => res.text())
+                            .then(result => {
+                                if (result === "1") {
+                                    alert("The update was completed successfully.");
+                                    location.reload();
+                                } else {
+                                    alert("Sorry, we couldn’t complete the update. Please try again later.");
+                                }
+                            });
+                    }
+                });
         }
 
         if (event.target.id === "updateAnnouncement") {
@@ -339,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const content = document.getElementById("createAnnouncementContent").value.trim();
 
             if (!title || !content) {
-                alert("Please enter both the title and content.");
+                alert("Please make sure to enter both the title and content before submitting.");
                 return;
             }
 
@@ -356,16 +379,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(res => res.text())
                 .then(result => {
                     if (result === "1") {
-                        alert("Announcement has been created.");
+                        alert("The announcement has been successfully created.");
                         createModal.style.display = "none";
                         location.reload();
                     } else {
-                        alert("Failed to create announcement. Please try again.");
+                        alert("We couldn’t create the announcement. Please try again later.");
                     }
                 })
                 .catch(err => {
                     console.error("작성 오류:", err);
-                    alert("An error occurred while creating the announcement.");
+                    alert("An unexpected error occurred while creating the announcement. Please try again.");
                 });
         }
     });
