@@ -219,6 +219,12 @@ body {
 .col-announcement-id    { flex: 1; }
 .col-announcement-created   { flex: 1; }
 
+.col-announcement-title {
+    flex: 2;
+    text-align: left;
+    padding-left: 20px;
+}
+
 /* 마지막 행 구분선 제거 */
 .announcement-board .announcement-row:last-child {
     border-bottom: none;
