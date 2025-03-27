@@ -8,7 +8,8 @@
             ? user.getUser_img()
             : "/static/imgsource/testprofile.png"; // 기본 이미지
 %>
-<%  // 세션 체크 추가 부분 시작
+<%-- 로그인 기능 --%>
+<%
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
     String userType = null;
@@ -18,7 +19,7 @@
         Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
 
         if (userTypeObj != null) {
-            userType = userTypeObj.toString(); // int → String 안전하게 변환
+            userType = userTypeObj.toString(); // int → String 변환
         }
     }
 
@@ -27,8 +28,9 @@
         return;
     }
 %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <title>KOYOI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
@@ -37,6 +39,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        /* userType에 따라 각 마이페이지로 이동*/
+        /* user_type => 1 : 일반 회원 / 2 : 상담사 / 3 : 관리자 */
         var userType = "<%= userType %>";
 
         function goToMyPage() {
@@ -51,8 +55,9 @@
 <body>
 
 <div class="container">
-    <header class="header-bar">
 
+    <%-- 헤더 --%>
+    <header class="header-bar">
         <div class="logo-container">
             <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
         </div>
@@ -60,10 +65,6 @@
             <button class="header-btn" id="notice">
                 <img src="/static/imgsource/main/notice.png" alt="notice">
             </button>
-            <%--추후 알림창 설정--%>
-<%--            <button class="header-btn" id="message">
-                <img src="/static/imgsource/layout/chat.png" alt="message">
-            </button>--%>
             <button class="header-btn">
                 <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
             </button>
@@ -71,7 +72,6 @@
                 <img class="profile-img" src="/static<%=imgPath%>" alt="profile">
             </button>
         </div>
-
     </header>
 
     <%-- 공지 모달창 --%>
@@ -83,7 +83,7 @@
                 <c:forEach var="announcement" items="${announcements}">
                     <li>
                         <a href="/announcement/view/${announcement.announcement_id}">${announcement.title}</a>
-                        <c:if test="${announcement.isNew == 'Y'}">
+                        <c:if test="${announcement.isNew == 'Y'}"> <%-- JSTL은 내부적으로 getIsNew()를 자동 호출, .isNew 가능 --%>
                         <span class="new-tag"> 新着 </span>
                         </c:if>
                     </li>
@@ -92,8 +92,10 @@
         </div>
     </div>
 
+    <%-- 메인 컨텐츠 --%>
     <main class="main-container">
 
+        <%-- 명언 슬라이드 --%>
         <div class="quotes-container">
             <div class="swiper">
                 <div class="swiper-wrapper" id="quoteWrapper">
@@ -109,14 +111,14 @@
                 <div class="swiper-button-next"></div>
             </div>
         </div>
+        <%-- swiper.js 라이브러리 --%>
         <script>
-
             const swiper = new Swiper('.swiper', {
                 direction: 'horizontal',
                 loop: true,
                 autoplay: {
-                    delay: 60000,
-                    disableOnInteraction: false, // 슬라이드를 터치해도 오토플레이가 적용됨.
+                    delay: 60000,   // 1분
+                    disableOnInteraction: false, // 슬라이드를 터치해도 오토플레이가 적용됨
                 },
 
                 navigation: {
@@ -127,14 +129,14 @@
         </script>
 
         <div class="content-wrapper">
-            <!-- 왼쪽 영역: 달력 -->
+            <%-- 왼쪽 영역 : 달력 --%>
             <div class="left-content">
                 <div class="calendar-container">
                     <jsp:include page="maincalendar.jsp"/>
                 </div>
             </div>
 
-            <!-- 오른쪽 영역: 체크리스트 + 무드 그래프 + 챗봇 -->
+            <%-- 오른쪽 영역 : 체크리스트 + 무드 그래프 + 챗봇 --%>
             <div class="right-content">
                 <div class="right-inner">
                     <div class="checklist-container">
@@ -149,6 +151,7 @@
                             <canvas id="moodChart"></canvas>
                         </div>
 
+                        <%-- 챗봇, 라이브챗 연결 --%>
                         <div class="chat-connect">
                             <button class="chatbot" onclick="location.href='/chat'"> チャットボット </button>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> ライブチャット </button>
@@ -157,6 +160,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
     </main>

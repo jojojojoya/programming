@@ -217,17 +217,17 @@ body {
 
 /* 명언 */
 .quotes-container {
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative; /* absolute 제거하고 relative로 변경 */
     z-index: 10;
-    background: linear-gradient(145deg, #f2e9e4, #fefaf6);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    backdrop-filter: blur(5px);
+    background: linear-gradient(135deg, #fff8f0, #ffe8df);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
 }
 
 /* 슬라이더 스타일 */
@@ -237,13 +237,16 @@ body {
     height: auto;
     display: flex;
     justify-content: center; /* 내부 아이템 중앙 정렬 */
+    padding: 10px 0; /* 원래 없었는데 주면 체크리스트 높이 조정해야 함 */
+
 }
 
 /* 슬라이드 내부 텍스트 */
 .swiper-slide {
-    font-family: 'Raleway', sans-serif;
+    /*font-family: 'Raleway', sans-serif;*/
+    font-family: 'Dancing Script', cursive;
     font-size: 20px;
-    font-weight: 550;
+    /*font-weight: 550;*/
     color: #5d4037;
     text-shadow: 1px 1px 3px rgba(161, 136, 127, 0.3); /* 은은한 섀도우 */
     opacity: 0;
@@ -257,9 +260,9 @@ body {
 
 /* 따옴표 스타일 */
 .quote-symbol {
-    font-size: 30px;
-    font-weight: bold;
-    color: #5d4037;
+    font-size: 32px;
+    /*font-weight: bold;*/
+    color: #a1887f;
     /*color: rgba(255, 255, 255, 0.7);*/
     margin: 0 10px;
 }
@@ -274,20 +277,20 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 /* 네비게이션 버튼 스타일 */
 .swiper-button-prev:after, .swiper-button-next:after {
-    color: #5d4037;
-    font-size: 20px;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    color: #8d6e63;
+    font-size: 22px;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out;
 }
 
 .swiper-button-prev:hover:after, .swiper-button-next:hover:after {
-    transform: scale(1.2);
+    transform: scale(1.3);
 }
 
 .content-wrapper {
@@ -351,7 +354,7 @@ body {
 
 #calendar-title {
     display: inline-block;
-    width: 80px; /* 또는 6~7ch 같이 글자 수 기준 */
+    width: 120px;
     text-align: center;
     font-weight: bold;
 }
@@ -397,6 +400,7 @@ body {
     grid-template-columns: repeat(7, 1fr);
     width: 100%;
     font-weight: bold;
+    font-size: 17px;
     text-align: center;
     padding: 5px 0;
     color: #5d4037;
