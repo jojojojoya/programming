@@ -20,6 +20,10 @@ public class LiveChatService {
     @Autowired
     private UserMyPageMapper userMyPageMapper;
 
+    public String findRandomCounselor() {
+        return liveChatMapper.findRandomCounselor();
+    }
+
     @Transactional
     public boolean reserveCounseling(LiveChatVO reservation) {
         try {

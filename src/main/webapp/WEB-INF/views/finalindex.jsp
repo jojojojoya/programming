@@ -33,7 +33,7 @@
                 <a href="/diary" class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="캘린더"></a>
                 <a href="/habit" class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="습관"></a>
                 <a href="/livechatreservation" class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="라챗"></a>
-                <a href="/chatbot"><div class="bbiyak">
+                <a href="/chat"><div class="bbiyak">
                     <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇삐약잉">
                 </div></a>
             </nav>
@@ -61,6 +61,22 @@
             <c:if test="${not empty announcementDetail}">
                 <jsp:include page="${announcementDetail}" />
             </c:if>
+            <!-- 유저마이페이지 인클루드 -->
+            <c:if test="${not empty usermypage}">
+                <jsp:include page="${usermypage}" />
+            </c:if>
+            <!-- 라이브챗 디테일  인클루드 -->
+
+            <c:if test="${not empty livechatdetail}">
+                <jsp:include page="${livechatdetail}" />
+            </c:if>
+            <!-- 라이브챗 예약 인클루드 -->
+
+            <c:if test="${not empty livechatreservation}">
+                <jsp:include page="${livechatreservation}" />
+            </c:if>
+
+
         </main>
     </div>
 </div>

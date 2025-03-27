@@ -52,4 +52,11 @@ public interface UserMyPageMapper {
     List<UserMyPageVO> getAllReservations();
 
 
+    @Select("""
+    SELECT COUNT(*) FROM test_user
+    WHERE user_nickname = #{nickname}
+      AND user_id != #{user_id}
+""")
+    int countByNicknameExcludeCurrentUser(@Param("nickname") String nickname, @Param("user_id") String userId);
+
 }
