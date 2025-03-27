@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const views = {
-        user: { button: document.getElementById("user"), table: document.getElementById("userTable"), title: "Member List", label: "Users" },
-        counselor: { button: document.getElementById("counselor"), table: document.getElementById("counselorTable"), title: "Member List", label: "Counselors" },
-        announcement: { button: document.getElementById("announcement"), table: document.getElementById("announcementTable"), title: "Announcements", label: "Announcement List" }
+        user: { button: document.getElementById("user"), table: document.getElementById("userTable"), title: "会員一覧", label: "ユーザー" },
+        counselor: { button: document.getElementById("counselor"), table: document.getElementById("counselorTable"), title: "会員一覧", label: "カウンセラー" },
+        announcement: { button: document.getElementById("announcement"), table: document.getElementById("announcementTable"), title: "お知らせ", label: "お知らせ一覧" }
     };
 
     const tableTitle = document.getElementById("table-title");
@@ -16,11 +16,43 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.setItem("lastView", viewName);
     }
 
+    const userTotal = parseInt(document.body.dataset.userTotal);
+    const userPage = parseInt(document.body.dataset.userPage);
+    const counselorTotal = parseInt(document.body.dataset.counselorTotal);
+    const counselorPage = parseInt(document.body.dataset.counselorPage);
+    const announcementTotal = parseInt(document.body.dataset.announcementTotal);
+    const announcementPage = parseInt(document.body.dataset.announcementPage);
+
     const lastView = sessionStorage.getItem("lastView") || "user";
     showView(lastView);
-    if (lastView === "user") loadUserPage(1);
+    /*if (lastView === "user") loadUserPage(1);
     if (lastView === "counselor") loadCounselorPage(1);
-    if (lastView === "announcement") loadAnnouncementPage(1);
+    if (lastView === "announcement") loadAnnouncementPage(1);*/
+
+    if (lastView === "user") {
+        showView("user");
+        if (userPage > 1) {
+            loadUserPage(userPage);
+        } else {
+            renderPagination("user", userTotal, userPage);
+        }
+    }
+    if (lastView === "counselor") {
+        showView("counselor");
+        if (counselorPage > 1) {
+            loadCounselorPage(counselorPage);
+        } else {
+            renderPagination("counselor", counselorTotal, counselorPage);
+        }
+    }
+    if (lastView === "announcement") {
+        showView("announcement");
+        if (announcementPage > 1) {
+            loadAnnouncementPage(announcementPage);
+        } else {
+            renderPagination("announcement", announcementTotal, announcementPage);
+        }
+    }
 
     Object.entries(views).forEach(([name, view]) => {
         view.button.addEventListener("click", () => {
@@ -74,12 +106,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 const table = document.getElementById("userTable");
                 table.innerHTML = `
                     <div class="user-board-header">
-                        <div class="col col-num"> No </div>
-                        <div class="col col-id"> ID </div>
-                        <div class="col col-name"> Name </div>
-                        <div class="col col-nickname"> Nickname </div>
-                        <div class="col col-email"> Email </div>
-                        <div class="col col-date"> Joined </div>
+                        <div class="col col-num"> 番号 </div>
+                        <div class="col col-id"> アイディー </div>
+                        <div class="col col-name"> 氏名 </div>
+                        <div class="col col-nickname"> ニックネーム </div>
+                        <div class="col col-email"> メール </div>
+                        <div class="col col-date"> 登録日 </div>
                     </div>
                 `;
                 data.list.forEach((user, index) => {
@@ -108,12 +140,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 const table = document.getElementById("counselorTable");
                 table.innerHTML = `
                     <div class="user-board-header">
-                        <div class="col col-num"> No </div>
+                        <div class="col col-num"> 番号 </div>
                         <div class="col col-id"> ID </div>
-                        <div class="col col-name"> Name </div>
-                        <div class="col col-nickname"> Nickname </div>
-                        <div class="col col-email"> Email </div>
-                        <div class="col col-date"> Joined </div>
+                        <div class="col col-name"> 氏名 </div>
+                        <div class="col col-nickname"> ニックネーム </div>
+                        <div class="col col-email"> メール </div>
+                        <div class="col col-date"> 登録日 </div>
                     </div>
                 `;
                 data.list.forEach((user, index) => {
@@ -141,12 +173,12 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 const table = document.getElementById("announcementTable");
                 table.innerHTML = `
-                    <button class="announcement-create-btn">Create</button>
+                    <button class="announcement-create-btn"> 新規作成 </button>
                     <div class="announcement-board-header">
-                        <div class="col col-announcement-num">No</div>
-                        <div class="col col-announcement-id">Admin Id</div>
-                        <div class="col col-announcement-title">Title</div>
-                        <div class="col col-announcement-created">Created</div>
+                        <div class="col col-announcement-num"> 番号 </div>
+                        <div class="col col-announcement-id"> 管理者ID </div>
+                        <div class="col col-announcement-title"> タイトル </div>
+                        <div class="col col-announcement-created"> 作成日 </div>
                     </div>
                 `;
                 data.list.forEach((a, index) => {
@@ -209,12 +241,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (event.target.id === "deleteUser") {
             const userId = document.getElementById("modalUserId").textContent;
-            if (confirm("Are you sure you want to delete this member?")) {
+            if (confirm("この会員を削除してもよろしいですか？")) {
                 fetch(`/admin/deleteUser?userId=${userId}`, { method: "DELETE" })
                     .then(res => res.text())
                     .then(result => {
                         if (result === "1") {
-                            alert("Deleted.");
+                            alert("会員の削除が完了しました。");
                             location.reload();
                         }
                     });
@@ -222,26 +254,49 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (event.target.id === "updateUser") {
-            const data = {
-                user_id: document.getElementById("modalUserId").textContent,
-                user_password: document.getElementById("modalUserPassword").value,
-                user_nickname: document.getElementById("modalUserNickname").value,
-                user_email: document.getElementById("modalUserEmail").value
-            };
-            if (confirm("Update this member?")) {
-                fetch("/admin/updateUser", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                })
-                    .then(res => res.text())
-                    .then(result => {
-                        if (result === "1") {
-                            alert("Updated.");
-                            location.reload();
-                        }
-                    });
-            }
+            const userId = document.getElementById("modalUserId").textContent;
+            const newNickname = document.getElementById("modalUserNickname").value.trim();
+            const newPassword = document.getElementById("modalUserPassword").value;
+            const newEmail = document.getElementById("modalUserEmail").value;
+
+            // 닉네임 중복 체크
+            fetch("/checkNicknameDuplicate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nickname: newNickname, user_id: userId })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.duplicate) {
+                        alert("申し訳ありません。このニックネームは既に使用されています。別のものをご入力ください。");
+                        return;
+                    }
+
+                    // 중복이 아니라면 업데이트 진행
+                    if (confirm("この会員情報を更新してもよろしいですか？")) {
+                        const data = {
+                            user_id: userId,
+                            user_password: newPassword,
+                            user_nickname: newNickname,
+                            user_email: newEmail
+                        };
+
+                        fetch("/admin/updateUser", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(data)
+                        })
+                            .then(res => res.text())
+                            .then(result => {
+                                if (result === "1") {
+                                    alert("更新が正常に完了しました。");
+                                    location.reload();
+                                } else {
+                                    alert("申し訳ありません。更新に失敗しました。後ほど再度お試しください。");
+                                }
+                            });
+                    }
+                });
         }
 
         if (event.target.id === "updateAnnouncement") {
@@ -251,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 title: document.getElementById("modalAnnouncementTitle").value,
                 content: document.getElementById("modalAnnouncementContent").value
             };
-            if (confirm("Update this announcement?")) {
+            if (confirm("このお知らせを更新してもよろしいですか？")) {
                 fetch("/admin/updateAnnouncement", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -260,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(res => res.text())
                     .then(result => {
                         if (result === "1") {
-                            alert("Updated.");
+                            alert("更新されました。");
                             location.reload();
                         }
                     });
@@ -269,12 +324,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (event.target.id === "deleteAnnouncement") {
             const id = document.getElementById("announcementModal").getAttribute("data-user-id");
-            if (confirm("Delete this announcement?")) {
+            if (confirm("このお知らせを削除してもよろしいですか？")) {
                 fetch(`/admin/deleteAnnouncement?announcement_id=${id}`, { method: "DELETE" })
                     .then(res => res.text())
                     .then(result => {
                         if (result === "1") {
-                            alert("Deleted.");
+                            alert("削除されました。");
                             location.reload();
                         }
                     });
@@ -307,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const content = document.getElementById("createAnnouncementContent").value.trim();
 
             if (!title || !content) {
-                alert("Please enter both the title and content.");
+                alert("タイトルと内容の両方をご入力ください。");
                 return;
             }
 
@@ -324,16 +379,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(res => res.text())
                 .then(result => {
                     if (result === "1") {
-                        alert("Announcement has been created.");
+                        alert("お知らせが正常に作成されました。");
                         createModal.style.display = "none";
                         location.reload();
                     } else {
-                        alert("Failed to create announcement. Please try again.");
+                        alert("お知らせの作成に失敗しました。後ほど再度お試しください。");
                     }
                 })
                 .catch(err => {
                     console.error("작성 오류:", err);
-                    alert("An error occurred while creating the announcement.");
+                    alert("お知らせの作成中に予期しないエラーが発生しました。再度お試しください。");
                 });
         }
     });

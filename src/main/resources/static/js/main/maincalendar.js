@@ -8,10 +8,10 @@ document.getElementById("nextCalendar").addEventListener("click", switchCalendar
 // Daily <-> Weekly 전환
 function switchCalendar() {
     if (currentMode === "daily") {
-        document.getElementById("calendar-title").innerText = "Weekly";
+        document.getElementById("calendar-title").innerText = "ウィークリー";
         currentMode = "weekly";
     } else {
-        document.getElementById("calendar-title").innerText = "Daily";
+        document.getElementById("calendar-title").innerText = "デイリー";
         currentMode = "daily";
     }
     generateCalendar();
@@ -48,15 +48,15 @@ function generateCalendar() {
     let monthYearEl = document.getElementById("calendar-month-year");
 
     const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+        "1月", "2月", "3月", "4月", "5月", "6月",
+        "7月", "8月", "9月", "10月", "11月", "12月"
     ];
 
     let year = currentDate.getFullYear();
     let month = currentDate.getMonth() + 1;
     let formattedMonth = `${year}-${String(month).padStart(2, '0')}`;
 
-    monthYearEl.innerText = `${monthNames[month - 1]} ${year}`;
+    monthYearEl.innerText = `${year}年 ${monthNames[month - 1]}`;
     calendarEl.innerHTML = "";
 
     let firstDay = new Date(year, month - 1, 1).getDay();
@@ -99,7 +99,7 @@ function generateCalendar() {
                 let selectedDate = new Date(`${formattedDate}T00:00:00`); // 클릭한 날짜 객체 변환
 
                 if (selectedDate > today) {
-                    alert("You can't write a journal for a future date.");
+                    alert("未来の日付には日記を記入できません。");
                     return;
                 }
 
@@ -227,23 +227,50 @@ function updateMoodChart(moodScores) {
 
     // 새로운 차트 생성
     window.moodChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: ['월', '화', '수', '목', '금', '토', '일'],
+            labels: ['月', '火', '水', '木', '金', '土', '日'],
             datasets: [{
-                label: 'Weekly Mood Score',
+                label: '今週の気分',
                 data: moodScores,
-                backgroundColor: ['#ff9999', '#ffcc99', '#ffff99', '#99ff99', '#99ccff', '#cc99ff', '#ff99cc'],
-                borderColor: '#555',
-                borderWidth: 1
+                tension: 0.2,
+                fill: true,
+                backgroundColor: 'rgba(233, 215, 233, 0.3)',
+                borderColor: '#A1887F',
+                pointBackgroundColor: '#C8E3D4',
+                pointBorderColor: '#D2C4D6',
+                pointRadius: 4,
+                pointHoverRadius: 8,
+                pointHoverBackgroundColor: '#EAD4C2',
+                pointHoverBorderColor: '#5D4037',
+                borderWidth: 2
             }]
         },
         options: {
             responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             scales: {
+                x: {
+                    ticks: {
+                        color: '#7B6651'
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
                 y: {
                     beginAtZero: true,
-                    max: 100
+                    max: 100,
+                    ticks: {
+                        color: '#A1887F'
+                    },
+                    grid: {
+                        color: '#f3e7db'
+                    }
                 }
             }
         }
