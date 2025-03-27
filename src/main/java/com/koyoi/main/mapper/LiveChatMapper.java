@@ -15,7 +15,7 @@ public interface LiveChatMapper {
     // 나가기 누르면 특정 상담 완료 처리로 상태 변경
     @Update("""
         UPDATE TEST_COUNSELING_RESERVATION 
-        SET status = '완료'
+        SET status = '完了'
         WHERE counseling_id = #{counseling_id}
     """)
     int completeCounseling(@Param("counseling_id") Integer counselingId);
@@ -31,8 +31,8 @@ public interface LiveChatMapper {
 
     @Update("""
     UPDATE TEST_COUNSELING_RESERVATION
-    SET status = '대기'
-    WHERE status != '완료'
+    SET status = '待機中'
+    WHERE status != '完了'
     AND counseling_date = CURRENT_DATE
     AND counseling_time BETWEEN EXTRACT(HOUR FROM CURRENT_TIMESTAMP) AND EXTRACT(HOUR FROM CURRENT_TIMESTAMP) + 1
 """)
@@ -41,7 +41,7 @@ public interface LiveChatMapper {
     @Insert("""
     INSERT INTO TEST_COUNSELING_RESERVATION 
     (counseling_id, user_id, counselor_id, counseling_date, counseling_time, category, status, created_at) 
-    VALUES (TEST_COUNSELING_RES_SEQ.NEXTVAL, #{user_id}, #{counselor_id}, #{counseling_date}, #{counseling_time}, #{category}, '대기', SYSDATE)
+    VALUES (TEST_COUNSELING_RES_SEQ.NEXTVAL, #{user_id}, #{counselor_id}, #{counseling_date}, #{counseling_time}, #{category}, '待機中', SYSDATE)
 """)
     @SelectKey(statement = "SELECT TEST_COUNSELING_RES_SEQ.CURRVAL FROM dual",
             keyProperty = "counseling_id",
@@ -54,7 +54,7 @@ public interface LiveChatMapper {
     @Select("""
         SELECT * 
         FROM TEST_COUNSELING_RESERVATION 
-        WHERE status = '대기' 
+        WHERE status = '待機中' 
         AND counseling_date = CURRENT_DATE 
         AND counseling_time BETWEEN EXTRACT(HOUR FROM CURRENT_TIMESTAMP) - 1 AND EXTRACT(HOUR FROM CURRENT_TIMESTAMP) + 1
         ORDER BY counseling_date ASC, counseling_time ASC
@@ -65,7 +65,7 @@ public interface LiveChatMapper {
     @Select("""
         SELECT * 
         FROM TEST_COUNSELING_RESERVATION 
-        WHERE status = '완료' 
+        WHERE status = '完了' 
         ORDER BY counseling_date DESC, counseling_time DESC
     """)
     List<LiveChatVO> findCompletedReservations();
@@ -80,7 +80,7 @@ public interface LiveChatMapper {
     // 특정 상담의 상태를 '대기'로 변경
     @Update("""
         UPDATE TEST_COUNSELING_RESERVATION
-        SET status = '대기'
+        SET status = '待機中'
         WHERE counseling_id = #{counseling_id}
     """)
     int updateSingleReservationToWaiting(@Param("counseling_id") int counselingId);
@@ -114,7 +114,7 @@ public interface LiveChatMapper {
 
 @Insert("""
     INSERT INTO TEST_live_chat (session_id, user_id, counseling_id, counselor_id, start_time, end_time, status)
-    VALUES (#{session_id}, #{user_id}, #{counseling_id}, #{counselor_id}, #{start_time}, 0, '대기')
+    VALUES (#{session_id}, #{user_id}, #{counseling_id}, #{counselor_id}, #{start_time}, 0, '待機中')
 """)
 @SelectKey(
         statement = "SELECT TEST_live_chat_seq.NEXTVAL FROM dual",
@@ -134,7 +134,7 @@ Integer createChatRoom(LiveChatVO reservation);
     // 상담 종료 시 상태 변경
     @Update("""
         UPDATE TEST_live_chat 
-        SET status = '완료' 
+        SET status = '完了' 
         WHERE session_id = #{sessionId}
     """)
     int completeChat(@Param("sessionId") int sessionId);
