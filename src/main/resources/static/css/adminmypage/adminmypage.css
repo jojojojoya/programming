@@ -672,7 +672,7 @@ button:hover {
 
 .announcement-create-btn {
     position: absolute;
-    top: -40px; /* 약간 조정하여 잘 보이도록 변경 */
+    top: -50px; /* 약간 조정하여 잘 보이도록 변경 */
     right: 10px; /* 약간 여백 추가 */
     padding: 0.6rem 1rem;
     background-color: #9A6E50;
