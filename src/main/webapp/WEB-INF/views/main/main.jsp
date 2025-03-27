@@ -13,11 +13,17 @@
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
     String userType = null;
+    String userNickName = "친구";
 
     if (session1 != null) {
         userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
-        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
 
+        String nicknameFromSession = (String) session1.getAttribute("userNickName");   // session userNickname값
+        if (nicknameFromSession != null) {
+            userNickName = nicknameFromSession;
+        }
+
+        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
         if (userTypeObj != null) {
             userType = userTypeObj.toString(); // int → String 변환
         }
@@ -51,6 +57,7 @@
             }
         }
     </script>
+
 </head>
 <body>
 
@@ -59,6 +66,7 @@
     <%-- 헤더 --%>
     <header class="header-bar">
         <div class="logo-container">
+            <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI">
             <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
         </div>
         <div class="header-icons">
@@ -83,8 +91,8 @@
                 <c:forEach var="announcement" items="${announcements}">
                     <li>
                         <a href="/announcement/view/${announcement.announcement_id}">${announcement.title}</a>
-                        <c:if test="${announcement.isNew == 'Y'}"> <%-- JSTL은 내부적으로 getIsNew()를 자동 호출, .isNew 가능 --%>
-                        <span class="new-tag"> 新着 </span>
+                        <c:if test="${announcement.isNew == 'Y'}">
+                        <span class="new-tag"> New </span>
                         </c:if>
                     </li>
                 </c:forEach>
@@ -153,7 +161,8 @@
 
                         <%-- 챗봇, 라이브챗 연결 --%>
                         <div class="chat-connect">
-                            <button class="chatbot" onclick="location.href='/chat'"> チャットボット </button>
+                            <button class="chatbot" onclick="openChatModal()">チャットボット</button>
+                        <%--                            <button class="chatbot" onclick="location.href='/chat'"> チャットボット </button>--%>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> ライブチャット </button>
                         </div>
 
@@ -168,5 +177,10 @@
 </div>
 <script src="/static/js/main/todoList.js"></script>
 <script src="/static/js/main/main.js"></script>
+<script>
+    const userName = "<%= userNickName %>";
+</script>
+<script src="/static/js/chat/chat-modal.js"></script>
+
 </body>
 </html>

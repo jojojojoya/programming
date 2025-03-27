@@ -11,4 +11,10 @@ public class ChatC {
     public String showChatPage() {
         return "chat/chat";  // /WEB-INF/views/chat/chat.jsp
     }
+
+    @GetMapping("/modal")
+    public String chatModal() {
+        return "chat/chatModal"; // /WEB-INF/views/chat/chatModal.jsp
+    }
+
 }
