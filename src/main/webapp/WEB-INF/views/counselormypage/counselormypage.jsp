@@ -165,4 +165,4 @@
     </div>
 </div>
 
-<script src="/static/js/usermypage/usermypage.js"></script>
+<script src="/static/js/counselormypage/counselormypage.js"></script>
