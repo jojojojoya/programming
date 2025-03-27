@@ -132,8 +132,8 @@ public class HabitService {
             int completedCount = 0;
             for (boolean b : tracking) if (b) completedCount++;
 
-            String encouragement = completedCount >= 6 ? "참 잘했어요"
-                    : completedCount >= 4 ? "잘했어요" : "좀 더 해봐요";
+            String encouragement = completedCount >= 6 ? "よくできました！"
+                    : completedCount >= 4 ? "頑張りましたね！" : "あと少し！";
 
             habitInfo.put("completed_count", completedCount);
             habitInfo.put("encouragement", encouragement);

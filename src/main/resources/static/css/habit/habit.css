@@ -190,6 +190,59 @@ body {
 .habit-hidden {
     display: none !important;
 }
+
+
+
+
+
+
+
+
+
+
+/* 추천 습관 공통 스타일 */
+.habit-content p {
+    background-color: #f9f9f9;
+    border-radius: 1vw;
+    padding: 0.6vw 1vw;
+    font-size: 0.7vw;
+    white-space: nowrap;
+    box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    text-align: center;
+    width: auto;
+}
+
+/* 탭별 레이아웃 컨테이너 */
+.habit-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.habit-정신건강-part {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vw;
+    justify-items: center;
+    align-items: center;
+    padding: 1vw;
+}
+.habit-정신건강-part p {
+    background-color: #f9f9f9;
+    border-radius: 1vw;
+    padding: 0.6vw 1vw;
+    font-size: 1vw;
+    white-space: nowrap;
+    box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    text-align: center;
+}
+
+
+
+
 .habit-calendar {
     background: #fff;
     border-radius: 1.5vw;

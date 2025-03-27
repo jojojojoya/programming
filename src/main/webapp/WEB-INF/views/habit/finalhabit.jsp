@@ -49,7 +49,7 @@
             <div class="habit-page">
                 <!-- ✅ 1행: 내 습관 / 캘린더 / 주간 이력 -->
                 <div class="widget-box habit-list">
-                    <div class="myhabit">내 습관 </div>
+                    <div class="myhabit">習慣リスト </div>
                     <div class="myhabit-list">
                         <c:forEach var="habit" items="${habits}">
                             <div id="habit-box-${habit.habit_id}">
@@ -60,7 +60,7 @@
                         </c:forEach>
                     </div>
                     <div>
-                        <input type="text" id="habitInput" placeholder="새로운 습관 추가">
+                        <input type="text" id="habitInput" placeholder="習慣の追加はこちら">
                         <button id="addHabitBtn">+</button>
                     </div>
                 </div>
@@ -73,34 +73,34 @@
                             <button id="nextMonth">&gt;</button>
                         </div>
                         <div class="calendar-days">
-                            <div class="day-name">일</div>
-                            <div class="day-name">월</div>
-                            <div class="day-name">화</div>
-                            <div class="day-name">수</div>
-                            <div class="day-name">목</div>
-                            <div class="day-name">금</div>
-                            <div class="day-name">토</div>
+                            <div class="day-name">日</div>
+                            <div class="day-name">月</div>
+                            <div class="day-name">火</div>
+                            <div class="day-name">水</div>
+                            <div class="day-name">木</div>
+                            <div class="day-name">金</div>
+                            <div class="day-name">土</div>
                         </div>
                         <div id="calendarBody" class="calendar-body"></div>
                         <div id="selectedDateDisplay" style="margin-top: 10px; font-weight: bold;">
-                            선택한 날짜: 없음
+                            日付：未選択
                         </div>
                     </div>
                 </div>
 
                 <div class="widget-box habit-week">
-                    <h3>주간 습관 이력</h3>
+                    <h3>WEEKLY習慣履歴</h3>
                     <table class="week-table">
                         <thead>
                         <tr>
-                            <th>습관명</th>
-                            <th>일</th>
-                            <th>월</th>
-                            <th>화</th>
-                            <th>수</th>
-                            <th>목</th>
-                            <th>금</th>
-                            <th>토</th>
+                            <th>習慣名</th>
+                            <th>日</th>
+                            <th>月</th>
+                            <th>火</th>
+                            <th>水</th>
+                            <th>木</th>
+                            <th>金</th>
+                            <th>土</th>
                         </tr>
                         </thead>
                         <tbody id="weeklyHabitBody">
@@ -118,39 +118,39 @@
 
                     <div id="habit-신체건강" class="habit-content">
                         <div style="float: left; width: 25%;" >
-                            <p id="exercise">✅ 운동</p>
-                            <p id="meal">🍽️ 식사</p>
-                            <p id="diet">🏋️ 체중관리</p>
+                            <p id="exercise">✅ 運動</p>
+                            <p id="meal">🍽️ 食事</p>
+                            <p id="diet">🏋️ 体重管理</p>
                         </div>
                         <div style="float: left; width: 25%;" >
-                            <p id="supplement">✅ 영양제</p>
-                            <p id="water">🍽️ 물마시기</p>
-                            <p id="posture">🏋️ 자세</p>
+                            <p id="supplement">✅ サプリ</p>
+                            <p id="water">🍽️ お水</p>
+                            <p id="posture">🏋️ 正しい姿勢</p>
                         </div>
                         <div style="float: left; width: 25%;">
-                            <p id="sunshine">✅ 햇볕</p>
-                            <p id="rest">🍽️ 휴식</p>
-                            <p id="stretch">🏋️ 스트레칭</p>
+                            <p id="sunshine">✅ 日差し</p>
+                            <p id="rest">🍽️ 休憩</p>
+                            <p id="stretch">🏋️ ストレッチ</p>
                         </div>
                     </div>
 
                     <div id="habit-정신건강" class="habit-content habit-hidden" onclick="habitShowTab('정신건강')">
                         <div class="habit-정신건강-part">
-                            <p id="walk">산책</p>
-                            <p id="meal">식사</p>
-                            <p id="talk">수다</p>
-                            <p id="friend">친구</p>
-                            <p id="exercise">운동</p>
-                            <p id="book">책</p>
-                            <p id="game">게임</p>
-                            <p id="water">물</p>
-                            <p id="movie">영화</p>
+                            <p id="walk">散歩</p>
+                            <p id="meal">食事</p>
+                            <p id="talk">お喋り</p>
+                            <p id="friend">友達</p>
+                            <p id="exercise">運動</p>
+                            <p id="book">読書</p>
+                            <p id="game">ゲーム</p>
+                            <p id="water">お水</p>
+                            <p id="movie">映画</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="widget-box habit-rate">
-                    <h3>격려의 말</h3>
+                    <h3>励ましの言葉</h3>
                     <ul id="encouragementList"></ul>
                 </div>
 

@@ -21,14 +21,16 @@ function renderWeeklyMemo(data) {
         const tracking = habit.tracking;
         let row = `<tr><td>${habit.habit_name}</td>`;
 
-        for (let i = 0; i < 7; i++) {
+        const dayOrder = [6, 0, 1, 2, 3, 4, 5]; // 일 ~ 토
+        dayOrder.forEach(i => {
             row += `<td>${tracking[i] ? 'O' : 'X'}</td>`;
-        }
+        });
 
         row += "</tr>";
         tbody.innerHTML += row;
     });
 }
+
 
 // ✅ 격려 문구 출력
 function renderEncouragement(data) {
@@ -73,7 +75,7 @@ let currentYear = new Date().getFullYear();
 function addHabit() {
     const habitName = document.getElementById("habitInput").value.trim();
     if (!habitName) {
-        alert("습관 이름을 입력해주세요.");
+        alert("習慣名の入力をお願いします");
         return;
     }
 
@@ -87,15 +89,15 @@ function addHabit() {
         .then(response => response.json())
         .then(data => {
             if (data.habit_id || data.status === "success") {
-                alert("습관 추가 성공!");
+                alert("習慣追加成功!");
                 location.reload();
             } else {
-                alert("습관 추가 실패: " + data.message);
+                alert("習慣追加失敗: " + data.message);
             }
         })
         .catch(error => {
             console.error("요청 실패:", error);
-            alert("서버 오류 발생!");
+            alert("サーバーエラー発生!");
         });
 }
 
@@ -121,7 +123,7 @@ function addHabitToDatabase(habitName) {
             if (data.habit_id || data.status === "success") {
                 updateHabitList(data);
             } else {
-                alert('습관 추가 실패');
+                alert('習慣追加失敗');
             }
         })
         .catch(error => console.error('Error:', error));
@@ -201,6 +203,24 @@ document.addEventListener("DOMContentLoaded", function () {
             const habitName = item.innerText;
             addHabitToDatabase(habitName);
         });
+    });
+
+    document.getElementById("prevMonth").addEventListener("click", function () {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        generateCalendar(currentMonth, currentYear);
+    });
+
+    document.getElementById("nextMonth").addEventListener("click", function () {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        generateCalendar(currentMonth, currentYear);
     });
 
     generateCalendar(currentMonth, currentYear);
