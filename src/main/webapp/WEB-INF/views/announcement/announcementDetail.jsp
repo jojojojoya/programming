@@ -5,7 +5,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" href="/static/css/announcement/announcementDetail.css">
-
 <div class="announcement-view">
     <div class="title">${announcement.title}</div>
     <div class="meta">
@@ -13,7 +12,7 @@
     </div>
     <div class="content">${announcement.content}</div>
 
-    <a href="/announcement/list" class="btn-back">← 목록으로</a>
+    <a href="/announcement" class="btn-back">← 목록으로</a>
 </div>
 
 
