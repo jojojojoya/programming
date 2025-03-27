@@ -1,18 +1,15 @@
 /*------------------------------*/
 /* 메인 콘텐츠 영역 레이아웃 */
-html, body {
-    overflow: hidden; /* ✅ 전체 스크롤 막기 */
-}
-
 .content {
     display: grid;
     grid-template-columns: 1fr 2fr; /* 캘린더:다이어리 비율 */
     gap: 2vw;
     min-height: calc(100vh - 120px);  /* 헤더 제외한 높이 */
     box-sizing: border-box;
-    padding: 2vh 2vw;
-    overflow: hidden;
+    /*padding: 2vh 2vw;*/
     height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /*------------------------------*/
@@ -56,6 +53,7 @@ html, body {
 /*    background-color: #fff3e7;*/
 /*    color: #3f2e29;*/
 /*}*/
+
 /* 🔄 버튼 초기화 */
 .fc .fc-button {
     background: none !important;
@@ -187,7 +185,7 @@ html, body {
     flex-grow: 1;
     background-color: #ede0d4;
     border-radius: 1rem;
-    padding: 2vh 2vw;
+    padding: 1.5vh 1.5vw;
     box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
 }
 
@@ -203,6 +201,9 @@ html, body {
     list-style: none;
     padding: 0;
     margin: 0;
+    overflow-y: auto;
+    max-height: 30vh;
+    background-color: #EDE0D4;
 }
 
 .weekly-item {
@@ -290,6 +291,7 @@ html, body {
 .diary-view-content {
     flex-grow: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     min-height: 45vh;
     height: 55%;
     width: 100%;
@@ -302,7 +304,6 @@ html, body {
     font-size: 1.5vh;
     margin-bottom: 2vh;
     word-break: break-word;
-    overflow-x: hidden;
 }
 
 /* 날짜 스타일 */
@@ -378,6 +379,7 @@ html, body {
     gap: 2vw;
     margin-top: auto;
     padding-bottom: 1vh;
+
 }
 
 /* diary-section 내부 버튼 */

@@ -92,9 +92,13 @@ function initCalendar() {
         initialDate: initialDate,
         locale: 'en',
         timeZone: 'local',
-        expandRows: true,
-        fixedWeekCount: false,
-        aspectRatio: 1.8,
+        // expandRows: true,
+        // fixedWeekCount: false,
+        // aspectRatio: 1.8,
+        fixedWeekCount: true,
+        expandRows: false,
+        aspectRatio: 1.3,
+        height: 'auto',
 
         headerToolbar: {
             left: 'prevCustom',
