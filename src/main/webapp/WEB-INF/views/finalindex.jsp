@@ -105,7 +105,12 @@
             </div>
             <!-- 🟡 우측 상단 아이콘 -->
             <div class="header-icons">
-                <img class="profile-img" src="<%= imgPath %>" alt="프로필" onerror="this.src='/imgsource/testprofile.png'">
+                <button class="header-btn">
+                    <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
+                </button>
+                <button class="header-btn" onclick="goToMyPage()">
+                <img class="profile-img" src="<%=imgPath%>" alt="프로필" onerror="this.src='/imgsource/testprofile.png'">
+                </button>
             </div>
         </header>
 
