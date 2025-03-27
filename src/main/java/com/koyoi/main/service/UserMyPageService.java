@@ -58,6 +58,12 @@ public class UserMyPageService {
 
     }
 
+    public boolean isNicknameDuplicate(String nickname, String currentUserId) {
+        return userMyPageMapper.countByNicknameExcludeCurrentUser(nickname, currentUserId) > 0;
+    }
 
+    public int countNicknameExcludeCurrentUser(String nickname, String userId) {
+        return userMyPageMapper.countByNicknameExcludeCurrentUser(nickname, userId);
+    }
 
 }

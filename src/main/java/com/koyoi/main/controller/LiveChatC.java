@@ -22,6 +22,15 @@ import java.util.HashMap;
 @Controller
 public class LiveChatC {
 
+
+    private String getLoginUserId(HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            throw new IllegalStateException("로그인이 필요합니다.");
+        }
+        return userId;
+    }
+
     // 라이브챗 서비스 담당
     @Autowired
     private LiveChatService liveChatService;
@@ -46,16 +55,11 @@ public class LiveChatC {
     @GetMapping("/livechatreservation")
     public String showLiveChatReservations(Model model, HttpSession session) {
         // 로그인된 유저 가져오기
-        UserMyPageVO loggedInUser = (UserMyPageVO) session.getAttribute("loggedInUser");
+        String userId = getLoginUserId(session);
+        UserMyPageVO loggedInUser = liveChatService.getUserInfoById(userId).get(0);
 
-        // 로그인 유저 없을 경우 기본값을 user5로 대체
-        if (loggedInUser == null) {
-            List<UserMyPageVO> userList = liveChatService.getUserInfoById("user5");
-            if (!userList.isEmpty()) {
-                loggedInUser = userList.get(0);
-                System.out.println("로그인된 유저 없음 → 기본 user5 로딩");
-            }
-        }
+
+
 
         // 예약 가능한 상담 목록 추가
         List<LiveChatVO> availableReservations = liveChatService.getAvailableReservations();
@@ -63,8 +67,8 @@ public class LiveChatC {
         // 모델에 추가
         model.addAttribute("availableReservations", availableReservations);
         model.addAttribute("user", loggedInUser); // 로그인된 유저 객체를 user에 담고 ${user.user_img}로 사용
-
-        return "/livechat/livechatreservation";
+        model.addAttribute("livechatreservation", "livechat/livechatreservation.jsp");
+        return "/finalindex";
     }
 
 
@@ -75,18 +79,13 @@ public class LiveChatC {
                                       @RequestParam(value = "isCompleted", required = false, defaultValue = "false") boolean isCompleted,
                                       Model model, HttpSession session) {
 
-        UserMyPageVO loggedInUser = (UserMyPageVO) session.getAttribute("loggedInUser");
+        String userId = getLoginUserId(session);
+        List<UserMyPageVO> userList = liveChatService.getUserInfoById(userId);
+        UserMyPageVO loggedInUser = userList.isEmpty() ? null : userList.get(0);
 
-        if (loggedInUser == null) {
-            // 기본 유저(user5) 정보 DB에서 가져오기
-            List<UserMyPageVO> userList = liveChatService.getUserInfoById("user5");
-            if (!userList.isEmpty()) {
-                loggedInUser = userList.get(0);
-                System.out.println("⚠️ 로그인 유저 없음 → user5 기본 정보 세팅");
-            }
-        }
 
         model.addAttribute("user", loggedInUser); // JSP에서 ${user.user_img} 로 접근 가능
+        model.addAttribute("livechatdetail", "livechat/livechatdetail.jsp");
 
         LiveChatVO counselingDetail = liveChatService.getCounselingDetail(counselingId);
         System.out.println("counselingDetail : " + counselingDetail);
@@ -98,41 +97,30 @@ public class LiveChatC {
         // 채팅 로그 가져오기
         List<LiveChatVO> chatLogs = liveChatService.getChatLogs(sessionId);
         if (chatLogs.isEmpty()) {
-            // 세션 id(채팅방 번호)가 없으면, 채팅기록 없을 수 밖에 없음
             System.out.println("⚠️ 채팅 기록 없음: sessionId=" + sessionId);
         }
 
-        // 세션 id가 있으면, 상담 디테일을 counseling에 싣고
         model.addAttribute("counseling", counselingDetail);
-        // 세션 id가 있으면, 챗로그를 chatlogs에 싣고
 
         model.addAttribute("chatLogs", chatLogs);
-        // 세션 id가 있으면, 상담 예약 완료 여부를 iscompleted에 싣고
 
         model.addAttribute("isCompleted", isCompleted);
 
 
         System.out.println("✅ 상담 상세 페이지 로드 완료: sessionId=" + sessionId + ", isCompleted=" + isCompleted);
-        return "/livechat/livechatdetail";
+        return "/finalindex";
+
     }
 
 
     @PostMapping("/livechatreservation")
     public ResponseEntity<Map<String, Object>> reserveLiveChat(@RequestBody Map<String, String> request, HttpSession session) {
 
-        // 세션에서 로그인 유저 정보 가져오기
-        UserMyPageVO loggedInUser = (UserMyPageVO) session.getAttribute("loggedInUser");
-        String userId;
-
-        if (loggedInUser != null) {
-            userId = loggedInUser.getUser_id();
-        } else {
-            userId = "user5"; // 기본 유저
-        }
+        String userId = getLoginUserId(session);
 
 
 
-    try {
+        try {
         // 요청값 검증 (Null 체크)
         String dateString = request.get("livechatreservedate");
         String timeString = request.get("livechatreservetime");
@@ -173,13 +161,17 @@ public class LiveChatC {
         }
 
         // LiveChatVO 객체 생성
-        LiveChatVO reservation = new LiveChatVO();
-        reservation.setUser_id(userId);
-        reservation.setCounseling_date(sqlDate);
-        reservation.setCounseling_time(counselingTime);
-        reservation.setCategory(category);
-        reservation.setStatus("대기");
-        reservation.setCounselor_id("counselor001");
+         LiveChatVO reservation = new LiveChatVO();
+            reservation.setUser_id(userId);
+            reservation.setCounseling_date(sqlDate);
+            reservation.setCounseling_time(counselingTime);
+            reservation.setCategory(category);
+            reservation.setStatus("대기");
+
+// 🔥 여기에 추가!!!
+            String randomCounselorId = liveChatService.findRandomCounselor(); // 랜덤 상담사 배정
+            reservation.setCounselor_id(randomCounselorId); // 배정한 상담사 ID 설정
+
 
         // 예약 처리
         boolean isReserved = liveChatService.reserveCounseling(reservation);
