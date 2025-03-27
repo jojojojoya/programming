@@ -80,10 +80,18 @@
                 </a>
                 <a href="/diary" class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="캘린더"></a>
                 <a href="/habit" class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="습관"></a>
-                <a href="/livechatreservation" class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="라챗"></a>
-                <a href="/chat"><div class="bbiyak">
-                    <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇삐약잉">
-                </div></a>
+                <a href="/livechatreservation" class="sidebar-btn"><img src="/static/imgsource/layout/chat.png"
+                                                                        alt="라챗"></a>
+<%--                <a href="/chat">--%>
+<%--                    <div class="bbiyak">--%>
+<%--                        <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇">--%>
+<%--                    </div>--%>
+<%--                </a>--%>
+                <a href="javascript:void(0);" onclick="openChatModal()">
+                    <div class="bbiyak">
+                        <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇">
+                    </div>
+                </a>
             </nav>
         </aside>
     </div>
@@ -94,32 +102,53 @@
                 <a href="/main"><img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고"></a>
             </div>
             <div class="header-icons">
-                <img class="profile-img" src="<%= imgPath %>" alt="프로필" onerror="this.src='/imgsource/testprofile.png'">
+                <button class="header-btn">
+                    <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
+                </button>
+                <button class="header-btn" onclick="goToMyPage()">
+                <img class="profile-img" src="<%=imgPath%>" alt="프로필" onerror="this.src='/imgsource/testprofile.png'">
+                </button>
             </div>
         </header>
 
         <!-- 🔵 실제 콘텐츠 영역 -->
         <main class="content">
             <c:if test="${not empty diaryContent}">
-                <jsp:include page="${diaryContent}" />
+                <jsp:include page="${diaryContent}"/>
             </c:if>
+
             <c:if test="${not empty announcementList}">
-                <jsp:include page="${announcementList}" />
+                <jsp:include page="${announcementList}"/>
             </c:if>
+
             <c:if test="${not empty announcementDetail}">
-                <jsp:include page="${announcementDetail}" />
+                <jsp:include page="${announcementDetail}"/>
             </c:if>
+
+            <c:if test="${not empty counselormypage}">
+                <jsp:include page="${counselormypage}"/>
+            </c:if>
+
+            <!-- 유저마이페이지 인클루드 -->
             <c:if test="${not empty usermypage}">
-                <jsp:include page="${usermypage}" />
+                <jsp:include page="${usermypage}"/>
             </c:if>
+
+            <!-- 라이브챗 디테일  인클루드 -->
             <c:if test="${not empty livechatdetail}">
-                <jsp:include page="${livechatdetail}" />
+                <jsp:include page="${livechatdetail}"/>
             </c:if>
+
+            <!-- 라이브챗 예약 인클루드 -->
             <c:if test="${not empty livechatreservation}">
-                <jsp:include page="${livechatreservation}" />
+                <jsp:include page="${livechatreservation}"/>
             </c:if>
         </main>
     </div>
 </div>
 </body>
+<script>
+    const userName = "<%= userNickName %>";
+</script>
+<script src="/static/js/chat/chat-modal.js"></script>
 </html>
