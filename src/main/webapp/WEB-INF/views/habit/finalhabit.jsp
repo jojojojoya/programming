@@ -113,7 +113,7 @@
                 <div class="widget-box habit-recommend">
                     <div class="habit-tabs">
                         <div id="habit-tab-신체건강" class="habit-tab habit-active" onclick="habitShowTab('신체건강')">신체건강</div>
-                        <div id="habit-tab-정신건강" class="habit-tab" onclick="habitShowTab('mental')">정신건강</div>
+                        <div id="habit-tab-정신건강" class="habit-tab" onclick="habitShowTab('정신건강')">정신건강</div>
                     </div>
 
                     <div id="habit-신체건강" class="habit-content">
@@ -144,8 +144,8 @@
 
 =======
 
-                    <div id="habit-mental" class="habit-content habit-hidden" onclick="habitShowTab('mental')">
-                        <div class="habit-mental-part">
+                    <div id="habit-정신건강" class="habit-content habit-hidden" onclick="habitShowTab('정신건강')">
+                        <div class="habit-정신건강-part">
                             <p id="walk">산책</p>
                             <p id="meal">식사</p>
                             <p id="talk">수다</p>
