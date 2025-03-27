@@ -1,14 +1,16 @@
-<%@ page import="com.koyoi.main.vo.AdminMypageVO" %>
-<%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
+<%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
 <%
-    UserMyPageVO user = (UserMyPageVO)  request.getAttribute("user");
+    UserMyPageVO user = (UserMyPageVO) request.getAttribute("user");
     String imgPath = (user != null && user.getUser_img() != null)
             ? user.getUser_img()
-            : "/static/imgsource/testprofile.png"; // 기본 이미지
+            : "/imgsource/testprofile.png";
 %>
+
+
 <%  // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
