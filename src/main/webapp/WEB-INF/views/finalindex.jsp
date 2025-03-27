@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% // 세션 체크 추가 부분 시작
+<%  // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
+    String userType = null;
 
     if (session1 != null) {
         userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
+
+        if (userTypeObj != null) {
+            userType = userTypeObj.toString(); // int → String 안전하게 변환
+        }
     }
 
     if (userId == null) {
@@ -13,6 +19,17 @@
         return;
     }
 %>
+<script>
+    var userType = "<%= userType %>";
+
+    function goToMyPage() {
+        if (userType === "1") {
+            location.href = "/usermypage";
+        } else if (userType === "2") {
+            location.href = "/counselormypage";
+        }
+    }
+</script>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,7 +50,7 @@
                 <a href="/diary" class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="캘린더"></a>
                 <a href="/habit" class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="습관"></a>
                 <a href="/livechatreservation" class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="라챗"></a>
-                <a href="/chatbot"><div class="bbiyak">
+                <a href="/chat"><div class="bbiyak">
                     <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇삐약잉">
                 </div></a>
             </nav>
@@ -48,7 +65,12 @@
             </div>
             <!-- 🟡 우측 상단 아이콘 -->
             <div class="header-icons">
-                <img class="profile-img" src="/static/imgsource/layout/testprofile.png" alt="프로필">
+            <button class="header-btn">
+                <a href="/logout"><img src="/static/imgsource/layout/logout.png" alt="logout"></a>
+            </button>
+            <button class="header-btn" onclick="goToMyPage()">
+                <img class="profile-img" src="/static/imgsource/layout/testfile.png" alt="profile">
+            </button>
             </div>
         </header>
         <main class="content">
@@ -60,6 +82,9 @@
             </c:if>
             <c:if test="${not empty announcementDetail}">
                 <jsp:include page="${announcementDetail}" />
+            </c:if>
+            <c:if test="${not empty counselormypage}">
+                <jsp:include page="${counselormypage}" />
             </c:if>
         </main>
     </div>
