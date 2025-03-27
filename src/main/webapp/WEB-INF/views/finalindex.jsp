@@ -2,18 +2,30 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.koyoi.main.vo.AdminMypageVO" %>
 <%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
+<%@ page import="com.koyoi.main.vo.CounselorMyPageVO" %>
 <%
     // 세션 체크
     HttpSession session1 = request.getSession(false);
     String userId = null;
     String userType = null;
+    String userNickName = "친구";
 
     if (session1 != null) {
-        userId = (String) session1.getAttribute("userId");
+        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+
+        String nicknameFromSession = (String) session1.getAttribute("userNickName");   // session userNickname값
+        if (nicknameFromSession != null) {
+            userNickName = nicknameFromSession;
+        }
+
+        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
+        if (userTypeObj != null) {
+            userType = userTypeObj.toString(); // int → String 안전하게 변환
+        }
     }
 
     if (userId == null) {
-        response.sendRedirect("/login");
+        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
         return;
     }
 
@@ -28,6 +40,11 @@
         }
     } else if (userObj instanceof UserMyPageVO) {
         UserMyPageVO user = (UserMyPageVO) userObj;
+        if (user.getUser_img() != null) {
+            imgPath = user.getUser_img();
+        }
+    }   else if (userObj instanceof CounselorMyPageVO) {
+        CounselorMyPageVO user = (CounselorMyPageVO) userObj;
         if (user.getUser_img() != null) {
             imgPath = user.getUser_img();
         }
@@ -65,9 +82,14 @@
                 <a href="/habit" class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="습관"></a>
                 <a href="/livechatreservation" class="sidebar-btn"><img src="/static/imgsource/layout/chat.png"
                                                                         alt="라챗"></a>
-                <a href="/chat">
+<%--                <a href="/chat">--%>
+<%--                    <div class="bbiyak">--%>
+<%--                        <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇">--%>
+<%--                    </div>--%>
+<%--                </a>--%>
+                <a href="javascript:void(0);" onclick="openChatModal()">
                     <div class="bbiyak">
-                        <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇삐약잉">
+                        <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇">
                     </div>
                 </a>
             </nav>
@@ -123,4 +145,8 @@
     </div>
 </div>
 </body>
+<script>
+    const userName = "<%= userNickName %>";
+</script>
+<script src="/static/js/chat/chat-modal.js"></script>
 </html>
