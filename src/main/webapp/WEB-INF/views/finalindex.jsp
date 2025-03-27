@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%  // 세션 체크 추가 부분 시작
+<% // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
     String userType = null;
@@ -49,10 +49,13 @@
                 </a>
                 <a href="/diary" class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="캘린더"></a>
                 <a href="/habit" class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="습관"></a>
-                <a href="/livechatreservation" class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="라챗"></a>
-                <a href="/chat"><div class="bbiyak">
-                    <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇삐약잉">
-                </div></a>
+                <a href="/livechatreservation" class="sidebar-btn"><img src="/static/imgsource/layout/chat.png"
+                                                                        alt="라챗"></a>
+                <a href="/chat">
+                    <div class="bbiyak">
+                        <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇삐약잉">
+                    </div>
+                </a>
             </nav>
         </aside>
     </div>
@@ -65,26 +68,44 @@
             </div>
             <!-- 🟡 우측 상단 아이콘 -->
             <div class="header-icons">
-            <button class="header-btn">
-                <a href="/logout"><img src="/static/imgsource/layout/logout.png" alt="logout"></a>
-            </button>
-            <button class="header-btn" onclick="goToMyPage()">
-                <img class="profile-img" src="/static/imgsource/layout/testfile.png" alt="profile">
-            </button>
+                <button class="header-btn">
+                    <a href="/logout"><img src="/static/imgsource/layout/logout.png" alt="logout"></a>
+                </button>
+                <button class="header-btn" onclick="goToMyPage()">
+                    <img class="profile-img" src="/static/imgsource/layout/testfile.png" alt="profile">
+                </button>
             </div>
         </header>
         <main class="content">
             <c:if test="${not empty diaryContent}">
-                <jsp:include page="${diaryContent}" />
+                <jsp:include page="${diaryContent}"/>
             </c:if>
+
             <c:if test="${not empty announcementList}">
-                <jsp:include page="${announcementList}" />
+                <jsp:include page="${announcementList}"/>
             </c:if>
+
             <c:if test="${not empty announcementDetail}">
-                <jsp:include page="${announcementDetail}" />
+                <jsp:include page="${announcementDetail}"/>
             </c:if>
+
             <c:if test="${not empty counselormypage}">
-                <jsp:include page="${counselormypage}" />
+                <jsp:include page="${counselormypage}"/>
+            </c:if>
+
+            <!-- 유저마이페이지 인클루드 -->
+            <c:if test="${not empty usermypage}">
+                <jsp:include page="${usermypage}"/>
+            </c:if>
+
+            <!-- 라이브챗 디테일  인클루드 -->
+            <c:if test="${not empty livechatdetail}">
+                <jsp:include page="${livechatdetail}"/>
+            </c:if>
+
+            <!-- 라이브챗 예약 인클루드 -->
+            <c:if test="${not empty livechatreservation}">
+                <jsp:include page="${livechatreservation}"/>
             </c:if>
         </main>
     </div>

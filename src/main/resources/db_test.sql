@@ -497,3 +497,5 @@ select * from test_user;
 -- main유저 디비지우기
 
 select * from MAIN_CHAT;
+
+select * from TEST_HABIT;

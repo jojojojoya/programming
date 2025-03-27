@@ -23,14 +23,48 @@ public class AdminMypageC {
     @Autowired
     private AnnouncementService announcementService;
 
-    @GetMapping("/admin")
+  /*  @GetMapping("/admin")
     public String admin(Model model) {
 
-        /*model.addAttribute("users", adminMypageService.getAllUsers());*/
-        /*model.addAttribute("counselors", adminMypageService.getAllCounselors());*/
-        /*model.addAttribute("announcements", announcementService.getAllAnnouncements());*/
+        *//*model.addAttribute("users", adminMypageService.getAllUsers());*//*
+        *//*model.addAttribute("counselors", adminMypageService.getAllCounselors());*//*
+        *//*model.addAttribute("announcements", announcementService.getAllAnnouncements());*//*
         return "adminmypage/adminmypage";
 
+    }*/
+
+    @GetMapping("/admin")
+    public String admin(@RequestParam(defaultValue = "1") int page,
+                        @RequestParam(defaultValue = "5") int size,
+                        Model model) {
+
+        int offset = (page - 1) * size;
+
+        // 1. 유저 목록 1페이지
+        List<AdminMypageVO> users = adminMypageService.getPagedUserList(offset, size);
+        int userTotal = adminMypageService.getUserTotalCount();
+
+        // 2. 상담사 목록 1페이지
+        List<AdminMypageVO> counselors = adminMypageService.getPagedCounselorList(offset, size);
+        int counselorTotal = adminMypageService.getCounselorTotalCount();
+
+        // 3. 공지사항 목록 1페이지
+        List<AnnouncementVO> announcements = announcementService.getPagedAnnouncementList(offset, size);
+        int announcementTotal = announcementService.getTotalCount();
+
+        model.addAttribute("users", users);
+        model.addAttribute("counselors", counselors);
+        model.addAttribute("announcements", announcements);
+
+        model.addAttribute("userTotal", userTotal);
+        model.addAttribute("counselorTotal", counselorTotal);
+        model.addAttribute("announcementTotal", announcementTotal);
+
+        model.addAttribute("userPage", page);
+        model.addAttribute("counselorPage", page);
+        model.addAttribute("announcementPage", page);
+
+        return "adminmypage/adminmypage";
     }
 
     @GetMapping("/admin/userList")

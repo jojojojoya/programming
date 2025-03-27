@@ -94,7 +94,15 @@ public interface LiveChatMapper {
     """)
     List<LiveChatVO> getChatLogs(@Param("session_id") int sessionId);
 
-
+    // 상담사 조회 (랜덤)
+    @Select("""
+    SELECT user_id 
+    FROM TEST_USER
+    where user_type = '2'
+    ORDER BY DBMS_RANDOM.VALUE 
+    FETCH FIRST 1 ROWS ONLY
+""")
+    String findRandomCounselor();
 
     @Insert("""
     INSERT INTO TEST_LIVE_CHAT_LOG (log_id, session_id, sender, user_type, message, timestamp) 

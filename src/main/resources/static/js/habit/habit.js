@@ -40,18 +40,36 @@ function renderEncouragement(data) {
     });
 }
 
-// ✅ 날짜 클릭 시 호출할 함수 (달력 이벤트 연결 시 활용 가능)
+// ✅ 날짜 클릭 시 호출할 함수
 function onCalendarDateClick(dateStr) {
     document.getElementById('selectedDateDisplay').textContent = `선택한 날짜: ${dateStr}`;
-
     loadTrackingStatus();
     attachCheckboxEvents();
-    loadWeeklySummary(); // 🔥 추가된 부분
+    loadWeeklySummary();
+}
+
+// ✅ 탭 전환 함수 (신체건강 / 정신건강)
+function habitShowTab(tab) {
+    console.log("[habitShowTab] 클릭된 탭:", tab);  // ✅ 로그
+
+    const allTabs = document.querySelectorAll('.habit-content');
+    const allTabButtons = document.querySelectorAll('.habit-tab');
+
+    allTabs.forEach(tabContent => {
+        tabContent.classList.add('habit-hidden');
+    });
+    allTabButtons.forEach(button => {
+        button.classList.remove('habit-active');
+    });
+
+    const targetTab = document.getElementById('habit-' + tab);
+    const targetButton = document.getElementById('habit-tab-' + tab);
+
+    if (targetTab) targetTab.classList.remove('habit-hidden');
+    if (targetButton) targetButton.classList.add('habit-active');
 }
 
 // ✅ 본문 스크립트 실행
-
-
 document.addEventListener("DOMContentLoaded", function () {
     console.log("📌 JavaScript 로드 완료!");
 
@@ -66,10 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const data = {
-            habit_name: habitName,
-            user_id: "user1"
-        };
+        const data = { habit_name: habitName, user_id: "user1" };
 
         fetch("/habit/add", {
             method: "POST",
@@ -111,18 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     observer.observe(document.body, { childList: true, subtree: true });
 
-    function habitShowTab(tab) {
-        const allTabs = document.querySelectorAll('.habit-content');
-        const allTabButtons = document.querySelectorAll('.habit-tab');
-
-        allTabs.forEach(tabContent => tabContent.classList.add('habit-hidden'));
-        allTabButtons.forEach(button => button.classList.remove('habit-active'));
-
-        document.getElementById('habit-' + tab).classList.remove('habit-hidden');
-        document.getElementById('habit-tab-' + tab).classList.add('habit-active');
-    }
-
-    habitShowTab('신체건강');
+    habitShowTab('신체건강'); // 기본 탭
 
     const habitItems = document.querySelectorAll('.habit-recommend p');
     habitItems.forEach(item => {
@@ -133,10 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function addHabitToDatabase(habitName) {
-        const requestData = {
-            userId: 'user1',
-            habitName: habitName
-        };
+        const requestData = { userId: 'user1', habitName: habitName };
 
         fetch('/habit/add', {
             method: 'POST',
@@ -200,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("selectedDateDisplay").innerText = `선택한 날짜: ${selectedDate}`;
 
                 loadTrackingStatus();
-                loadWeeklySummary(); // ✅ 추가된 호출
+                loadWeeklySummary();
             });
 
             calendarBody.appendChild(dateCell);
@@ -233,7 +234,6 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`/habit/tracking/status?date=${selectedDate}`)
             .then(response => response.json())
             .then(result => {
-                console.log("✅ 서버 응답:", result);
                 const trackedHabitIds = Array.isArray(result) ? result : result.data;
 
                 document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
@@ -273,7 +273,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     tracking_date: formattedDate,
                     user_id: "user1"
                 };
-                console.log("📤 서버로 보낼 payload:", payload);
 
                 fetch("/habit/tracking", {
                     method: "POST",
@@ -294,6 +293,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ✅ 여기 마지막에 주간 데이터 호출 추가
+    loadTrackingStatus();
     loadWeeklySummary();
 });

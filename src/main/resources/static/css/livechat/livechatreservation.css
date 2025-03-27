@@ -351,8 +351,11 @@ body {
     padding: 1px;
     border-radius: 10px;
     margin-bottom: 10px;
-    padding-left: 454px;
-    padding-right: 454px;
+    padding-left: 480px;
+    padding-right: 480px;
+    white-space: nowrap; /* 줄바꿈 방지 */
+    overflow: hidden;     /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis; /* 넘치면 ... 처리 */
 }
 
 /* ✅ 상담사 멘트가 나타날 때 효과 */
