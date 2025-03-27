@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initCalendar();
     highlightSelectedDate(window.selectedDate);
     loadDiaryByDate(window.selectedDate);
+    bindWeeklySummaryClickEvent();
     });
 
 /* 캘린더 초기화 함수 */
@@ -140,6 +141,8 @@ function initCalendar() {
 
             loadDiaryById(diaryId); // 상세 조회 함수 호출
             highlightSelectedDate(window.selectedDate);
+
+            loadWeeklySummary(window.selectedDate);
         },
 
         // 이벤트 렌더링 → 이모지로 출력
@@ -408,6 +411,68 @@ function switchToEditMode() {
     document.getElementById("saveBtn").style.display = "none";
     document.getElementById("updateBtn").style.display = "inline-block";
 }
+
+/* 주간 요약 리스트 조회 함수 */
+function bindWeeklySummaryClickEvent() {
+    const items = document.querySelectorAll(".weekly-item");
+
+    if (!items || items.length === 0) {
+        console.warn("📭 weekly-item 요소가 없습니다.");
+        return;
+    }
+
+    items.forEach(item => {
+        item.addEventListener("click", function () {
+            const diaryId = this.getAttribute("data-diary-id");
+
+            if (!diaryId) {
+                alert("일기 ID가 없습니다!");
+                return;
+            }
+
+            loadDiaryById(diaryId);  // ✅ 기존에 있는 상세 조회 함수 재사용
+        });
+    });
+}
+
+/*  Ajax로 주간 리스트 불러오는 함수 */
+function loadWeeklySummary(dateStr) {
+    fetch(`/diary/weekly?date=${dateStr}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log("📦 받아온 주간 요약 데이터:", data); // 여기!
+            const summaryBox = document.querySelector(".weekly-summary ul");
+            summaryBox.innerHTML = "";
+
+            if (!data || data.length === 0) {
+                summaryBox.innerHTML = "<li class='weekly-item'>이번 주 일기가 없습니다.</li>";
+                return;
+            }
+
+            data.forEach(diary => {
+                const li = document.createElement("li");
+                li.className = "weekly-item";
+                li.setAttribute("data-diary-id", diary.diary_id);
+
+                const emoji = document.createElement("span");
+                emoji.className = "weekly-item-emoji";
+                emoji.innerText = diary.emotion_emoji || "❓";
+
+                const dateText = diary.created_at?.split("T")[0] || "날짜 없음";
+                const titleText = diary.title || "제목 없음";
+
+                li.appendChild(emoji);
+                li.append(` ${dateText} ${titleText}`);
+                summaryBox.appendChild(li);
+            });
+
+            bindWeeklySummaryClickEvent(); // 항목 클릭 이벤트 연결
+        })
+        .catch(err => {
+            console.error("❌ 주간 요약 로딩 실패:", err);
+        });
+}
+
 
 
 // 오늘의 점수 함수

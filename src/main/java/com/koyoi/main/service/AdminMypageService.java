@@ -46,11 +46,19 @@ public class AdminMypageService {
         return adminMypageMapper.updateUser(adminMypageVO);
     }
 
-/*    public int getUserTotalCount() {
+    public int getUserTotalCount() {
         return adminMypageMapper.selectUserTotalCount();
     }
 
     public List<AdminMypageVO> getPagedUserList(int offset, int size) {
         return adminMypageMapper.selectUserPage(offset, size);
-    }*/
+    }
+
+    public List<AdminMypageVO> getPagedCounselorList(int offset, int size) {
+        return adminMypageMapper.selectCounselorPage(offset, size);
+    }
+
+    public int getCounselorTotalCount() {
+        return adminMypageMapper.selectCounselorTotalCount();
+    }
 }

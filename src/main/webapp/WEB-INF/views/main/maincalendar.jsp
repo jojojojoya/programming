@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Calendar</title>
+    <title>カレンダー</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main/main.css">
 </head>
@@ -18,14 +18,14 @@
 
         <div id="calendar-title-container">
             <button id="prevCalendar"> ◀ </button>
-            <span id="calendar-title"> Daily </span>
+            <span id="calendar-title"> デイリー </span>
             <button id="nextCalendar"> ▶ </button>
         </div>
     </div>
 
     <div class="calendar-weeks">
-        <div> SUN </div> <div> MON </div> <div> TUE </div>
-        <div> WED </div> <div> THU </div> <div> FRI </div> <div> SAT </div>
+        <div> 日 </div> <div> 月 </div> <div> 火 </div>
+        <div> 水 </div> <div> 木 </div> <div> 金 </div> <div> 土 </div>
     </div>
     <div class="calendar-days" id="calendar-grid"></div>
 </div>

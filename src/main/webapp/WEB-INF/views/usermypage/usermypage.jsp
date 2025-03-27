@@ -1,13 +1,28 @@
+<%@ page import="com.koyoi.main.vo.AdminMypageVO" %>
+<%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<% // 세션 체크 추가 부분 시작
+<%
+    UserMyPageVO user = (UserMyPageVO)  request.getAttribute("user");
+    String imgPath = (user != null && user.getUser_img() != null)
+            ? user.getUser_img()
+            : "/static/imgsource/testprofile.png"; // 기본 이미지
+%>
+<%  // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
+    String userType = null;
+    String userImg = null;
 
     if (session1 != null) {
         userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+        userImg = (String) session1.getAttribute("userImg"); // 세션에 저장된 userId 값
+        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
+
+        if (userTypeObj != null) {
+            userType = userTypeObj.toString(); // int → String 안전하게 변환
+        }
     }
 
     if (userId == null) {
@@ -27,52 +42,12 @@
 </head>
 <body>
 
-<div class="container">
-    <!-- 사이드바 -->
-    <div class="left-container">
-        <aside class="sidebar">
-            <nav class="sidebar-menu">
-                <button class="sidebar-btn"><img src="/static/imgsource/layout/home.png" alt="홈"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="목록"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="채팅"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/layout/chat.png" alt="공유"></button>
-                <button class="sidebar-btn"><img src="/static/imgsource/layout/settingss.png" alt="설정"></button>
-                <div class="bbiyak"><img src="/static/imgsource/layout/bbiyak.png"></div>
-            </nav>
-        </aside>
-    </div>
-
-    <!-- 우측 컨텐츠 -->
-<%--    <div class="right-container">--%>
-<%--        <header class="header-bar">--%>
-<%--            <div class="brand-title"><img src="/static/imgsource/logo.png" alt="KOYOI 로고"></div>--%>
-<%--            <div class="header-icons">--%>
-<%--                <img class="myprofile-img" src="${user.user_img}?v=${now}" alt="프로필">--%>
-<%--            </div>--%>
-<%--        </header>--%>
-
-
-    <div class="right-container">
-        <header class="header-bar">
-            <div class="brand-title">
-                <img src="/static/imgsource/layout/logo.png" alt="KOYOI">
-            </div>
-
-            <div class="header-icons">
-                <button class="header-btn">
-                    <img src="/static/imgsource/layout/logout.png" alt="logout">
-                </button>
-                <img class="myprofile-img" src="${user.user_img}?v=${now}" alt="프로필">
-            </div>
-        </header>
-
         <main class="content">
             <div class="top-section">
                 <div class="profile_table">
                     <div class="profile_content">
                         <div class="profile_img">
-                            <img src="${user.user_img}?v=${now}" alt="프로필 이미지">
-
+                            <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="프로필 이미지">
                         </div>
                         <div class="profile_info">
                             <div class="profile_item">
@@ -112,11 +87,23 @@
             </div>
 
             <div class="bottom-section">
-                <div class="diary_table">
-                    <div class="diary_background_img">
-                        <img src="/static/imgsource/background/calandarback.png" alt="달력 이미지">
+                <div class="calendar-container">
+                    <div class="calendar-iframe-wrapper" style="position: relative;">
+                        <iframe src="/maincalendar" frameborder="0"
+                                style="width: 100%; height: 450px; border: none;"></iframe>
+
+                        <a href="/diary" style="
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 10;
+        background: transparent;
+        cursor: pointer;
+    "></a>
                     </div>
+
                 </div>
+
 
                 <!-- 상담 영역 -->
                 <div class="counseling_wrapper">
@@ -143,7 +130,7 @@
                     <c:if test="${not empty reservations}">
                     <div class="counseling_table">
                         <div class="reserved_counseling_table_comment">
-                            <div>📅 予約された相談 (예약 1시간 전 상담 입장가능)</div>
+                            <div> 予約された相談 </div>
                             <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">추가상담
                                 예약
                             </button>
@@ -188,8 +175,8 @@
                     </div>
                     </c:if> <!-- ✅ 닫음 -->
         </main>
-    </div>
-</div>
+<%--    </div>--%>
+<%--</div>--%>
 
 <!-- 🔥 여기에 모달 추가 -->
 <div id="passwordCheckModal" class="modal" style="display: none;">
@@ -208,7 +195,7 @@
 
         <!-- 기존 프로필 이미지 -->
         <div class="profile_img">
-            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/static/imgsource/default.png'">
+            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">
         </div>
 
         <label> 사진 선택</label>
@@ -235,5 +222,13 @@
 
 
 </body>
-<script src="/static/js/usermypage/usermypage.js"></script>
+<script src="/static/js/usermypage/usermypage.js">
+    <script>
+        // 달력 전체 클릭 시 /diary로 이동
+        document.querySelector(".calendar-container").addEventListener("click", function () {
+        window.location.href = "/diary";
+    });
+</script>
+
+</script>
 </html>

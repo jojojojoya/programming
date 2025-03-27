@@ -9,4 +9,3 @@ import java.util.Map;
 public class ChatHistoryDTO {
     private List<Map<String, Object>> messages;
 }
-

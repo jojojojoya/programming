@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="/static/css/diary/diary.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -11,15 +12,14 @@
     <div id="calendar"></div>
 
     <div class="weekly-summary">
-        <div class="weekly-summary-title">이번주 감정 요약</div>
+        <div class="weekly-summary-title">일주일간의 감정</div>
         <ul>
-            <li><span class="emoji">😊</span> 2025-03-09 예시~~</li>
-            <li><span class="emoji">😢</span> 2025-03-10 예시~~</li>
-            <li><span class="emoji">😡</span> 2025-03-11 예시~~</li>
-            <li><span class="emoji">😆</span> 2025-03-12 예시~~</li>
-            <li><span class="emoji">😡</span> 2025-03-13 예시~~</li>
-            <li><span class="emoji">😆</span> 2025-03-14 예시~~</li>
-            <li><span class="emoji">🥰</span> 2025-03-15 예시~~</li>
+            <c:forEach var="diary" items="${weeklyDiaries}">
+                <li class="weekly-item" data-diary-id="${diary.diary_id}">
+                    <span class="weekly-item-emoji">${diary.emotion_emoji}</span>
+                        ${diary.created_at.toLocalDate()} ${diary.title}
+                </li>
+            </c:forEach>
         </ul>
     </div>
 </div>

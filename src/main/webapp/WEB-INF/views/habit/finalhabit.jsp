@@ -133,6 +133,16 @@
                             <p id="stretch">🏋️ 스트레칭</p>
                         </div>
                     </div>
+<<<<<<< HEAD
+                    <div class="habit-parttwo-second">
+                        <div class="habit-rate">habit-rate</div>
+                        <div class="habit-memo">habit-memo
+                        <button id="habit-memo-write" type="button" onclick="/" > 작성하기 </button>
+
+
+
+
+=======
 
                     <div id="habit-정신건강" class="habit-content habit-hidden" onclick="habitShowTab('정신건강')">
                         <div class="habit-정신건강-part">
@@ -145,6 +155,7 @@
                             <p id="game">게임</p>
                             <p id="water">물</p>
                             <p id="movie">영화</p>
+>>>>>>> 127ff5970d0356ed22a02a04b5c067fb57b8af02
                         </div>
                     </div>
                 </div>
