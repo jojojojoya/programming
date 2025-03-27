@@ -11,14 +11,14 @@
 
 <body data-total-count="${totalCount}">
 
-    <h2 id="table-title" class="table-title"> Announcement </h2>
+    <h2 id="table-title" class="table-title"> お知らせ </h2>
 
     <div id="announcementTable" class="announcement-board">
         <div class="announcement-board-header">
-            <div class="col col-announcement-num"> No </div>
-            <div class="col col-announcement-id"> Admin Id </div>
-            <div class="col col-announcement-title"> Title </div>
-            <div class="col col-announcement-created"> Created </div>
+            <div class="col col-announcement-num"> 番号 </div>
+            <div class="col col-announcement-id"> 管理者ID </div>
+            <div class="col col-announcement-title"> タイトル </div>
+            <div class="col col-announcement-created"> 作成日 </div>
         </div>
         <c:forEach var="announcement" items="${announcements}" varStatus="status">
             <div class="announcement-row announcement-detail-btn" data-user-id="${announcement.announcement_id}">

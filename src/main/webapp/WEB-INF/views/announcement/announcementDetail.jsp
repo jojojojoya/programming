@@ -8,11 +8,11 @@
 <div class="announcement-view">
     <div class="title">${announcement.title}</div>
     <div class="meta">
-        작성자: ${announcement.admin_id} | 작성일: ${announcement.formattedCreatedAt}
+        投稿者: ${announcement.admin_id} | 投稿日: ${announcement.formattedCreatedAt}
     </div>
     <div class="content">${announcement.content}</div>
 
-    <a href="/announcement" class="btn-back">← 목록으로</a>
+    <a href="/announcement" class="btn-back">← 一覧に戻る</a>
 </div>
 
 

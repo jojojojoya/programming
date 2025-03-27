@@ -63,10 +63,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 const table = document.getElementById("announcementTable");
                 table.innerHTML = `
                     <div class="announcement-board-header">
-                        <div class="col col-announcement-num">No</div>
-                        <div class="col col-announcement-id">Admin Id</div>
-                        <div class="col col-announcement-title">Title</div>
-                        <div class="col col-announcement-created">Created</div>
+                        <div class="col col-announcement-num"> 番号 </div>
+                        <div class="col col-announcement-id"> 管理者ID </div>
+                        <div class="col col-announcement-title"> タイトル </div>
+                        <div class="col col-announcement-created"> 作成日 </div>
                     </div>
                 `;
                 data.list.forEach((a, index) => {

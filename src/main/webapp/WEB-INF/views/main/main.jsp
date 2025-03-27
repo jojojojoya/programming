@@ -78,13 +78,13 @@
     <div id="notice-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn"> &times; </span>
-            <h3 class="modal-title"> <a href="/announcement">  Notice  </a> </h3>
+            <h3 class="modal-title"> <a href="/announcement">  お知らせ  </a> </h3>
             <ul id="notice-lists">
                 <c:forEach var="announcement" items="${announcements}">
                     <li>
                         <a href="/announcement/view/${announcement.announcement_id}">${announcement.title}</a>
                         <c:if test="${announcement.isNew == 'Y'}">
-                        <span class="new-tag"> New </span>
+                        <span class="new-tag"> 新着 </span>
                         </c:if>
                     </li>
                 </c:forEach>
@@ -138,20 +138,20 @@
             <div class="right-content">
                 <div class="right-inner">
                     <div class="checklist-container">
-                        <h3> Daily Tasks </h3>
+                        <h3> 本日のタスク </h3>
                         <ul id="task-list"></ul>
                     </div>
 
                     <div class="right-side">
 
                         <div class="mood-chart">
-                            <h3> Mood Chart </h3>
+                            <h3> 気分チャート </h3>
                             <canvas id="moodChart"></canvas>
                         </div>
 
                         <div class="chat-connect">
-                            <button class="chatbot" onclick="location.href='/chat'"> ChatBot </button>
-                            <button class="livechat" onclick="location.href='/livechatreservation'"> LiveChat </button>
+                            <button class="chatbot" onclick="location.href='/chat'"> チャットボット </button>
+                            <button class="livechat" onclick="location.href='/livechatreservation'"> ライブチャット </button>
                         </div>
 
                     </div>

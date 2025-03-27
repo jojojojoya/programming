@@ -8,10 +8,10 @@ document.getElementById("nextCalendar").addEventListener("click", switchCalendar
 // Daily <-> Weekly 전환
 function switchCalendar() {
     if (currentMode === "daily") {
-        document.getElementById("calendar-title").innerText = "Weekly";
+        document.getElementById("calendar-title").innerText = "ウィークリー";
         currentMode = "weekly";
     } else {
-        document.getElementById("calendar-title").innerText = "Daily";
+        document.getElementById("calendar-title").innerText = "デイリー";
         currentMode = "daily";
     }
     generateCalendar();
@@ -48,15 +48,15 @@ function generateCalendar() {
     let monthYearEl = document.getElementById("calendar-month-year");
 
     const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+        "1月", "2月", "3月", "4月", "5月", "6月",
+        "7月", "8月", "9月", "10月", "11月", "12月"
     ];
 
     let year = currentDate.getFullYear();
     let month = currentDate.getMonth() + 1;
     let formattedMonth = `${year}-${String(month).padStart(2, '0')}`;
 
-    monthYearEl.innerText = `${monthNames[month - 1]} ${year}`;
+    monthYearEl.innerText = `${year}年 ${monthNames[month - 1]}`;
     calendarEl.innerHTML = "";
 
     let firstDay = new Date(year, month - 1, 1).getDay();
@@ -99,7 +99,7 @@ function generateCalendar() {
                 let selectedDate = new Date(`${formattedDate}T00:00:00`); // 클릭한 날짜 객체 변환
 
                 if (selectedDate > today) {
-                    alert("You can't write a journal for a future date.");
+                    alert("未来の日付には日記を記入できません。");
                     return;
                 }
 
@@ -229,9 +229,9 @@ function updateMoodChart(moodScores) {
     window.moodChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['월', '화', '수', '목', '금', '토', '일'],
+            labels: ['月', '火', '水', '木', '金', '土', '日'],
             datasets: [{
-                label: 'weekly mood',
+                label: '今週の気分',
                 data: moodScores,
                 tension: 0.2,
                 fill: true,
