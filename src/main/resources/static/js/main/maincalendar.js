@@ -227,23 +227,50 @@ function updateMoodChart(moodScores) {
 
     // 새로운 차트 생성
     window.moodChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: ['월', '화', '수', '목', '금', '토', '일'],
             datasets: [{
-                label: 'Weekly Mood Score',
+                label: 'weekly mood',
                 data: moodScores,
-                backgroundColor: ['#ff9999', '#ffcc99', '#ffff99', '#99ff99', '#99ccff', '#cc99ff', '#ff99cc'],
-                borderColor: '#555',
-                borderWidth: 1
+                tension: 0.2,
+                fill: true,
+                backgroundColor: 'rgba(233, 215, 233, 0.3)',
+                borderColor: '#A1887F',
+                pointBackgroundColor: '#C8E3D4',
+                pointBorderColor: '#D2C4D6',
+                pointRadius: 4,
+                pointHoverRadius: 8,
+                pointHoverBackgroundColor: '#EAD4C2',
+                pointHoverBorderColor: '#5D4037',
+                borderWidth: 2
             }]
         },
         options: {
             responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             scales: {
+                x: {
+                    ticks: {
+                        color: '#7B6651'
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
                 y: {
                     beginAtZero: true,
-                    max: 100
+                    max: 100,
+                    ticks: {
+                        color: '#A1887F'
+                    },
+                    grid: {
+                        color: '#f3e7db'
+                    }
                 }
             }
         }

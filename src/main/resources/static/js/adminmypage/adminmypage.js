@@ -16,11 +16,43 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.setItem("lastView", viewName);
     }
 
+    const userTotal = parseInt(document.body.dataset.userTotal);
+    const userPage = parseInt(document.body.dataset.userPage);
+    const counselorTotal = parseInt(document.body.dataset.counselorTotal);
+    const counselorPage = parseInt(document.body.dataset.counselorPage);
+    const announcementTotal = parseInt(document.body.dataset.announcementTotal);
+    const announcementPage = parseInt(document.body.dataset.announcementPage);
+
     const lastView = sessionStorage.getItem("lastView") || "user";
     showView(lastView);
-    if (lastView === "user") loadUserPage(1);
+    /*if (lastView === "user") loadUserPage(1);
     if (lastView === "counselor") loadCounselorPage(1);
-    if (lastView === "announcement") loadAnnouncementPage(1);
+    if (lastView === "announcement") loadAnnouncementPage(1);*/
+
+    if (lastView === "user") {
+        showView("user");
+        if (userPage > 1) {
+            loadUserPage(userPage);
+        } else {
+            renderPagination("user", userTotal, userPage);
+        }
+    }
+    if (lastView === "counselor") {
+        showView("counselor");
+        if (counselorPage > 1) {
+            loadCounselorPage(counselorPage);
+        } else {
+            renderPagination("counselor", counselorTotal, counselorPage);
+        }
+    }
+    if (lastView === "announcement") {
+        showView("announcement");
+        if (announcementPage > 1) {
+            loadAnnouncementPage(announcementPage);
+        } else {
+            renderPagination("announcement", announcementTotal, announcementPage);
+        }
+    }
 
     Object.entries(views).forEach(([name, view]) => {
         view.button.addEventListener("click", () => {

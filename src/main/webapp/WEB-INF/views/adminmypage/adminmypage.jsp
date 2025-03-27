@@ -19,7 +19,10 @@
     <link rel="stylesheet" href="/static/css/adminmypage/adminmypage.css">
     <script src="/static/js/adminmypage/adminmypage.js"></script>
 </head>
-<body>
+<body
+        data-user-total="${userTotal}" data-user-page="${userPage}"
+        data-counselor-total="${counselorTotal}" data-counselor-page="${counselorPage}"
+        data-announcement-total="${announcementTotal}" data-announcement-page="${announcementPage}">
 
 <div class="container">
 
@@ -67,6 +70,16 @@
                     <div class="col col-email"> Email </div>
                     <div class="col col-date"> Joined </div>
                 </div>
+                <c:forEach var="user" items="${users}" varStatus="status">
+                    <div class="user-row user-detail-btn" data-user-id="${user.user_id}">
+                        <div class="cell col-num">${userTotal - ((userPage - 1) * 5 + status.index)}</div>
+                        <div class="cell col-id">${user.user_id}</div>
+                        <div class="cell col-name">${user.user_name}</div>
+                        <div class="cell col-nickname">${user.user_nickname}</div>
+                        <div class="cell col-email">${user.user_email}</div>
+                        <div class="cell col-date">${user.formattedCreatedAt}</div>
+                    </div>
+                </c:forEach>
               <%--  <c:set var="totalUsers" value="${fn:length(users)}" />
                 <c:forEach var="user" items="${users}" varStatus="status">
                     <div class="user-row user-detail-btn" data-user-id="${user.user_id}">
@@ -90,6 +103,16 @@
                     <div class="col col-email"> Email </div>
                     <div class="col col-date"> Joined </div>
                 </div>
+                <c:forEach var="counselor" items="${counselors}" varStatus="status">
+                    <div class="user-row user-detail-btn" data-user-id="${counselor.user_id}">
+                        <div class="cell col-num">${counselorTotal - ((counselorPage - 1) * 5 + status.index)}</div>
+                        <div class="cell col-id">${counselor.user_id}</div>
+                        <div class="cell col-name">${counselor.user_name}</div>
+                        <div class="cell col-nickname">${counselor.user_nickname}</div>
+                        <div class="cell col-email">${counselor.user_email}</div>
+                        <div class="cell col-date">${counselor.formattedCreatedAt}</div>
+                    </div>
+                </c:forEach>
                 <%--<c:set var="totalCounselors" value="${fn:length(counselors)}" />
                 <c:forEach var="counselor" items="${counselors}" varStatus="status">
                     <div class="user-row user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">
@@ -165,6 +188,14 @@
                     <div class="col col-announcement-title"> Title </div>
                     <div class="col col-announcement-created"> Created </div>
                 </div>
+                <c:forEach var="announcement" items="${announcements}" varStatus="status">
+                    <div class="announcement-row announcement-detail-btn" data-user-id="${announcement.announcement_id}">
+                        <div class="cell col-announcement-num">${announcementTotal - ((announcementPage - 1) * 5 + status.index)}</div>
+                        <div class="cell col-announcement-id">${announcement.admin_id}</div>
+                        <div class="cell col-announcement-title">${announcement.title}</div>
+                        <div class="cell col-announcement-created">${announcement.formattedCreatedAt}</div>
+                    </div>
+                </c:forEach>
                 <%--<c:set var="totalAnnouncements" value="${fn:length(announcements)}" />
                 <c:forEach var="announcement" items="${announcements}" varStatus="status">
                 <div class="announcement-row announcement-detail-btn" data-user-id="${announcement.announcement_id}">
