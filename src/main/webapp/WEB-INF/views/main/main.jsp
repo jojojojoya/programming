@@ -49,7 +49,7 @@
             if (userType === "1") {
                 location.href = "/usermypage";
             } else if (userType === "2") {
-                location.href = "/Counselormypage";
+                location.href = "/counselormypage";
             }
         }
     </script>

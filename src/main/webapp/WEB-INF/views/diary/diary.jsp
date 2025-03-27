@@ -27,8 +27,9 @@
 <!-- 일기 작성 & 조회 -->
 <div class="diary-section-container">
     <div class="diary-wrapper">
+
         <!-- 일기 작성 뷰 -->
-        <div id="diaryWriteSection" style="display: block;">
+        <div class="diary-write-section" id="diaryWriteSection" style="display: block;">
             <!-- 날짜 -->
             <p><strong>TODAY:</strong> <span id="diaryDate"></span></p>
 
@@ -42,18 +43,22 @@
             </div>
 
             <!-- 타이틀 입력 -->
-            <input type="text" id="diaryTitle" placeholder="오늘 하루를 한 줄로 표현해 보세요!">
+            <input type="text" class="diary-write-title" id="diaryTitle" placeholder="오늘 하루를 한 줄로 표현해 보세요!">
 
             <!-- 일기 내용 입력 -->
-            <textarea id="diaryContent" placeholder="오늘 있었던 일이나 감정을 적어보세요 :)"></textarea><br>
+            <textarea class="diary-write-content" id="diaryContent"
+                      placeholder="오늘 있었던 일이나 감정을 적어보세요 :)"></textarea><br>
 
             <!-- 버튼 -->
-            <button id="saveBtn" onclick="saveDiary()">일기 등록하기</button>
-            <button id="updateBtn" onclick="updateDiary()" style="display: none;">일기 수정 완료</button>
+            <div class="diary-button-wrapper">
+                <button id="saveBtn" class="diary-btn" onclick="saveDiary()">일기 등록하기</button>
+                <button id="updateBtn" class="diary-btn" onclick="updateDiary()" style="display: none;">일기 수정 완료
+                </button>
+            </div>
         </div>
 
         <!-- 상세 조회 뷰 -->
-        <div id="diaryViewSection" style="display: none;">
+        <div class="diary-view-section" id="diaryViewSection" style="display: none;">
             <!-- 날짜 -->
             <p><strong>TODAY:</strong> <span id="viewDiaryDate"></span></p>
 
@@ -67,14 +72,16 @@
                 <span id="view-🥰" class="emoji-option readonly" onclick="selectEmoji('🥰')">🥰</span>
             </div>
             <!-- 타이틀 출력 -->
-            <div id="viewDiaryTitle">오늘의 타이틀</div>
+            <div class="diary-view-title" id="viewDiaryTitle">오늘의 타이틀</div>
 
             <!-- 일기 내용 출력 -->
-            <div id="viewDiaryContent" class="diary-content-view"></div>
+            <div class="diary-view-content" id="viewDiaryContent" class="diary-content-view"></div>
 
             <!-- 수정/삭제 버튼 -->
-            <button id="editBtn" class="btn-edit" onclick="switchToEditMode()">일기 수정하기</button>
-            <button id="deleteBtn" class="btn-delete" onclick="deleteDiary()">일기 삭제하기</button>
+            <div class="diary-button-wrapper">
+                <button id="editBtn" class="diary-btn" onclick="switchToEditMode()">일기 수정하기</button>
+                <button id="deleteBtn" class="diary-btn" onclick="deleteDiary()">일기 삭제하기</button>
+            </div>
         </div>
     </div>
 </div>
