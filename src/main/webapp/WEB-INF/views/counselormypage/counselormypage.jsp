@@ -10,7 +10,7 @@
     <div class="profile_table">
         <div class="profile_content">
             <div class="profile_img">
-                <img src="${user.user_img}?v=${now}" alt="프로필 이미지">
+                <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="프로필 이미지">
 
             </div>
             <div class="profile_info">
@@ -51,9 +51,18 @@
 </div>
 
 <div class="bottom-section">
-    <div class="diary_table">
-        <div class="diary_background_img">
-            <img src="/static/imgsource/background/calandarback.png" alt="달력 이미지">
+    <div class="calendar-container">
+        <div class="calendar-iframe-wrapper" style="position: relative;">
+            <iframe src="/maincalendar" frameborder="0"
+                    style="width: 100%; height: 450px; border: none;"></iframe>
+            <a href="/diary" style="
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 10;
+        background: transparent;
+        cursor: pointer;
+    "></a>
         </div>
     </div>
 
@@ -99,48 +108,60 @@
         </div>
     </div>
 </div>
-</main>
-</div>
 
-<!-- 🔥 여기에 모달 추가 -->
+<!-- 패스워드 체크 모달 -->
 <div id="passwordCheckModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <p>비밀번호를 입력하세요:</p>
+        <p> パスワードを入力してください </p>
         <input type="password" id="passwordCheck" autocomplete="off">
-        <button id="checkPasswordBtn">확인</button>
-        <button class="close">닫기</button>
-        <p id="passwordErrorMsg" style="display: none; color: red;">비밀번호가 틀렸습니다.</p>
+        <button id="checkPasswordBtn">確認</button>
+        <button class="close">閉じる</button>
+        <p id="passwordErrorMsg" style="display: none; color: red;">パスワードが正しくありません。</p>
     </div>
 </div>
+
+<%--        챗봇 내역 열람 모달 --%>
+<div id="chatbotDetailModal" class="modal" style="display: none">
+    <div class="modal-content">
+        <div class="chatbot-detail-title"> チャットボットのタイトル </div>
+        <div class="chatbot-detail-text"> チャットボットの内容 </div>
+        <button class="close">閉じる</button>
+    </div>
+
+</div>
+
 <!-- 프로필 수정 모달 -->
 <div id="profileModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <h3>프로필 수정</h3>
+        <h3>プロフィールを編集する</h3>
 
-        <!-- 기존 프로필 이미지 -->
+        <%--        <label> 写真を選択 </label>--%>
+        <%--        <input type="file" id="editProfileImg" accept="image/*">--%>
+        <%--        <br>--%>
         <div class="profile_img">
-            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/static/imgsource/default.png'">
+            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">
         </div>
 
-        <label> 사진 선택</label>
-        <input type="file" id="editProfileImg" accept="image/*">
+        <label for="editProfileImg" id="customFileLabel">ファイルを選択</label>
         <br>
+        <input type="file" id="editProfileImg" accept="image/*" style="display: none;">
+        <span id="fileNameDisplay"></span>
 
-        <label>아이디 </label>
+        <label> ID : </label>
         <input type="text" id="editId" readonly>
         <br>
 
 
-        <label>새 비밀번호</label>
-        <input type="password" id="editPw" placeholder="새 비밀번호 입력">
+        <label>新しいパスワード : </label>
+        <input type="password" id="editPw" placeholder="新しいパスワードを入力">
         <br>
 
-        <label>닉네임</label>
+        <label>ニックネーム : </label>
         <input type="text" id="editNickname">
         <br>
 
-        <button id="saveProfileBtn">저장</button>
-        <button class="close">닫기</button>
+        <button id="saveProfileBtn">保存</button>
+        <button class="close">閉じる</button>
     </div>
 </div>
 

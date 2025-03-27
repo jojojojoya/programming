@@ -3,6 +3,7 @@ package com.koyoi.main.controller;
 import com.koyoi.main.service.CounselorMyPageService;
 import com.koyoi.main.service.LiveChatService;
 import com.koyoi.main.vo.CounselorMyPageVO;
+import com.koyoi.main.vo.UserMyPageVO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,62 +25,90 @@ public class CounselorMypageC {
     private final CounselorMyPageService counselorMyPageService;
     private final LiveChatService liveChatService;
 
-    // 세션에서 로그인된 유저 ID 가져오기
     private String getLoginUserId(HttpSession session) {
-        Object userIdObj = session.getAttribute("userId");
-        return (userIdObj != null) ? userIdObj.toString() : "counselor1"; // 기본값
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            throw new IllegalStateException("ログインが必要です。");
+        }
+        return userId;
     }
 
-    @GetMapping
-    public String counselormypage(@RequestParam(value = "user_id", required = false) String user_id,
-                                  HttpSession session, Model model) {
-        System.out.println("🔹 CounselorMypageC 실행");
-
-        if (user_id == null || user_id.trim().isEmpty()) {
-            user_id = getLoginUserId(session);
-        }
-
-        // 상담사 정보 조회
-        List<CounselorMyPageVO> counselorList = counselorMyPageService.getCounselorById(user_id);
-        if (!counselorList.isEmpty()) {
-            CounselorMyPageVO counselor = counselorList.get(0);
-            model.addAttribute("counselor", counselor);
-            model.addAttribute("user", counselor); // ✅ JSP에서 ${user.xxx} 쓰는 경우를 위해
-            System.out.println("✅ 상담사 정보 로딩: " + counselor.getUser_id());
-        } else {
-            System.out.println("❌ 해당 상담사 없음: " + user_id);
-        }
-
-        // 예약 상태 최신화
-        liveChatService.updateReservationsStatus();
-
-        // 상담사가 받은 예약 목록
-        List<CounselorMyPageVO> reservations = counselorMyPageService.getReservationsByCounselorId(user_id);
-        System.out.println("🔍 상담사 예약 수: " + reservations.size());
-        model.addAttribute("reservations", reservations);
-
-        // 캐시 방지용 타임스탬프
-        model.addAttribute("now", System.currentTimeMillis());
-
-        model.addAttribute("counselormypage", "/WEB-INF/views/counselormypage/counselormypage.jsp");
-
-        return "finalindex";
-    }
+//    @GetMapping
+//    public String counselormypage(HttpSession session, Model model) {
+//        String userId = getLoginUserId(session);
+//
+//        // 상담사 정보 조회
+//        List<CounselorMyPageVO> counselorList = counselorMyPageService.getCounselorById(userId);
+//        if (!counselorList.isEmpty()) {
+//            CounselorMyPageVO counselor = counselorList.get(0);
+//            model.addAttribute("counselor", counselor); // JSP에서 ${user.xxx} 바꾸기
+//        } else {
+//            System.out.println("該当カウンセラーなし: " + userId);
+//        }
+//
+//        // 예약 상태 최신화
+//        liveChatService.updateReservationsStatus();
+//
+//        // 상담사가 받은 예약 목록
+//        List<CounselorMyPageVO> reservations = counselorMyPageService.getReservationsByCounselorId(userId);
+//        List<CounselorMyPageVO> chatSummaries = counselorMyPageService.getUserChatBotDetail(userId);
+//
+//        model.addAttribute("reservations", reservations);
+//        model.addAttribute("chats", chatSummaries);
+//        model.addAttribute("counselormypage", "counselormypage/counselormypage.jsp");
+//
+//        return "finalindex";
+//    }
 
     // 비밀번호 확인
     @PostMapping("/checkPassword")
     public ResponseEntity<Map<String, Boolean>> checkPassword(@RequestBody Map<String, String> requestData,
                                                               HttpSession session) {
-        String userId = requestData.get("user_id");
-        if (userId == null || userId.trim().isEmpty()) {
-            userId = getLoginUserId(session);
-        }
+        String userId = getLoginUserId(session);
 
         String password = requestData.get("password");
         boolean isValid = counselorMyPageService.checkPassword(userId, password);
+        System.out.println("🔎 비밀번호 확인 결과: " + (isValid ? "성공" : "실패"));
+
         Map<String, Boolean> response = new HashMap<>();
         response.put("valid", isValid);
         return ResponseEntity.ok(response);
+    }
+
+//    @PostMapping("/profileupdate")
+//    public ResponseEntity<Map<String, Boolean>> updateProfile(@RequestBody UserMyPageVO user,
+//                                                              HttpSession session) {
+//        String userId = getLoginUserId(session);
+//
+//        boolean isUpdated = CounselorMyPageService.updateProfile(user);
+//        System.out.println("🔄 프로필 업데이트 결과: " + (isUpdated ? "성공" : "실패"));
+//
+//        Map<String, Boolean> response = new HashMap<>();
+//        response.put("updated", isUpdated);
+//        return ResponseEntity.ok(response);
+//    }
+
+    @PostMapping("/usermypage/updateStatus")
+    public ResponseEntity<Map<String, Boolean>> updateStatus(@RequestBody Map<String, Object> requestData) {
+        try {
+            int counselingId = (int) requestData.get("counseling_id");
+            String status = (String) requestData.get("status");
+
+            System.out.println("🔍 상담 상태 업데이트 요청 - ID: " + counselingId + ", 상태: " + status);
+            boolean success = liveChatService.updateReservationStatus(counselingId, status);
+
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("success", success);
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            System.err.println("🚨 예외 발생: " + e.getMessage());
+            e.printStackTrace();
+
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("success", false);
+            return ResponseEntity.internalServerError().body(response);
+        }
     }
 
     // 프로필 + 이미지 수정

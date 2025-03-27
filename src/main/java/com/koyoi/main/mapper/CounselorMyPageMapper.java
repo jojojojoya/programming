@@ -36,6 +36,10 @@ public interface CounselorMyPageMapper {
     """)
     int updateProfile(CounselorMyPageVO user);
 
+    // 챗봇 대화 요약내역 조회함
+    @Select("SELECT chat_summary FROM test_chat WHERE user_id = #{user_id}")
+    List<CounselorMyPageVO> getUserChatBotDetail(@Param("user_id") String user_id);
+
     // 상담사 비밀번호 조회
     @Select("SELECT user_password FROM test_user WHERE user_id = #{user_id}")
     String getPasswordByUserId(@Param("user_id") String user_id);
