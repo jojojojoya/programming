@@ -44,6 +44,7 @@ public class CounselorMypageC {
         if (!counselorList.isEmpty()) {
             CounselorMyPageVO counselor = counselorList.get(0);
             model.addAttribute("counselor", counselor);
+            model.addAttribute("user", counselor); // ✅ JSP에서 ${user.xxx} 쓰는 경우를 위해
             System.out.println("✅ 상담사 정보 로딩: " + counselor.getUser_id());
         } else {
             System.out.println("❌ 해당 상담사 없음: " + user_id);
@@ -54,12 +55,15 @@ public class CounselorMypageC {
 
         // 상담사가 받은 예약 목록
         List<CounselorMyPageVO> reservations = counselorMyPageService.getReservationsByCounselorId(user_id);
+        System.out.println("🔍 상담사 예약 수: " + reservations.size());
         model.addAttribute("reservations", reservations);
 
         // 캐시 방지용 타임스탬프
         model.addAttribute("now", System.currentTimeMillis());
 
-        return "counselormypage/counselormypage";
+        model.addAttribute("counselormypage", "/WEB-INF/views/counselormypage/counselormypage.jsp");
+
+        return "finalindex";
     }
 
     // 비밀번호 확인
