@@ -5,6 +5,7 @@ import com.koyoi.main.service.UserMyPageService;
 import com.koyoi.main.vo.UserMyPageVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,60 +27,46 @@ public class UserMypageC {
     @Autowired
     private LiveChatService liveChatService;
 
-    // 세션에서 userId 가져오기 (없으면 기본값 "user5")
     private String getLoginUserId(HttpSession session) {
-        Object userIdObj = session.getAttribute("userId");
-        if (userIdObj != null) {
-            return userIdObj.toString();
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            throw new IllegalStateException("로그인이 필요합니다.");
         }
-
-        Object userObj = session.getAttribute("loggedInUser");
-        if (userObj instanceof UserMyPageVO user) {
-            return user.getUser_id();
-        }
-
-        return "user5";
+        return userId;
     }
 
     @GetMapping("/usermypage")
-    public String usermypage(@RequestParam(value = "user_id", required = false) String user_id,
-                             HttpSession session, Model model) {
+    public String usermypage(HttpSession session, Model model) {
+        String userId = getLoginUserId(session);
 
-        if (user_id == null || user_id.trim().isEmpty()) {
-            user_id = getLoginUserId(session);
-        }
-
-        // DB에서 유저 정보 조회
-        List<UserMyPageVO> userList = userMyPageService.getUserById(user_id);
+        // ✅ 세션에서 가져온 userId로 조회
+        List<UserMyPageVO> userList = userMyPageService.getUserById(userId);
         if (!userList.isEmpty()) {
             UserMyPageVO user = userList.get(0);
             model.addAttribute("user", user);
             System.out.println("✅ 유저 정보 로딩: " + user.getUser_id());
         } else {
-            System.out.println("❌ 해당 user_id 없음: " + user_id);
+            System.out.println("❌ 해당 user_id 없음: " + userId);
         }
 
-        // 상담 상태 최신화
         liveChatService.updateReservationsStatus();
 
-        // 상담 내역, 챗봇 요약 불러오기
-        List<UserMyPageVO> reservations = userMyPageService.getUserReservations(user_id);
-        List<UserMyPageVO> chatSummaries = userMyPageService.getUserChatBotDetail(user_id);
+        List<UserMyPageVO> reservations = userMyPageService.getUserReservations(userId);
+        List<UserMyPageVO> chatSummaries = userMyPageService.getUserChatBotDetail(userId);
 
         model.addAttribute("reservations", reservations);
         model.addAttribute("chats", chatSummaries);
+        model.addAttribute("usermypage", "usermypage/usermypage.jsp");
 
-        return "usermypage/usermypage";
+        return "/finalindex";
     }
+
 
     @PostMapping("/checkPassword")
     public ResponseEntity<Map<String, Boolean>> checkPassword(@RequestBody Map<String, String> requestData,
                                                               HttpSession session) {
-        String userId = requestData.get("user_id");
-        if (userId == null || userId.trim().isEmpty()) {
-            userId = getLoginUserId(session);
-            System.out.println("❗ user_id 없음 → 세션 또는 기본값 사용: " + userId);
-        }
+        String userId = getLoginUserId(session);
+
 
         String password = requestData.get("password");
         boolean isValid = userMyPageService.checkPassword(userId, password);
@@ -93,12 +80,7 @@ public class UserMypageC {
     @PostMapping("/profileupdate")
     public ResponseEntity<Map<String, Boolean>> updateProfile(@RequestBody UserMyPageVO user,
                                                               HttpSession session) {
-        String userId = user.getUser_id();
-        if (userId == null || userId.trim().isEmpty()) {
-            userId = getLoginUserId(session);
-            user.setUser_id(userId);
-            System.out.println("❗ user_id 없음 → 세션 또는 기본값 사용: " + userId);
-        }
+        String userId = getLoginUserId(session);
 
         boolean isUpdated = userMyPageService.updateProfile(user);
         System.out.println("🔄 프로필 업데이트 결과: " + (isUpdated ? "성공" : "실패"));
@@ -142,10 +124,9 @@ public class UserMypageC {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            if (userId == null || userId.trim().isEmpty()) {
-                userId = getLoginUserId(session);
-                System.out.println("❗ user_id 없음 → 세션 또는 기본값 사용: " + userId);
-            }
+            String userIdFromSession = getLoginUserId(session);
+            userId = userIdFromSession;
+
 
             System.out.println("userId: " + userId);
             System.out.println("nickname: " + nickname);
@@ -154,8 +135,8 @@ public class UserMypageC {
 
             String imgPath = null;
             if (profileImg != null && !profileImg.isEmpty()) {
-                String projectPath = System.getProperty("user.dir"); // 현재 프로젝트 루트 경로
-                String uploadDirPath =  projectPath + "/src/main/resources/static/imgsource/userProfile";
+                String projectPath = System.getProperty("user.dir"); // 현재 프로젝트 루트 경fh
+                String uploadDirPath = new ClassPathResource("static/imgsource/userProfile").getFile().getAbsolutePath();
                 File uploadDir = new File(uploadDirPath);
                 if (!uploadDir.exists()) {
                     System.out.println("📁 디렉토리 없음 → 생성 시도");
@@ -163,9 +144,10 @@ public class UserMypageC {
                 }
 
                 String filename = userId + "_" + profileImg.getOriginalFilename();
-                File file = new File(uploadDir + filename);
+                File file = new File(uploadDir, filename); // ✅ 올바른 경로 연결 방식
                 profileImg.transferTo(file);
-                imgPath = "/upload/userprofile/" + filename;
+                imgPath = "/imgsource/userProfile/" + filename;
+
 
                 System.out.println("✅ 이미지 저장 완료: " + imgPath);
             }
@@ -192,4 +174,29 @@ public class UserMypageC {
             return ResponseEntity.internalServerError().body(response);
         }
     }
+
+    @PostMapping("/checkNicknameDuplicate")
+    @ResponseBody
+    public Map<String, Boolean> checkNicknameDuplicate(@RequestBody Map<String, String> data, HttpSession session) {
+        String nickname = data.get("nickname");
+
+        // 세션에서 못 가져오는 경우 대비
+        String userId = data.get("user_id");
+        if (userId == null) {
+            userId = getLoginUserId(session);
+        }
+
+        int count = userMyPageService.countNicknameExcludeCurrentUser(nickname, userId);
+        boolean isDuplicate = count > 0;
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("duplicate", isDuplicate);
+        return response;
+    }
+    @GetMapping("/maincalendar")
+    public String maincalendar() {
+        return "main/maincalendar";  // 이건 /WEB-INF/views/main/maincalendar.jsp로 렌더됨
+    }
+
+
 }

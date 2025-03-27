@@ -95,102 +95,80 @@ function mypageLoad() {
                 }
             })
             .catch(error => console.error("🚨 API 요청 오류:", error));
-    });
-    //
-    // saveProfileBtn.addEventListener("click", function () {
-    //     const newNickname = editNicknameInput.value.trim();
-    //     const newPassword = editPwInput.value.trim();
-    //     const profileImgFile = document.getElementById("editProfileImg").files[0];
-    //
-    //     if (!newNickname) {
-    //         alert("닉네임을 입력해주세요.");
-    //         return;
-    //     }
-    //
-    //     fetch("/profileupdate", {
-    //         method: "POST",
-    //         headers: {"Content-Type": "application/json"},
-    //         body: JSON.stringify({
-    //             user_id: userId,
-    //             user_nickname: newNickname,
-    //             user_password: newPassword || null // 비밀번호 변경 없을 시 null
-    //         })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.updated) {
-    //                 alert("✅ 프로필이 성공적으로 수정되었습니다!");
-    //
-    //                 // 🌟 변경된 닉네임을 화면에 즉시 반영
-    //                 document.getElementById("nicknameDisplay").innerText = `닉네임: ${newNickname}`;
-    //
-    //                 profileModal.style.display = "none"; // 모달 닫기
-    //             } else {
-    //                 alert("❌ 프로필 수정 실패! 다시 시도해주세요.");
-    //             }
-    //         })
-    //         .catch(error => console.error("🚨 프로필 업데이트 오류:", error));
-    // });
-    saveProfileBtn.addEventListener("click", function () {
-        const newNickname = editNicknameInput.value.trim();
-        const newPassword = editPwInput.value.trim();
-        const profileImgFile = document.getElementById("editProfileImg").files[0];
-
-        if (!newNickname) {
-            alert("닉네임을 입력해주세요.");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append("user_id", userId);
-        formData.append("user_nickname", newNickname);
-        formData.append("user_password", newPassword || "");
-        if (profileImgFile) {
-            formData.append("user_img", profileImgFile);
-        }
-
-        fetch("/profileupdatewithimg", {
-            method: "POST",
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.updated) {
-                    alert("✅ 프로필이 성공적으로 수정되었습니다!");
-
-                    // 프로필 이미지도 즉시 반영
-                    if (data.newImgPath) {
-                        document.querySelector(".profile_img img").src = data.newImgPath;
-                    }
-
-                    document.getElementById("nicknameDisplay").innerText = `닉네임: ${newNickname}`;
-                    profileModal.style.display = "none";
-                } else {
-                    alert("❌ 프로필 수정 실패!");
-                }
-            })
-            .catch(error => console.error("🚨 프로필 업데이트 오류:", error));
-    });
-
-    document.getElementById("editProfileImg").addEventListener("change", function (event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                document.querySelector("#profileModal .profile_img img").src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+    })
 
 
-    // 모달 닫기 이벤트 추가
-    document.querySelectorAll(".close").forEach(button => {
-        button.addEventListener("click", function () {
-            passwordCheckModal.style.display = "none";
-            profileModal.style.display = "none";
-            passwordErrorMsg.style.display = "none";
-            passwordCheckInput.value = "";
+
+        document.getElementById("editProfileImg").addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.querySelector("#profileModal .profile_img img").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         });
-    });
-}
+
+        // 모달 닫기 이벤트도 '밖에'
+        document.querySelectorAll(".close").forEach(button => {
+            button.addEventListener("click", function () {
+                passwordCheckModal.style.display = "none";
+                profileModal.style.display = "none";
+                passwordErrorMsg.style.display = "none";
+                passwordCheckInput.value = "";
+            });
+        });
+
+        saveProfileBtn.addEventListener("click", function () {
+            const newNickname = editNicknameInput.value.trim();
+            const newPassword = editPwInput.value.trim();
+            const profileImgFile = document.getElementById("editProfileImg").files[0];
+
+            if (!newNickname) {
+                alert("닉네임을 입력해주세요.");
+                return;
+            }
+
+            fetch("/checkNicknameDuplicate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nickname: newNickname, user_id: userId }) // userId 추가
+            })
+
+
+                .then(res => res.json())
+                .then(data => {
+                    if (data.duplicate) {
+                        alert("❌ 해당 닉네임은 이미 사용 중입니다. 다른 닉네임을 입력해주세요.");
+                    } else {
+                        const formData = new FormData();
+                        formData.append("user_id", userId);
+                        formData.append("user_nickname", newNickname);
+                        formData.append("user_password", newPassword || "");
+                        if (profileImgFile) {
+                            formData.append("user_img", profileImgFile);
+                        }
+
+                        fetch("/profileupdatewithimg", {
+                            method: "POST",
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.updated) {
+                                    alert("✅ 프로필이 성공적으로 수정되었습니다!");
+                                    if (data.newImgPath) {
+                                        document.querySelector(".profile_img img").src = data.newImgPath;
+                                    }
+                                    document.getElementById("nicknameDisplay").innerText = `닉네임: ${newNickname}`;
+                                    profileModal.style.display = "none";
+                                } else {
+                                    alert("❌ 프로필 수정 실패!");
+                                }
+                            })
+                            .catch(error => console.error("🚨 프로필 업데이트 오류:", error));
+                    }
+                });
+        });
+    }
