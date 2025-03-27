@@ -39,14 +39,14 @@ public class UserMypageC {
     public String usermypage(HttpSession session, Model model) {
         String userId = getLoginUserId(session);
 
-        // ✅ 세션에서 가져온 userId로 조회
+        // 세션에서 가져온 userId로 조회
         List<UserMyPageVO> userList = userMyPageService.getUserById(userId);
         if (!userList.isEmpty()) {
             UserMyPageVO user = userList.get(0);
             model.addAttribute("user", user);
-            System.out.println("✅ 유저 정보 로딩: " + user.getUser_id());
+            System.out.println("유저 정보 로딩: " + user.getUser_id());
         } else {
-            System.out.println("❌ 해당 user_id 없음: " + userId);
+            System.out.println("해당 user_id 없음: " + userId);
         }
 
         liveChatService.updateReservationsStatus();
@@ -70,7 +70,7 @@ public class UserMypageC {
 
         String password = requestData.get("password");
         boolean isValid = userMyPageService.checkPassword(userId, password);
-        System.out.println("🔎 비밀번호 확인 결과: " + (isValid ? "성공" : "실패"));
+        System.out.println("비밀번호 확인 결과: " + (isValid ? "성공" : "실패"));
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("valid", isValid);
@@ -83,7 +83,7 @@ public class UserMypageC {
         String userId = getLoginUserId(session);
 
         boolean isUpdated = userMyPageService.updateProfile(user);
-        System.out.println("🔄 프로필 업데이트 결과: " + (isUpdated ? "성공" : "실패"));
+        System.out.println("프로필 업데이트 결과: " + (isUpdated ? "성공" : "실패"));
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("updated", isUpdated);
@@ -96,7 +96,7 @@ public class UserMypageC {
             int counselingId = (int) requestData.get("counseling_id");
             String status = (String) requestData.get("status");
 
-            System.out.println("🔍 상담 상태 업데이트 요청 - ID: " + counselingId + ", 상태: " + status);
+            System.out.println("상담 상태 업데이트 요청 - ID: " + counselingId + ", 상태: " + status);
             boolean success = liveChatService.updateReservationStatus(counselingId, status);
 
             Map<String, Boolean> response = new HashMap<>();
@@ -104,7 +104,7 @@ public class UserMypageC {
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
-            System.err.println("🚨 예외 발생: " + e.getMessage());
+            System.err.println("예외 발생: " + e.getMessage());
             e.printStackTrace();
 
             Map<String, Boolean> response = new HashMap<>();
@@ -139,17 +139,17 @@ public class UserMypageC {
                 String uploadDirPath = new ClassPathResource("static/imgsource/userProfile").getFile().getAbsolutePath();
                 File uploadDir = new File(uploadDirPath);
                 if (!uploadDir.exists()) {
-                    System.out.println("📁 디렉토리 없음 → 생성 시도");
+                    System.out.println("디렉토리 없음 → 생성 시도");
                     uploadDir.mkdirs();
                 }
 
                 String filename = userId + "_" + profileImg.getOriginalFilename();
-                File file = new File(uploadDir, filename); // ✅ 올바른 경로 연결 방식
+                File file = new File(uploadDir, filename); // 올바른 경로 연결 방식
                 profileImg.transferTo(file);
                 imgPath = "/imgsource/userProfile/" + filename;
 
 
-                System.out.println("✅ 이미지 저장 완료: " + imgPath);
+                System.out.println("이미지 저장 완료: " + imgPath);
             }
 
             UserMyPageVO user = new UserMyPageVO();
@@ -168,7 +168,7 @@ public class UserMypageC {
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            System.err.println("🚨 예외 발생: " + e.getMessage());
+            System.err.println("예외 발생: " + e.getMessage());
             e.printStackTrace();
             response.put("updated", false);
             return ResponseEntity.internalServerError().body(response);
@@ -195,7 +195,7 @@ public class UserMypageC {
     }
     @GetMapping("/maincalendar")
     public String maincalendar() {
-        return "main/maincalendar";  // 이건 /WEB-INF/views/main/maincalendar.jsp로 렌더됨
+        return "main/maincalendar";
     }
 
 

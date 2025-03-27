@@ -5,15 +5,14 @@ const MAX_RECONNECT_ATTEMPTS = 5;
 
 function formatDate(counselingDate) {
     try {
-        console.log("📌 formatDate() 元の値:", counselingDate);
+        console.log("formatDate() 元の値:", counselingDate);
 
-        // 날짜가 "2025-03-28" 형식인지 확인
+        // 날짜 형식 확인 (yyyy-MM-dd)
         if (/^\d{4}-\d{2}-\d{2}$/.test(counselingDate)) {
             let [year, month, day] = counselingDate.split("-");
             return `${year}年 ${month}月 ${day}日`;
         }
 
-        // 기존의 요일이 포함된 형식 처리 (예: "Fri Mar 21 00:00:00 KST 2025")
         let dateParts = counselingDate.split(" ");
         if (dateParts.length < 6) {
             console.error("🚨 日付の文字列解析に失敗しました！元の値:", counselingDate);
@@ -31,10 +30,10 @@ function formatDate(counselingDate) {
         let day = dateParts[2].padStart(2, "0");
 
         let formattedDate = `${year}년 ${month}월 ${day}일`;
-        console.log("✅ 変換された日付:", formattedDate);
+        console.log("変換された日付:", formattedDate);
         return formattedDate;
     } catch (error) {
-        console.error("🚨 formatDate() エラー:", error);
+        console.error("formatDate() エラー:", error);
         return "日付の変換に失敗";
     }
 }
@@ -42,7 +41,7 @@ function formatDate(counselingDate) {
 
 function connect(sessionId) {
     if (!sessionId || sessionId === "undefined") {
-        console.warn("⚠️ WebSocket接続待機中：sessionIdがまだ取得できません。2秒後に再試行します...");
+        console.warn("⚠WebSocket接続待機中：sessionIdがまだ取得できません。2秒後に再試行します...");
         setTimeout(() => {
             let newSessionId = document.querySelector(".chat-container").dataset.sessionId;
             if (newSessionId && newSessionId !== "undefined") {
@@ -52,24 +51,24 @@ function connect(sessionId) {
         return;
     }
 
-    console.log(" ✅ WebSocket接続を試みます...");
+    console.log(" WebSocket接続を試みます...");
 
     let socket = new SockJS("/ws");
     stompClient = Stomp.over(socket);
 
     stompClient.connect({}, function (frame) {
-        console.log("✅ WebSocket接続成功:" + frame);
+        console.log("WebSocket接続成功:" + frame);
         reconnectAttempts = 0;
 
         stompClient.subscribe("/topic/chat/" + sessionId, function (message) {
             let chatMessage = JSON.parse(message.body);
-            console.log("📩 受信したメッセージ:", chatMessage);
+            console.log("受信したメッセージ:", chatMessage);
             saveChatToLocal(chatMessage);
             showMessage(chatMessage);
         });
 
     }, function (error) {
-        console.error("🚨 WebSocket接続に失敗しました: ", error);
+        console.error("WebSocket接続に失敗しました: ", error);
     });
 }
 
@@ -105,10 +104,10 @@ async function startCounseling() {
             saveChatToLocal(welcomeMessage);
             stompClient.send("/app/chat", {}, JSON.stringify(welcomeMessage));
         } else {
-            console.error("❌ カウンセラーメッセージの保存に失敗しました:", data.message);
+            console.error("カウンセラーメッセージの保存に失敗しました:", data.message);
         }
     } catch (error) {
-        console.error("🚨 カウンセラーメッセージの保存中にエラーが発生しました:", error);
+        console.error("カウンセラーメッセージの保存中にエラーが発生しました:", error);
     }
 }
 
@@ -157,20 +156,20 @@ document.addEventListener("DOMContentLoaded", function () {
     let chatInputContainer = document.querySelector(".chat-input");
 
     if (!sessionId) {
-        console.error("🚨 sessionIdがありません！");
+        console.error("sessionIdがありません！");
         return;
     }
 
     if (isCompleted) {
-        console.log("✅ 相談はすでに完了しています。");
+        console.log("相談はすでに完了しています。");
         if (enterButton) enterButton.style.display = "none"; // 상담 시작 버튼 숨기기
         chatInputContainer.style.display = "none"; // 입력창 숨기기
         loadChatsFromServer(sessionId); // 기존 채팅 내역 불러오기
     } else {
-        console.log("✅ 相談は進行中です。「相談開始」ボタンを表示します。");
+        console.log("相談は進行中です。「相談開始」ボタンを表示します。");
         if (enterButton) {
             enterButton.addEventListener("click", async function () {
-                console.log("✅ 「相談開始」ボタンがクリックされました！");
+                console.log("「相談開始」ボタンがクリックされました！");
                 enterButton.style.display = "none";
 
                 connect(sessionId);
@@ -202,7 +201,7 @@ function sendMessage() {
         timestamp: new Date().toISOString()
     };
 
-    console.log("📩 [Frontend] 送信するメッセージ:", message);
+    console.log("[Frontend] 送信するメッセージ:", message);
 
     showMessage(message);
     saveChatToLocal(message);
@@ -215,12 +214,12 @@ function sendMessage() {
         .then(response => response.json())
         .then(data => {
             if (!data.success) {
-                console.error("❌ [Frontend] メッセージ保存に失敗しました:", data.message);
+                console.error("[Frontend] メッセージ保存に失敗しました:", data.message);
             } else {
-                console.log(" ✅ [Frontend] メッセージ保存に成功しました！");
+                console.log("[Frontend] メッセージ保存に成功しました！");
             }
         })
-        .catch(error => console.error(" 🚨 [Frontend] メッセージ保存中にエラーが発生しました:", error));
+        .catch(error => console.error("[Frontend] メッセージ保存中にエラーが発生しました:", error));
 
     stompClient.send("/app/chat", {}, JSON.stringify(message));
     chatInput.value = ""; // 입력창 비우기
@@ -237,8 +236,8 @@ function confirmExit() {
     let sessionId = chatContainer.dataset.sessionId;
 
     if (!sessionId) {
-        console.error("🚨 sessionIdがありません！");
-        alert("❌ セッション情報が見つかりません。もう一度お試しください。");
+        console.error("sessionIdがありません！");
+        alert("セッション情報が見つかりません。もう一度お試しください。");
         return;
     }
 
@@ -246,7 +245,7 @@ function confirmExit() {
         .then(response => response.json())
         .then(data => {
             if (!data.success || !data.counseling_id) {
-                alert("❌ 相談情報が見つかりません。もう一度お試しください。");
+                alert("相談情報が見つかりません。もう一度お試しください。");
                 return;
             }
 
@@ -260,13 +259,13 @@ function confirmExit() {
                 .then(response => response.json())
                 .then(updateData => {
                     if (updateData.success) {
-                        alert("✅ 相談が完了しました！");
+                        alert("相談が完了しました！");
                         window.location.href = "/usermypage";
                     } else {
-                        alert("❌ ステータスの更新に失敗しました。再度お試しください。");
+                        alert("ステータスの更新に失敗しました。再度お試しください。");
                     }
                 })
-                .catch(error => console.error("🚨 相談ステータスの更新中にエラーが発生しました:", error));
+                .catch(error => console.error("相談ステータスの更新中にエラーが発生しました:", error));
         })
-        .catch(error => console.error("🚨 相談IDの取得中にエラーが発生しました:", error));
+        .catch(error => console.error("相談IDの取得中にエラーが発生しました:", error));
 }

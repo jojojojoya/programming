@@ -139,7 +139,6 @@ Integer createChatRoom(LiveChatVO reservation);
     """)
     int completeChat(@Param("sessionId") int sessionId);
 
-
 }
 
 

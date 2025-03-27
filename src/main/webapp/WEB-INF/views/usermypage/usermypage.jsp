@@ -35,15 +35,15 @@
 
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="/static/css/usermypage/usermypage.css">
-</head>
-<body>
 
+
+<div class="usermypage-form">
         <main class="content">
             <div class="top-section">
                 <div class="profile_table">
@@ -107,14 +107,11 @@
                 </div>
 
 
-                <!-- 상담 영역 -->
                 <div class="counseling_wrapper">
-                    <!-- 상담 내역 없는 경우 -->
 
                     <c:if test="${empty reservations}">
                     <div class="counseling_no_reservation">
                         <div class="nonreserved_counseling_table">
-                            <!-- 갈색 배경 안에 텍스트 포함 -->
                             <img src="/static/imgsource/background/padoo2.png">
 
                             <div class="nonreserved_counseling_table_comment">
@@ -176,8 +173,6 @@
                     </div>
                     </c:if>
         </main>
-<%--    </div>--%>
-<%--</div>--%>
 
 <div id="passwordCheckModal" class="modal" style="display: none;">
     <div class="modal-content">
@@ -188,23 +183,19 @@
         <p id="passwordErrorMsg" style="display: none; color: red;">パスワードが正しくありません。</p>
     </div>
 </div>
-        <%--        챗봇 내역 열람 모달 --%>
+
         <div id="chatbotDetailModal" class="modal" style="display: none">
             <div class="modal-content">
                 <div class="chatbot-detail-title"> チャットボットのタイトル </div>
                 <div class="chatbot-detail-text"> チャットボットの内容 </div>
                 <button class="close">閉じる</button>
         </div>
-
         </div>
-<!-- 프로필 수정 모달 -->
-<div id="profileModal" class="modal" style="display: none;">
+
+    <div id="profileModal" class="modal" style="display: none;">
     <div class="modal-content">
         <h3>プロフィールを編集する</h3>
 
-<%--        <label> 写真を選択 </label>--%>
-<%--        <input type="file" id="editProfileImg" accept="image/*">--%>
-<%--        <br>--%>
         <div class="profile_img">
             <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">
         </div>
@@ -232,8 +223,8 @@
     </div>
 </div>
 
+</div>
 
-</body>
 <script src="/static/js/usermypage/usermypage.js">
     <script>
         document.querySelector(".calendar-container").addEventListener("click", function () {
@@ -241,5 +232,5 @@
     });
 </script>
 
-</script>
+
 </html>

@@ -5,11 +5,9 @@
 
 <!DOCTYPE html>
 <html lang="ja">
-<head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/css/livechat/livechatdetail.css">
-</head>
-<body>
+<div class="livechatdetail-form">
         <main class="content">
             <div class="chat-container"
                  data-session-id="${counseling.session_id}"
@@ -17,7 +15,7 @@
                  data-category="${counseling.category}"
                  data-counseling-date="${counseling.counseling_date}"
                  data-counseling-time="${counseling.counseling_time}"
-                 data-user-id="user5"
+                 data-user-id="${counseling.user_id}"
                  data-user-type="USER"
                  data-is-completed="${isCompleted}">
 
@@ -53,11 +51,10 @@
                 </div>
 
         </main>
-
+</div>
 <!-- 스크립트 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/static/js/livechat/livechatdetail.js"></script>
 
-</body>
 </html>

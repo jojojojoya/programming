@@ -2,17 +2,30 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.koyoi.main.vo.AdminMypageVO" %>
 <%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
+<%@ page import="com.koyoi.main.vo.CounselorMyPageVO" %>
 <%
     // 세션 체크
     HttpSession session1 = request.getSession(false);
     String userId = null;
+    String userType = null;
+    String userNickName = "친구";
 
     if (session1 != null) {
-        userId = (String) session1.getAttribute("userId");
+        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+
+        String nicknameFromSession = (String) session1.getAttribute("userNickName");   // session userNickname값
+        if (nicknameFromSession != null) {
+            userNickName = nicknameFromSession;
+        }
+
+        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
+        if (userTypeObj != null) {
+            userType = userTypeObj.toString(); // int → String 안전하게 변환
+        }
     }
 
     if (userId == null) {
-        response.sendRedirect("/login");
+        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
         return;
     }
 
@@ -30,8 +43,24 @@
         if (user.getUser_img() != null) {
             imgPath = user.getUser_img();
         }
+    }   else if (userObj instanceof CounselorMyPageVO) {
+        CounselorMyPageVO user = (CounselorMyPageVO) userObj;
+        if (user.getUser_img() != null) {
+            imgPath = user.getUser_img();
+        }
     }
 %>
+<script>
+    var userType = "<%= userType %>";
+
+    function goToMyPage() {
+        if (userType === "1") {
+            location.href = "/usermypage";
+        } else if (userType === "2") {
+            location.href = "/counselormypage";
+        }
+    }
+</script>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -59,14 +88,11 @@
         </aside>
     </div>
 
-    <!-- 🟣 오른쪽 컨테이너 (헤더바 + 콘텐츠) -->
     <div class="right-container">
         <header class="header-bar">
-            <!-- 🌙 중앙 브랜드 로고 -->
             <div class="brand-title">
                 <a href="/main"><img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고"></a>
             </div>
-            <!-- 🟡 우측 상단 아이콘 -->
             <div class="header-icons">
                 <img class="profile-img" src="<%= imgPath %>" alt="프로필" onerror="this.src='/imgsource/testprofile.png'">
             </div>
