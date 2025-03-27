@@ -211,6 +211,7 @@ body {
     display: flex;
     gap: 30px;
     justify-content: center;
+    margin-top: 25px;
 }
 
 /* 🔵 개별 테이블 스타일 */

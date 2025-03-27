@@ -34,6 +34,7 @@ public class UserMypageC {
         }
         return userId;
     }
+
     @GetMapping("/usermypage")
     public String usermypage(HttpSession session, Model model) {
         String userId = getLoginUserId(session);
