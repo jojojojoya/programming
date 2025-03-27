@@ -12,11 +12,17 @@
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
     String userType = null;
+    String userNickName = "친구";
 
     if (session1 != null) {
         userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
-        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
 
+        String nicknameFromSession = (String) session1.getAttribute("userNickName");   // session userNickname값
+        if (nicknameFromSession != null) {
+            userNickName = nicknameFromSession;
+        }
+
+        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
         if (userTypeObj != null) {
             userType = userTypeObj.toString(); // int → String 안전하게 변환
         }
@@ -47,6 +53,7 @@
             }
         }
     </script>
+
 </head>
 <body>
 
@@ -150,7 +157,8 @@
                         </div>
 
                         <div class="chat-connect">
-                            <button class="chatbot" onclick="location.href='/chat'"> ChatBot </button>
+                            <button class="chatbot" onclick="openChatModal()">ChatBot</button>
+                        <%--                            <button class="chatbot" onclick="location.href='/chat'"> ChatBot </button>--%>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> LiveChat </button>
                         </div>
 
@@ -164,5 +172,10 @@
 </div>
 <script src="/static/js/main/todoList.js"></script>
 <script src="/static/js/main/main.js"></script>
+<script>
+    const userName = "<%= userNickName %>";
+</script>
+<script src="/static/js/chat/chat-modal.js"></script>
+
 </body>
 </html>

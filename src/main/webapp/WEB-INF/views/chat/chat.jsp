@@ -32,11 +32,11 @@
 <input type="text" id="user-input" placeholder="메시지를 입력하세요" style="width:400px;">
 <button id="send-btn">보내기</button>
 <button id="end-btn">대화 종료</button>
-<form>
-    <button>상담사 예약</button>
+<form action="/livechatreservation" method="get">
+    <button type="submit">상담사 예약</button>
 </form>
 
-<!-- ✅ JS에서 사용할 닉네임 변수 넘기기 -->
+<!-- JS에서 사용할 닉네임 변수 넘기기 -->
 <script>
     const userName = "<%= userNickName %>";
 </script>
