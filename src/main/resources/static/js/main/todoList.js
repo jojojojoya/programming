@@ -32,8 +32,8 @@
         if (!hasHabits) {
             taskList.innerHTML = `
         <div class="no-habit-box">
-            <p class="no-habit-text"> No habits registered yet. </p>
-            <button id="go-to-habit-page" class="register-btn"> Create a Habit </button>
+            <p class="no-habit-text"> まだ習慣が登録されていません。 </p>
+            <button id="go-to-habit-page" class="register-btn"> 習慣を登録する </button>
         </div>
     `;
             document.getElementById("go-to-habit-page").addEventListener("click", () => {
@@ -45,7 +45,7 @@
         if (!Array.isArray(habitList) || habitList.length === 0) {
             taskList.innerHTML = `
         <div class="no-habit-box">
-            <p class="no-habit-text"> Nothing scheduled for this date. </p>
+            <p class="no-habit-text"> この日の習慣はありません。 </p>
         </div>
     `;
             return;
@@ -114,7 +114,7 @@
 
         const habitButton = document.createElement("button");
         habitButton.classList.add("habit-link-btn");
-        habitButton.textContent = "Go to Habit Page";
+        habitButton.textContent = "習慣ページへ";
         habitButton.onclick = function () {
             window.location.href = "/habit";
         };

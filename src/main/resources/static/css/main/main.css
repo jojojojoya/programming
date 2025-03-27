@@ -318,8 +318,6 @@ body {
     padding-top: 10px;
 }
 
-
-
 /* 달력 */
 .calendar-container {
     width: 100%;
@@ -637,7 +635,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: #f4f7fb;
+    background: #FDF7F2;
     border-radius: 8px;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

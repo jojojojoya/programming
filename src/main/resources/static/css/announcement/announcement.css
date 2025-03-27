@@ -219,6 +219,12 @@ body {
 .col-announcement-id    { flex: 1; }
 .col-announcement-created   { flex: 1; }
 
+.col-announcement-title {
+    flex: 2;
+    text-align: left;
+    padding-left: 20px;
+}
+
 /* 마지막 행 구분선 제거 */
 .announcement-board .announcement-row:last-child {
     border-bottom: none;
@@ -292,6 +298,48 @@ body {
 }
 
 button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    padding: 8px 14px;
+    border: 1px solid #d7ccc8;
+    background-color: #fff8f2;
+    color: #6d4c41;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    margin: 0 4px;
+}
+
+.page-btn.active {
+    background-color: #9A6E50;
+    color: white;
+    border: none;
+}
+
+.page-btn.move-prev,
+.page-btn.move-next {
+    background-color: #f3e5f5;
+    color: #5e35b1;
+    border: 1px solid #c7b5d6;
+}
+.page-btn.move-prev:hover,
+.page-btn.move-next:hover {
+    background-color: #e1bee7;
+}
+
+.page-btn:hover {
     transform: scale(1.05);
     opacity: 0.9;
 }

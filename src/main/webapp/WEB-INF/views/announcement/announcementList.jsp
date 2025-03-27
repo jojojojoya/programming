@@ -9,24 +9,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+<body data-total-count="${totalCount}">
 
-    <h2 id="table-title" class="table-title"> Announcement </h2>
+    <h2 id="table-title" class="table-title"> お知らせ </h2>
 
     <div id="announcementTable" class="announcement-board">
         <div class="announcement-board-header">
-            <div class="col col-announcement-num"> No </div>
-            <div class="col col-announcement-id"> Admin Id </div>
-            <div class="col col-announcement-title"> Title </div>
-            <div class="col col-announcement-created"> Created </div>
+            <div class="col col-announcement-num"> 番号 </div>
+            <div class="col col-announcement-id"> 管理者ID </div>
+            <div class="col col-announcement-title"> タイトル </div>
+            <div class="col col-announcement-created"> 作成日 </div>
         </div>
-        <c:set var="totalAnnouncements" value="${fn:length(announcements)}" />
         <c:forEach var="announcement" items="${announcements}" varStatus="status">
             <div class="announcement-row announcement-detail-btn" data-user-id="${announcement.announcement_id}">
-                <div class="cell col-announcement-num">${totalAnnouncements - status.index}</div>
+                <div class="cell col-announcement-num">${totalCount - ((currentPage - 1) * 5 + status.index)}</div>
                 <div class="cell col-announcement-id">${announcement.admin_id}</div>
                 <div class="cell col-announcement-title">${announcement.title}</div>
                 <div class="cell col-announcement-created">${announcement.formattedCreatedAt}</div>
             </div>
         </c:forEach>
     </div>
+    <div id="commonPagination" class="pagination"></div>
+
 
