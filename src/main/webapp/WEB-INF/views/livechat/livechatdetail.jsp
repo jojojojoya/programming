@@ -4,7 +4,7 @@
 
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/css/livechat/livechatdetail.css">
@@ -31,24 +31,24 @@
                             </c:forEach>
                         </c:when>
                         <c:otherwise>
-                            <div class="no-messages">대화 내용이 없습니다.</div>
+                            <div class="no-messages"> 相談履歴がありません。</div>
                         </c:otherwise>
                     </c:choose>
                 </div>
 
                 <div class="chat-input" style="display: none;">
-                    <input type="text" id="chatInput" placeholder="메시지를 입력하세요">
-                    <button onclick="sendMessage()">전송</button>
+                    <input type="text" id="chatInput" placeholder="メッセージを入力してください。">
+                    <button onclick="sendMessage()">送信</button>
                 </div>
                 </div>
 
                 <div class="chat-buttons">
-                    <c:if test="${counseling.status ne '완료'}">
-                        <button id="enterButton" class="enter-chat-btn">상담 진행하기</button>
+                    <c:if test="${counseling.status ne '完了'}">
+                        <button id="enterButton" class="enter-chat-btn">相談を開始する</button>
                     </c:if>
                     <button id="exitButton" class="end-chat-btn"
-                            onclick="${counseling.status eq '완료' ? 'goBack()' : 'confirmExit()'}">
-                        ${counseling.status eq '완료' ? '돌아가기' : '나가기'}
+                            onclick="${counseling.status eq '完了' ? 'goBack()' : 'confirmExit()'}">
+                        ${counseling.status eq '完了' ? '戻る' : '終了する'}
                     </button>
                 </div>
 

@@ -1,14 +1,16 @@
-<%@ page import="com.koyoi.main.vo.AdminMypageVO" %>
-<%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
+<%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
 <%
-    UserMyPageVO user = (UserMyPageVO)  request.getAttribute("user");
+    UserMyPageVO user = (UserMyPageVO) request.getAttribute("user");
     String imgPath = (user != null && user.getUser_img() != null)
             ? user.getUser_img()
-            : "/static/imgsource/testprofile.png"; // 기본 이미지
+            : "/imgsource/testprofile.png";
 %>
+
+
 <%  // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
@@ -32,7 +34,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
@@ -55,24 +57,24 @@
                                 <span>ID: ${user.user_id}</span>
                             </div>
 
-                            <input type="hidden" id="hiddenUserId" value="${user.user_id}"> <!-- 🔥 여기에 추가 -->
+                            <input type="hidden" id="hiddenUserId" value="${user.user_id}">
 
                             <div class="profile_item">
-                                <img src="/static/imgsource/profile/lockicon.png" alt="비밀번호">
-                                <span> PW: ******** </span>
+                                <img src="/static/imgsource/profile/lockicon.png" alt="パスワード">
+                                <span> パスワード: ******** </span>
                             </div>
                             <div class="profile_item">
-                                <img src="/static/imgsource/profile/personicon.png" alt="">
-                                <span id="nicknameDisplay">닉네임: ${user.user_nickname} </span>
+                                <img src="/static/imgsource/profile/personicon.png" alt="ニックネーム">
+                                <span id="nicknameDisplay">ニックネーム: ${user.user_nickname} </span>
                             </div>
-                            <button class="profile_edit_btn" id="openPasswordCheckModal">프로필 수정하기</button>
+                            <button class="profile_edit_btn" id="openPasswordCheckModal">プロフィール編集</button>
                         </div>
 
                     </div>
                 </div>
 
                 <div class="chatbot_table">
-                    <div class="chatbot_title">챗봇과의 대화 내역</div>
+                    <div class="chatbot_title">チャットボットとのやりとり</div>
                     <div class="chatbot_info">
                         <c:if test="${not empty chats}">
                             <c:forEach var="chat" items="${chats}">
@@ -80,7 +82,7 @@
                             </c:forEach>
                         </c:if>
                         <c:if test="${empty chats}">
-                            <div class="chatbot_list"> 챗봇 이용 내역이 없습니다.</div>
+                            <div class="chatbot_list"> チャットボットの会話履歴はありません。</div>
                         </c:if>
                     </div>
                 </div>
@@ -118,8 +120,7 @@
                             <div class="nonreserved_counseling_table_comment">
                                 <div><img style="width: 70px" src="/static/imgsource/background/shining5.png"></div>
                                 <p>現在、予定されている相談はありません。<br>お話ししましょうか？</p>
-                                <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">상담
-                                    예약하기
+                                <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'"> 相談予約
                                 </button>
                             </div>
                         </div>
@@ -130,9 +131,8 @@
                     <c:if test="${not empty reservations}">
                     <div class="counseling_table">
                         <div class="reserved_counseling_table_comment">
-                            <div> 予約された相談 </div>
-                            <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'">추가상담
-                                예약
+                            <div> ご予約中のライブ相談 </div>
+                            <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'"> 追加相談を予約する
                             </button>
                         </div>
 
@@ -148,21 +148,22 @@
                                          data-status="${reservation.status}">
 
 
-                                        <div><strong>[상담일시] </strong></div>
-                                        <fmt:formatDate value="${reservation.counseling_date}" pattern="yyyy년 MM월 dd일"/>
-                                            ${reservation.counseling_time}시 00분
+                                        <div><strong>[相談日時]</strong></div>
+                                        <fmt:formatDate value="${reservation.counseling_date}" pattern="yyyy年MM月dd日"/>
+                                            ${reservation.counseling_time}時00分
 
-                                        <div><strong>[상담 카테고리] </strong>${reservation.category}</div>
-                                        <div><strong>[상담사 ID] </strong>${reservation.counselor_id}</div>
-                                        <div class="counseling_status"><strong>[상담 상태] </strong>${reservation.status}
+                                        <div><strong>[カテゴリー] </strong>${reservation.category}</div>
+                                        <div><strong>[担当カウンセラーID] </strong>
+                                                <br>${reservation.counselor_id}</div>
+                                        <div class="counseling_status"><strong>[状況] </strong>${reservation.status}
                                         </div>
 
                                         <c:choose>
-                                            <c:when test="${reservation.status eq '대기'}">
-                                                <button type="button" class="enter_counseling_btn">상담 입장하기</button>
+                                            <c:when test="${reservation.status eq '待機中'}">
+                                                <button type="button" class="enter_counseling_btn">今すぐ入室</button>
                                             </c:when>
                                             <c:otherwise>
-                                                <button type="button" class="view_counseling_btn">상담 내용보기</button>
+                                                <button type="button" class="view_counseling_btn">内容を確認する</button>
                                             </c:otherwise>
                                         </c:choose>
 
@@ -173,50 +174,61 @@
                             </div>
                         </div>
                     </div>
-                    </c:if> <!-- ✅ 닫음 -->
+                    </c:if>
         </main>
 <%--    </div>--%>
 <%--</div>--%>
 
-<!-- 🔥 여기에 모달 추가 -->
 <div id="passwordCheckModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <p>비밀번호를 입력하세요:</p>
+        <p> パスワードを入力してください </p>
         <input type="password" id="passwordCheck" autocomplete="off">
-        <button id="checkPasswordBtn">확인</button>
-        <button class="close">닫기</button>
-        <p id="passwordErrorMsg" style="display: none; color: red;">비밀번호가 틀렸습니다.</p>
+        <button id="checkPasswordBtn">確認</button>
+        <button class="close">閉じる</button>
+        <p id="passwordErrorMsg" style="display: none; color: red;">パスワードが正しくありません。</p>
     </div>
 </div>
+        <%--        챗봇 내역 열람 모달 --%>
+        <div id="chatbotDetailModal" class="modal" style="display: none">
+            <div class="modal-content">
+                <div class="chatbot-detail-title"> チャットボットのタイトル </div>
+                <div class="chatbot-detail-text"> チャットボットの内容 </div>
+                <button class="close">閉じる</button>
+        </div>
+
+        </div>
 <!-- 프로필 수정 모달 -->
 <div id="profileModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <h3>프로필 수정</h3>
+        <h3>プロフィールを編集する</h3>
 
-        <!-- 기존 프로필 이미지 -->
+<%--        <label> 写真を選択 </label>--%>
+<%--        <input type="file" id="editProfileImg" accept="image/*">--%>
+<%--        <br>--%>
         <div class="profile_img">
             <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">
         </div>
 
-        <label> 사진 선택</label>
-        <input type="file" id="editProfileImg" accept="image/*">
+        <label for="editProfileImg" id="customFileLabel">ファイルを選択</label>
         <br>
+        <input type="file" id="editProfileImg" accept="image/*" style="display: none;">
+        <span id="fileNameDisplay"></span>
 
-        <label>아이디 </label>
+        <label> ID : </label>
         <input type="text" id="editId" readonly>
         <br>
 
 
-        <label>새 비밀번호</label>
-        <input type="password" id="editPw" placeholder="새 비밀번호 입력">
+        <label>新しいパスワード : </label>
+        <input type="password" id="editPw" placeholder="新しいパスワードを入力">
         <br>
 
-        <label>닉네임</label>
+        <label>ニックネーム : </label>
         <input type="text" id="editNickname">
         <br>
 
-        <button id="saveProfileBtn">저장</button>
-        <button class="close">닫기</button>
+        <button id="saveProfileBtn">保存</button>
+        <button class="close">閉じる</button>
     </div>
 </div>
 
@@ -224,7 +236,6 @@
 </body>
 <script src="/static/js/usermypage/usermypage.js">
     <script>
-        // 달력 전체 클릭 시 /diary로 이동
         document.querySelector(".calendar-container").addEventListener("click", function () {
         window.location.href = "/diary";
     });
