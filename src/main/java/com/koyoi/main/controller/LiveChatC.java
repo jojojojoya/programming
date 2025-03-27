@@ -166,7 +166,7 @@ public class LiveChatC {
             reservation.setCounseling_date(sqlDate);
             reservation.setCounseling_time(counselingTime);
             reservation.setCategory(category);
-            reservation.setStatus("대기");
+            reservation.setStatus("待機中");
 
 // 🔥 여기에 추가!!!
             String randomCounselorId = liveChatService.findRandomCounselor(); // 랜덤 상담사 배정

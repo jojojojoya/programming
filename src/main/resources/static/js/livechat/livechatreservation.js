@@ -22,7 +22,7 @@ function validateDateTime() {
     let selectedDateTime = new Date(selectedDate + "T00:00:00");
 
     if (selectedDateTime < now.setHours(0, 0, 0, 0)) {
-        alert("현재 날짜보다 이전 날짜는 선택할 수 없습니다!");
+        alert("本日以前の日付は選択できません！");
         document.getElementById("livechat_reserve_date").value = "";
         return;
     }
@@ -67,11 +67,11 @@ document.getElementById("livechat_reserve_btn").addEventListener("click", functi
     let selectedCategory = document.getElementById("livechat_reserve_category").value;
 
     if (!selectedDate || !selectedTime || !selectedCategory) {
-        alert("❌ 날짜, 시간, 카테고리를 모두 선택해주세요.");
+        alert("❌ 日付・時間・カテゴリーをすべて選択してください。");
         return;
     }
 
-    console.log("📌 [클라이언트] 예약 요청:", {
+    console.log("📌 [client] 予約リクエスト:", {
         livechatreservedate: selectedDate,
         livechatreservetime: selectedTime,
         livechatcategory: selectedCategory
@@ -88,36 +88,32 @@ document.getElementById("livechat_reserve_btn").addEventListener("click", functi
     })
         .then(response => response.json())
         .then(data => {
-            console.log("📌 [클라이언트] 서버 응답 데이터:", data);
+            console.log("📌 [client] サーバーからの応答データ:", data);
             if (data.success) {
-                alert("✅ 상담 예약이 완료되었습니다!");
+                alert("✅ 相談の予約が完了しました！");
 
-                // ✅ 1. 상담 ID를 sessionStorage에 저장
                 sessionStorage.setItem("counseling_id", data.counseling_id);
-                console.log("✅ [세션 저장] counseling_id:", data.counseling_id);
+                console.log("✅ [セッション保存] counseling_id:", data.counseling_id);
 
-                // ✅ 2. 예약 버튼 숨기기
                 reserveBtn.style.display = "none";
 
-                // ✅ 3. 컨포메이션 메시지 표시
                 conformationDiv.style.display = "flex";
                 setTimeout(() => { conformationDiv.style.opacity = "1"; }, 200);
 
                 confirmationText.style.display = "block";
                 setTimeout(() => { confirmationText.style.opacity = "1"; }, 400);
 
-                // ✅ 4. 나가기 버튼 1.5초 후 활성화
                 setTimeout(() => {
                     exitBtn.style.display = "block";
                     setTimeout(() => { exitBtn.style.opacity = "1"; }, 200);
                 }, 1500);
             } else {
-                alert("❌ 예약 실패: " + data.message);
+                alert("❌ 予約に失敗しました：" + data.message);
             }
         })
         .catch(error => {
-            console.error("🚨 예약 중 오류 발생:", error);
-            alert("❌ 예약 요청 중 오류가 발생했습니다.");
+            console.error("🚨予約処理中にエラーが発生しました:", error);
+            alert("❌  予約リクエスト中にエラーが発生しました。");
         });
 });
 
@@ -126,34 +122,35 @@ document.getElementById("livechat_exit_btn").addEventListener("click", function 
     let counselingId = sessionStorage.getItem("counseling_id");
 
     if (!counselingId) {
-        alert("❌ 상담 ID를 찾을 수 없습니다.");
+        alert("❌ 相談IDが見つかりません。");
         return;
     }
 
-    console.log("📌 [클라이언트] 상담 ID 확인:", counselingId);
+    console.log("📌 [client] 相談IDの確認:", counselingId);
 
     fetch("/livechat/updateStatus", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             counseling_id: parseInt(counselingId, 10),
-            status: "대기" // ✅ 상담 상태를 '대기'로 변경
+            status: "待機中"
         })
     })
         .then(response => response.json())
         .then(data => {
-            console.log("📌 [클라이언트] 상담 상태 업데이트 응답:", data);
+            console.log("📌 [client] 相談ステータス更新の応答:", data);
 
             if (data.success) {
-                alert("✅ 상담 상태가 '대기'로 설정되었습니다.");
-                sessionStorage.removeItem("counseling_id"); // ✅ 세션에서 삭제
-                window.location.href = "/usermypage"; // ✅ 마이페이지로 이동
-            } else {
-                alert("❌ 상담 상태 업데이트 중 오류가 발생했습니다.");
+                alert("✅ 相談ステータスが「待機」に設定されました。");
+                sessionStorage.removeItem("counseling_id");
+                window.location.href = "/usermypage"; //
+            }
+            else {
+            alert("❌ ステータスの更新中にエラーが発生しました。");
             }
         })
         .catch(error => {
-            console.error("🚨 상담 상태 업데이트 중 오류 발생:", error);
-            alert("❌ 서버 요청 오류 발생.");
+            console.error("🚨相談ステータスの更新中にエラーが発生しました:", error);
+            alert("❌ サーバーへのリクエストでエラーが発生しました。");
         });
 });
