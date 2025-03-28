@@ -84,9 +84,9 @@ public class LiveChatC {
         String userId = getLoginUserId(session);
         List<UserMyPageVO> userList = liveChatService.getUserInfoById(userId);
         UserMyPageVO loggedInUser = userList.isEmpty() ? null : userList.get(0);
+        model.addAttribute("user", loggedInUser);
+        model.addAttribute("userType", loggedInUser.getUser_type()); // ← 이게 JSP에 전달됨
 
-
-        model.addAttribute("user", loggedInUser); // JSP에서 ${user.user_img} 로 접근 가능
         model.addAttribute("livechatdetail", "livechat/livechatdetail.jsp");
 
         LiveChatVO counselingDetail = liveChatService.getCounselingDetail(counselingId);
@@ -136,6 +136,10 @@ public class LiveChatC {
                     "message", "날짜, 시간, 카테고리는 필수 입력값입니다."
             ));
         }
+            category = category.trim(); // 앞뒤 공백 제거
+            if (category.equals("sonota")) {
+                category = "その他のお悩み";
+            }
 
         System.out.println("[서버] 예약 요청 데이터: 날짜=" + dateString + ", 시간=" + timeString + ", 카테고리=" + category);
 
@@ -171,8 +175,8 @@ public class LiveChatC {
             reservation.setCounseling_time(counselingTime);
             reservation.setCategory(category);
             reservation.setStatus("待機中");
+            System.out.println("카테고리 확인: [" + category + "]");
 
-// 🔥 여기에 추가!!!
             String randomCounselorId = liveChatService.findRandomCounselor(); // 랜덤 상담사 배정
             reservation.setCounselor_id(randomCounselorId); // 배정한 상담사 ID 설정
 

@@ -62,7 +62,7 @@
                                 <option value="健康">健康</option>
                                 <option value="将来">将来</option>
                                 <option value="人間関係">人間関係</option>
-                                <option value="その他のお悩み">その他のお悩み</option>
+                                <option value="sonota">その他のお悩み</option>
                             </select>
                         </div>
 

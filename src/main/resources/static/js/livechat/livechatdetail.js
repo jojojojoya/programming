@@ -1,187 +1,201 @@
-
 let stompClient = null;
 let reconnectAttempts = 0;
 const MAX_RECONNECT_ATTEMPTS = 5;
 
 function formatDate(counselingDate) {
     try {
-        console.log("formatDate() 元の値:", counselingDate);
-
-        // 날짜 형식 확인 (yyyy-MM-dd)
         if (/^\d{4}-\d{2}-\d{2}$/.test(counselingDate)) {
             let [year, month, day] = counselingDate.split("-");
             return `${year}年 ${month}月 ${day}日`;
         }
-
         let dateParts = counselingDate.split(" ");
-        if (dateParts.length < 6) {
-            console.error("🚨 日付の文字列解析に失敗しました！元の値:", counselingDate);
-            return "日付の変換に失敗";
-        }
-
-        let monthMap = {
-            "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04",
-            "May": "05", "Jun": "06", "Jul": "07", "Aug": "08",
-            "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"
-        };
-
+        let monthMap = {"Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"};
         let year = dateParts[5];
         let month = monthMap[dateParts[1]] || "00";
         let day = dateParts[2].padStart(2, "0");
-
-        let formattedDate = `${year}년 ${month}월 ${day}일`;
-        console.log("変換された日付:", formattedDate);
-        return formattedDate;
+        return `${year}年 ${month}月 ${day}日`;
     } catch (error) {
-        console.error("formatDate() エラー:", error);
         return "日付の変換に失敗";
     }
 }
 
 
-function connect(sessionId) {
-    if (!sessionId || sessionId === "undefined") {
-        console.warn("⚠WebSocket接続待機中：sessionIdがまだ取得できません。2秒後に再試行します...");
-        setTimeout(() => {
-            let newSessionId = document.querySelector(".chat-container").dataset.sessionId;
-            if (newSessionId && newSessionId !== "undefined") {
-                connect(newSessionId);  // 다시 연결 시도
-            }
-        }, 2000); // 2초 후 다시 체크
-        return;
-    }
-
-    console.log(" WebSocket接続を試みます...");
-
+function connect(sessionId, callback) {
     let socket = new SockJS("/ws");
     stompClient = Stomp.over(socket);
 
-    stompClient.connect({}, function (frame) {
-        console.log("WebSocket接続成功:" + frame);
-        reconnectAttempts = 0;
-
+    stompClient.connect({}, function () {
+        console.log("✅ STOMP 연결 성공");
         stompClient.subscribe("/topic/chat/" + sessionId, function (message) {
             let chatMessage = JSON.parse(message.body);
-            console.log("受信したメッセージ:", chatMessage);
-            saveChatToLocal(chatMessage);
             showMessage(chatMessage);
+            saveChatToLocal(chatMessage);
         });
 
+        if (callback) callback(); // 콜백 실행
     }, function (error) {
-        console.error("WebSocket接続に失敗しました: ", error);
+        console.error("❌ STOMP 연결 실패:", error);
     });
 }
 
-
 async function startCounseling() {
-    let chatContainer = document.querySelector(".chat-container");
-    let sessionId = chatContainer.dataset.sessionId;
-    let category = chatContainer.dataset.category;
-    let counselingDate = chatContainer.dataset.counselingDate;
-    let counselingTime = chatContainer.dataset.counselingTime;
+    const container = document.querySelector(".chat-container");
+    const userType = container.dataset.userType;
+    const sessionId = container.dataset.sessionId;
+    const counselorId = container.dataset.counselorId;
 
-    let formattedDate = formatDate(counselingDate);
-    let formattedTime = String(counselingTime).padStart(2, "0") + "時00分";
+    // 유저가 아니면 자동 메시지 X
+    if (userType !== "1") return;
 
-    let welcomeMessage = {
+    // 이미 welcome 메시지가 있는지 서버에 확인
+    const resCheck = await fetch(`/chatmessage/checkWelcome?sessionId=${sessionId}`);
+    const checkData = await resCheck.json();
+    if (checkData.exists) return;
+
+    // 메시지 생성
+    const welcomeMessage = {
         session_id: sessionId,
-        sender: "カウンセラー",
-        message: `こんにちは！${formattedDate} ${formattedTime}に予約された「${category}」に関するご相談を担当させていただきます。😊 ご自由にお話しくださいね。`,
+        sender: counselorId,
         user_type: "COUNSELOR",
+        message: `こんにちは！${container.dataset.counselingDate} ${container.dataset.counselingTime}時00分に予約された「${container.dataset.category}」に関するご相談を担当させていただきます。😊 ご自由にお話しくださいね。`,
         timestamp: new Date().toISOString()
     };
 
-    try {
-        let response = await fetch("/chatmessage", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(welcomeMessage)
-        });
+    // DB 저장
+    const res = await fetch("/chatmessage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(welcomeMessage)
+    });
 
-        let data = await response.json();
-        if (data.success) {
-            showMessage(welcomeMessage);
-            saveChatToLocal(welcomeMessage);
-            stompClient.send("/app/chat", {}, JSON.stringify(welcomeMessage));
-        } else {
-            console.error("カウンセラーメッセージの保存に失敗しました:", data.message);
-        }
-    } catch (error) {
-        console.error("カウンセラーメッセージの保存中にエラーが発生しました:", error);
+    const data = await res.json();
+    if (data.success) {
+        stompClient.send("/app/chat", {}, JSON.stringify(welcomeMessage));
     }
 }
 
 function showMessage(message) {
-    let chatBox = document.getElementById("chatBox");
+    const chatBox = document.getElementById("chatBox");
+    const container = document.querySelector(".chat-container");
+    const loginUserId = container.dataset.userId;
 
-    let noMessagesElement = chatBox.querySelector(".no-messages");
-    if (noMessagesElement) {
-        noMessagesElement.remove();
+    // 중복 자동 메시지 방지
+    if (message.user_type === "COUNSELOR" && message.message.includes("ご相談を担当させていただきます")) {
+        // 자동 메시지가 이미 있는지 검사
+        const alreadyExists = [...chatBox.children].some(el =>
+            el.textContent.includes("ご相談を担当させていただきます")
+        );
+        if (alreadyExists) return;
     }
 
-    let msgElement = document.createElement("div");
-    msgElement.className = `chat-message ${message.user_type === "USER" ? "user-msg" : "counselor-msg"}`;
+    const isMyMessage = message.sender === loginUserId;
 
-    let senderHtml = message.sender && message.sender.trim() !== "" ? `<strong>${message.sender}:</strong> ` : "";
-
-    msgElement.innerHTML = `${senderHtml}${message.message}`;
-
-    chatBox.appendChild(msgElement);
-    chatBox.scrollTop = chatBox.scrollHeight; // 스크롤 자동 이동
+    const msg = document.createElement("div");
+    msg.className = `chat-message ${isMyMessage ? "my-msg" : "other-msg"}`;
+    msg.innerHTML = `<strong>${message.sender}:</strong> ${message.message}`;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-
 function saveChatToLocal(message) {
-    let chatContainer = document.querySelector(".chat-container");
-    let sessionId = chatContainer.dataset.sessionId;
+    let sessionId = document.querySelector(".chat-container").dataset.sessionId;
     let chatLogs = JSON.parse(localStorage.getItem("chat_" + sessionId) || "[]");
-
     chatLogs.push(message);
     localStorage.setItem("chat_" + sessionId, JSON.stringify(chatLogs));
 }
 
-function removeNoMessagesText() {
-    let noMessagesElement = document.querySelector(".no-messages");
-    if (noMessagesElement) {
-        noMessagesElement.remove();
-    }
+function sendAndSaveMessage(message) {
+    return fetch("/chatmessage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(message)
+    }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showMessage(message);
+                saveChatToLocal(message);
+                stompClient.send("/app/chat", {}, JSON.stringify(message));
+            } else {
+                alert("メッセージの送信に失敗しました。")
+            }
+        });
+}
+
+function sendMessage() {
+    let chatInput = document.getElementById("chatInput");
+    let messageContent = chatInput.value.trim();
+    if (messageContent === "") return;
+
+    let chatContainer = document.querySelector(".chat-container");
+    let sessionId = chatContainer.dataset.sessionId;
+    let userId = chatContainer.dataset.userId;
+    let userType = chatContainer.dataset.userType;
+
+    let message = {
+        session_id: sessionId,
+        sender: userId,
+        message: messageContent,
+        user_type: userType,
+        timestamp: new Date().toISOString()
+    };
+
+    sendAndSaveMessage(message);
+    chatInput.value = "";
+}
+
+function confirmExit() {
+    let chatContainer = document.querySelector(".chat-container");
+    let sessionId = chatContainer.dataset.sessionId;
+    let userType = chatContainer.dataset.userType; // ← 이걸로 상담사인지 확인
+
+    fetch(`/livechat/getCounselingId?sessionId=${sessionId}`)
+        .then(response => response.json())
+        .then(data => {
+            let counselingId = data.counseling_id;
+            return fetch("/livechat/updateStatus", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ counseling_id: counselingId, status: "完了" })
+            });
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("相談が完了しました！");
+                if (userType === "COUNSELOR") {
+                    window.location.href = "/counselormypage";
+                } else {
+                    window.location.href = "/usermypage";
+                }
+            }
+        });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    let chatContainer = document.querySelector(".chat-container");
-    let sessionId = chatContainer.dataset.sessionId;
-    let isCompleted = chatContainer.dataset.isCompleted === "true"; // 상담 완료 여부
+    const container = document.querySelector(".chat-container");
+    const sessionId = container.dataset.sessionId;
+    const isCompleted = container.dataset.isCompleted === "true";
+    const enterButton = document.getElementById("enterButton");
+    const chatInputContainer = document.querySelector(".chat-input");
+    const userType = container.dataset.userType;
 
-    let enterButton = document.getElementById("enterButton");
-    let chatInputContainer = document.querySelector(".chat-input");
-
-    if (!sessionId) {
-        console.error("sessionIdがありません！");
-        return;
-    }
 
     if (isCompleted) {
-        console.log("相談はすでに完了しています。");
-        if (enterButton) enterButton.style.display = "none"; // 상담 시작 버튼 숨기기
-        chatInputContainer.style.display = "none"; // 입력창 숨기기
-        loadChatsFromServer(sessionId); // 기존 채팅 내역 불러오기
+        enterButton && (enterButton.style.display = "none");
+        chatInputContainer.style.display = "none";
     } else {
-        console.log("相談は進行中です。「相談開始」ボタンを表示します。");
-        if (enterButton) {
-            enterButton.addEventListener("click", async function () {
-                console.log("「相談開始」ボタンがクリックされました！");
-                enterButton.style.display = "none";
+        enterButton.addEventListener("click", function () {
+            enterButton.style.display = "none";
 
-                connect(sessionId);
-
-                await startCounseling();
+            connect(sessionId, async function afterConnected() {
+                if (userType === "1") {
+                    await startCounseling(); // 자동 메시지 전송
+                }
                 chatInputContainer.style.display = "flex";
             });
-
-        }
+        });
     }
 });
-
 
 function sendMessage() {
     let chatInput = document.getElementById("chatInput");
@@ -227,16 +241,22 @@ function sendMessage() {
 
 
 function goBack() {
-    window.location.href = "/usermypage";
+    const chatContainer = document.querySelector(".chat-container");
+    const userType = chatContainer.dataset.userType;
+
+    if (userType === "2") {
+        window.location.href = "/counselormypage";
+    } else {
+        window.location.href = "/usermypage";
+    }
 }
 
-
 function confirmExit() {
-    let chatContainer = document.querySelector(".chat-container");
-    let sessionId = chatContainer.dataset.sessionId;
+    const chatContainer = document.querySelector(".chat-container");
+    const sessionId = chatContainer.dataset.sessionId;
+    const userType = chatContainer.dataset.userType; // "1" = 유저, "2" = 상담사
 
     if (!sessionId) {
-        console.error("sessionIdがありません！");
         alert("セッション情報が見つかりません。もう一度お試しください。");
         return;
     }
@@ -244,28 +264,26 @@ function confirmExit() {
     fetch(`/livechat/getCounselingId?sessionId=${sessionId}`)
         .then(response => response.json())
         .then(data => {
-            if (!data.success || !data.counseling_id) {
-                alert("相談情報が見つかりません。もう一度お試しください。");
-                return;
-            }
-
-            let counselingId = data.counseling_id;
-
-            fetch("/livechat/updateStatus", {
+            const counselingId = data.counseling_id;
+            return fetch("/livechat/updateStatus", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ counseling_id: counselingId, status: "完了" })
-            })
-                .then(response => response.json())
-                .then(updateData => {
-                    if (updateData.success) {
-                        alert("相談が完了しました！");
-                        window.location.href = "/usermypage";
-                    } else {
-                        alert("ステータスの更新に失敗しました。再度お試しください。");
-                    }
-                })
-                .catch(error => console.error("相談ステータスの更新中にエラーが発生しました:", error));
+            });
         })
-        .catch(error => console.error("相談IDの取得中にエラーが発生しました:", error));
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("相談が完了しました！");
+                if (userType === "2") {
+                    window.location.href = "/counselormypage";
+                } else {
+                    window.location.href = "/usermypage";
+                }
+            }
+        })
+        .catch(error => {
+            console.error("相談終了中にエラーが発生しました:", error);
+            alert("エラーが発生しました。もう一度お試しください。");
+        });
 }

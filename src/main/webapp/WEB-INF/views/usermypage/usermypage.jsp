@@ -172,65 +172,64 @@
                         </div>
                     </div>
                     </c:if>
-        </main>
 
-<div id="passwordCheckModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <p> パスワードを入力してください </p>
-        <input type="password" id="passwordCheck" autocomplete="off">
-        <button id="checkPasswordBtn">確認</button>
-        <button class="close">閉じる</button>
-        <p id="passwordErrorMsg" style="display: none; color: red;">パスワードが正しくありません。</p>
-    </div>
-</div>
+                <div id="passwordCheckModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <p> パスワードを入力してください </p>
+                        <input type="password" id="passwordCheck" autocomplete="off">
+                        <button id="checkPasswordBtn">確認</button>
+                        <button class="close">閉じる</button>
+                        <p id="passwordErrorMsg" style="display: none; color: red;">パスワードが正しくありません。</p>
+                    </div>
+                </div>
 
-        <div id="chatbotDetailModal" class="modal" style="display: none">
-            <div class="modal-content">
-                <div class="chatbot-detail-title"> チャットボットのタイトル </div>
-                <div class="chatbot-detail-text"> チャットボットの内容 </div>
-                <button class="close">閉じる</button>
-        </div>
-        </div>
+                <div id="chatbotDetailModal" class="modal" style="display: none">
+                    <div class="modal-content">
+                        <div class="chatbot-detail-title"> チャットボットのタイトル </div>
+                        <div class="chatbot-detail-text"> チャットボットの内容 </div>
+                        <button class="close">閉じる</button>
+                    </div>
+                </div>
 
-    <div id="profileModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <h3>プロフィールを編集する</h3>
+                <div id="profileModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <h3>プロフィールを編集する</h3>
 
-        <div class="profile_img">
-            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">
-        </div>
+                        <div class="profile_img">
+                            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">
+                        </div>
 
-        <label for="editProfileImg" id="customFileLabel">ファイルを選択</label>
-        <br>
-        <input type="file" id="editProfileImg" accept="image/*" style="display: none;">
-        <span id="fileNameDisplay"></span>
+                        <label for="editProfileImg" id="customFileLabel">ファイルを選択</label>
+                        <br>
+                        <input type="file" id="editProfileImg" accept="image/*" style="display: none;">
+                        <span id="fileNameDisplay"></span>
 
-        <label> ID : </label>
-        <input type="text" id="editId" readonly>
-        <br>
+                        <label> ID : </label>
+                        <input type="text" id="editId" readonly>
+                        <br>
 
 
-        <label>新しいパスワード : </label>
-        <input type="password" id="editPw" placeholder="新しいパスワードを入力">
-        <br>
+                        <label>新しいパスワード : </label>
+                        <input type="password" id="editPw" placeholder="新しいパスワードを入力">
+                        <br>
 
-        <label>ニックネーム : </label>
-        <input type="text" id="editNickname">
-        <br>
+                        <label>ニックネーム : </label>
+                        <input type="text" id="editNickname">
+                        <br>
 
-        <button id="saveProfileBtn">保存</button>
-        <button class="close">閉じる</button>
-    </div>
-</div>
+                        <button id="saveProfileBtn">保存</button>
+                        <button class="close">閉じる</button>
+                    </div>
+                </div>
 
-</div>
+            </div>
 
-<script src="/static/js/usermypage/usermypage.js">
-    <script>
-        document.querySelector(".calendar-container").addEventListener("click", function () {
-        window.location.href = "/diary";
-    });
-</script>
+            <script src="/static/js/usermypage/usermypage.js">
+                <script>
+                    document.querySelector(".calendar-container").addEventListener("click", function () {
+                    window.location.href = "/diary";
+                });
+            </script>
 
 
 </html>

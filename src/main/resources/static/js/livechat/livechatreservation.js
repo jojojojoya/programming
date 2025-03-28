@@ -66,6 +66,10 @@ document.getElementById("livechat_reserve_btn").addEventListener("click", functi
     let selectedTime = document.getElementById("livechat_reserve_time").value;
     let selectedCategory = document.getElementById("livechat_reserve_category").value;
 
+    if (selectedCategory === "sonota") {
+        selectedCategory = "その他のお悩み";
+    }
+
     if (!selectedDate || !selectedTime || !selectedCategory) {
         alert("日付・時間・カテゴリーをすべて選択してください。");
         return;

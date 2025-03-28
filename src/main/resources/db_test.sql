@@ -521,5 +521,24 @@ select * from TEST_COUNSELING_RESERVATION;
     CONSTRAINT fk_cr_counselor FOREIGN KEY (counselor_id) REFERENCES test_USER (user_id)   -- 상담사 외래키
 );
 
+ALTER TABLE TEST_COUNSELING_RESERVATION
+    DROP CONSTRAINT SYS_C0035078; -- 실제 제약조건 이름 확인 필요
+
+ALTER TABLE TEST_COUNSELING_RESERVATION
+    ADD CONSTRAINT chk_category
+        CHECK (category IN ('健康', '将来', '人間関係', 'その他のお悩み'));
+
 DROP TABLE TEST_COUNSELING_RESERVATION CASCADE CONSTRAINTS;
 
+SELECT constraint_name
+FROM user_constraints
+WHERE table_name = 'TEST_COUNSELING_RESERVATION'
+  AND constraint_type = 'C';
+
+SELECT constraint_name, search_condition
+FROM user_constraints
+WHERE table_name = 'TEST_COUNSELING_RESERVATION'
+  AND constraint_type = 'C';
+
+ALTER TABLE TEST_COUNSELING_RESERVATION
+    MODIFY category VARCHAR2(30);

@@ -6,13 +6,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function reservationHandler() {
     console.log("🚀 counselormypage ページのロードが完了しました！");
+    function reservationHandler() {
+        document.querySelectorAll(".enter_counseling_btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const sessionId = button.dataset.sessionId;
+                const counselingId = button.dataset.counselingId;
+                const isCounselor = button.dataset.isCounselor === "true"; // 상담사 여부
 
+                // 상담사일 경우 → 상담사용 채팅 인터페이스 열기
+                if (isCounselor) {
+                    startCounselorChat(sessionId, counselingId);
+                } else {
+                    goToLiveChatDetail(sessionId, counselingId, false); // 유저용
+                }
+            });
+        });
+    }
+
+    function startCounselorChat(sessionId, counselingId) {
+        const url = `/livechatdetail?sessionId=${sessionId}&counselingId=${counselingId}&isCounselor=true`;
+        console.log("상담사 채팅방으로 이동:", url);
+        window.location.href = url;
+    }
     document.querySelectorAll(".reserved_reservation_box").forEach(reservationBox => {
         let counselingId = reservationBox.dataset.counselingId;
         let sessionId = reservationBox.dataset.sessionId;
         let status = reservationBox.dataset.status;
         let counselingDate = reservationBox.dataset.counselingDate;
-        let counselingTime = parseInt(reservationBox.dataset.counselingTime); // 상담 시간 (24시간제)
+        let counselingTime = parseInt(reservationBox.dataset.counselingTime); 
 
         // console.log(`🔍 상담 ID: ${counselingId}, 세션 ID: ${sessionId}, 상태: ${status}, 날짜: ${counselingDate}, 시간: ${counselingTime}`);
 
