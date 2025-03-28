@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/habit/habit.css">
-    <script src="/static/js/habit/habit.js"></script>
 </head>
 
 <body>
@@ -83,7 +82,7 @@
                         </div>
                         <div id="calendarBody" class="calendar-body"></div>
                         <div id="selectedDateDisplay" style="margin-top: 10px; font-weight: bold;">
-                            선택한 날짜: 없음
+                            日付 ： 未選択
                         </div>
                     </div>
                 </div>
@@ -133,16 +132,6 @@
                             <p id="stretch">🏋️ 스트레칭</p>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <div class="habit-parttwo-second">
-                        <div class="habit-rate">habit-rate</div>
-                        <div class="habit-memo">habit-memo
-                        <button id="habit-memo-write" type="button" onclick="/" > 작성하기 </button>
-
-
-
-
-=======
 
                     <div id="habit-정신건강" class="habit-content habit-hidden" onclick="habitShowTab('정신건강')">
                         <div class="habit-정신건강-part">
@@ -155,7 +144,6 @@
                             <p id="game">게임</p>
                             <p id="water">물</p>
                             <p id="movie">영화</p>
->>>>>>> 127ff5970d0356ed22a02a04b5c067fb57b8af02
                         </div>
                     </div>
                 </div>
@@ -166,7 +154,9 @@
                 </div>
 
                 <div class="widget-box habit-memo">
-                    habit-memo
+                    <h3>주간 회고 메모</h3>
+                    <textarea id="weeklyMemoText" rows="6" placeholder="이번 주를 돌아보는 나의 생각을 적어보세요..." style="width: 100%; resize: none;"></textarea>
+                    <button id="saveMemoBtn">저장하기</button>
                 </div>
             </div>
 
