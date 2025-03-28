@@ -6,6 +6,7 @@ import com.koyoi.main.service.AdminMypageService;
 import com.koyoi.main.service.AnnouncementService;
 import com.koyoi.main.vo.AdminMypageVO;
 import com.koyoi.main.vo.AnnouncementVO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,15 @@ public class AdminMypageC {
     @GetMapping("/admin")
     public String admin(@RequestParam(defaultValue = "1") int page,
                         @RequestParam(defaultValue = "5") int size,
-                        Model model) {
+                        Model model, HttpSession session) {
+
+        // 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
 
         int offset = (page - 1) * size;
 
