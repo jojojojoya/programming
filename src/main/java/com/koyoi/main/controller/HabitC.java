@@ -235,6 +235,41 @@ public class HabitC {
         }
     }
 
+    // ✅ 회고 메모 저장 (insert 또는 update)
+    @PostMapping("/memo")
+    @ResponseBody
+    public ResponseEntity<?> saveWeeklyFeedback(@RequestBody Map<String, Object> payload) {
+        String userId = "user1"; // 테스트용 고정 유저
+        String dateStr = (String) payload.get("tracking_date");
+        String feedback = (String) payload.get("feedback");
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date trackingDate = sdf.parse(dateStr);
+
+            habitService.saveWeeklyFeedback(userId, trackingDate, feedback);
+            return ResponseEntity.ok("저장 성공");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("메모 저장 실패");
+        }
+    }
+
+    // ✅ 회고 메모 조회 (일요일 기준)
+    @GetMapping("/memo")
+    @ResponseBody
+    public ResponseEntity<?> getWeeklyFeedback(@RequestParam String date, @RequestParam String user_id) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date trackingDate = sdf.parse(date);
+
+            String feedback = habitService.getWeeklyFeedback(user_id, trackingDate);
+            return ResponseEntity.ok(feedback != null ? feedback : "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("메모 조회 실패");
+        }
+    }
 
 
 

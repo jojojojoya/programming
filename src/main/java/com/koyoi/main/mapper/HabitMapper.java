@@ -70,4 +70,45 @@ public interface HabitMapper {
 
 
 
+    // ✅ 회고 메모용 - 유저의 첫 번째(가장 오래된) 습관 ID 조회
+    @Select("SELECT habit_id FROM TEST_HABIT WHERE user_id = #{userId} ORDER BY created_at FETCH FIRST 1 ROWS ONLY")
+    Integer getFirstHabitId(String userId);
+
+    // ✅ 회고 메모 insert
+    @Insert("""
+    INSERT INTO TEST_HABIT_TRACKING (
+        tracking_id, habit_id, user_id, completed, tracking_date, weekly_feedback, created_at
+    ) VALUES (
+        TEST_HABIT_TRACKING_SEQ.NEXTVAL, #{habit_id}, #{user_id}, 0, #{tracking_date}, #{weekly_feedback}, SYSDATE
+    )
+""")
+    void insertWeeklyFeedback(@Param("habit_id") int habitId,
+                              @Param("user_id") String userId,
+                              @Param("tracking_date") Date trackingDate,
+                              @Param("weekly_feedback") String feedback);
+
+    // ✅ 회고 메모 update
+    @Update("""
+    UPDATE TEST_HABIT_TRACKING
+    SET weekly_feedback = #{weekly_feedback}
+    WHERE user_id = #{user_id}
+    AND TRUNC(tracking_date) = TRUNC(#{tracking_date})
+""")
+    void updateWeeklyFeedback(@Param("user_id") String userId,
+                              @Param("tracking_date") Date trackingDate,
+                              @Param("weekly_feedback") String feedback);
+
+    // ✅ 회고 메모 조회
+    @Select("""
+    SELECT weekly_feedback
+    FROM TEST_HABIT_TRACKING
+    WHERE user_id = #{user_id}
+    AND TRUNC(tracking_date) = TRUNC(#{tracking_date})
+    AND weekly_feedback IS NOT NULL
+    FETCH FIRST 1 ROWS ONLY
+""")
+    String getWeeklyFeedback(@Param("user_id") String userId,
+                             @Param("tracking_date") Date trackingDate);
+
+
 }
