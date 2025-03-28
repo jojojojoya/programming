@@ -396,4 +396,13 @@ public Map<String, Object> completeChat(@RequestBody Map<String, Object> request
         return response;
     }
 
+    @GetMapping("/chatmessage/checkWelcome")
+    @ResponseBody
+    public Map<String, Object> checkWelcome(@RequestParam("sessionId") int sessionId) {
+        boolean exists = liveChatService.existsWelcomeMessage(sessionId);
+        Map<String, Object> result = new HashMap<>();
+        result.put("exists", exists);
+        return result;
+    }
+
 }

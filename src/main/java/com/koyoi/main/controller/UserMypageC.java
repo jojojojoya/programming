@@ -135,8 +135,9 @@ public class UserMypageC {
 
             String imgPath = null;
             if (profileImg != null && !profileImg.isEmpty()) {
-                String projectPath = System.getProperty("user.dir"); // 현재 프로젝트 루트 경fh
-                String uploadDirPath = new ClassPathResource("static/imgsource/userProfile").getFile().getAbsolutePath();
+                String projectPath = System.getProperty("user.dir");
+                String uploadDirPath = projectPath + "/src/main/resources/static/imgsource/userProfile";
+
                 File uploadDir = new File(uploadDirPath);
                 if (!uploadDir.exists()) {
                     System.out.println("디렉토리 없음 → 생성 시도");

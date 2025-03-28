@@ -501,8 +501,8 @@ select * from test_CHAT;
 
 SELECT user_id, user_img FROM test_user WHERE user_img LIKE '%default%';
 
-insert into test_chat values (11,'jojot','하이하이',SYSDATE);
-insert into test_chat values (12,'jojot','마이마이',SYSDATE);
+insert into test_chat values (11,'jojot','하이하이','코코코코코코ㅗ코코',SYSDATE);
+insert into test_chat values (12,'jojot','마이마이','기분이 너무좋아', SYSDATE);
 
 select * from TEST_COUNSELING_RESERVATION;
 

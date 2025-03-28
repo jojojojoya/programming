@@ -1,9 +1,7 @@
 package com.koyoi.main.mapper;
 
 import com.koyoi.main.vo.LiveChatVO;
-import com.koyoi.main.vo.UserMyPageVO;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.mapping.StatementType;
 
 import java.util.List;
 
@@ -138,6 +136,16 @@ Integer createChatRoom(LiveChatVO reservation);
         WHERE session_id = #{sessionId}
     """)
     int completeChat(@Param("sessionId") int sessionId);
+
+
+    @Select("""
+    SELECT COUNT(*) 
+    FROM TEST_LIVE_CHAT_LOG 
+    WHERE session_id = #{session_id}
+    AND user_type = 'COUNSELOR'
+    AND message LIKE '%ご相談を担当させていただきます%'
+""")
+    int countWelcomeMessage(@Param("session_id") int sessionId);
 
 }
 

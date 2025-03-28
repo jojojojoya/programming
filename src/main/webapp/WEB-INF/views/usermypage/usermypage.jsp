@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
-<%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
 <%
     UserMyPageVO user = (UserMyPageVO) request.getAttribute("user");
     String imgPath = (user != null && user.getUser_img() != null)
@@ -49,7 +48,7 @@
                 <div class="profile_table">
                     <div class="profile_content">
                         <div class="profile_img">
-                            <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="프로필 이미지">
+                            <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'">
                         </div>
                         <div class="profile_info">
                             <div class="profile_item">
@@ -78,7 +77,9 @@
                     <div class="chatbot_info">
                         <c:if test="${not empty chats}">
                             <c:forEach var="chat" items="${chats}">
-                                <div class="chatbot_list">${chat.chat_summary}</div>
+                                <div class="chatbot_list" onclick="showChatDetail('${chat.chat_title}', '${chat.chat_summary}')">
+                                        ${chat.chat_title}
+                                </div>
                             </c:forEach>
                         </c:if>
                         <c:if test="${empty chats}">
@@ -183,15 +184,16 @@
                     </div>
                 </div>
 
-                <div id="chatbotDetailModal" class="modal" style="display: none">
-                    <div class="modal-content">
-                        <div class="chatbot-detail-title"> チャットボットのタイトル </div>
-                        <div class="chatbot-detail-text"> チャットボットの内容 </div>
-                        <button class="close">閉じる</button>
+                    <div id="chatbotDetailModal" class="modal" style="display: none">
+                        <div class="modal-content">
+                            <div class="chatbot-detail-title" id="chatDetailTitle"></div>
+                            <div class="chatbot-detail-text" id="chatDetailText"></div>
+                            <button class="close" onclick="closeChatDetail()">閉じる</button>
+                        </div>
                     </div>
-                </div>
 
-                <div id="profileModal" class="modal" style="display: none;">
+
+                    <div id="profileModal" class="modal" style="display: none;">
                     <div class="modal-content">
                         <h3>プロフィールを編集する</h3>
 
@@ -224,12 +226,22 @@
 
             </div>
 
-            <script src="/static/js/usermypage/usermypage.js">
+            <script src="/static/js/usermypage/usermypage.js"> </script>
                 <script>
                     document.querySelector(".calendar-container").addEventListener("click", function () {
                     window.location.href = "/diary";
                 });
+                    function showChatDetail(title, summary) {
+                        document.getElementById("chatDetailTitle").innerText = title;
+                        document.getElementById("chatDetailText").innerText = summary;
+                        document.getElementById("chatbotDetailModal").style.display = "block";
+                    }
+
+                    function closeChatDetail() {
+                        document.getElementById("chatbotDetailModal").style.display = "none";
+                    }
             </script>
+
 
 
 </html>

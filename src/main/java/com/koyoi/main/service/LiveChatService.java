@@ -58,6 +58,9 @@ public class LiveChatService {
         }
     }
 
+    public boolean existsWelcomeMessage(int sessionId) {
+        return liveChatMapper.countWelcomeMessage(sessionId) > 0;
+    }
 
     // 예약된 상담 조회 (읽기 전용 트랜잭션)
     @Transactional(readOnly = true)

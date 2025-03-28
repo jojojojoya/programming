@@ -25,10 +25,10 @@
             <c:choose>
                 <c:when test="${not empty chatLogs}">
                     <c:forEach var="chat" items="${chatLogs}">
-                        <c:set var="isMyMessage" value="${chat.sender eq user.user_id}" />
-                        <div class="chat-message ${isMyMessage ? 'my-msg' : 'other-msg'}">
+                        <div class="chat-message ${chat.sender eq user.user_id ? 'my-msg' : 'other-msg'}">
                             <strong>${chat.sender}:</strong> ${chat.message}
                         </div>
+
                     </c:forEach>
 
 
