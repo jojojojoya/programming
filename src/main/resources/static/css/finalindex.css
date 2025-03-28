@@ -181,7 +181,7 @@ body {
     text-align: center;
     font-size: 18px;
 }
-.bbiyak {
+.chatbotlogo {
     position: absolute; /* 절대 위치 */
     bottom: 47px; /* 보라색 파도 위로 조정 */
     left: 73%; /* 가운데 정렬 */
@@ -196,7 +196,7 @@ body {
 }
 
 /* bbiyak 내부 이미지 크기 조정 */
-.bbiyak img {
+.chatbotlogo img {
     width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
     height: 100%;
     object-fit: contain; /* 이미지 비율 유지하며 맞춤 */

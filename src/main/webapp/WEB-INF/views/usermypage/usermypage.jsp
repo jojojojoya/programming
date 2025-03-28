@@ -2,12 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
-<%--<%--%>
-<%--    UserMyPageVO user = (UserMyPageVO) request.getAttribute("user");--%>
-<%--    String imgPath = (user != null && user.getUser_img() != null)--%>
-<%--            ? user.getUser_img()--%>
-<%--            : "/imgsource/testprofile.png";--%>
-<%--%>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 
 <%  // 세션 체크 추가 부분 시작
@@ -77,10 +74,17 @@
                     <div class="chatbot_info">
                         <c:if test="${not empty chats}">
                             <c:forEach var="chat" items="${chats}">
-                                <div class="chatbot_list" onclick="showChatDetail('${chat.chat_title}', '${chat.chat_summary}')">
-                                        ${chat.chat_title}
+                                <div class="chatbot_list"
+                                     data-title="${chat.chat_title}"
+                                     data-summary="${chat.chat_summary_str}">
+                                    <strong>${chat.chat_title}</strong>
+                                    <button class="view_chat_summary_btn">요약 보기</button>
                                 </div>
                             </c:forEach>
+
+
+
+
                         </c:if>
                         <c:if test="${empty chats}">
                             <div class="chatbot_list"> チャットボットの会話履歴はありません。</div>
@@ -184,13 +188,13 @@
                     </div>
                 </div>
 
-                    <div id="chatbotDetailModal" class="modal" style="display: none">
+                    <div id="chatbotDetailModal" class="modal" style="display: none;">
                         <div class="modal-content">
-                            <div class="chatbot-detail-title" id="chatDetailTitle"></div>
-                            <div class="chatbot-detail-text" id="chatDetailText"></div>
+                            <div id="chatDetailContent"></div>
                             <button class="close" onclick="closeChatDetail()">閉じる</button>
                         </div>
                     </div>
+
 
 
                     <div id="profileModal" class="modal" style="display: none;">
@@ -226,22 +230,29 @@
 
             </div>
 
-            <script src="/static/js/usermypage/usermypage.js"> </script>
                 <script>
                     document.querySelector(".calendar-container").addEventListener("click", function () {
                     window.location.href = "/diary";
                 });
-                    function showChatDetail(title, summary) {
-                        document.getElementById("chatDetailTitle").innerText = title;
-                        document.getElementById("chatDetailText").innerText = summary;
-                        document.getElementById("chatbotDetailModal").style.display = "block";
-                    }
+                    document.querySelectorAll(".chatbot_list").forEach(item => {
+                        item.addEventListener("click", function () {
+                            const title = this.dataset.title || "제목 없음";
+                            const summary = this.dataset.summary || "요약 없음";
 
-                    function closeChatDetail() {
-                        document.getElementById("chatbotDetailModal").style.display = "none";
-                    }
+                            const content = `<strong>[タイトル]</strong> ${title}<br><strong>[内容]</strong> ${summary}`;
+                            const contentDiv = document.getElementById("chatDetailContent");
+                            const modal = document.getElementById("chatbotDetailModal");
+
+                            if (contentDiv && modal) {
+                                contentDiv.innerHTML = content;
+                                modal.style.display = "block";
+                            } else {
+                                console.error("❌ 요소 없음!");
+                            }
+                        });
+                    });
             </script>
 
-
-
+                <script src="/static/js/usermypage/usermypage.js"></script>
+</div> <!-- usermypage-form 닫기 -->
 </html>
