@@ -53,6 +53,18 @@
             }
         }
     </script>
+    <style>
+        @font-face {
+            font-family: 'MyFont';
+            src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+        }
+
+        body {
+            font-family: 'MyFont', sans-serif;
+            font-size: 32px;
+            color: black;
+        }
+    </style>
 
 </head>
 <body>
@@ -166,6 +178,7 @@
     </main>
 
 </div>
+
 <script src="/static/js/main/todoList.js"></script>
 <script src="/static/js/main/main.js"></script>
 <script>
