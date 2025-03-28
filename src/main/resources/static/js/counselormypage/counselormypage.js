@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function reservationHandler() {
-    console.log("🚀 usermypage ページのロードが完了しました！");
+    console.log("🚀 counselormypage ページのロードが完了しました！");
 
     document.querySelectorAll(".reserved_reservation_box").forEach(reservationBox => {
         let counselingId = reservationBox.dataset.counselingId;

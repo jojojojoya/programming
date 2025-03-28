@@ -88,8 +88,14 @@ VALUES (2, '미래에 대한 고민을 상담하였습니다.');
 INSERT INTO TEST_COUNSELING_CONTENT (counseling_id, counseling_content)
 VALUES (3, '인간관계에 대한 조언을 받았습니다.');
 
-select *
-from TEST_USER;
+
+
+select * from MAIN_USER;
+select * from KOYOI.TEST_USER;
+select * from TEST_HABIT_TRACKING;
+select * from TEST_HABIT_TRACKING;
+
+
 select *
 from TEST_LIVE_CHAT;
 select  * from TEST_COUNSELING_SUMMARY;
@@ -491,3 +497,29 @@ select * from test_user;
 -- main유저 디비지우기
 
 select * from MAIN_CHAT;
+select * from test_CHAT;
+
+SELECT user_id, user_img FROM test_user WHERE user_img LIKE '%default%';
+
+insert into test_chat values (11,'jojot','하이하이',SYSDATE);
+insert into test_chat values (12,'jojot','마이마이',SYSDATE);
+
+select * from TEST_COUNSELING_RESERVATION;
+
+
+    CREATE TABLE TEST_COUNSELING_RESERVATION
+(
+    counseling_id   NUMBER PRIMARY KEY,                                                    -- 상담 예약 고유 ID
+    user_id         VARCHAR2(50)                 NOT NULL,                                 -- 상담을 신청한 사용자 ID
+    counselor_id    VARCHAR2(50)                 NOT NULL,                                 -- 예약된 상담사 사용자 ID
+    counseling_date DATE                         NOT NULL,                                 -- 상담 날짜
+    counseling_time NUMBER(2) CHECK (counseling_time BETWEEN 10 AND 22),                   -- 상담 시간대 (10시~22시)
+    category        VARCHAR2(20) CHECK (category IN ('健康', '将来', '人間関係', 'その他のお悩み')),         -- 상담 카테고리
+    status          VARCHAR2(20) DEFAULT '待機中' CHECK (status IN ('待機中',  '完了')), -- 상담 진행 상태
+    created_at      DATE         DEFAULT SYSDATE NOT NULL,                                 -- 예약 생성일시
+    CONSTRAINT fk_cr_user FOREIGN KEY (user_id) REFERENCES test_USER (user_id),            -- 사용자 외래키
+    CONSTRAINT fk_cr_counselor FOREIGN KEY (counselor_id) REFERENCES test_USER (user_id)   -- 상담사 외래키
+);
+
+DROP TABLE TEST_COUNSELING_RESERVATION CASCADE CONSTRAINTS;
+

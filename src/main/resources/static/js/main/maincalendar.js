@@ -5,19 +5,19 @@ let emotionMap = {}; // 감정 데이터를 저장
 document.getElementById("prevCalendar").addEventListener("click", switchCalendar);
 document.getElementById("nextCalendar").addEventListener("click", switchCalendar);
 
-// Daily <-> Weekly 전환
+/* Daily <-> Weekly 전환 */
 function switchCalendar() {
     if (currentMode === "daily") {
-        document.getElementById("calendar-title").innerText = "Weekly";
+        document.getElementById("calendar-title").innerText = "ウィークリー";
         currentMode = "weekly";
     } else {
-        document.getElementById("calendar-title").innerText = "Daily";
+        document.getElementById("calendar-title").innerText = "デイリー";
         currentMode = "daily";
     }
     generateCalendar();
 }
 
-// 이전/다음 달 이동
+/* 이전, 다음 달 이동*/
 document.getElementById("prevMonth").addEventListener("click", function () {
     currentDate.setMonth(currentDate.getMonth() - 1);
     generateCalendar();
@@ -28,7 +28,7 @@ document.getElementById("nextMonth").addEventListener("click", function () {
     generateCalendar();
 });
 
-// 감정 데이터를 한 번만 가져오기
+/* Emoji 가져오기 */
 function fetchEmotions() {
     fetch(`/calendar/emotions`)
         .then(response => response.json())
@@ -43,31 +43,34 @@ function fetchEmotions() {
         .catch(error => console.error("감정 데이터를 불러오지 못했습니다.", error));
 }
 
+/* 달력 생성 */
 function generateCalendar() {
     let calendarEl = document.getElementById("calendar-grid");
     let monthYearEl = document.getElementById("calendar-month-year");
 
     const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+        "1月", "2月", "3月", "4月", "5月", "6月",
+        "7月", "8月", "9月", "10月", "11月", "12月"
     ];
 
     let year = currentDate.getFullYear();
     let month = currentDate.getMonth() + 1;
-    let formattedMonth = `${year}-${String(month).padStart(2, '0')}`;
+    let formattedMonth = `${year}-${String(month).padStart(2, '0')}`; // "2025-03"
 
-    monthYearEl.innerText = `${monthNames[month - 1]} ${year}`;
+    monthYearEl.innerText = `${year}年 ${monthNames[month - 1]}`;
     calendarEl.innerHTML = "";
 
-    let firstDay = new Date(year, month - 1, 1).getDay();
-    let lastDate = new Date(year, month, 0).getDate();
-    let prevLastDate = new Date(year, month - 1, 0).getDate();
+    let firstDay = new Date(year, month - 1, 1).getDay(); // 1일의 요일
+    let lastDate = new Date(year, month, 0).getDate(); // 이번 달 마지막 날짜
+    let prevLastDate = new Date(year, month - 1, 0).getDate(); // 이전 달 마지막 날짜
     let totalCells = 0;
 
     let today = new Date();
     let todayFormatted = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
-    // 이전 달 빈칸
+    /* 달력 셀 구성 */
+
+    // 1. 이전 달 빈칸
     for (let i = firstDay - 1; i >= 0; i--) {
         let emptyDiv = document.createElement("div");
         emptyDiv.classList.add("calendar-day", "inactive");
@@ -76,46 +79,52 @@ function generateCalendar() {
         totalCells++;
     }
 
-    // 이번 달 날짜
+    // 2. 이번 달 날짜
     for (let date = 1; date <= lastDate; date++) {
         let dayDiv = document.createElement("div");
         dayDiv.classList.add("calendar-day");
-        let formattedDate = `${formattedMonth}-${String(date).padStart(2, '0')}`;
 
+        let formattedDate = `${formattedMonth}-${String(date).padStart(2, '0')}`;
         dayDiv.dataset.data = formattedDate;
 
+        // 데이터가 있으면 Emoji 표시, 없으면 날짜 표시
         if (currentMode === "daily" && emotionMap[formattedDate]) {
             dayDiv.innerHTML = `<span>${emotionMap[formattedDate]}</span>`;
         } else {
             dayDiv.innerText = date;
         }
 
+        // 오늘 날짜 강조 표시
         if (formattedDate === todayFormatted) {
             dayDiv.classList.add("today");
         }
 
+        // Daily 달력에서 날짜 클릭시 일기 페이지 이동
         if (currentMode === "daily") {
             dayDiv.addEventListener("click", function () {
                 let selectedDate = new Date(`${formattedDate}T00:00:00`); // 클릭한 날짜 객체 변환
 
                 if (selectedDate > today) {
-                    alert("You can't write a journal for a future date.");
+                    alert("未来の日付には日記を記入できません。");
                     return;
                 }
 
+                // 서버에 날짜를 전달해서 서버 세션에 저장
                 fetch('/diary/setSelectedDate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ date: formattedDate })
                 })
                 .then(() => {
-                    window.location.href = '/diary';
+                    window.location.href = '/diary'; // 저장 성공 시 Diary 페이지로 이동
                 })
                 .catch(err => {
                     console.error("서버 세션 저장 실패:", err);
                 });
 
             });
+
+          // Weekly 달력에서 날짜 클릭시 무드 차트 + 체크리스트 불러오기
         } else if (currentMode === "weekly") {
             dayDiv.addEventListener("click", function () {
                 let selectedDate = new Date(`${formattedDate}T00:00:00`);
@@ -143,7 +152,7 @@ function generateCalendar() {
         totalCells++;
     }
 
-    // 다음 달 빈칸
+    // 3. 다음 달 빈칸
     while (totalCells < 42) {
         let emptyDiv = document.createElement("div");
         emptyDiv.classList.add("calendar-day", "inactive");
@@ -227,23 +236,50 @@ function updateMoodChart(moodScores) {
 
     // 새로운 차트 생성
     window.moodChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: ['월', '화', '수', '목', '금', '토', '일'],
+            labels: ['月', '火', '水', '木', '金', '土', '日'],
             datasets: [{
-                label: 'Weekly Mood Score',
+                label: '今週の気分',
                 data: moodScores,
-                backgroundColor: ['#ff9999', '#ffcc99', '#ffff99', '#99ff99', '#99ccff', '#cc99ff', '#ff99cc'],
-                borderColor: '#555',
-                borderWidth: 1
+                tension: 0.2,
+                fill: true,
+                backgroundColor: 'rgba(233, 215, 233, 0.3)',
+                borderColor: '#A1887F',
+                pointBackgroundColor: '#C8E3D4',
+                pointBorderColor: '#D2C4D6',
+                pointRadius: 4,
+                pointHoverRadius: 8,
+                pointHoverBackgroundColor: '#EAD4C2',
+                pointHoverBorderColor: '#5D4037',
+                borderWidth: 2
             }]
         },
         options: {
             responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             scales: {
+                x: {
+                    ticks: {
+                        color: '#7B6651'
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
                 y: {
                     beginAtZero: true,
-                    max: 100
+                    max: 100,
+                    ticks: {
+                        color: '#A1887F'
+                    },
+                    grid: {
+                        color: '#f3e7db'
+                    }
                 }
             }
         }

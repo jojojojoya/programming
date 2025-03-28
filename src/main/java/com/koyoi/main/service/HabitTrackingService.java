@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,7 +31,26 @@ public class HabitTrackingService {
         habitTrackingMapper.updateHabitCompletion(trackingId, completed);
     }
 
+    // 특정 날짜 조회
     public List<HabitTrackingVO> getHabitTrackingByUserAndDate(String userId, LocalDate date) {
-        return habitTrackingMapper.getHabitTrackingByUserAndDate(userId, date);
+        return habitTrackingMapper.getHabitsWithTrackingByDate(userId, date);
+    }
+
+    // 습관 조회
+    public List<HabitTrackingVO> getHabitsWithTrackingByDate(String userId, LocalDate date) {
+        return habitTrackingMapper.getHabitsWithTrackingByDate(userId, date);
+    }
+
+    // 습관 체크 로직
+    public void toggleHabit(String userId, int habitId, LocalDate date, int completed) {
+
+        Integer exists = habitTrackingMapper.checkTrackingExists(userId, habitId, date);
+        if (exists != null && exists > 0) {
+            habitTrackingMapper.updateTracking(userId, habitId, date, completed);
+        } else {
+            LocalDateTime now = LocalDateTime.now();
+            habitTrackingMapper.insertTracking(userId, habitId, now, completed);
+        }
+
     }
 }

@@ -23,16 +23,17 @@ public class AnnouncementService {
     @Autowired
     private AnnouncementMapper announcementMapper;
 
+    /* 5개의 최신 공지사항 가져오기 */
     public List<AnnouncementVO> getFiveAnnouncements() {
         List<AnnouncementVO> announcements = announcementMapper.getFiveAnnouncements();
-        LocalDateTime threeDaysAgo = LocalDateTime.now().minus(3, ChronoUnit.DAYS);
+        LocalDateTime threeDaysAgo = LocalDateTime.now().minus(3, ChronoUnit.DAYS); // 현재 시각 - 3일
 
-        // 3일 이내에 생성된 공지사항에 "New" 표시
+        // 3일 이내에 생성된 공지사항에 "新着" 표시
         for (AnnouncementVO announcement : announcements) {
             if (announcement.getCreated_at().isAfter(threeDaysAgo)) {
-                announcement.setIsNew("Y");  // 3일 이내면 "New" 표시
+                announcement.setIsNew("Y");  // 3일 이내면 "新着" 표시(VO에 "Y" 저장)
             } else {
-                announcement.setIsNew("N");  // 오래된 공지는 "New" 표시 없음
+                announcement.setIsNew("N");  // 오래된 공지는 "新着" 표시 없음(VO에 "N" 저장)
             }
         }
         return announcements;
@@ -57,5 +58,13 @@ public class AnnouncementService {
 
     public int createAnnouncement(AnnouncementVO announcementVO) {
         return announcementMapper.createAnnouncement(announcementVO);
+    }
+
+    public List<AnnouncementVO> getPagedAnnouncementList(int offset, int size) {
+        return announcementMapper.selectAnnouncementPage(offset, size);
+    }
+
+    public int getTotalCount() {
+        return announcementMapper.selectAnnouncementTotalCount();
     }
 }

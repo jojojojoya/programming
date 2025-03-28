@@ -152,7 +152,6 @@ body {
     border: 2px solid #ddd;
 }
 
-/* 프로필 이미지 */
 .myprofile-img {
     width: 40px;
     height: 40px;
@@ -162,40 +161,36 @@ body {
     border: 2px solid #ddd;
 }
 
-/* 🟡 메인 콘텐츠 */
 .content {
-    width: calc(100% - 60px);  /* ✅ sidebar 제외한 크기로 설정 */
+    width: calc(100% - 60px);
     padding: 10px;
     text-align: center;
     font-size: 18px;
 }
 
 .bbiyak {
-    position: absolute; /* 절대 위치 */
-    bottom: 47px; /* 보라색 파도 위로 조정 */
-    left: 73%; /* 가운데 정렬 */
-    transform: translateX(-50%); /* 정확한 중앙 정렬 */
-    width: 70px;  /* 크기 조절 (작게) */
-    height: 70px; /* 크기 조절 (작게) */
-    background-color: transparent; /* 배경색 없음 */
+    position: absolute;
+    bottom: 47px;
+    left: 73%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    background-color: transparent;
     border-radius: 50%;
-    box-sizing: border-box; /* 크기 조정 */
-    z-index: 20; /* 다른 요소 위에 표시 */
-    overflow: hidden; /* 혹시라도 삐져나오면 숨김 */
+    box-sizing: border-box;
+    z-index: 20;
+    overflow: hidden;
 }
 
-/* bbiyak 내부 이미지 크기 조정 */
 .bbiyak img {
-    width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
+    width: 100%;
     height: 100%;
-    object-fit: contain; /* 이미지 비율 유지하며 맞춤 */
+    object-fit: contain;
 }
 
-
-/* 🔵 개별 테이블 스타일 */
 .profile_table, .livechat_table,
 .diary_table, .counseling_table, .chatbot_detail_table {
-    min-width: 440px; /* 🔹 최소 크기 증가 */
+    min-width: 440px;
     padding: 20px;
     border-radius: 12px;
     background: #ffffff;
@@ -203,24 +198,21 @@ body {
     text-align: center;
 }
 
-/* 🔹 상단 그룹 (프로필 + 챗봇) */
 .top-section {
     display: flex;
-    gap: 30px; /* 🔹 간격 조정 (너무 넓지 않도록) */
+    gap: 30px;
     justify-content: center;
 }
 
-/* 🔹 하단 그룹 (다이어리 + 상담) */
 .bottom-section {
     display: flex;
-    gap: 30px; /* 🔹 간격 조정 (너무 넓지 않도록) */
+    gap: 30px;
     justify-content: center;
 }
 
-/* 🟢 너비 조정 가능하도록 설정 */
 .profile_table {
-    flex-grow: 3; /* 🔹 프로필을 더 크게 */
-    flex-basis: 65%; /* 🔹 기본 크기 65% */
+    flex-grow: 3;
+    flex-basis: 65%;
     background-color: white;
 }
 
@@ -251,17 +243,17 @@ body {
 
 
 .livechat_detail_table {
-    flex-grow: 3; /* 🔹 상대적으로 큰 크기 */
+    flex-grow: 3;
     flex-basis: 60%;
     background-color: #ede0d4;
-    height: 100%; /* 🔹 부모 높이에 맞춤 */
+    height: 100%;
 }
 
 
 .livechat_list {
     border: none;
     background-color: #f5f0ea;
-    margin: 10px;
+    margin-bottom: 10px;
     border-radius: 10px;
     height: 35px;
     text-align: center;
@@ -272,7 +264,7 @@ body {
 
 
 #conformation.show {
-    display: flex !important; /* ✅ 강제 표시 */
+    display: flex !important;
     opacity: 1;
     visibility: visible;
     flex-direction: column;
@@ -280,15 +272,13 @@ body {
     justify-content: center;
 }
 
-/* ✅ livechat 단계별 컨트롤 - 중복 제거 */
 #livechat_step1, #step2, #step3, #reserveSection{
-    display: none;  /* 기본적으로 숨김 */
+    display: none;
     opacity: 0;
     transition: opacity 0.6s ease-in-out;
     width: 100%;
 }
 
-/* ✅ 활성화될 때 자연스럽게 나타나도록 설정 */
 #livechat_step1.show, #step2.show, #step3.show, #reserveSection.show {
     display: block;
     opacity: 1;
@@ -296,7 +286,6 @@ body {
 
 
 
-/* ✅ input 및 select 스타일 */
 #livechat_reserve_date, #livechat_reserve_time, #livechat_reserve_category {
     border: none;
     background-color: #ffffff;
@@ -305,57 +294,53 @@ body {
     width: 200px;
     text-align: center;
     font-size: 17px;
+    margin-bottom: 10px;
 }
 
 
-
-
-
-
-/* ✅ 예약하기 버튼과 상담사 멘트, 나가기 버튼 위치 동일하게 정렬 */
 #reserveSection, #conformation {
     display: flex;
     flex-direction: column;
-    align-items: center; /* 중앙 정렬 */
-    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center;
+    justify-content: center;
     width: 100%;
 }
 
-/* ✅ 예약하기 버튼과 동일한 스타일 적용 */
 #livechat_reserve_btn {
     padding: 10px 15px;
-    background-color: #ffd27a; /* 예약하기 버튼과 동일한 색상 */
+    background-color: #ffd27a;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 19px;
-    width: 200px; /* 동일한 크기 유지 */
+    width: 200px;
     text-align: center;
     font-weight: bold;
     transition: background-color 0.3s ease-in-out;
 }
 
-/* ✅ 버튼 호버 효과 (예약 버튼과 동일하게) */
 #livechat_reserve_btn:hover, #livechat_exit_btn:hover {
-    background-color: #ffcc66; /* 살짝 어두운 색으로 변경 */
+    background-color: #ffcc66;
 }
 
-/* ✅ 상담사 배정 멘트 위치 조정 */
 #conformation_text {
-    display: none;
-    text-align: center;
-    font-size: 17px;
-    color: #3f2e29;
-    background-color: #fdf8f2;
-    padding: 1px;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 35px;
+    background-color: #f5f0ea;
     border-radius: 10px;
-    margin-bottom: 10px;
-    padding-left: 454px;
-    padding-right: 454px;
-}
+    margin: 0;
+    text-align: center;
+    line-height: 35px;
+    font-size: 18px;
+    color: #3f2e29;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
-/* ✅ 상담사 멘트가 나타날 때 효과 */
+    }
 #conformation_text.show {
     display: block !important;
     opacity: 1;
@@ -364,24 +349,22 @@ body {
     z-index: 10;
 }
 
-/* ✅ 나가기 버튼 숨김 → 상담사 배정 후 보이게 */
 #livechat_exit_btn {
-    display: block; /* ✅ 버튼을 보이게 설정 */
-    opacity: 0; /* 처음에는 보이지 않도록 설정 */
+    display: block;
+    opacity: 0;
     transition: opacity 0.3s ease-in-out;
     padding: 10px 15px;
-    background-color: #ffd27a; /* 예약하기 버튼과 동일한 색상 */
+    background-color: #ffd27a;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 12px;
-    margin-top: 2px;
-    width: 200px; /* 동일한 크기 유지 */
+    font-size: 16px;
+    margin-top: 10px;
+    width: 200px;
     text-align: center;
     font-weight: bold;
 }
 
-/* ✅ 상담사 배정 후 나가기 버튼이 나타나는 효과 */
 #livechat_exit_btn.show {
     display: block !important;
     opacity: 1;

@@ -1,4 +1,3 @@
-// 전역 변수
 let calendar;
 let currentDiaryId = null;
 let selectedEmoji = "🙂";
@@ -76,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initCalendar();
     highlightSelectedDate(window.selectedDate);
     loadDiaryByDate(window.selectedDate);
+    bindWeeklySummaryClickEvent();
     });
 
 /* 캘린더 초기화 함수 */
@@ -95,11 +95,26 @@ function initCalendar() {
         expandRows: true,
         fixedWeekCount: false,
         aspectRatio: 1.8,
+        height: 'auto',
 
         headerToolbar: {
-            left: 'prev',
+            left: 'prevCustom',
             center: 'title',
-            right: 'next today'
+            right: 'nextCustom today'
+        },
+        customButtons: {
+            prevCustom: {
+                text: '◀',
+                click: function () {
+                    calendar.prev();
+                }
+            },
+            nextCustom: {
+                text: '▶',
+                click: function () {
+                    calendar.next();
+                }
+            }
         },
 
         events: function(fetchInfo, successCallback, failureCallback) {
@@ -140,6 +155,8 @@ function initCalendar() {
 
             loadDiaryById(diaryId); // 상세 조회 함수 호출
             highlightSelectedDate(window.selectedDate);
+
+            loadWeeklySummary(window.selectedDate);
         },
 
         // 이벤트 렌더링 → 이모지로 출력
@@ -173,13 +190,18 @@ function saveDiary() {
         return;
     }
 
+    if (!diaryTitle.trim()) {
+        alert("일기 제목을 입력해주세요!");
+        return;
+    }
+
     if (!diaryContent.trim()) {
         alert("일기 내용을 입력해주세요!");
         return;
     }
 
     const data = {
-        user_id: "user1",   // 나중에 세션에서 받을
+        user_id: "user1",   // 나중에 세션에서 받을건데 지금 세션에서 받고 있지 않나..? 뭐지..?
         title: diaryTitle,
         diary_content: diaryContent,
         created_at: diaryDateTime,
@@ -194,7 +216,6 @@ function saveDiary() {
         .then(response => response.json())
         .then(resData => {
             if (resData && resData.diaryId) {
-                alert("일기가 등록되었습니다!");
                 currentDiaryId = resData.diaryId;
                 console.log("✅ currentDiaryId 업데이트됨:", currentDiaryId);
 
@@ -234,8 +255,6 @@ function updateDiary() {
     })
         .then(response => {
             if (response.ok) {
-                alert("일기 수정 완료!");
-
                 openEmotionModal();
 
             } else {
@@ -391,7 +410,10 @@ function switchToEditMode() {
 
     document.getElementById("diaryDate").innerText = document.getElementById("viewDiaryDate").innerText;
     document.getElementById("diaryTitle").value = document.getElementById("viewDiaryTitle").innerText;
-    document.getElementById("diaryContent").value = document.getElementById("viewDiaryContent").innerText;
+
+    const contentHtml = document.getElementById("viewDiaryContent").innerHTML;
+    const contentText = contentHtml.replace(/<br\s*\/?>/gi, "\n");
+    document.getElementById("diaryContent").value = contentText;
 
     resetEmojiSelection("diaryWriteSection", selectedEmoji, true);
 
@@ -408,6 +430,68 @@ function switchToEditMode() {
     document.getElementById("saveBtn").style.display = "none";
     document.getElementById("updateBtn").style.display = "inline-block";
 }
+
+/* 주간 요약 리스트 조회 함수 */
+function bindWeeklySummaryClickEvent() {
+    const items = document.querySelectorAll(".weekly-item");
+
+    if (!items || items.length === 0) {
+        console.warn("📭 weekly-item 요소가 없습니다.");
+        return;
+    }
+
+    items.forEach(item => {
+        item.addEventListener("click", function () {
+            const diaryId = this.getAttribute("data-diary-id");
+
+            if (!diaryId) {
+                alert("일기 ID가 없습니다!");
+                return;
+            }
+
+            loadDiaryById(diaryId);
+        });
+    });
+}
+
+/*  Ajax로 주간 리스트 불러오는 함수 */
+function loadWeeklySummary(dateStr) {
+    fetch(`/diary/weekly?date=${dateStr}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log("📦 받아온 주간 요약 데이터:", data); // 여기!
+            const summaryBox = document.querySelector(".weekly-summary ul");
+            summaryBox.innerHTML = "";
+
+            if (!data || data.length === 0) {
+                summaryBox.innerHTML = "<li class='weekly-item'>이번 주 일기가 없습니다.</li>";
+                return;
+            }
+
+            data.forEach(diary => {
+                const li = document.createElement("li");
+                li.className = "weekly-item";
+                li.setAttribute("data-diary-id", diary.diary_id);
+
+                const emoji = document.createElement("span");
+                emoji.className = "weekly-item-emoji";
+                emoji.innerText = diary.emotion_emoji || "❓";
+
+                const dateText = diary.created_at?.split("T")[0] || "날짜 없음";
+                const titleText = diary.title || "제목 없음";
+
+                li.appendChild(emoji);
+                li.append(` ${dateText} ${titleText}`);
+                summaryBox.appendChild(li);
+            });
+
+            bindWeeklySummaryClickEvent(); // 항목 클릭 이벤트 연결
+        })
+        .catch(err => {
+            console.error("❌ 주간 요약 로딩 실패:", err);
+        });
+}
+
 
 
 // 오늘의 점수 함수
@@ -474,8 +558,6 @@ function saveEmotionScore() {
     })
         .then(response => {
             if (response.ok) {
-                alert("감정 점수가 저장되었습니다!");
-
                 closeEmotionModal();
 
                 // 캘린더 이벤트 리프레시 상세조회 호출
