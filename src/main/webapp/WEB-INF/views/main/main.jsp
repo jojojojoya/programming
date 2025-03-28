@@ -179,6 +179,5 @@
     const userName = "<%= userNickName %>";
 </script>
 <script src="/static/js/chat/chat-modal.js"></script>
-
 </body>
 </html>
