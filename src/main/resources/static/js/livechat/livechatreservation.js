@@ -66,12 +66,16 @@ document.getElementById("livechat_reserve_btn").addEventListener("click", functi
     let selectedTime = document.getElementById("livechat_reserve_time").value;
     let selectedCategory = document.getElementById("livechat_reserve_category").value;
 
+    if (selectedCategory === "sonota") {
+        selectedCategory = "その他のお悩み";
+    }
+
     if (!selectedDate || !selectedTime || !selectedCategory) {
-        alert("❌ 日付・時間・カテゴリーをすべて選択してください。");
+        alert("日付・時間・カテゴリーをすべて選択してください。");
         return;
     }
 
-    console.log("📌 [client] 予約リクエスト:", {
+    console.log("[client] 予約リクエスト:", {
         livechatreservedate: selectedDate,
         livechatreservetime: selectedTime,
         livechatcategory: selectedCategory
@@ -88,12 +92,12 @@ document.getElementById("livechat_reserve_btn").addEventListener("click", functi
     })
         .then(response => response.json())
         .then(data => {
-            console.log("📌 [client] サーバーからの応答データ:", data);
+            console.log("[client] サーバーからの応答データ:", data);
             if (data.success) {
-                alert("✅ 相談の予約が完了しました！");
+                alert("相談の予約が完了しました！");
 
                 sessionStorage.setItem("counseling_id", data.counseling_id);
-                console.log("✅ [セッション保存] counseling_id:", data.counseling_id);
+                console.log("[セッション保存] counseling_id:", data.counseling_id);
 
                 reserveBtn.style.display = "none";
 
@@ -108,12 +112,12 @@ document.getElementById("livechat_reserve_btn").addEventListener("click", functi
                     setTimeout(() => { exitBtn.style.opacity = "1"; }, 200);
                 }, 1500);
             } else {
-                alert("❌ 予約に失敗しました：" + data.message);
+                alert("予約に失敗しました：" + data.message);
             }
         })
         .catch(error => {
-            console.error("🚨予約処理中にエラーが発生しました:", error);
-            alert("❌  予約リクエスト中にエラーが発生しました。");
+            console.error("予約処理中にエラーが発生しました:", error);
+            alert(" 予約リクエスト中にエラーが発生しました。");
         });
 });
 
@@ -122,11 +126,11 @@ document.getElementById("livechat_exit_btn").addEventListener("click", function 
     let counselingId = sessionStorage.getItem("counseling_id");
 
     if (!counselingId) {
-        alert("❌ 相談IDが見つかりません。");
+        alert("相談IDが見つかりません。");
         return;
     }
 
-    console.log("📌 [client] 相談IDの確認:", counselingId);
+    console.log("[client] 相談IDの確認:", counselingId);
 
     fetch("/livechat/updateStatus", {
         method: "POST",
@@ -138,19 +142,19 @@ document.getElementById("livechat_exit_btn").addEventListener("click", function 
     })
         .then(response => response.json())
         .then(data => {
-            console.log("📌 [client] 相談ステータス更新の応答:", data);
+            console.log("[client] 相談ステータス更新の応答:", data);
 
             if (data.success) {
-                alert("✅ 相談ステータスが「待機」に設定されました。");
+                alert("相談ステータスが「待機」に設定されました。");
                 sessionStorage.removeItem("counseling_id");
                 window.location.href = "/usermypage"; //
             }
             else {
-            alert("❌ ステータスの更新中にエラーが発生しました。");
+            alert("ステータスの更新中にエラーが発生しました。");
             }
         })
         .catch(error => {
-            console.error("🚨相談ステータスの更新中にエラーが発生しました:", error);
-            alert("❌ サーバーへのリクエストでエラーが発生しました。");
+            console.error("相談ステータスの更新中にエラーが発生しました:", error);
+            alert(" サーバーへのリクエストでエラーが発生しました。");
         });
 });

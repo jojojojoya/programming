@@ -96,14 +96,11 @@
         </aside>
     </div>
 
-    <!-- 🟣 오른쪽 컨테이너 (헤더바 + 콘텐츠) -->
     <div class="right-container">
         <header class="header-bar">
-            <!-- 🌙 중앙 브랜드 로고 -->
             <div class="brand-title">
                 <a href="/main"><img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고"></a>
             </div>
-            <!-- 🟡 우측 상단 아이콘 -->
             <div class="header-icons">
                 <button class="header-btn">
                     <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>

@@ -20,9 +20,6 @@ public interface CounselorMyPageMapper {
     """)
     List<CounselorMyPageVO> getReservationsByCounselorId(@Param("counselor_id") String counselor_id);
 
-//    // 상담사 정보 조회 (user_type = 2)
-//    @Select("SELECT FROM test_user WHERE user_id = #{user_id} AND user_type = 2")
-//    List<CounselorMyPageVO> getCounselorById(@Param("user_id") String user_id);
 
     // 유저 관련 DB를 리스팅
     @Select("SELECT * FROM test_user WHERE user_id = #{user_id}")
