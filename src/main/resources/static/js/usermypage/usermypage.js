@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     mypageLoad();
     reservationHandler();
+    chatbotSummaryHandler();
 });
 
 function reservationHandler() {
@@ -43,7 +44,22 @@ function goToLiveChatDetail(sessionId, counselingId, isCompleted) {
     window.location.href = url;
 }
 
+function chatbotSummaryHandler() {
+    document.querySelectorAll(".chatbot_list").forEach(item => {
+        item.addEventListener("click", function () {
+            const title = this.dataset.title || "タイトルなし";
+            const summary = this.dataset.summary || "要約なし";
+            const content = `<strong>[タイトル]</strong><br> ${title}<br><strong>[内容]</strong><br> ${summary}`;
+            const contentDiv = document.getElementById("chatDetailContent");
+            const modal = document.getElementById("chatbotDetailModal");
 
+            if (contentDiv && modal) {
+                contentDiv.innerHTML = content;
+                modal.style.display = "block";
+            }
+        });
+    });
+}
 function mypageLoad() {
     console.log("ページのロードが完了しました！");
 
@@ -68,23 +84,30 @@ function mypageLoad() {
         passwordCheckModal.style.display = "block";
     });
 
+
     const chatbotListItems = document.querySelectorAll(".chatbot_list");
 
     chatbotListItems.forEach(item => {
         item.addEventListener("click", function () {
             console.log("チャットボットリストがクリックされました");
 
-            // 타이틀
-            const summaryTitle = this.textContent;
-            document.querySelector(".chatbot-detail-title").textContent = summaryTitle;
-            // 내용
-            const summaryText = this.textContent;
-            document.querySelector(".chatbot-detail-text").textContent = summaryText;
+            const summaryTitle = this.dataset.title || "タイトルなし";
+            const summaryText = this.dataset.summary || "要約なし";
 
-            // 모달 열기
+            const titleEl = document.querySelector(".chatbot-detail-title");
+            const textEl = document.querySelector(".chatbot-detail-text");
+
+            if (titleEl && textEl) {
+                titleEl.textContent = summaryTitle;
+                textEl.textContent = summaryText;
+            } else {
+                console.warn("요약 표시 요소가 존재하지 않음");
+            }
+
             chatbotDetailModal.style.display = "block";
         });
     });
+
 
 
     checkPasswordBtn.addEventListener("click", function () {

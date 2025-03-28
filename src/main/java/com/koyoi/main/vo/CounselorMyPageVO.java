@@ -30,7 +30,9 @@ public class CounselorMyPageVO {
 
 
     private int chat_id; // 유저 챗봇 상담 id
-    private String chat_summary; // 유저 챗봇 상담 내역 요약
+    private String chat_summary;
+    private String chat_title; // 유저 챗봇 상담 내역 요약
+
 
 
 

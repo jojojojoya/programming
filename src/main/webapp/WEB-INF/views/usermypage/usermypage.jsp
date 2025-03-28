@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
@@ -74,14 +73,11 @@
                     <div class="chatbot_info">
                         <c:if test="${not empty chats}">
                             <c:forEach var="chat" items="${chats}">
-                                <div class="chatbot_list"
-                                     data-title="${chat.chat_title}"
-                                     data-summary="${chat.chat_summary_str}">
+                                <div class="chatbot_list" data-title="${chat.chat_title}" data-summary="${chat.chat_summary}">
                                     <strong>${chat.chat_title}</strong>
-                                    <button class="view_chat_summary_btn">요약 보기</button>
+                                    <button class="view_chat_summary_btn">内容を確認する</button>
                                 </div>
                             </c:forEach>
-
 
 
 
@@ -188,9 +184,11 @@
                     </div>
                 </div>
 
+                    <!-- 모달 부분 -->
                     <div id="chatbotDetailModal" class="modal" style="display: none;">
                         <div class="modal-content">
-                            <div id="chatDetailContent"></div>
+                            <div class="chatbot-detail-title" style="font-weight:bold; margin-bottom:10px;"></div>
+                            <div class="chatbot-detail-text"></div>
                             <button class="close" onclick="closeChatDetail()">閉じる</button>
                         </div>
                     </div>
@@ -234,25 +232,9 @@
                     document.querySelector(".calendar-container").addEventListener("click", function () {
                     window.location.href = "/diary";
                 });
-                    document.querySelectorAll(".chatbot_list").forEach(item => {
-                        item.addEventListener("click", function () {
-                            const title = this.dataset.title || "제목 없음";
-                            const summary = this.dataset.summary || "요약 없음";
 
-                            const content = `<strong>[タイトル]</strong> ${title}<br><strong>[内容]</strong> ${summary}`;
-                            const contentDiv = document.getElementById("chatDetailContent");
-                            const modal = document.getElementById("chatbotDetailModal");
-
-                            if (contentDiv && modal) {
-                                contentDiv.innerHTML = content;
-                                modal.style.display = "block";
-                            } else {
-                                console.error("❌ 요소 없음!");
-                            }
-                        });
-                    });
-            </script>
-
+                </script>
                 <script src="/static/js/usermypage/usermypage.js"></script>
-</div> <!-- usermypage-form 닫기 -->
+        </main>
+</div>
 </html>

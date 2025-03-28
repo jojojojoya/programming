@@ -410,17 +410,48 @@ body {
 .profile_edit_btn:hover {
     background-color: #d8c3a5;
 }
-
 .chatbot_list {
-    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 3px 16px;
+    height: 45px;
     background-color: #f5f0ea;
     margin: 10px;
     border-radius: 10px;
-    height: 35px;
+    font-size: 14px;
+    text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
+
+.chatbot_list strong {
+    font-weight: 500;
+}
+
+.view_chat_summary_btn {
+    padding: 3px 14px;
+    font-size: 13px;
+    background-color: #ede0d4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.view_chat_summary_btn:hover {
+    background-color: #d8c3a5;
+}
+
+.chatbot-detail-text {
+    background-color: #fff3e7;
+    height: 300px;
+    width: 327px;
+    border-radius: 15px;
+    padding: 15px;
+    border: solid 4px #ede0d4;}
+
 .modal {
     display: none;
     position: fixed;
@@ -428,7 +459,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 350px; /* 모달 크기 */
+    width: 400px; /* 모달 크기 */
     background-color: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
@@ -442,6 +473,7 @@ body {
     border-radius: 12px;
     text-align: center;
     position: relative;
+
 }
 
 .close {
@@ -481,18 +513,6 @@ body {
     margin-top: 5px;
 }
 
-.profile-submit-btn {
-    padding: 7px 18px;
-    background-color: #ede0d4;
-    cursor: pointer;
-    font-size: 14px;
-    color: #333;
-    transition: background-color 0.2s;
-    border-radius: 6px;
-    border: none;
-    margin-top: 16px;
-    margin-bottom: 20px;
-}
 
 .modal-content input {
     width: 120px;

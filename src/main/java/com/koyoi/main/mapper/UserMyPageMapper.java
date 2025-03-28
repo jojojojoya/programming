@@ -31,7 +31,7 @@ public interface UserMyPageMapper {
     @Results({
             @Result(property = "chat_id", column = "chat_id"),
             @Result(property = "chat_title", column = "chat_title"),
-            @Result(property = "chat_summary", column = "chat_summary") // String이면 자동 매핑도 가능
+            @Result(property = "chat_summary", column = "chat_summary", typeHandler = com.koyoi.main.handler.ClobTypeHandler.class)
     })
     List<UserMyPageVO> getUserChatBotDetail(@Param("user_id") String user_id);
 

@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.io.BufferedReader;
-import java.io.Reader;
-import java.sql.Clob;
 import java.util.List;
 
 @Service
@@ -29,32 +26,17 @@ public class UserMyPageService {
         return userMyPageMapper.updateProfile(user) > 0;
     }
 
-    private String clobToString(Clob clob) {
-        try (Reader reader = clob.getCharacterStream();
-             BufferedReader br = new BufferedReader(reader)) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
+
+public List<UserMyPageVO> getUserChatBotDetail(String user_id) {
+    List<UserMyPageVO> chatList = userMyPageMapper.getUserChatBotDetail(user_id);
+
+    for (UserMyPageVO chat : chatList) {
+        if (chat.getChat_summary() != null) {
         }
     }
-    public List<UserMyPageVO> getUserChatBotDetail(String user_id) {
-        List<UserMyPageVO> chatList = userMyPageMapper.getUserChatBotDetail(user_id);
 
-        // Clob을 String으로 변환하여 chat_summary_str에 저장
-        for (UserMyPageVO chat : chatList) {
-            if (chat.getChat_summary() != null) {
-                chat.setChat_summary_str(clobToString(chat.getChat_summary()));
-            }
-        }
-
-        return chatList;
-    }
+    return chatList;
+}
 
 
     public List<UserMyPageVO> getUserReservations(String user_id) {
