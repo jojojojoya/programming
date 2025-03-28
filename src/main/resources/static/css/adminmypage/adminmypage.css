@@ -8,7 +8,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /*height: 100vh;*/
+    height: auto;
+    overflow-y: auto;
 }
 
 .container {
@@ -19,6 +21,26 @@ body {
     overflow: hidden;
     display: flex;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 웹킷 브라우저용 스크롤바 커스터마이징 */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f0ea;  /* 트랙 배경색 */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d2c4d6;  /* 스크롤바 색상 */
+    border-radius: 10px;
+    border: 2px solid #f5f0ea; /* thumb 외곽 여백 효과 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b8a5b9;  /* hover 시 색상 */
 }
 
 .left-container {

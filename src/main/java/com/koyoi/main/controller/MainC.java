@@ -30,14 +30,15 @@ public class MainC {
 
     @Autowired
     private HabitTrackingService habitTrackingService;
+
     @Autowired
     private AdminMypageService adminMypageService;
 
+    /* 메인 페이지 */
     @GetMapping("/main")
     public String main(HttpSession session, Model model) {
-        model.addAttribute("announcements", announcementService.getFiveAnnouncements());
-        model.addAttribute("quotes", quoteService.getAllQuotes());
 
+        // 로그인 세션
         String userId = (String) session.getAttribute("userId");
 
         if (userId != null) {
@@ -45,9 +46,16 @@ public class MainC {
             model.addAttribute("user", user);
         }
 
+        // 공지사항 모달에 띄우기
+        model.addAttribute("announcements", announcementService.getFiveAnnouncements());
+
+        // 슬라이더에 명언 데이터 띄우기
+        model.addAttribute("quotes", quoteService.getAllQuotes());
+
         return "main/main";
     }
 
+    /* Emoji */
     @GetMapping("/calendar/emotions")
     @ResponseBody
     public List<EmotionVO> getAllEmotions(HttpSession session) {
