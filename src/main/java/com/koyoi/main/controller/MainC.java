@@ -34,7 +34,7 @@ public class MainC {
     @Autowired
     private AdminMypageService adminMypageService;
 
-    /* 메인 페이지 */
+    /* Main Page */
     @GetMapping("/main")
     public String main(HttpSession session, Model model) {
 
@@ -67,6 +67,7 @@ public class MainC {
         return emotionService.getUserAllEmotions(userId);
     }
 
+    /* Mood Score */
     @GetMapping("/mood/scores")
     @ResponseBody
     public List<EmotionVO> getWeeklyMoodScores(HttpSession session, @RequestParam("start") String startDate, @RequestParam("end") String endDate) {
@@ -79,6 +80,8 @@ public class MainC {
         return emotionService.getWeeklyMoodScores(userId, startDate, endDate);
     }
 
+    /* Checklist */
+    /* 전체 습관 목록 (사용 X, 기본 목록용) */
     @GetMapping("/habit-tracking/list")
     @ResponseBody
     public List<HabitTrackingVO> getHabitTrackingList(HttpSession session) {
@@ -91,21 +94,7 @@ public class MainC {
         return habits;
     }
 
-
-/*    @GetMapping("/habit-tracking/list/today")
-    @ResponseBody
-    public TodayHabitDTO getTodayHabitTrackingList(HttpSession session) {
-        String userId = (String) session.getAttribute("userId");
-
-        if(userId == null) {
-            throw new IllegalStateException("로그인 정보가 없습니다");
-        }
-
-        boolean hasHabits = habitTrackingService.countHabitTrackingByUser(userId);
-        List<HabitTrackingVO> habits = habitTrackingService.getTodayHabitTrackingByUser(userId);
-
-        return new TodayHabitDTO(hasHabits, habits);*/
-
+    /* 오늘의 습관 리스트 -> 메인 페이지 로드시 */
     @GetMapping("/habit-tracking/list/today")
     @ResponseBody
     public TodayHabitDTO getTodayHabitTrackingList(HttpSession session) {
@@ -123,6 +112,7 @@ public class MainC {
 
     }
 
+    /* 특정 날짜의 습관 리스트 -> 달력에서 날짜 클릭시 */
     @GetMapping("/habit-tracking/list/by-date")
     @ResponseBody
     public List<HabitTrackingVO> getHabitTrackingListByDate(HttpSession session, @RequestParam("date") String formattedDate) {
@@ -137,7 +127,7 @@ public class MainC {
         return habitTrackingService.getHabitTrackingByUserAndDate(userId, date);
     }
 
-
+    /* 체크 여부 변경 */
     @PostMapping("/habit-tracking/toggle/{habitId}")
     @ResponseBody
     public String toggleHabit(@PathVariable int habitId, @RequestBody CompletedDTO dto, HttpSession session) {
