@@ -2,24 +2,16 @@ package com.koyoi.main.service;
 
 import com.koyoi.main.mapper.CounselorMyPageMapper;
 import com.koyoi.main.vo.CounselorMyPageVO;
-import com.koyoi.main.vo.UserMyPageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @Service
 public class CounselorMyPageService {
 
-    private final DataSource dataSource;
     @Autowired
     private CounselorMyPageMapper counselorMyPageMapper;
-
-    @Autowired
-    public CounselorMyPageService(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
 
     @Autowired
@@ -62,10 +54,6 @@ public class CounselorMyPageService {
         }
         return storedPassword.trim().equals(inputPassword.trim());
 
-    }
-
-    public boolean isNicknameDuplicate(String nickname, String currentUserId) {
-        return CounselorMyPageMapper.countByNicknameExcludeCurrentUser(nickname, currentUserId) > 0;
     }
 
     public int countNicknameExcludeCurrentUser(String nickname, String userId) {

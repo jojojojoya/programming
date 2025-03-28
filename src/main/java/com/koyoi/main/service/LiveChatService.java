@@ -90,7 +90,6 @@ public class LiveChatService {
     @Transactional(readOnly = true)
     public List<LiveChatVO> getChatLogs(int sessionId) {
         if (sessionId <= 0) {
-            System.out.println("유효하지 않은 session_id: " + sessionId);
             return List.of();
         }
 

@@ -5,18 +5,9 @@ import com.koyoi.main.vo.UserMyPageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
 import java.util.List;
-
 @Service
 public class UserMyPageService {
-
-        private final DataSource dataSource;
-
-        @Autowired
-        public UserMyPageService(DataSource dataSource) {
-            this.dataSource = dataSource;
-        }
 
 
         @Autowired
@@ -64,9 +55,6 @@ public List<UserMyPageVO> getUserChatBotDetail(String user_id) {
 
     }
 
-    public boolean isNicknameDuplicate(String nickname, String currentUserId) {
-        return userMyPageMapper.countByNicknameExcludeCurrentUser(nickname, currentUserId) > 0;
-    }
 
     public int countNicknameExcludeCurrentUser(String nickname, String userId) {
         return userMyPageMapper.countByNicknameExcludeCurrentUser(nickname, userId);

@@ -42,10 +42,10 @@ public class LiveChatC {
 
         if (reservations.isEmpty()) {
             // 예약 상담 없음
-            System.out.println("⚠️ 예약된 상담 없음.");
+            System.out.println("예약된 상담 없음.");
         } else {
             // 예약 상담 개수
-            System.out.println("🔍 예약된 상담 개수: " + reservations.size());
+            System.out.println("예약된 상담 개수: " + reservations.size());
         }
 
         return ResponseEntity.ok(reservations);
@@ -59,9 +59,6 @@ public class LiveChatC {
         // 로그인된 유저 가져오기
         String userId = getLoginUserId(session);
         UserMyPageVO loggedInUser = liveChatService.getUserInfoById(userId).get(0);
-
-
-
 
         // 예약 가능한 상담 목록 추가
         List<LiveChatVO> availableReservations = liveChatService.getAvailableReservations();
@@ -103,11 +100,8 @@ public class LiveChatC {
         }
 
         model.addAttribute("counseling", counselingDetail);
-
         model.addAttribute("chatLogs", chatLogs);
-
         model.addAttribute("isCompleted", isCompleted);
-
 
         System.out.println("상담 상세 페이지 로드 완료: sessionId=" + sessionId + ", isCompleted=" + isCompleted);
         return "/finalindex";
@@ -115,13 +109,10 @@ public class LiveChatC {
     }
 
 
-
-
     @PostMapping("/livechatreservation")
     public ResponseEntity<Map<String, Object>> reserveLiveChat(@RequestBody Map<String, String> request, HttpSession session) {
 
         String userId = getLoginUserId(session);
-
 
 
         try {
@@ -207,26 +198,17 @@ public class LiveChatC {
 }
 
 
-
-
-
-
-
     // 특정 채팅방 세션 id로 채팅 내역 가져오기
     @GetMapping("/chatlogs/{sessionId}")
     public List<LiveChatVO> getChatLogs(@PathVariable int sessionId) {
         return liveChatService.getChatLogs(sessionId);
     }
-
-
     // 특정 채팅방 세션 id의 채팅 내역 저장하기
     @PostMapping("/chatmessage")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> saveChatMessage(@RequestBody LiveChatVO message) {
         try {
-            System.out.println("[백엔드] 저장 요청 받은 메시지: " + message);
             if (message.getMessage() == null || message.getMessage().trim().isEmpty()) {
-                System.err.println("[백엔드 오류] message 필드가 null 또는 비어 있음!");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(Map.of("success", false, "message", "메시지가 비어 있습니다."));
             }
