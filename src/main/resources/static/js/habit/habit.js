@@ -111,7 +111,7 @@ function addClickListener() {
 }
 
 function addHabitToDatabase(habitName) {
-    const requestData = { habit_name: habitName, user_id: "user1" };
+    loadWeeklyMemo
 
     fetch('/habit/add', {
         method: 'POST',

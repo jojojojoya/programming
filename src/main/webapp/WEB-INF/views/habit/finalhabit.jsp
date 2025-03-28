@@ -189,8 +189,15 @@
     function getSelectedDate() {
         const display = document.getElementById('selectedDateDisplay');
         const text = display.textContent || display.innerText;
-        const dateStr = text.replace('선택한 날짜: ', '').trim(); // "2025-03-25" 형태
-        return dateStr || new Date().toISOString().split('T')[0]; // 기본값: 오늘
+
+        // 정규표현식으로 yyyy-MM-dd 날짜 형식만 추출
+        const dateRegex = /\d{4}-\d{2}-\d{2}/;
+        const match = text.match(dateRegex);
+
+        // 날짜 형식이 없으면 null 반환 (예: 日付：未選択)
+        return match ? match[0] : null;
+        // const dateStr = text.replace('선택한 날짜: ', '').trim(); // "2025-03-25" 형태
+        // return dateStr || new Date().toISOString().split('T')[0]; // 기본값: 오늘
     }
 
     // ✅ 페이지 로드시 또는 날짜 선택 시 호출 → 해당 날짜의 완료된 습관 목록을 불러옴
@@ -198,7 +205,7 @@
         const selectedDate = getSelectedDate(); // 선택된 날짜 가져오기
 
         fetch(`/habit/tracking/status?date=${selectedDate}`)
-            .then(response => response.json())
+            .then(response => response.text())
             .then(trackedHabitIds => {
                 document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                     const habitId = parseInt(checkbox.id.split('-')[1]);
