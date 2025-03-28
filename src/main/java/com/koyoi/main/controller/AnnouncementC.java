@@ -29,7 +29,7 @@ public class AnnouncementC {
         return "finalindex";
     }*/
 
-    // AJAX 요청에 응답하기 위한 JSON 전용 API
+    /* AJAX 요청에 응답하기 위한 JSON 전용 API */
     @GetMapping("/announcement/list")
     @ResponseBody
     public AdminPageDTO<AnnouncementVO> getAnnouncementList(@RequestParam(defaultValue = "1") int page,
@@ -58,7 +58,6 @@ public class AnnouncementC {
 
         return "finalindex";
     }
-
 
     /* 공지사항 상세 페이지 이동 */
     @GetMapping("/announcement/view/{id}")

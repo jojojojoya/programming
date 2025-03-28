@@ -31,7 +31,8 @@ public class AdminMypageService {
         return adminMypageMapper.getAllCounselors();
     }
 
-    /* 상세 정보 조회 */
+
+    /* 회원 정보 조회 */
     public AdminMypageVO getUserById(String userId) {
         return adminMypageMapper.getUserById(userId);
     }
@@ -45,6 +46,7 @@ public class AdminMypageService {
     public int updateUser(AdminMypageVO adminMypageVO) {
         return adminMypageMapper.updateUser(adminMypageVO);
     }
+
 
     /* 페이징 */
     public int getUserTotalCount() {
