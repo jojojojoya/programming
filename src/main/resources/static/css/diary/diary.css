@@ -1,25 +1,19 @@
-/* ======================================================== */
-/* ✅ 메인 콘텐츠 영역 레이아웃 */
-/* ======================================================== */
-html, body {
-    overflow: hidden; /* ✅ 전체 스크롤 막기 */
-}
-
+/*------------------------------*/
+/* 메인 콘텐츠 영역 레이아웃 */
 .content {
     display: grid;
     grid-template-columns: 1fr 2fr; /* 캘린더:다이어리 비율 */
     gap: 2vw;
     min-height: calc(100vh - 120px);  /* 헤더 제외한 높이 */
     box-sizing: border-box;
-    padding: 2vh 2vw;
-    overflow: hidden;
+    /*padding: 2vh 2vw;*/
     height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-/* ======================================================== */
-/* ✅ 캘린더 영역 */
-/* ======================================================== */
-
+/*------------------------------*/
+/* 캘린더 & 위클리 영역 */
 .calendar-container {
     display: flex;
     flex-direction: column;
@@ -30,8 +24,7 @@ html, body {
 #calendar {
     width: 100%;
     box-sizing: border-box;
-    background-color: #9A6E50;
-    color: #fff3e7;
+    background-color: #fff3e7;
     padding: 2vh 2vw;
     border-radius: 1rem;
     box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
@@ -40,16 +33,159 @@ html, body {
     overflow: hidden;
 }
 
-/* ======================================================== */
-/* ✅ 주간 감정 요약 */
-/* ======================================================== */
+/* 캘린더 내 버튼 및 텍스트 스타일 */
+.fc-toolbar-title {
+    font-size: 2.5vh !important;
+    color: #3D2C2E !important;
+}
+
+/*.fc .fc-button {*/
+/*    background-color: #fff3e7;*/
+/*    color: #3f2e29;*/
+/*    border-radius: 1vh;*/
+/*    padding: 0.5vh 1vw;*/
+/*    font-size: 1.2vh;*/
+/*    font-weight: bold;*/
+/*    border: none;*/
+/*}*/
+
+/*.fc .fc-button:hover {*/
+/*    background-color: #fff3e7;*/
+/*    color: #3f2e29;*/
+/*}*/
+
+/* 🔄 버튼 초기화 */
+.fc .fc-button {
+    background: none !important;
+    border: none !important;
+    color: #3f2e29 !important;
+    font-size: 1.8vh;
+    font-weight: bold;
+    padding: 0.4vh 0.8vw;
+    border-radius: 0.8rem;
+    transition: background-color 0.2s ease;
+    box-shadow: none !important;
+}
+
+/* 🖱️ 호버 효과 */
+.fc .fc-button:hover {
+    color: #3f2e29 !important;
+}
+
+/* ⬅️➡️ 버튼만 따로 다듬기 (좌우 버튼) */
+.fc .fc-prev-button,
+.fc .fc-next-button {
+    font-size: 1.5vh !important;
+    padding: 0 0.8vw;
+}
+
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1vh;
+    padding: 0 1.5vw;
+}
+
+.fc-today-button {
+    margin-left: 1vw;
+    background-color: #D8D2C2;
+}
+
+.fc .fc-col-header-cell {
+    color: #3f2e29;
+    font-size: 1.3vh;
+    text-transform: uppercase;
+    padding: 1vh 0;
+}
+
+/*.fc .fc-daygrid-day {*/
+/*    background-color: #fff3e7;*/
+/*    color: #3f2e29;*/
+/*    border-radius: 1vh;*/
+/*    border: none;*/
+/*}*/
+.fc .fc-daygrid-day {
+    border: 1px solid #e3d5ca !important; /* ✅ 날짜 셀 테두리 */
+    border-radius: 10px !important;       /* ✅ 둥근 사각형 */
+    background-color: #fff4e8 !important;
+    transition: background-color 0.2s ease;
+}
+
+
+.fc-daygrid-day:hover {
+    background-color: #f1e5da;
+    border: 1px solid #e3d5ca !important;
+}
+
+.fc-day-today,
+.fc-day-selected {
+    background-color: #ffd27a !important;
+    color: #3f2e29;
+    border-radius: 1vh;
+}
+
+.fc-daygrid-day-number {
+    font-size: 1.4vh;
+    color: #3f2e29;
+    font-weight: bold;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+.fc-daygrid-day-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 2px solid #e3d5ca !important; /* ✅ 날짜 셀 테두리 */
+    border-radius: 10px !important;       /* ✅ 둥근 사각형 */
+    margin: 2px;
+}
+
+.fc-daygrid-day-frame:has(.fc-event) .fc-daygrid-day-number {
+    display: none;
+}
+
+.fc-daygrid-event,
+.emoji-event {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.fc .fc-scrollgrid,
+.fc .fc-scrollgrid td,
+.fc .fc-scrollgrid th {
+    border: none !important;
+}
+
+.emoji-event {
+    font-size: 3vh;
+    height: 100%;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+.fc-event {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/*------------------------------*/
+/* 주간 감정 요약 */
 .weekly-summary {
     width: 100%;
     box-sizing: border-box;
     flex-grow: 1;
     background-color: #ede0d4;
     border-radius: 1rem;
-    padding: 2vh 2vw;
+    padding: 1.5vh 1.5vw;
     box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
 }
 
@@ -65,6 +201,9 @@ html, body {
     list-style: none;
     padding: 0;
     margin: 0;
+    overflow-y: auto;
+    max-height: 30vh;
+    background-color: #EDE0D4;
 }
 
 .weekly-item {
@@ -91,139 +230,83 @@ html, body {
     margin-right: 1vw;
 }
 
-
-/* 캘린더 내 버튼 및 텍스트 스타일 */
-.fc-toolbar-title {
-    font-size: 2.5vh !important;
-    color: #fff3e7 !important;
-}
-
-.fc .fc-button {
-    background-color: #ffd27a;
-    color: #3f2e29;
-    border-radius: 1vh;
-    padding: 0.5vh 1vw;
-    font-size: 1.2vh;
-    font-weight: bold;
-    border: none;
-}
-
-.fc .fc-button:hover {
-    background-color: #ffcf60;
-}
-
-.fc .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 1vh;
-    padding: 0 1.5vw;
-}
-
-.fc-today-button {
-    margin-left: 1vw;
-}
-
-.fc .fc-today-button:hover {
-    color: #3f2e29;
-}
-
-.fc .fc-col-header-cell {
-    background-color: #3f2e29;
-    color: #fff3e7;
-    font-size: 1.2vh;
-    text-transform: uppercase;
-    padding: 1vh 0;
-}
-
-.fc .fc-daygrid-day {
-    background-color: #fff3e7;
-    color: #3f2e29;
-    border-radius: 1vh;
-    border: none;
-}
-
-.fc-daygrid-day:hover {
-    background-color: #ffd27a;
-}
-
-.fc-day-today,
-.fc-day-selected {
-    background-color: #ffd27a !important;
-    color: #3f2e29;
-    border-radius: 1vh;
-}
-
-.fc-daygrid-day-number {
-    font-size: 1.4vh;
-    color: #3f2e29;
-    font-weight: bold;
-    z-index: 1;
-    transition: opacity 0.3s ease;
-}
-
-.fc-daygrid-day-frame {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.fc-daygrid-day-frame:has(.fc-event) .fc-daygrid-day-number {
-    display: none;
-}
-
-.fc-daygrid-event,
-.emoji-event {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-}
-
-.emoji-event {
-    font-size: 3vh;
-    height: 100%;
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-.fc-event {
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-/* ======================================================== */
-/* ✅ 다이어리 영역 */
-/* ======================================================== */
-
+/*------------------------------*/
+/* 다이어리 영역 */
 .diary-section-container {
     background-color: #fff3e7;
     display: flex;
     flex-direction: column;
-    padding: 2vh 2vw;                    /* ✅ 반응형 패딩 */
+    padding: 2vh 2vw;
     border-radius: 1rem;
     box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
-    height: 100%;
-    min-height: 100%;
+    flex-grow: 1;
+    min-height: 0;
     overflow: hidden;
 }
 
-/* ✅ 작성 영역과 뷰 영역 공통 스타일 */
-#diaryWriteSection,
-#diaryViewSection {
+.diary-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: 0;
     overflow: hidden;
-    height: 120%;
 }
 
-/* ✅ 날짜 스타일 */
+/* 작성 영역 */
+.diary-write-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.diary-write-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 45vh;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2vh 2vw;
+    border-radius: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ede0d4;
+    color: #3f2e29;
+    font-size: 1.5vh;
+    margin-bottom: 2vh;
+    resize: none;
+    word-break: break-word;
+}
+
+/* 뷰 영역 */
+.diary-view-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.diary-view-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 45vh;
+    height: 55%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2vh 2vw;
+    border-radius: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ede0d4;
+    color: #3f2e29;
+    font-size: 1.5vh;
+    margin-bottom: 2vh;
+    word-break: break-word;
+}
+
+/* 날짜 스타일 */
 #diaryDate,
 #viewDiaryDate {
     font-weight: bold;
@@ -231,9 +314,7 @@ html, body {
     font-size: 1.8vh;
 }
 
-/* ======================================================== */
-/* ✅ 이모지 선택 옵션 */
-/* ======================================================== */
+/* 이모지 선택 옵션 */
 .emoji-option {
     font-size: 3vh;                      /* ✅ 폰트 크기 반응형 */
     margin: 1vh;
@@ -249,21 +330,21 @@ html, body {
     background-color: #ffd27a;
 }
 
-#diaryWriteSection .emoji-option {
+.diary-write-section .emoji-option {
     cursor: pointer;
 }
 
-#diaryWriteSection .emoji-option:hover {
+.diary-write-section .emoji-option:hover {
     transform: scale(1.2);
     background-color: #ffd27a;
 }
 
-#diaryViewSection .emoji-option {
+.diary-view-section .emoji-option {
     cursor: default;
 }
 
-/* ✅ 다이어리 작성 타이틀 (input) */
-#diaryTitle, #viewDiaryTitle {
+/* 다이어리 작성 타이틀 (input) */
+.diary-write-title, .diary-view-title {
     width: 100%;
     height: 6vh;
     box-sizing: border-box;
@@ -280,44 +361,29 @@ html, body {
     font-weight: bold;
 }
 
-#diaryTitle {
+.diary-write-title {
     line-height: 1.5;
     margin: 1vh 0;
     text-align: center;
     word-break: break-word;
 }
 
-/* ✅ 다이어리 조회 타이틀 (div) */
-#viewDiaryTitle {
+/* 다이어리 조회 타이틀 (div) */
+.diary-view-title {
     text-align: center;
 }
 
-/* 일기 내용 부분 공통사항 */
-#diaryContent,
-#viewDiaryContent {
-    flex-grow: 1;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 2vh 2vw;
+.diary-button-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 2vw;
+    margin-top: auto;
+    padding-bottom: 1vh;
 
-    min-height: 420px;
-    /*height: 100%;*/
-
-    overflow-y: auto;
-
-    border-radius: 1rem;
-    background-color: #f9f9f9;
-    border: 1px solid #ede0d4;
-    color: #3f2e29;
-
-    font-size: 1.5vh;
-    margin-bottom: 2vh;
-    resize: none;
 }
 
-
-
-button{
+/* diary-section 내부 버튼 */
+.diary-section-container .diary-btn {
     padding: 1.5vh 3vw;
     background-color: #ffd27a;
     color: #3f2e29;
@@ -327,17 +393,16 @@ button{
     border-radius: 1rem;
     cursor: pointer;
     margin-top: 1vh;
+    transition: all 0.2s ease-in-out;
 }
 
-button:hover {
+.diary-section-container .diary-btn:hover {
     background-color: #ffcf60;
-    box-shadow: 0 0.5vh 1vh rgba(63, 46, 41, 0.25);
+    /*box-shadow: 0 0.5vh 1vh rgba(63, 46, 41, 0.25);*/
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
 }
 
-/* ======================================================== */
-/* ✅ 감정 점수 모달 */
-/* ======================================================== */
-
+/* 감정 점수 모달 */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -378,21 +443,21 @@ button:hover {
     margin-top: 2vh;
 }
 
-/* ✅ 감정 점수 값 */
+/* 감정 점수 값 */
 .score-value {
     margin: 2vh 0;
     font-size: 2vh;
     color: #3f2e29;
 }
 
-/* ✅ 버튼 기본 스타일 */
+/* 모달 버튼 기본 스타일 */
 .modal-buttons button {
-    padding: 1.5vh 3vw;             /* ✅ 반응형 패딩 */
+    padding: 1.5vh 3vw;
     border-radius: 1rem;
     font-weight: bold;
     cursor: pointer;
     border: none;
-    font-size: 1.6vh;               /* ✅ 반응형 폰트 크기 */
+    font-size: 1.6vh;
     margin: 0 0.5vw;
 }
 
@@ -406,7 +471,7 @@ button:hover {
 }
 
 .btn-cancel {
-    background-color: #eee;
+    background-color: #EDE0D4;
     color: #3f2e29;
 }
 

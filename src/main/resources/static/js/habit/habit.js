@@ -13,7 +13,7 @@ function loadWeeklySummary() {
 }
 
 // ✅ 주간 이력 테이블 출력
-function renderWeeklyMemo(data) {
+/*function renderWeeklyMemo(data) {
     const tbody = document.getElementById("weeklyHabitBody");
     tbody.innerHTML = "";
 
@@ -24,6 +24,24 @@ function renderWeeklyMemo(data) {
         for (let i = 0; i < 7; i++) {
             row += `<td>${tracking[i] ? 'O' : 'X'}</td>`;
         }
+
+        row += "</tr>";
+        tbody.innerHTML += row;
+    });
+}*/
+
+function renderWeeklyMemo(data) {
+    const tbody = document.getElementById("weeklyHabitBody");
+    tbody.innerHTML = "";
+
+    data.forEach(habit => {
+        const tracking = habit.tracking;
+        let row = `<tr><td>${habit.habit_name}</td>`;
+
+        const dayOrder = [6, 0, 1, 2, 3, 4, 5]; // 일 ~ 토
+        dayOrder.forEach(i => {
+            row += `<td>${tracking[i] ? 'O' : 'X'}</td>`;
+        });
 
         row += "</tr>";
         tbody.innerHTML += row;
@@ -136,8 +154,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    function addHabitToDatabase(habitName) {
-        const requestData = { userId: 'user1', habitName: habitName };
+/*    function addHabitToDatabase(habitName) {
+        const requestData = { habitName: habitName, userId: 'user1'};
 
         fetch('/habit/add', {
             method: 'POST',
@@ -153,9 +171,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .catch(error => console.error('Error:', error));
+    }*/
+
+    function addHabitToDatabase(habitName) {
+        const requestData = { habit_name: habitName, user_id: "user1" };
+
+        fetch('/habit/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.habit_id || data.status === "success") {
+                    updateHabitList(data);
+                } else {
+                    alert('習慣追加失敗');
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
 
-    function updateHabitList(habit) {
+/*    function updateHabitList(habit) {
         const habitList = document.querySelector('.myhabit-list');
         const newHabitDiv = document.createElement('div');
         newHabitDiv.id = `habit-${habit.habit_id}`;
@@ -165,6 +202,21 @@ document.addEventListener("DOMContentLoaded", function () {
             <button class="delete-btn" onclick="deleteHabit(${habit.habit_id})">삭제</button>
         `;
         habitList.appendChild(newHabitDiv);
+    }*/
+
+    function updateHabitList(habit) {
+        const habitList = document.querySelector('.myhabit-list');
+
+        const newHabitDiv = document.createElement('div');
+        newHabitDiv.id = `habit-box-${habit.habit_id}`;
+        newHabitDiv.innerHTML = `
+        <input type="checkbox" id="habit-${habit.habit_id}" />
+        <label for="habit-${habit.habit_id}">${habit.habit_name}</label>
+        <button class="delete-btn" onclick="deleteHabit(${habit.habit_id})">삭제</button>
+    `;
+
+        habitList.appendChild(newHabitDiv);
+        attachCheckboxEvents();  // 체크박스 이벤트 연결 함수
     }
 
     function generateCalendar(month, year) {
@@ -227,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     generateCalendar(currentMonth, currentYear);
+
 
     function loadTrackingStatus() {
         if (!selectedDate) return;
@@ -292,6 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
+
 
     loadTrackingStatus();
     loadWeeklySummary();
