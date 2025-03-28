@@ -40,7 +40,7 @@ public interface EmotionMapper {
             "AND user_id = #{userId}")
     int deleteEmotion(@Param("diaryId") int diaryId, @Param("userId") String userId);
 
-    // 달력 이모지
+    /* Emoji 가져오기 */
     @Select("SELECT E.emotion_id, E.user_id, E.diary_id, E.emotion_score, E.emotion_emoji, E.recorded_at " +
             "FROM TEST_EMOTION E LEFT JOIN TEST_USER U ON E.user_id = U.user_id " +
             "LEFT JOIN TEST_DIARY D ON E.diary_id = D.diary_id " +
