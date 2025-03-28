@@ -53,10 +53,11 @@ public class SignUpService {
                 // ✅ 파일 저장 처리
                 userImg.transferTo(saveFile);
 
-                // ✅ DB에 저장할 값은 보통 상대경로만 저장 (이미지 출력할 때 상대경로 기준)
-                user.setUserImg(imgFileName);
+                // ✅ DB에는 상대경로로 저장해야 웹에서 접근 가능!
+                String relativePath = "/imgsource/userProfile/" + imgFileName;
+                user.setUserImg(relativePath);
 
-                log.info("이미지 업로드 성공: {}", imgFileName);
+                log.info("이미지 업로드 성공: {}", relativePath);
 
             } catch (IOException e) {
                 log.error("이미지 업로드 실패!", e);

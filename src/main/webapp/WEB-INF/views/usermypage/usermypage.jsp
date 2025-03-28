@@ -2,12 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
-<%
-    UserMyPageVO user = (UserMyPageVO) request.getAttribute("user");
-    String imgPath = (user != null && user.getUser_img() != null)
-            ? user.getUser_img()
-            : "/imgsource/testprofile.png";
-%>
+<%--<%--%>
+<%--    UserMyPageVO user = (UserMyPageVO) request.getAttribute("user");--%>
+<%--    String imgPath = (user != null && user.getUser_img() != null)--%>
+<%--            ? user.getUser_img()--%>
+<%--            : "/imgsource/testprofile.png";--%>
+<%--%>--%>
 
 
 <%  // 세션 체크 추가 부분 시작

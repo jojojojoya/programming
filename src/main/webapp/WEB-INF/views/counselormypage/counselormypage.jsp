@@ -2,6 +2,29 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+<%  // 세션 체크 추가 부분 시작
+    HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
+    String userId = null;
+    String userType = null;
+    String userImg = null;
+
+    if (session1 != null) {
+        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+        userImg = (String) session1.getAttribute("userImg"); // 세션에 저장된 userId 값
+        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
+
+        if (userTypeObj != null) {
+            userType = userTypeObj.toString(); // int → String 안전하게 변환
+        }
+    }
+
+    if (userId == null) {
+        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
+        return;
+    }
+%>
+
 <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap"
       rel="stylesheet">
 <link rel="stylesheet" href="/static/css/counselormypage/counselormypage.css">
@@ -10,8 +33,7 @@
     <div class="profile_table">
         <div class="profile_content">
             <div class="profile_img">
-                <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="프로필 이미지">
-
+                <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'">
             </div>
             <div class="profile_info">
                 <div class="profile_item">
@@ -137,9 +159,8 @@
         <h3>プロフィールを編集する</h3>
 
         <div class="profile_img">
-            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">
+            <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'">
         </div>
-
         <label for="editProfileImg" id="customFileLabel">ファイルを選択</label>
         <br>
         <input type="file" id="editProfileImg" accept="image/*" style="display: none;">
