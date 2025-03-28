@@ -48,16 +48,33 @@ public class HabitService {
     }
 
     // ✅ 완료된 habit_id 리스트 조회 (문자열 → Date 변환)
+//    public List<Integer> getCompletedHabitIds(String userId, String trackingDate) {
+//        try {
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            Date parsedDate = sdf.parse(trackingDate);
+//            return habitMapper.getCompletedHabitIdsByDate(userId, parsedDate);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return List.of();
+//        }
+//    }
     public List<Integer> getCompletedHabitIds(String userId, String trackingDate) {
+        if (trackingDate == null || trackingDate.trim().isEmpty()) {
+            System.out.println("⛔ [getCompletedHabitIds] 유효하지 않은 날짜 입력: " + trackingDate);
+            return Collections.emptyList(); // 빈 리스트 반환
+        }
+
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date parsedDate = sdf.parse(trackingDate);
             return habitMapper.getCompletedHabitIdsByDate(userId, parsedDate);
         } catch (Exception e) {
+            System.out.println("❌ [getCompletedHabitIds] 날짜 파싱 실패: " + trackingDate);
             e.printStackTrace();
-            return List.of();
+            return Collections.emptyList();
         }
     }
+
 
     // ✅ 체크 여부 저장
     public void saveOrUpdateTracking(HabitTrackingVO vo) {

@@ -198,10 +198,31 @@ public class HabitC {
         }
     }
 
+//    @GetMapping("/week/status")
+//    @ResponseBody
+//    public ResponseEntity<?> getWeeklyStatus(@RequestParam String date) {
+//        String userId = "user1"; // 로그인 유저로 대체 가능
+//        try {
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            Date selectedDate = sdf.parse(date);
+//
+//            List<Map<String, Object>> result = habitService.getWeeklySummary(userId, selectedDate);
+//            return ResponseEntity.ok(result);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(500).body("주간 정보 조회 실패");
+//        }
+//    }
+
     @GetMapping("/week/status")
     @ResponseBody
-    public ResponseEntity<?> getWeeklyStatus(@RequestParam String date) {
+    public ResponseEntity<?> getWeeklyStatus(@RequestParam(required = false) String date) {
         String userId = "user1"; // 로그인 유저로 대체 가능
+
+        if (date == null || date.trim().isEmpty() || "null".equals(date)) {
+            return ResponseEntity.badRequest().body("유효한 날짜가 전달되지 않았습니다.");
+        }
+
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date selectedDate = sdf.parse(date);
