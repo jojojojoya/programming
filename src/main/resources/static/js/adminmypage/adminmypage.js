@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    if (!document.referrer.includes("/admin")) {
+        sessionStorage.setItem("lastView", "user");
+    }
+
     const views = {
         user: { button: document.getElementById("user"), table: document.getElementById("userTable"), title: "会員一覧", label: "ユーザー" },
         counselor: { button: document.getElementById("counselor"), table: document.getElementById("counselorTable"), title: "会員一覧", label: "カウンセラー" },
@@ -14,6 +19,17 @@ document.addEventListener("DOMContentLoaded", function () {
         tableTitle.textContent = views[viewName].title;
         memberTypeLabel.textContent = views[viewName].label;
         sessionStorage.setItem("lastView", viewName);
+
+        if (viewName === "user" && userPage === 1) {
+            renderPagination("user", userTotal, 1);
+        }
+        if (viewName === "counselor" && counselorPage === 1) {
+            renderPagination("counselor", counselorTotal, 1);
+        }
+        if (viewName === "announcement" && announcementPage === 1) {
+            renderPagination("announcement", announcementTotal, 1);
+        }
+
     }
 
     const userTotal = parseInt(document.body.dataset.userTotal);
@@ -31,28 +47,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (lastView === "user") {
         showView("user");
-        if (userPage > 1) {
-            loadUserPage(userPage);
-        } else {
-            renderPagination("user", userTotal, userPage);
-        }
+        loadUserPage(userPage);
     }
+
     if (lastView === "counselor") {
         showView("counselor");
-        if (counselorPage > 1) {
-            loadCounselorPage(counselorPage);
-        } else {
-            renderPagination("counselor", counselorTotal, counselorPage);
-        }
+        loadCounselorPage(counselorPage);
     }
+
     if (lastView === "announcement") {
         showView("announcement");
-        if (announcementPage > 1) {
-            loadAnnouncementPage(announcementPage);
-        } else {
-            renderPagination("announcement", announcementTotal, announcementPage);
-        }
+        loadAnnouncementPage(announcementPage);
     }
+
 
     Object.entries(views).forEach(([name, view]) => {
         view.button.addEventListener("click", () => {
