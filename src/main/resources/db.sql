@@ -115,6 +115,7 @@ CREATE TABLE MAIN_CHAT
 (
     chat_id      NUMBER PRIMARY KEY,                                             -- 챗봇 대화 고유 ID
     user_id      VARCHAR2(50) NOT NULL,                                          -- 대화한 사용자 ID
+    chat_title VARCHAR2(30) NOT NULL,                                           -- 대화 제목
     chat_summary CLOB         NOT NULL,                                          -- 대화 요약 내용 (전체 내용 저장 가능)
     create_at TIMESTAMP DEFAULT SYSDATE NOT NULL,                                -- 대화 일시
     CONSTRAINT fk_chat_user FOREIGN KEY (user_id) REFERENCES MAIN_USER (user_id) -- 사용자 외래키

@@ -14,9 +14,11 @@
     String userId = null;
     String userType = null;
     String userNickName = "친구";
+    String userImg = null;
 
     if (session1 != null) {
         userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+        userImg = (String) session1.getAttribute("userImg"); // 세션에 저장된 userImg 값
 
         String nicknameFromSession = (String) session1.getAttribute("userNickName");   // session userNickname값
         if (nicknameFromSession != null) {
@@ -163,13 +165,10 @@
                             <button class="chatbot" onclick="openChatModal()">チャットボット</button>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> ライブチャット </button>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
-
     </main>
 
 </div>
@@ -179,6 +178,5 @@
     const userName = "<%= userNickName %>";
 </script>
 <script src="/static/js/chat/chat-modal.js"></script>
-
 </body>
 </html>
