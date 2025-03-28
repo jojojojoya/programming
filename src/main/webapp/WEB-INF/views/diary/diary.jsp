@@ -5,6 +5,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/static/js/diary/diary.js" defer></script>
 <script>window.selectedDate = "${selectedDate}";</script>
+<%
+    HttpSession session1 = request.getSession(false);
+    String userId = null;
+    if (session1 != null) {
+        userId = (String) session1.getAttribute("userId");
+    }
+    if (userId == null) {
+        response.sendRedirect("/login");
+        return;
+    }
+%>
+<script>
+    const userId = "<%= userId %>";
+</script>
 
 <!-- 달력 & 위클리 -->
 <div class="calendar-container">
@@ -35,11 +49,11 @@
 
             <!-- 이모지 선택 -->
             <div>
-                <span id="write-🙂" class="emoji-option" onclick="selectEmoji('🙂')">🙂</span>
-                <span id="write-😢" class="emoji-option" onclick="selectEmoji('😢')">😢</span>
-                <span id="write-😡" class="emoji-option" onclick="selectEmoji('😡')">😡</span>
-                <span id="write-😆" class="emoji-option" onclick="selectEmoji('😆')">😆</span>
-                <span id="write-🥰" class="emoji-option" onclick="selectEmoji('🥰')">🥰</span>
+                <span id="write-🙂" class="emoji-option" data-emoji="🙂">🙂</span>
+                <span id="write-😢" class="emoji-option" data-emoji="😢">😢</span>
+                <span id="write-😡" class="emoji-option" data-emoji="😡">😡</span>
+                <span id="write-😆" class="emoji-option" data-emoji="😆">😆</span>
+                <span id="write-🥰" class="emoji-option" data-emoji="🥰">🥰</span>
             </div>
 
             <!-- 타이틀 입력 -->
@@ -65,11 +79,11 @@
 
             <!-- 이모지 선택 (비활성화) -->
             <div>
-                <span id="view-🙂" class="emoji-option readonly" onclick="selectEmoji('🙂')">🙂</span>
-                <span id="view-😢" class="emoji-option readonly" onclick="selectEmoji('😢')">😢</span>
-                <span id="view-😡" class="emoji-option readonly" onclick="selectEmoji('😡')">😡</span>
-                <span id="view-😆" class="emoji-option readonly" onclick="selectEmoji('😆')">😆</span>
-                <span id="view-🥰" class="emoji-option readonly" onclick="selectEmoji('🥰')">🥰</span>
+                <span id="view-🙂" class="emoji-option readonly" data-emoji="🙂">🙂</span>
+                <span id="view-😢" class="emoji-option readonly" data-emoji="😢">😢</span>
+                <span id="view-😡" class="emoji-option readonly" data-emoji="😡">😡</span>
+                <span id="view-😆" class="emoji-option readonly" data-emoji="😆">😆</span>
+                <span id="view-🥰" class="emoji-option readonly" data-emoji="🥰">🥰</span>
             </div>
             <!-- 타이틀 출력 -->
             <div class="diary-view-title" id="viewDiaryTitle">오늘의 타이틀</div>

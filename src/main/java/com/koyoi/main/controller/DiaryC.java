@@ -38,18 +38,11 @@ public class DiaryC {
         String selectedDateStr = requestBody.get("date"); // "YYYY-MM-DD"
 
         if (selectedDateStr == null || selectedDateStr.isEmpty()) {
-            System.out.println("❌ 넘어온 날짜 값 없음!");
             return ResponseEntity.badRequest().body("날짜 값이 없습니다.");
         }
 
-        // String → LocalDateTime 변환 (00:00:00 시간 추가)
         LocalDateTime selectedDate = LocalDate.parse(selectedDateStr).atStartOfDay();
-
-        // 세션에 저장
-        session.setAttribute("selectedDate", selectedDate);
-
-        System.out.println("✅ 세션에 저장된 selectedDate(LocalDateTime): " + selectedDate);
-
+        session.setAttribute("selectedDate", selectedDate); // 세션에 저장
         return ResponseEntity.ok().build();
     }
 
@@ -67,9 +60,8 @@ public class DiaryC {
             try {
                 LocalDateTime parsedDate = LocalDate.parse(selectedDateParam).atStartOfDay();
                 session.setAttribute("selectedDate", parsedDate);
-                System.out.println("📅 전달된 selectedDate → 세션 저장: " + parsedDate);
             } catch (Exception e) {
-                System.err.println("❌ 날짜 파싱 실패: " + selectedDateParam);
+                System.err.println("날짜 파싱 실패: " + selectedDateParam);
             }
         }
 
@@ -78,6 +70,7 @@ public class DiaryC {
         if (selectedDate == null) {
             selectedDate = LocalDateTime.now();
         }
+
         LocalDate selectedDateOnly = selectedDate.toLocalDate();
         String selectedDateStr = selectedDate.toLocalDate().toString();
         model.addAttribute("selectedDate", selectedDateStr);
@@ -88,11 +81,10 @@ public class DiaryC {
 
         // 주간 요약 리스트
         List<DiaryVO> weeklyDiaries = diaryService.getWeeklyDiaries(userId, selectedDateOnly);
-        System.out.println("✅ weeklyDiaries size = " + weeklyDiaries.size());
         model.addAttribute("weeklyDiaries", weeklyDiaries);
 
         // jsp 포함 위치
-        model.addAttribute("diaryContent", "/WEB-INF/views/diary/diary.jsp");
+        model.addAttribute("diaryContent", "diary/diary.jsp");
 
         return "finalindex";
     }
@@ -102,14 +94,11 @@ public class DiaryC {
     @ResponseBody
     public List<Map<String, Object>> getDiaryEvents(HttpSession session) {
         String userId = getLoginUserId(session);
-
         List<Map<String, Object>> events = diaryService.getDiaryEvents(userId);
-        System.out.println("이벤트 리스트: " + events);
-
         return events;
     }
 
-    /* 일기 상세 조회 (일기 ID 기준) - 유저 검증은 생략 (필요 시 추가) */
+    /* 일기 상세 조회 (diaryId 기준) */
     @GetMapping("/{diaryId}")
     @ResponseBody
     public ResponseEntity<?> getDiaryById(@PathVariable int diaryId) {
@@ -130,8 +119,8 @@ public class DiaryC {
     public DiaryVO getDiaryByDate(@PathVariable String date, HttpSession session) {
         String userId = getLoginUserId(session);
 
-        LocalDate localDate = LocalDate.parse(date); // 문자열(YYYY-MM-DD)을 LocalDate로 변환
-        LocalDateTime dateTime = localDate.atStartOfDay(); // 시간 정보 추가해서 LocalDateTime 만들기
+        LocalDate localDate = LocalDate.parse(date); // String date -> LocalDate
+        LocalDateTime dateTime = localDate.atStartOfDay(); // LocalDate -> LocalDateTime
 
         return diaryService.getDiaryByDate(userId, dateTime);
     }
