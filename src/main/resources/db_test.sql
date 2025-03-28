@@ -523,3 +523,35 @@ select * from TEST_COUNSELING_RESERVATION;
 
 DROP TABLE TEST_COUNSELING_RESERVATION CASCADE CONSTRAINTS;
 
+
+
+
+INSERT INTO TEST_CHAT (chat_id, user_id, chat_title, chat_summary, create_at)
+VALUES (
+           1,
+           'user001',
+           '스트레스 해소 대화',
+           '오늘 하루 회사에서 있었던 일들에 대해 이야기하면서 감정을 정리함. 챗봇은 공감과 긍정적인 피드백을 제공함.',
+           SYSDATE
+       );
+
+INSERT INTO TEST_CHAT (chat_id, user_id, chat_title, chat_summary, create_at)
+VALUES (
+           2,
+           'user002',
+           '불면증에 대한 고민',
+           '최근 잠을 잘 이루지 못해 챗봇에게 고민을 털어놓음. 규칙적인 생활 습관과 명상 등의 방법을 제안 받음.',
+           SYSDATE - 1
+       );
+
+INSERT INTO TEST_CHAT (chat_id, user_id, chat_title, chat_summary, create_at)
+VALUES (
+           3,
+           'user003',
+           '우울한 기분에 대해',
+           '하루 종일 우울하고 의욕이 없다는 이야기를 나눔. 챗봇은 감정을 인정하고, 소소한 성취감을 줄 수 있는 활동을 제안함.',
+           SYSDATE - 2
+       );
+
+select *
+from TEST_CHAT;
