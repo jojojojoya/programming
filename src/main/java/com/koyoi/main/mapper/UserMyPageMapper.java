@@ -30,7 +30,7 @@ public interface UserMyPageMapper {
     int updateProfile(UserMyPageVO user);
 
     // 챗봇 대화 요약내역 조회함
-    @Select("SELECT chat_summary FROM test_chat WHERE user_id = #{user_id}")
+    @Select("SELECT chat_summary,chat_title FROM test_chat WHERE user_id = #{user_id}")
     List<UserMyPageVO> getUserChatBotDetail(@Param("user_id") String user_id);
 
 

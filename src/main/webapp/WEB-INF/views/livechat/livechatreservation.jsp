@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
     <link rel="stylesheet" href="/static/css/livechat/livechatreservation.css">
-</head>
-<body>
+
+<div class="livechatreservation-form">
         <main class="content">
 
             <div class="top-section">
@@ -63,7 +62,7 @@
                                 <option value="健康">健康</option>
                                 <option value="将来">将来</option>
                                 <option value="人間関係">人間関係</option>
-                                <option value="その他のお悩み">その他のお悩み</option>
+                                <option value="sonota">その他のお悩み</option>
                             </select>
                         </div>
 
@@ -84,6 +83,5 @@
             </div>
         </main>
 <script src="/static/js/livechat/livechatreservation.js"></script>
-
-</body>
+</div>
 </html>

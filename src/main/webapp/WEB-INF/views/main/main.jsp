@@ -159,13 +159,10 @@
                             <button class="chatbot" onclick="openChatModal()">チャットボット</button>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> ライブチャット </button>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
-
     </main>
 
 </div>
@@ -175,6 +172,5 @@
     const userName = "<%= userNickName %>";
 </script>
 <script src="/static/js/chat/chat-modal.js"></script>
-
 </body>
 </html>
