@@ -135,6 +135,34 @@ body {
     gap: 10px;
 }
 
+.header-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+
+/* 아이콘 크기 조절 */
+.header-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 버튼 호버 효과 */
+.header-btn:hover {
+    transform: scale(1.1);
+}
+
+
 /* 프로필 이미지 */
 .profile-img {
     width: 40px;
@@ -145,9 +173,10 @@ body {
     border: 2px solid #ddd;
 }
 
+
 /* 🟡 메인 콘텐츠 */
 .content {
-    flex-grow: 1;
+    /*flex-grow: 1;*/
     padding: 20px;
     text-align: center;
     font-size: 18px;

@@ -92,7 +92,7 @@ public class DiaryC {
         model.addAttribute("weeklyDiaries", weeklyDiaries);
 
         // jsp 포함 위치
-        model.addAttribute("diaryContent", "diary/diary.jsp");
+        model.addAttribute("diaryContent", "/WEB-INF/views/diary/diary.jsp");
 
         return "finalindex";
     }
