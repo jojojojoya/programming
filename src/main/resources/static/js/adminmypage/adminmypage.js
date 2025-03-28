@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    /* 기본 보기 = 일반 회원 목록 (이전 페이지가 /admin이 아니라면) */
+    if (!document.referrer.includes("/admin")) {
+        sessionStorage.setItem("lastView", "user");
+    }
+
     const views = {
         user: { button: document.getElementById("user"), table: document.getElementById("userTable"), title: "会員一覧", label: "ユーザー" },
         counselor: { button: document.getElementById("counselor"), table: document.getElementById("counselorTable"), title: "会員一覧", label: "カウンセラー" },
@@ -8,12 +14,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const tableTitle = document.getElementById("table-title");
     const memberTypeLabel = document.getElementById("memberTypeLabel");
 
+    /* 탭 전환 시 호출 */
     function showView(viewName) {
+
+        // 모든 탭 비활성화
         Object.values(views).forEach(view => view.table.style.display = "none");
+
+        // 선택한 탭 보여주기
         views[viewName].table.style.display = "block";
         tableTitle.textContent = views[viewName].title;
         memberTypeLabel.textContent = views[viewName].label;
         sessionStorage.setItem("lastView", viewName);
+
+        // 첫 페이지일 때만 페이지네이션 출력
+        if (viewName === "user" && userPage === 1) {
+            renderPagination("user", userTotal, 1);
+        }
+        if (viewName === "counselor" && counselorPage === 1) {
+            renderPagination("counselor", counselorTotal, 1);
+        }
+        if (viewName === "announcement" && announcementPage === 1) {
+            renderPagination("announcement", announcementTotal, 1);
+        }
+
     }
 
     const userTotal = parseInt(document.body.dataset.userTotal);
@@ -31,29 +54,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (lastView === "user") {
         showView("user");
-        if (userPage > 1) {
-            loadUserPage(userPage);
-        } else {
-            renderPagination("user", userTotal, userPage);
-        }
-    }
-    if (lastView === "counselor") {
-        showView("counselor");
-        if (counselorPage > 1) {
-            loadCounselorPage(counselorPage);
-        } else {
-            renderPagination("counselor", counselorTotal, counselorPage);
-        }
-    }
-    if (lastView === "announcement") {
-        showView("announcement");
-        if (announcementPage > 1) {
-            loadAnnouncementPage(announcementPage);
-        } else {
-            renderPagination("announcement", announcementTotal, announcementPage);
-        }
+        loadUserPage(userPage);
     }
 
+    if (lastView === "counselor") {
+        showView("counselor");
+        loadCounselorPage(counselorPage);
+    }
+
+    if (lastView === "announcement") {
+        showView("announcement");
+        loadAnnouncementPage(announcementPage);
+    }
+
+    // 탭 버튼 이벤트 등록
+    // 버튼 클릭 시 해당 view 로드 + 1페이지 데이터 불러오기.
     Object.entries(views).forEach(([name, view]) => {
         view.button.addEventListener("click", () => {
             showView(name);
@@ -63,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    /* 페이지네이션 구성 */
     function renderPagination(type, total, currentPage) {
         const pagination = document.getElementById("commonPagination");
         const totalPages = Math.ceil(total / 5);
@@ -89,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         pagination.style.display = totalPages > 1 ? "block" : "none";
     }
 
+    /* 이벤트 위임 */
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("page-btn")) {
             const page = parseInt(event.target.getAttribute("data-page"));
@@ -99,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    /* 일반 회원 페이지 로딩 */
     function loadUserPage(page) {
         fetch(`/admin/userList?page=${page}&size=5`)
             .then(res => res.json())
@@ -133,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    /* 상담사 페이지 로딩 */
     function loadCounselorPage(page) {
         fetch(`/admin/counselorList?page=${page}&size=5`)
             .then(res => res.json())
@@ -167,6 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    /* 공지사항 페이지 로딩 */
     function loadAnnouncementPage(page) {
         fetch(`/admin/announcementList?page=${page}&size=5`)
             .then(res => res.json())
@@ -198,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // 공통 이벤트 위임: 상세 모달
+    /* 공통 이벤트 위임: 상세 모달 */
     document.addEventListener("click", function (event) {
         if (event.target.closest(".user-detail-btn")) {
             const id = event.target.closest(".user-detail-btn").getAttribute("data-user-id");
@@ -239,6 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("announcementModal").style.display = "none";
         }
 
+        // 회원 삭제
         if (event.target.id === "deleteUser") {
             const userId = document.getElementById("modalUserId").textContent;
             if (confirm("この会員を削除してもよろしいですか？")) {
@@ -253,6 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+        // 회원 정보 수정
         if (event.target.id === "updateUser") {
             const userId = document.getElementById("modalUserId").textContent;
             const newNickname = document.getElementById("modalUserNickname").value.trim();
@@ -299,6 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         }
 
+        // 공지사항 수정
         if (event.target.id === "updateAnnouncement") {
             const id = document.getElementById("announcementModal").getAttribute("data-user-id");
             const data = {
@@ -322,6 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+        // 공지사항 삭제
         if (event.target.id === "deleteAnnouncement") {
             const id = document.getElementById("announcementModal").getAttribute("data-user-id");
             if (confirm("このお知らせを削除してもよろしいですか？")) {
@@ -406,7 +430,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-// 모달 외부 클릭 시 닫기 (공통 처리)
+    // 모달 외부 클릭 시 닫기 (공통 처리)
     window.addEventListener("click", function (e) {
         const userModal = document.getElementById("userDetailModal");
         const announcementModal = document.getElementById("announcementModal");

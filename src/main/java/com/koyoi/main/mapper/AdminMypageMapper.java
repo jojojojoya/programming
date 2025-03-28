@@ -8,12 +8,15 @@ import java.util.List;
 @Mapper
 public interface AdminMypageMapper {
 
+    /* 회원 타입에 따라 조회 */
     @Select("select * from test_user where user_type = 1 order by created_at DESC")
     List<AdminMypageVO> getAllUsers();
 
     @Select("select * from test_user where user_type = 2 order by created_at DESC")
     List<AdminMypageVO> getAllCounselors();
 
+
+    /* user_id로 회원 정보 조회, 삭제, 수정 */
     @Select("select * from test_user where user_id = #{userId}")
     AdminMypageVO getUserById(@Param("userId") String userId);
 
@@ -23,6 +26,8 @@ public interface AdminMypageMapper {
     @Update("update test_user set user_password = #{user_password}, user_nickname = #{user_nickname}, user_email = #{user_email} where user_id = #{user_id}")
     int updateUser(AdminMypageVO adminMypageVO);
 
+
+    /* 페이징 */
     @Select("SELECT COUNT(*) FROM TEST_USER WHERE user_type = 1")
     int selectUserTotalCount();
 

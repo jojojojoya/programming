@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         renderPagination("announcement", totalCount, currentPage);
     }
 
-    // 이벤트 위임 방식으로 click 이벤트 처리
+    /* 이벤트 위임 방식으로 click 이벤트 처리 */
     document.addEventListener("click", function (e) {
         // 페이지 버튼 클릭 시
         if (e.target.classList.contains("page-btn")) {
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    /* 페이지네이션 생성 */
     function renderPagination(type, total, currentPage) {
         const pagination = document.getElementById("commonPagination");
         const totalPages = Math.ceil(total / 5);
@@ -56,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         pagination.style.display = totalPages > 1 ? "block" : "none";
     }
 
+    /* 공지사항 목록 */
     function loadAnnouncementPage(page) {
         fetch(`/announcement/list?page=${page}&size=5`)
             .then(res => res.json())
