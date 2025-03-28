@@ -66,7 +66,6 @@
     <%-- 헤더 --%>
     <header class="header-bar">
         <div class="logo-container">
-            <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI">
             <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
         </div>
         <div class="header-icons">
@@ -162,7 +161,6 @@
                         <%-- 챗봇, 라이브챗 연결 --%>
                         <div class="chat-connect">
                             <button class="chatbot" onclick="openChatModal()">チャットボット</button>
-                        <%--                            <button class="chatbot" onclick="location.href='/chat'"> チャットボット </button>--%>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> ライブチャット </button>
                         </div>
 
