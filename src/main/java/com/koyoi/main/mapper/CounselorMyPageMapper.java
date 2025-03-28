@@ -1,10 +1,8 @@
 package com.koyoi.main.mapper;
 
 import com.koyoi.main.vo.CounselorMyPageVO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.koyoi.main.vo.UserMyPageVO;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 @Mapper
@@ -19,6 +17,18 @@ public interface CounselorMyPageMapper {
         ORDER BY counseling_date DESC, counseling_time DESC
     """)
     List<CounselorMyPageVO> getReservationsByCounselorId(@Param("counselor_id") String counselor_id);
+
+
+    // 챗봇 대화 요약내역 조회함
+
+    @Select("SELECT chat_id, chat_title, chat_summary FROM test_chat WHERE user_id = #{user_id}")
+    @Results({
+            @Result(property = "chat_id", column = "chat_id"),
+            @Result(property = "chat_title", column = "chat_title"),
+            @Result(property = "chat_summary", column = "chat_summary", typeHandler = com.koyoi.main.handler.ClobTypeHandler.class)
+    })
+    List<CounselorMyPageVO> getUserChatBotDetail(@Param("user_id") String user_id);
+
 
 
     // 유저 관련 DB를 리스팅
@@ -39,10 +49,6 @@ public interface CounselorMyPageMapper {
     WHERE user_id = #{user_id}
 """)
     int updateProfile(CounselorMyPageVO user);
-
-    // 챗봇 대화 요약내역 조회함
-    @Select("SELECT chat_summary FROM test_chat WHERE user_id = #{user_id}")
-    List<CounselorMyPageVO> getUserChatBotDetail(@Param("user_id") String user_id);
 
 
     @Select("""
