@@ -2,21 +2,17 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    AdminMypageVO user = (AdminMypageVO) request.getAttribute("user");
-    String imgPath = (user != null && user.getUser_img() != null)
-            ? user.getUser_img()
-            : "/static/imgsource/testprofile.png"; // 기본 이미지
-%>
 <%-- 로그인 기능 --%>
 <%
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
     String userId = null;
     String userType = null;
     String userNickName = "친구";
+    String userImg = null;
 
     if (session1 != null) {
         userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+        userImg = (String) session1.getAttribute("userImg"); // 세션에 저장된 userImg 값
 
         String nicknameFromSession = (String) session1.getAttribute("userNickName");   // session userNickname값
         if (nicknameFromSession != null) {
@@ -57,6 +53,18 @@
             }
         }
     </script>
+    <style>
+        @font-face {
+            font-family: 'MyFont';
+            src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+        }
+
+        body {
+            font-family: 'MyFont', sans-serif;
+            font-size: 32px;
+            color: black;
+        }
+    </style>
 
 </head>
 <body>
@@ -76,7 +84,7 @@
                 <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
             </button>
             <button class="profile-btn" onclick="goToMyPage()">
-                <img class="profile-img" src="/static<%=imgPath%>" alt="profile">
+                <img class="profile-img" src="${user.user_img}" alt="profile">
             </button>
         </div>
     </header>
@@ -163,22 +171,19 @@
                             <button class="chatbot" onclick="openChatModal()">チャットボット</button>
                             <button class="livechat" onclick="location.href='/livechatreservation'"> ライブチャット </button>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
-
     </main>
 
 </div>
+
 <script src="/static/js/main/todoList.js"></script>
 <script src="/static/js/main/main.js"></script>
 <script>
     const userName = "<%= userNickName %>";
 </script>
 <script src="/static/js/chat/chat-modal.js"></script>
-
 </body>
 </html>

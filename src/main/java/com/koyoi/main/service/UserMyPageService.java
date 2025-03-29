@@ -2,22 +2,12 @@ package com.koyoi.main.service;
 
 import com.koyoi.main.mapper.UserMyPageMapper;
 import com.koyoi.main.vo.UserMyPageVO;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
 import java.util.List;
-
 @Service
 public class UserMyPageService {
-
-        private final DataSource dataSource;
-
-        @Autowired
-        public UserMyPageService(DataSource dataSource) {
-            this.dataSource = dataSource;
-        }
 
 
         @Autowired
@@ -27,10 +17,17 @@ public class UserMyPageService {
         return userMyPageMapper.updateProfile(user) > 0;
     }
 
-    public List<UserMyPageVO> getUserChatBotDetail(String user_id) {
-        return userMyPageMapper.getUserChatBotDetail(user_id);
 
+public List<UserMyPageVO> getUserChatBotDetail(String user_id) {
+    List<UserMyPageVO> chatList = userMyPageMapper.getUserChatBotDetail(user_id);
+
+    for (UserMyPageVO chat : chatList) {
+        if (chat.getChat_summary() != null) {
+        }
     }
+
+    return chatList;
+}
 
 
     public List<UserMyPageVO> getUserReservations(String user_id) {
@@ -58,9 +55,6 @@ public class UserMyPageService {
 
     }
 
-    public boolean isNicknameDuplicate(String nickname, String currentUserId) {
-        return userMyPageMapper.countByNicknameExcludeCurrentUser(nickname, currentUserId) > 0;
-    }
 
     public int countNicknameExcludeCurrentUser(String nickname, String userId) {
         return userMyPageMapper.countByNicknameExcludeCurrentUser(nickname, userId);

@@ -88,28 +88,27 @@
 <%--                    </div>--%>
 <%--                </a>--%>
                 <a href="javascript:void(0);" onclick="openChatModal()">
-                    <div class="bbiyak">
-                        <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇">
+                    <div class="chatbotlogo">
+                        <img src="/static/imgsource/layout/chatbotlogo.png" alt="챗봇">
                     </div>
                 </a>
             </nav>
         </aside>
     </div>
 
-    <!-- 🟣 오른쪽 컨테이너 (헤더바 + 콘텐츠) -->
     <div class="right-container">
         <header class="header-bar">
-            <!-- 🌙 중앙 브랜드 로고 -->
             <div class="brand-title">
                 <a href="/main"><img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고"></a>
             </div>
-            <!-- 🟡 우측 상단 아이콘 -->
             <div class="header-icons">
                 <button class="header-btn">
                     <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
                 </button>
                 <button class="header-btn" onclick="goToMyPage()">
                 <img class="profile-img" src="<%=imgPath%>" alt="프로필" onerror="this.src='/imgsource/testprofile.png'">
+<%--        <img class="profile-img" src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">--%>
+
                 </button>
             </div>
         </header>
@@ -134,8 +133,9 @@
 
             <!-- 유저마이페이지 인클루드 -->
             <c:if test="${not empty usermypage}">
-                <jsp:include page="${usermypage}"/>
+                <jsp:include page="${usermypage}" />
             </c:if>
+
 
             <!-- 라이브챗 디테일  인클루드 -->
             <c:if test="${not empty livechatdetail}">

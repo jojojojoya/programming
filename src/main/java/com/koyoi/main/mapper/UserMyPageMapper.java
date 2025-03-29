@@ -1,10 +1,7 @@
 package com.koyoi.main.mapper;
 
 import com.koyoi.main.vo.UserMyPageVO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 @Mapper
@@ -29,9 +26,15 @@ public interface UserMyPageMapper {
 """)
     int updateProfile(UserMyPageVO user);
 
-    // 챗봇 대화 요약내역 조회함
-    @Select("SELECT chat_summary FROM test_chat WHERE user_id = #{user_id}")
+
+    @Select("SELECT chat_id, chat_title, chat_summary FROM test_chat WHERE user_id = #{user_id}")
+    @Results({
+            @Result(property = "chat_id", column = "chat_id"),
+            @Result(property = "chat_title", column = "chat_title"),
+            @Result(property = "chat_summary", column = "chat_summary", typeHandler = com.koyoi.main.handler.ClobTypeHandler.class)
+    })
     List<UserMyPageVO> getUserChatBotDetail(@Param("user_id") String user_id);
+
 
 
     @Select("""

@@ -42,12 +42,15 @@ public class LoginC {
             session.setAttribute("userId", user.getUserId());
             session.setAttribute("userNickName", user.getUserNickname());
             session.setAttribute("userType", user.getUserType());
+            session.setAttribute("userImg", user.getUserImg());
+
             session.setMaxInactiveInterval(30 * 60);
 
             // debug
             System.out.println("userId = " + user.getUserId());
             System.out.println("usernickname = " + user.getUserNickname());
             System.out.println("userType = " + user.getUserType());
+            System.out.println("userImg = " + user.getUserImg());
 
             if(user.getUserType() == 3 ){
                 return "redirect:/admin";

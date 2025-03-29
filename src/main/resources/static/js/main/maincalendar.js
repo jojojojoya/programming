@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchWeeklyMoodScores(today);
 });
 
-// 클릭한 날짜가 속한 주 계산하기
+/* 클릭한 날짜가 속한 주 계산하기 -> yyyy-MM-dd 형식 문자열로 반환 */
 function getWeekRange(selectedDate) {
     let date = new Date(selectedDate); // 선택한 날짜를 Date 객체로 변환
     let dayOfWeek = date.getDay(); // 요일 가져오기 (0: 일요일, 1: 월요일, ..., 6: 토요일)
@@ -190,7 +190,7 @@ function getWeekRange(selectedDate) {
     };
 }
 
-// 기분 점수 가져오기
+/* 기분 점수 가져오기 */
 function fetchWeeklyMoodScores(selectedDate) {
     let { start, end } = getWeekRange(selectedDate);
 
@@ -214,7 +214,7 @@ function fetchWeeklyMoodScores(selectedDate) {
         .catch(error => console.error("주간 기분 점수를 불러오는 데 실패했습니다.", error));
 }
 
-// 무드 그래프 업데이트
+/* 그래프 업데이트 */
 function updateMoodChart(moodScores) {
     let chartElement = document.getElementById('moodChart');
 
@@ -223,7 +223,7 @@ function updateMoodChart(moodScores) {
         return;
     }
 
-    const ctx = chartElement.getContext('2d');
+    const ctx = chartElement.getContext('2d'); // 그래프의 canvas 역할
 
     // 기존 차트가 `<canvas>` 요소인지 확인 후 초기화
     if (window.moodChart && !(window.moodChart instanceof Chart)) {

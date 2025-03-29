@@ -2,13 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
-<%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
-<%
-    UserMyPageVO user = (UserMyPageVO) request.getAttribute("user");
-    String imgPath = (user != null && user.getUser_img() != null)
-            ? user.getUser_img()
-            : "/imgsource/testprofile.png";
-%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 
 <%  // 세션 체크 추가 부분 시작
@@ -35,21 +30,21 @@
 
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="/static/css/usermypage/usermypage.css">
-</head>
-<body>
 
+
+<div class="usermypage-form">
         <main class="content">
             <div class="top-section">
                 <div class="profile_table">
                     <div class="profile_content">
                         <div class="profile_img">
-                            <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="프로필 이미지">
+                            <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'">
                         </div>
                         <div class="profile_info">
                             <div class="profile_item">
@@ -78,8 +73,14 @@
                     <div class="chatbot_info">
                         <c:if test="${not empty chats}">
                             <c:forEach var="chat" items="${chats}">
-                                <div class="chatbot_list">${chat.chat_summary}</div>
+                                <div class="chatbot_list" data-title="${chat.chat_title}" data-summary="${chat.chat_summary}">
+                                    <strong>${chat.chat_title}</strong>
+                                    <button class="view_chat_summary_btn">内容を確認する</button>
+                                </div>
                             </c:forEach>
+
+
+
                         </c:if>
                         <c:if test="${empty chats}">
                             <div class="chatbot_list"> チャットボットの会話履歴はありません。</div>
@@ -107,14 +108,11 @@
                 </div>
 
 
-                <!-- 상담 영역 -->
                 <div class="counseling_wrapper">
-                    <!-- 상담 내역 없는 경우 -->
 
                     <c:if test="${empty reservations}">
                     <div class="counseling_no_reservation">
                         <div class="nonreserved_counseling_table">
-                            <!-- 갈색 배경 안에 텍스트 포함 -->
                             <img src="/static/imgsource/background/padoo2.png">
 
                             <div class="nonreserved_counseling_table_comment">
@@ -175,71 +173,68 @@
                         </div>
                     </div>
                     </c:if>
+
+                <div id="passwordCheckModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <p> パスワードを入力してください </p>
+                        <input type="password" id="passwordCheck" autocomplete="off">
+                        <button id="checkPasswordBtn">確認</button>
+                        <button class="close">閉じる</button>
+                        <p id="passwordErrorMsg" style="display: none; color: red;">パスワードが正しくありません。</p>
+                    </div>
+                </div>
+
+                    <!-- 모달 부분 -->
+                    <div id="chatbotDetailModal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <div class="chatbot-detail-title" style="font-weight:bold; margin-bottom:10px;"></div>
+                            <div class="chatbot-detail-text"></div>
+                            <button class="close" onclick="closeChatDetail()">閉じる</button>
+                        </div>
+                    </div>
+
+
+
+                    <div id="profileModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <h3>プロフィールを編集する</h3>
+
+                        <div class="profile_img">
+                            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">
+                        </div>
+
+                        <label for="editProfileImg" id="customFileLabel">ファイルを選択</label>
+                        <br>
+                        <input type="file" id="editProfileImg" accept="image/*" style="display: none;">
+                        <span id="fileNameDisplay"></span>
+
+                        <label> ID : </label>
+                        <input type="text" id="editId" readonly>
+                        <br>
+
+
+                        <label>新しいパスワード : </label>
+                        <input type="password" id="editPw" placeholder="新しいパスワードを入力">
+                        <br>
+
+                        <label>ニックネーム : </label>
+                        <input type="text" id="editNickname">
+                        <br>
+
+                        <button id="saveProfileBtn">保存</button>
+                        <button class="close">閉じる</button>
+                    </div>
+                </div>
+
+            </div>
+
+                <script>
+                    document.querySelector(".calendar-container").addEventListener("click", function () {
+                    window.location.href = "/diary";
+                });
+
+                </script>
+                <script src="/static/js/usermypage/usermypage.js"></script>
         </main>
-<%--    </div>--%>
-<%--</div>--%>
-
-<div id="passwordCheckModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <p> パスワードを入力してください </p>
-        <input type="password" id="passwordCheck" autocomplete="off">
-        <button id="checkPasswordBtn">確認</button>
-        <button class="close">閉じる</button>
-        <p id="passwordErrorMsg" style="display: none; color: red;">パスワードが正しくありません。</p>
-    </div>
 </div>
-        <%--        챗봇 내역 열람 모달 --%>
-        <div id="chatbotDetailModal" class="modal" style="display: none">
-            <div class="modal-content">
-                <div class="chatbot-detail-title"> チャットボットのタイトル </div>
-                <div class="chatbot-detail-text"> チャットボットの内容 </div>
-                <button class="close">閉じる</button>
-        </div>
-
-        </div>
-<!-- 프로필 수정 모달 -->
-<div id="profileModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <h3>プロフィールを編集する</h3>
-
-<%--        <label> 写真を選択 </label>--%>
-<%--        <input type="file" id="editProfileImg" accept="image/*">--%>
-<%--        <br>--%>
-        <div class="profile_img">
-            <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">
-        </div>
-
-        <label for="editProfileImg" id="customFileLabel">ファイルを選択</label>
-        <br>
-        <input type="file" id="editProfileImg" accept="image/*" style="display: none;">
-        <span id="fileNameDisplay"></span>
-
-        <label> ID : </label>
-        <input type="text" id="editId" readonly>
-        <br>
-
-
-        <label>新しいパスワード : </label>
-        <input type="password" id="editPw" placeholder="新しいパスワードを入力">
-        <br>
-
-        <label>ニックネーム : </label>
-        <input type="text" id="editNickname">
-        <br>
-
-        <button id="saveProfileBtn">保存</button>
-        <button class="close">閉じる</button>
-    </div>
-</div>
-
-
-</body>
-<script src="/static/js/usermypage/usermypage.js">
-    <script>
-        document.querySelector(".calendar-container").addEventListener("click", function () {
-        window.location.href = "/diary";
-    });
-</script>
-
-</script>
 </html>

@@ -495,14 +495,14 @@ select * from main_user;
 select * from test_user;
 
 -- main유저 디비지우기
-
+select * from test_user;
 select * from MAIN_CHAT;
 select * from test_CHAT;
 
 SELECT user_id, user_img FROM test_user WHERE user_img LIKE '%default%';
 
-insert into test_chat values (11,'jojot','하이하이',SYSDATE);
-insert into test_chat values (12,'jojot','마이마이',SYSDATE);
+insert into test_chat values (11,'jojot','하이하이','코코코코코코ㅗ코코',SYSDATE);
+insert into test_chat values (12,'jojot','마이마이','기분이 너무좋아', SYSDATE);
 
 select * from TEST_COUNSELING_RESERVATION;
 
@@ -521,5 +521,43 @@ select * from TEST_COUNSELING_RESERVATION;
     CONSTRAINT fk_cr_counselor FOREIGN KEY (counselor_id) REFERENCES test_USER (user_id)   -- 상담사 외래키
 );
 
+ALTER TABLE TEST_COUNSELING_RESERVATION
+    DROP CONSTRAINT SYS_C0035078; -- 실제 제약조건 이름 확인 필요
+
+ALTER TABLE TEST_COUNSELING_RESERVATION
+    ADD CONSTRAINT chk_category
+        CHECK (category IN ('健康', '将来', '人間関係', 'その他のお悩み'));
+
 DROP TABLE TEST_COUNSELING_RESERVATION CASCADE CONSTRAINTS;
 
+SELECT constraint_name
+FROM user_constraints
+WHERE table_name = 'TEST_COUNSELING_RESERVATION'
+  AND constraint_type = 'C';
+
+SELECT constraint_name, search_condition
+FROM user_constraints
+WHERE table_name = 'TEST_COUNSELING_RESERVATION'
+  AND constraint_type = 'C';
+
+ALTER TABLE TEST_COUNSELING_RESERVATION
+    MODIFY category VARCHAR2(30);
+SELECT chat_title, DBMS_LOB.SUBSTR(chat_summary, 4000, 1) FROM test_chat WHERE user_id = 'jojot';
+
+
+INSERT INTO TEST_CHAT (chat_id, user_id, chat_title, chat_summary, create_at)
+VALUES (TEST_CHAT_SEQ.NEXTVAL, 'test02', '오늘 하루 어땠어?', '오늘은 기분이 좋았고, 친구랑 산책을 했어!', SYSDATE);
+
+
+INSERT INTO TEST_CHAT (chat_id, user_id, chat_title, chat_summary, create_at)
+VALUES (TEST_CHAT_SEQ.NEXTVAL, 'test02', '스트레스 해소법', '스트레스가 쌓여서 음악 들으면서 마음을 진정시켰어.', SYSDATE);
+
+INSERT INTO TEST_CHAT (chat_id, user_id, chat_title, chat_summary, create_at)
+VALUES (TEST_CHAT_SEQ.NEXTVAL, 'test02', '내일 계획', '내일은 아침에 운동하고 책을 읽을 계획이야.', SYSDATE);
+
+
+SELECT chat_id, chat_title, DBMS_LOB.SUBSTR(chat_summary, 4000, 1)
+FROM test_chat
+WHERE user_id = 'jojot';
+
+select  * from test_user;

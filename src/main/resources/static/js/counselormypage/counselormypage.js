@@ -1,21 +1,56 @@
 document.addEventListener("DOMContentLoaded", function () {
     mypageLoad();
     reservationHandler();
+    chatbotSummaryHandler();
 });
 
 
 function reservationHandler() {
-    console.log("🚀 counselormypage ページのロードが完了しました！");
+    console.log("counselormypage ページのロードが完了しました！");
+    function reservationHandler() {
+        document.querySelectorAll(".enter_counseling_btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const sessionId = button.dataset.sessionId;
+                const counselingId = button.dataset.counselingId;
+                const isCounselor = button.dataset.isCounselor === "true"; // 상담사 여부
 
+                // 상담사일 경우 → 상담사용 채팅 인터페이스 열기
+                if (isCounselor) {
+                    startCounselorChat(sessionId, counselingId);
+                } else {
+                    goToLiveChatDetail(sessionId, counselingId, false); // 유저용
+                }
+            });
+        });
+    }
+
+    function chatbotSummaryHandler() {
+        document.querySelectorAll(".chatbot_list").forEach(item => {
+            item.addEventListener("click", function () {
+                const title = this.dataset.title || "タイトルなし";
+                const summary = this.dataset.summary || "要約なし";
+                const content = `<strong>[タイトル]</strong><br> ${title}<br><strong>[内容]</strong><br> ${summary}`;
+                const contentDiv = document.getElementById("chatDetailContent");
+                const modal = document.getElementById("chatbotDetailModal");
+
+                if (contentDiv && modal) {
+                    contentDiv.innerHTML = content;
+                    modal.style.display = "block";
+                }
+            });
+        });
+    }
+    function startCounselorChat(sessionId, counselingId) {
+        const url = `/livechatdetail?sessionId=${sessionId}&counselingId=${counselingId}&isCounselor=true`;
+        console.log("상담사 채팅방으로 이동:", url);
+        window.location.href = url;
+    }
     document.querySelectorAll(".reserved_reservation_box").forEach(reservationBox => {
         let counselingId = reservationBox.dataset.counselingId;
         let sessionId = reservationBox.dataset.sessionId;
         let status = reservationBox.dataset.status;
         let counselingDate = reservationBox.dataset.counselingDate;
-        let counselingTime = parseInt(reservationBox.dataset.counselingTime); // 상담 시간 (24시간제)
-
-        // console.log(`🔍 상담 ID: ${counselingId}, 세션 ID: ${sessionId}, 상태: ${status}, 날짜: ${counselingDate}, 시간: ${counselingTime}`);
-
+        let counselingTime = parseInt(reservationBox.dataset.counselingTime);
         let enterButton = reservationBox.querySelector(".enter_counseling_btn");
         let viewButton = reservationBox.querySelector(".view_counseling_btn");
         console.log(enterButton)
@@ -29,7 +64,6 @@ function reservationHandler() {
         viewButton?.addEventListener("click", () => {
             goToLiveChatDetail(sessionId, counselingId, true);
         });
-        // 🕒 현재 시간 가져오기
         let now = new Date();
         let currentDate = now.toISOString().split("T")[0]; // YYYY-MM-DD 형식
         let currentHour = now.getHours(); // 현재 시간 (24시간제)
@@ -40,13 +74,13 @@ function reservationHandler() {
 
 function goToLiveChatDetail(sessionId, counselingId, isCompleted) {
     let url = `/livechatdetail?sessionId=${sessionId}&counselingId=${counselingId}&isCompleted=${isCompleted}`;
-    console.log("📌 遷移先のURL:", url);
+    console.log("遷移先のURL:", url);
     window.location.href = url;
 }
 
 
 function mypageLoad() {
-    console.log("🚀 ページのロードが完了しました！");
+    console.log("ページのロードが完了しました！");
 
     const passwordCheckModal = document.getElementById("passwordCheckModal");
     const profileModal = document.getElementById("profileModal");
@@ -62,37 +96,43 @@ function mypageLoad() {
     const chatbotList = document.querySelectorAll(".chatbot_list");
 
     let userId = document.getElementById("hiddenUserId").value || "user5";
-    console.log("🔍 現在のuser_id:", userId);
+    console.log("現在のuser_id:", userId);
 
     openPasswordCheckModal.addEventListener("click", function () {
-        console.log("🔓 プロフィール編集ボタンがクリックされました！");
+        console.log("プロフィール編集ボタンがクリックされました！");
         passwordCheckModal.style.display = "block";
     });
 
     const chatbotListItems = document.querySelectorAll(".chatbot_list");
 
-    chatbotListItems.forEach(item => {
-        item.addEventListener("click", function () {
-            console.log("チャットボットリストがクリックされました");
+            chatbotListItems.forEach(item => {
+                item.addEventListener("click", function () {
+                    console.log("チャットボットリストがクリックされました");
 
-            // 타이틀
-            const summaryTitle = this.textContent;
-            document.querySelector(".chatbot-detail-title").textContent = summaryTitle;
-            // 내용
-            const summaryText = this.textContent;
-            document.querySelector(".chatbot-detail-text").textContent = summaryText;
+                    const summaryTitle = this.dataset.title || "タイトルなし";
+                    const summaryText = this.dataset.summary || "要約なし";
 
-            // 모달 열기
-            chatbotDetailModal.style.display = "block";
-        });
-    });
+                    const titleEl = document.querySelector(".chatbot-detail-title");
+                    const textEl = document.querySelector(".chatbot-detail-text");
+
+                    if (titleEl && textEl) {
+                        titleEl.textContent = summaryTitle;
+                        textEl.textContent = summaryText;
+                    } else {
+                        console.warn("요약 표시 요소가 존재하지 않음");
+                    }
+
+                    chatbotDetailModal.style.display = "block";
+                });
+            });
+
 
 
     checkPasswordBtn.addEventListener("click", function () {
         const enteredPassword = passwordCheckInput.value;
 
         if (!enteredPassword) {
-            console.error("🚨[エラー] パスワードが入力されていません！");
+            console.error("[エラー] パスワードが入力されていません！");
             return;
         }
 
@@ -104,16 +144,16 @@ function mypageLoad() {
             .then(response => response.json())
             .then(data => {
                 if (data.valid) {
-                    console.log("✅パスワード確認成功！プロフィール編集モーダルを開きます");
+                    console.log("パスワード確認成功！プロフィール編集モーダルを開きます");
                     passwordCheckModal.style.display = "none";
                     profileModal.style.display = "block";
                     editIdInput.value = userId; // 아이디 유지
                 } else {
-                    console.warn("⚠️ パスワードが一致しません!");
+                    console.warn("パスワードが一致しません!");
                     passwordErrorMsg.style.display = "block";
                 }
             })
-            .catch(error => console.error("🚨APIリクエストエラー:", error));
+            .catch(error => console.error("APIリクエストエラー:", error));
     })
 
 
@@ -165,7 +205,7 @@ function mypageLoad() {
                 .then(res => res.json())
                 .then(data => {
                     if (data.duplicate) {
-                        alert("❌  そのニックネームは既に使われています。別のニックネームを入力してください。");
+                        alert("そのニックネームは既に使われています。別のニックネームを入力してください。");
                     } else {
                         const formData = new FormData();
                         formData.append("user_id", userId);
@@ -182,17 +222,17 @@ function mypageLoad() {
                             .then(response => response.json())
                             .then(data => {
                                 if (data.updated) {
-                                    alert("✅ プロフィールが正常に更新されました！");
+                                    alert("プロフィールが正常に更新されました！");
                                     if (data.newImgPath) {
                                         document.querySelector(".profile_img img").src = data.newImgPath;
                                     }
                                     document.getElementById("nicknameDisplay").innerText = `ニックネーム: ${newNickname}`;
                                     profileModal.style.display = "none";
                                 } else {
-                                    alert("❌ プロフィールの更新に失敗しました。");
+                                    alert("プロフィールの更新に失敗しました。");
                                 }
                             })
-                            .catch(error => console.error("🚨 プロフィール更新エラー:", error));
+                            .catch(error => console.error("プロフィール更新エラー:", error));
                     }
                 });
         });

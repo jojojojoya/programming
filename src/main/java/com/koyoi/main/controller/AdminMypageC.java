@@ -6,6 +6,7 @@ import com.koyoi.main.service.AdminMypageService;
 import com.koyoi.main.service.AnnouncementService;
 import com.koyoi.main.vo.AdminMypageVO;
 import com.koyoi.main.vo.AnnouncementVO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,20 +24,19 @@ public class AdminMypageC {
     @Autowired
     private AnnouncementService announcementService;
 
-  /*  @GetMapping("/admin")
-    public String admin(Model model) {
-
-        *//*model.addAttribute("users", adminMypageService.getAllUsers());*//*
-        *//*model.addAttribute("counselors", adminMypageService.getAllCounselors());*//*
-        *//*model.addAttribute("announcements", announcementService.getAllAnnouncements());*//*
-        return "adminmypage/adminmypage";
-
-    }*/
 
     @GetMapping("/admin")
     public String admin(@RequestParam(defaultValue = "1") int page,
                         @RequestParam(defaultValue = "5") int size,
-                        Model model) {
+                        Model model, HttpSession session) {
+
+        // 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
 
         int offset = (page - 1) * size;
 
@@ -67,6 +67,9 @@ public class AdminMypageC {
         return "adminmypage/adminmypage";
     }
 
+
+    /* 회원 목록 API */
+    // Page 단위로 조회해서 DTO에 총 개수와 리스트를 담아 반환
     @GetMapping("/admin/userList")
     @ResponseBody
     public AdminPageDTO<AdminMypageVO> getUserList(@RequestParam(defaultValue = "1") int page,
@@ -91,26 +94,30 @@ public class AdminMypageC {
         return new AdminPageDTO<>(users, total);
     }
 
+    /* 회원 정보 상세 조회 */
     @GetMapping("/admin/userDetail")
     @ResponseBody
     public AdminMypageVO userDetail(String userId) {
         return adminMypageService.getUserById(userId);
     }
 
+    /* 회원 정보 삭제 */
     @DeleteMapping("/admin/deleteUser")
     @ResponseBody
     public int deleteUser(String userId) {
         return adminMypageService.deleteUserById(userId);
     }
 
+    /* 회원 정보 수정 */
     @PostMapping("/admin/updateUser")
     @ResponseBody
     public int updateUser(@RequestBody AdminMypageVO adminMypageVO) {
         return adminMypageService.updateUser(adminMypageVO);
     }
 
-    /* 공지사항 */
 
+    /* 공지사항 목록 API */
+    // Page 단위로 조회해서 DTO에 총 개수와 리스트를 담아 반환
     @GetMapping("/admin/announcementList")
     @ResponseBody
     public AdminPageDTO<AnnouncementVO> getAnnouncementList(@RequestParam(defaultValue = "1") int page,
@@ -121,25 +128,28 @@ public class AdminMypageC {
         return new AdminPageDTO<>(list, total);
     }
 
-
+    /* 공지사항 상세 */
     @GetMapping("/admin/announcementDetail/{id}")
     @ResponseBody
     public AnnouncementVO announcementDetail(@PathVariable("id") int id) {
         return announcementService.getAnnouncementById(id);
     }
 
+    /* 공지사항 수정 */
     @PostMapping("/admin/updateAnnouncement")
     @ResponseBody
     public int updateAnnouncemnet(@RequestBody AnnouncementVO announcementVO) {
         return announcementService.updateAnnouncement(announcementVO);
     }
 
+    /* 공지사항 삭제 */
     @DeleteMapping("/admin/deleteAnnouncement")
     @ResponseBody
     public int deleteAnnouncement(@RequestParam("announcement_id") int announcementId) {
         return announcementService.deleteAnnouncement(announcementId);
     }
 
+    /* 공지사항 작성 */
     @PostMapping("/admin/createAnnouncement")
     @ResponseBody
     public int createAnnouncement(@RequestBody AnnouncementVO announcementVO) {
