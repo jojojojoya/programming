@@ -47,27 +47,70 @@ public class HabitC {
         return "habit/finalhabit";  // habit/finalhabit.jsp 페이지로 이동
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addHabit(HttpSession session, @RequestBody HabitVO habitVO, Model model) {
-        //String userId = "user1";  // 테스트용
-// 로그인 세션
-        String userId = (String) session.getAttribute("userId");
+//    @PostMapping("/add")
+//    public ResponseEntity<?> addHabit(HttpSession session, @RequestBody HabitVO habitVO, Model model) {
+//        //String userId = "user1";  // 테스트용
+//// 로그인 세션
+//        String userId = (String) session.getAttribute("userId");
+//
+//        if (userId != null) {
+//            AdminMypageVO user = adminMypageService.getUserById(userId);
+//            model.addAttribute("user", user);
+//        }
+//        try {
+//            System.out.println("📥 습관 추가 요청: " + habitVO); // ✅ 로그 찍어보기
+//            habitVO.setUser_id(userId);  // 로그인한 사용자 ID 주입
+//            HabitVO newHabit = habitService.addHabit(habitVO);
+//            return ResponseEntity.status(HttpStatus.OK).body(newHabit);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace(); // ✅ 반드시 콘솔에 에러 출력되도록!
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("습관 추가 실패");
+//        }
+//   }
 
-        if (userId != null) {
-            AdminMypageVO user = adminMypageService.getUserById(userId);
-            model.addAttribute("user", user);
-        }
-        try {
-            System.out.println("📥 습관 추가 요청: " + habitVO); // ✅ 로그 찍어보기
-            habitVO.setUser_id(userId);  // 로그인한 사용자 ID 주입
-            HabitVO newHabit = habitService.addHabit(habitVO);
-            return ResponseEntity.status(HttpStatus.OK).body(newHabit);
+@PostMapping("/add")
+public ResponseEntity<?> addHabit(HttpSession session, @RequestBody HabitVO habitVO, Model model) {
+    String userId = (String) session.getAttribute("userId");
 
-        } catch (Exception e) {
-            e.printStackTrace(); // ✅ 반드시 콘솔에 에러 출력되도록!
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("습관 추가 실패");
-        }
+    if (userId != null) {
+        AdminMypageVO user = adminMypageService.getUserById(userId);
+        model.addAttribute("user", user);
     }
+
+    try {
+        System.out.println("📥 습관 추가 요청: " + habitVO);
+        habitVO.setUser_id(userId);
+
+        HabitVO newHabit = habitService.addHabit(habitVO);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
+                "status", "success",
+                "habit_id", newHabit.getHabit_id()
+        ));
+
+    } catch (RuntimeException e) {
+        // ✅ 중복 습관일 경우 - 메시지 명시적으로 전달
+        if (e.getMessage() != null && e.getMessage().contains("중복")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+                    "status", "duplicate",
+                    "message", "すでに登録された習慣です"
+            ));
+        }
+
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                "status", "error",
+                "message", "習慣の追加に失敗しました"
+        ));
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                "status", "error",
+                "message", "서버 에러로 인해 실패했습니다"
+        ));
+    }
+}
+
 
 
 //    @PostMapping("/addNewHabit")

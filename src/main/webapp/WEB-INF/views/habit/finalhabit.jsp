@@ -1,305 +1,440 @@
+<%--<%@ page language="java" contentType="text/html; charset=utf-8"--%>
+<%--pageEncoding="utf-8" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"--%>
+<%--prefix="c" %>--%>
+
+<%--<!DOCTYPE html>--%>
+<%--<html lang="ko">--%>
+<%--  <head>--%>
+<%--    <meta charset="UTF-8" />--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0" />--%>
+<%--    <link--%>
+<%--      href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap"--%>
+<%--      rel="stylesheet"--%>
+<%--    />--%>
+<%--    <link rel="stylesheet" href="/static/css/habit/habit.css" />--%>
+<%--  </head>--%>
+
+<%--  <body>--%>
+<%--    <!-- 전체 컨테이너 -->--%>
+<%--    <div class="container">--%>
+<%--      <!-- 🟠 왼쪽 컨테이너 (사이드바) -->--%>
+<%--      <div class="left-container">--%>
+<%--        <aside class="sidebar">--%>
+<%--          <nav class="sidebar-menu">--%>
+<%--            <button class="sidebar-btn">--%>
+<%--              <img src="/static/imgsource/layout/home.png" alt="홈" />--%>
+<%--            </button>--%>
+<%--            <button class="sidebar-btn">--%>
+<%--              <img src="/static/imgsource/layout/calandar.png" alt="목록" />--%>
+<%--            </button>--%>
+<%--            <button class="sidebar-btn">--%>
+<%--              <img src="/static/imgsource/layout/pencil.png" alt="채팅" />--%>
+<%--            </button>--%>
+<%--            <button class="sidebar-btn">--%>
+<%--              <img src="/static/imgsource/layout/chat.png" alt="공유" />--%>
+<%--            </button>--%>
+<%--            <button class="sidebar-btn">--%>
+<%--              <img src="/static/imgsource/layout/settingss.png" alt="설정" />--%>
+<%--            </button>--%>
+<%--            <div class="bbiyak">--%>
+<%--              <img src="/static/imgsource/layout/bbiyak.png" />--%>
+<%--            </div>--%>
+<%--          </nav>--%>
+<%--        </aside>--%>
+<%--      </div>--%>
+
+<%--      <!-- 🟣 오른쪽 컨테이너 (헤더바 + 콘텐츠) -->--%>
+<%--      <div class="right-container">--%>
+<%--        <header class="header-bar">--%>
+<%--          <div class="brand-title">--%>
+<%--            <img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고" />--%>
+<%--          </div>--%>
+<%--          <div class="header-icons">--%>
+<%--            <img--%>
+<%--              class="profile-img"--%>
+<%--              src="/static/imgsource/layout/testprofile.png"--%>
+<%--              alt="프로필"--%>
+<%--            />--%>
+<%--          </div>--%>
+<%--        </header>--%>
+
+<%--        <main class="content">--%>
+<%--          <div class="habit-page">--%>
+<%--            <!-- ✅ 1행: 내 습관 / 캘린더 / 주간 이력 -->--%>
+<%--            <div class="widget-box habit-list">--%>
+<%--              <div class="myhabit">習慣リスト</div>--%>
+<%--              <div class="myhabit-list">--%>
+<%--                <c:forEach var="habit" items="${habits}">--%>
+<%--                  <div id="habit-box-${habit.habit_id}">--%>
+<%--                    <input type="checkbox" id="habit-${habit.habit_id}" />--%>
+<%--                    <label for="habit-${habit.habit_id}"--%>
+<%--                      >${habit.habit_name}</label--%>
+<%--                    >--%>
+<%--                    <button--%>
+<%--                      class="delete-btn"--%>
+<%--                      onclick="deleteHabit(${habit.habit_id})"--%>
+<%--                    >--%>
+<%--                      삭제--%>
+<%--                    </button>--%>
+<%--                  </div>--%>
+<%--                </c:forEach>--%>
+<%--              </div>--%>
+<%--              <div>--%>
+<%--                <input--%>
+<%--                  type="text"--%>
+<%--                  id="habitInput"--%>
+<%--                  placeholder="習慣の追加はこちら"--%>
+<%--                />--%>
+<%--                <button id="addHabitBtn">+</button>--%>
+<%--              </div>--%>
+<%--            </div>--%>
+
+<%--            <div class="widget-box habit-calendar">--%>
+<%--              <div class="calendar">--%>
+<%--                <div class="calendar-header">--%>
+<%--                  <button id="prevMonth">&lt;</button>--%>
+<%--                  <span id="monthYear"></span>--%>
+<%--                  <button id="nextMonth">&gt;</button>--%>
+<%--                </div>--%>
+<%--                <div class="calendar-days">--%>
+<%--                  <div class="day-name">日</div>--%>
+<%--                  <div class="day-name">月</div>--%>
+<%--                  <div class="day-name">火</div>--%>
+<%--                  <div class="day-name">水</div>--%>
+<%--                  <div class="day-name">木</div>--%>
+<%--                  <div class="day-name">金</div>--%>
+<%--                  <div class="day-name">土</div>--%>
+<%--                </div>--%>
+<%--                <div id="calendarBody" class="calendar-body"></div>--%>
+<%--                <div--%>
+<%--                  id="selectedDateDisplay"--%>
+<%--                  style="margin-top: 10px; font-weight: bold"--%>
+<%--                >--%>
+<%--                  日付 ： 未選択--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--            </div>--%>
+
+<%--            <div class="widget-box habit-week">--%>
+<%--              <h3>WEEKLY習慣履歴</h3>--%>
+<%--              <table class="week-table">--%>
+<%--                <thead>--%>
+<%--                  <tr>--%>
+<%--                    <th>習慣名</th>--%>
+<%--                    <th>日</th>--%>
+<%--                    <th>月</th>--%>
+<%--                    <th>火</th>--%>
+<%--                    <th>水</th>--%>
+<%--                    <th>木</th>--%>
+<%--                    <th>金</th>--%>
+<%--                    <th>土</th>--%>
+<%--                  </tr>--%>
+<%--                </thead>--%>
+<%--                <tbody id="weeklyHabitBody">--%>
+<%--                  <!-- 자바스크립트에서 데이터로 채워짐 -->--%>
+<%--                </tbody>--%>
+<%--              </table>--%>
+<%--            </div>--%>
+
+<%--            <!-- ✅ 2행: 추천 습관 / 격려의 말 / 메모 -->--%>
+<%--            <div class="widget-box habit-recommend">--%>
+<%--              <div class="habit-tabs">--%>
+<%--                <div--%>
+<%--                  id="habit-tab-신체건강"--%>
+<%--                  class="habit-tab habit-active"--%>
+<%--                  onclick="habitShowTab('신체건강')"--%>
+<%--                >--%>
+<%--                  신체건강--%>
+<%--                </div>--%>
+<%--                <div--%>
+<%--                  id="habit-tab-정신건강"--%>
+<%--                  class="habit-tab"--%>
+<%--                  onclick="habitShowTab('정신건강')"--%>
+<%--                >--%>
+<%--                  정신건강--%>
+<%--                </div>--%>
+<%--              </div>--%>
+
+<%--              <div id="habit-신체건강" class="habit-content">--%>
+<%--                <div style="float: left; width: 25%">--%>
+<%--                  <p id="exercise">✅ 運動</p>--%>
+<%--                  <p id="meal">🍽️ 食事</p>--%>
+<%--                  <p id="diet">🏋️ 体重管理</p>--%>
+<%--                </div>--%>
+<%--                <div style="float: left; width: 25%">--%>
+<%--                  <p id="supplement">✅ サプリ</p>--%>
+<%--                  <p id="water">🍽️ お水</p>--%>
+<%--                  <p id="posture">🏋️ 正しい姿勢</p>--%>
+<%--                </div>--%>
+<%--                <div style="float: left; width: 25%">--%>
+<%--                  <p id="sunshine">✅ 日差し</p>--%>
+<%--                  <p id="rest">🍽️ 休憩</p>--%>
+<%--                  <p id="stretch">🏋️ ストレッチ</p>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+
+<%--              <div--%>
+<%--                id="habit-정신건강"--%>
+<%--                class="habit-content habit-hidden"--%>
+<%--                onclick="habitShowTab('정신건강')"--%>
+<%--              >--%>
+<%--                <div class="habit-정신건강-part">--%>
+<%--                  <p id="walk">散歩</p>--%>
+<%--                  <p id="meal">食事</p>--%>
+<%--                  <p id="talk">お喋り</p>--%>
+<%--                  <p id="friend">友達</p>--%>
+<%--                  <p id="exercise">運動</p>--%>
+<%--                  <p id="book">読書</p>--%>
+<%--                  <p id="game">ゲーム</p>--%>
+<%--                  <p id="water">お水</p>--%>
+<%--                  <p id="movie">映画</p>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--            </div>--%>
+
+<%--            <div class="widget-box habit-rate">--%>
+<%--              <h3>励ましの言葉</h3>--%>
+<%--              <ul id="encouragementList"></ul>--%>
+<%--            </div>--%>
+
+<%--            <div class="widget-box habit-memo">--%>
+<%--              <h3>주간 회고 메모</h3>--%>
+<%--              <textarea--%>
+<%--                id="weeklyMemoText"--%>
+<%--                rows="6"--%>
+<%--                placeholder="이번 주를 돌아보는 나의 생각을 적어보세요..."--%>
+<%--                style="width: 100%; resize: none"--%>
+<%--              ></textarea>--%>
+<%--              <button id="saveMemoBtn">저장하기</button>--%>
+<%--            </div>--%>
+<%--          </div>--%>
+<%--        </main>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+
+<%--    <script src="https://kit.fontawesome.com/a076d05399.js"></script>--%>
+<%--    <script src="/static/js/habit/habit.js"></script>--%>
+
+<%--  </body>--%>
+<%--</html>--%>
+
 <%@ page language="java" contentType="text/html; charset=utf-8"
-pageEncoding="utf-8" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
-prefix="c" %>
+         pageEncoding="utf-8" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+                                            prefix="c" %>
 
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/static/css/habit/habit.css" />
-  </head>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap"
+          rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/css/habit/habit.css" />
+</head>
 
-  <body>
-    <!-- 전체 컨테이너 -->
-    <div class="container">
-      <!-- 🟠 왼쪽 컨테이너 (사이드바) -->
-      <div class="left-container">
-        <aside class="sidebar">
-          <nav class="sidebar-menu">
-            <button class="sidebar-btn">
-              <img src="/static/imgsource/layout/home.png" alt="홈" />
-            </button>
-            <button class="sidebar-btn">
-              <img src="/static/imgsource/layout/calandar.png" alt="목록" />
-            </button>
-            <button class="sidebar-btn">
-              <img src="/static/imgsource/layout/pencil.png" alt="채팅" />
-            </button>
-            <button class="sidebar-btn">
-              <img src="/static/imgsource/layout/chat.png" alt="공유" />
-            </button>
-            <button class="sidebar-btn">
-              <img src="/static/imgsource/layout/settingss.png" alt="설정" />
-            </button>
-            <div class="bbiyak">
-              <img src="/static/imgsource/layout/bbiyak.png" />
-            </div>
-          </nav>
-        </aside>
+<body>
+<!-- 全体コンテナ -->
+<div class="container">
+  <!-- 🟠 左側コンテナ（サイドバー） -->
+  <div class="left-container">
+    <aside class="sidebar">
+      <nav class="sidebar-menu">
+        <button class="sidebar-btn">
+          <img src="/static/imgsource/layout/home.png" alt="ホーム" />
+        </button>
+        <button class="sidebar-btn">
+          <img src="/static/imgsource/layout/calandar.png" alt="リスト" />
+        </button>
+        <button class="sidebar-btn">
+          <img src="/static/imgsource/layout/pencil.png" alt="チャット" />
+        </button>
+        <button class="sidebar-btn">
+          <img src="/static/imgsource/layout/chat.png" alt="共有" />
+        </button>
+        <button class="sidebar-btn">
+          <img src="/static/imgsource/layout/settingss.png" alt="設定" />
+        </button>
+        <div class="bbiyak">
+          <img src="/static/imgsource/layout/bbiyak.png" />
+        </div>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- 🟣 右側コンテナ（ヘッダーバー＋コンテンツ） -->
+  <div class="right-container">
+    <header class="header-bar">
+      <div class="brand-title">
+        <img src="/static/imgsource/layout/logo.png" alt="KOYOI ロゴ" />
       </div>
+      <div class="header-icons">
+        <img
+                class="profile-img"
+                src="/static/imgsource/layout/testprofile.png"
+                alt="プロフィール"
+        />
+      </div>
+    </header>
 
-      <!-- 🟣 오른쪽 컨테이너 (헤더바 + 콘텐츠) -->
-      <div class="right-container">
-        <header class="header-bar">
-          <div class="brand-title">
-            <img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고" />
+    <main class="content">
+      <div class="habit-page">
+        <!-- ✅ 1行目：マイ習慣 / カレンダー / 週間履歴 -->
+        <div class="widget-box habit-list">
+          <div class="myhabit">マイ習慣</div>
+          <div class="myhabit-list">
+            <c:forEach var="habit" items="${habits}">
+              <div id="habit-box-${habit.habit_id}">
+                <input type="checkbox" id="habit-${habit.habit_id}" />
+                <label for="habit-${habit.habit_id}"
+                >${habit.habit_name}</label
+                >
+                <button
+                        class="delete-btn"
+                        onclick="deleteHabit(${habit.habit_id})"
+                >
+                  削除
+                </button>
+              </div>
+            </c:forEach>
           </div>
-          <div class="header-icons">
-            <img
-              class="profile-img"
-              src="/static/imgsource/layout/testprofile.png"
-              alt="프로필"
+          <div>
+            <input
+                    type="text"
+                    id="habitInput"
+                    placeholder="習慣を追加してください"
             />
+            <button id="addHabitBtn">＋</button>
           </div>
-        </header>
+        </div>
 
-        <main class="content">
-          <div class="habit-page">
-            <!-- ✅ 1행: 내 습관 / 캘린더 / 주간 이력 -->
-            <div class="widget-box habit-list">
-              <div class="myhabit">習慣リスト</div>
-              <div class="myhabit-list">
-                <c:forEach var="habit" items="${habits}">
-                  <div id="habit-box-${habit.habit_id}">
-                    <input type="checkbox" id="habit-${habit.habit_id}" />
-                    <label for="habit-${habit.habit_id}"
-                      >${habit.habit_name}</label
-                    >
-                    <button
-                      class="delete-btn"
-                      onclick="deleteHabit(${habit.habit_id})"
-                    >
-                      삭제
-                    </button>
-                  </div>
-                </c:forEach>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  id="habitInput"
-                  placeholder="習慣の追加はこちら"
-                />
-                <button id="addHabitBtn">+</button>
-              </div>
+        <div class="widget-box habit-calendar">
+          <div class="calendar">
+            <div class="calendar-header">
+              <button id="prevMonth">&lt;</button>
+              <span id="monthYear"></span>
+              <button id="nextMonth">&gt;</button>
             </div>
-
-            <div class="widget-box habit-calendar">
-              <div class="calendar">
-                <div class="calendar-header">
-                  <button id="prevMonth">&lt;</button>
-                  <span id="monthYear"></span>
-                  <button id="nextMonth">&gt;</button>
-                </div>
-                <div class="calendar-days">
-                  <div class="day-name">日</div>
-                  <div class="day-name">月</div>
-                  <div class="day-name">火</div>
-                  <div class="day-name">水</div>
-                  <div class="day-name">木</div>
-                  <div class="day-name">金</div>
-                  <div class="day-name">土</div>
-                </div>
-                <div id="calendarBody" class="calendar-body"></div>
-                <div
-                  id="selectedDateDisplay"
-                  style="margin-top: 10px; font-weight: bold"
-                >
-                  日付 ： 未選択
-                </div>
-              </div>
+            <div class="calendar-days">
+              <div class="day-name">日</div>
+              <div class="day-name">月</div>
+              <div class="day-name">火</div>
+              <div class="day-name">水</div>
+              <div class="day-name">木</div>
+              <div class="day-name">金</div>
+              <div class="day-name">土</div>
             </div>
-
-            <div class="widget-box habit-week">
-              <h3>WEEKLY習慣履歴</h3>
-              <table class="week-table">
-                <thead>
-                  <tr>
-                    <th>習慣名</th>
-                    <th>日</th>
-                    <th>月</th>
-                    <th>火</th>
-                    <th>水</th>
-                    <th>木</th>
-                    <th>金</th>
-                    <th>土</th>
-                  </tr>
-                </thead>
-                <tbody id="weeklyHabitBody">
-                  <!-- 자바스크립트에서 데이터로 채워짐 -->
-                </tbody>
-              </table>
+            <div id="calendarBody" class="calendar-body"></div>
+            <div
+                    id="selectedDateDisplay"
+                    style="margin-top: 10px; font-weight: bold"
+            >
+              日付：未選択
             </div>
+          </div>
+        </div>
 
-            <!-- ✅ 2행: 추천 습관 / 격려의 말 / 메모 -->
-            <div class="widget-box habit-recommend">
-              <div class="habit-tabs">
-                <div
-                  id="habit-tab-신체건강"
-                  class="habit-tab habit-active"
-                  onclick="habitShowTab('신체건강')"
-                >
-                  신체건강
-                </div>
-                <div
-                  id="habit-tab-정신건강"
-                  class="habit-tab"
+        <div class="widget-box habit-week">
+          <h3>週間習慣履歴</h3>
+          <table class="week-table">
+            <thead>
+            <tr>
+              <th>習慣名</th>
+              <th>日</th>
+              <th>月</th>
+              <th>火</th>
+              <th>水</th>
+              <th>木</th>
+              <th>金</th>
+              <th>土</th>
+            </tr>
+            </thead>
+            <tbody id="weeklyHabitBody">
+            <!-- JavaScriptでデータ挿入 -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ✅ 2行目：おすすめ習慣 / 励まし言葉 / メモ -->
+        <div class="widget-box habit-recommend">
+          <div class="habit-tabs">
+            <div
+                    id="habit-tab-신체건강"
+                    class="habit-tab habit-active"
+                    onclick="habitShowTab('신체건강')"
+            >
+              身体の健康
+            </div>
+            <div
+                    id="habit-tab-정신건강"
+                    class="habit-tab"
+                    onclick="habitShowTab('정신건강')"
+            >
+              心の健康
+            </div>
+          </div>
+
+          <div id="habit-신체건강" class="habit-content">
+            <div style="float: left; width: 25%">
+              <p id="exercise">✅ 運動</p>
+              <p id="meal">🍽️ 食事</p>
+              <p id="diet">🏋️ 体重管理</p>
+            </div>
+            <div style="float: left; width: 25%">
+              <p id="supplement">✅ サプリメント</p>
+              <p id="water">🍽️ 水分摂取</p>
+              <p id="posture">🏋️ 姿勢を正す</p>
+            </div>
+            <div style="float: left; width: 25%">
+              <p id="sunshine">✅ 日光浴</p>
+              <p id="rest">🍽️ 休憩</p>
+              <p id="stretch">🏋️ ストレッチ</p>
+            </div>
+          </div>
+
+          <div
+                  id="habit-정신건강"
+                  class="habit-content habit-hidden"
                   onclick="habitShowTab('정신건강')"
-                >
-                  정신건강
-                </div>
-              </div>
-
-              <div id="habit-신체건강" class="habit-content">
-                <div style="float: left; width: 25%">
-                  <p id="exercise">✅ 運動</p>
-                  <p id="meal">🍽️ 食事</p>
-                  <p id="diet">🏋️ 体重管理</p>
-                </div>
-                <div style="float: left; width: 25%">
-                  <p id="supplement">✅ サプリ</p>
-                  <p id="water">🍽️ お水</p>
-                  <p id="posture">🏋️ 正しい姿勢</p>
-                </div>
-                <div style="float: left; width: 25%">
-                  <p id="sunshine">✅ 日差し</p>
-                  <p id="rest">🍽️ 休憩</p>
-                  <p id="stretch">🏋️ ストレッチ</p>
-                </div>
-              </div>
-
-              <div
-                id="habit-정신건강"
-                class="habit-content habit-hidden"
-                onclick="habitShowTab('정신건강')"
-              >
-                <div class="habit-정신건강-part">
-                  <p id="walk">散歩</p>
-                  <p id="meal">食事</p>
-                  <p id="talk">お喋り</p>
-                  <p id="friend">友達</p>
-                  <p id="exercise">運動</p>
-                  <p id="book">読書</p>
-                  <p id="game">ゲーム</p>
-                  <p id="water">お水</p>
-                  <p id="movie">映画</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="widget-box habit-rate">
-              <h3>励ましの言葉</h3>
-              <ul id="encouragementList"></ul>
-            </div>
-
-            <div class="widget-box habit-memo">
-              <h3>주간 회고 메모</h3>
-              <textarea
-                id="weeklyMemoText"
-                rows="6"
-                placeholder="이번 주를 돌아보는 나의 생각을 적어보세요..."
-                style="width: 100%; resize: none"
-              ></textarea>
-              <button id="saveMemoBtn">저장하기</button>
+          >
+            <div class="habit-정신건강-part">
+              <p id="walk">散歩</p>
+              <p id="meal">食事</p>
+              <p id="talk">おしゃべり</p>
+              <p id="friend">友達</p>
+              <p id="exercise">運動</p>
+              <p id="book">読書</p>
+              <p id="game">ゲーム</p>
+              <p id="water">水分摂取</p>
+              <p id="movie">映画鑑賞</p>
             </div>
           </div>
-        </main>
+        </div>
+
+        <div class="widget-box habit-rate">
+          <h3>励ましの言葉</h3>
+          <ul id="encouragementList"></ul>
+        </div>
+
+        <div class="widget-box habit-memo">
+          <h3>週間振り返りメモ</h3>
+          <textarea
+                  id="weeklyMemoText"
+                  rows="6"
+                  placeholder="今週の振り返りを自由に書いてみましょう..."
+                  style="width: 100%; resize: none"
+          ></textarea>
+          <button id="saveMemoBtn">保存する</button>
+        </div>
       </div>
-    </div>
+    </main>
+  </div>
+</div>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="/static/js/habit/habit.js"></script>
-    <script>
-      // 기존 삭제 로직 유지
-      function deleteHabit(habit_id) {
-        if (confirm("정말로 삭제하시겠습니까?")) {
-          fetch("/habit/delete/" + habit_id, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-          })
-            .then((response) => {
-              if (response.ok) {
-                document.getElementById("habit-box-" + habit_id).remove();
-              } else {
-                alert("삭제 실패");
-              }
-            })
-            .catch((error) => console.error("Error:", error));
-        }
-      }
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="/static/js/habit/habit.js"></script>
 
-      // ✅ 캘린더에서 선택한 날짜 가져오는 함수
-      function getSelectedDate() {
-        const display = document.getElementById("selectedDateDisplay");
-        const text = display.textContent || display.innerText;
-
-        // 정규표현식으로 yyyy-MM-dd 날짜 형식만 추출
-        const dateRegex = /\d{4}-\d{2}-\d{2}/;
-        const match = text.match(dateRegex);
-
-        // 날짜 형식이 없으면 null 반환 (예: 日付：未選択)
-        return match ? match[0] : null;
-        // const dateStr = text.replace('선택한 날짜: ', '').trim(); // "2025-03-25" 형태
-        // return dateStr || new Date().toISOString().split('T')[0]; // 기본값: 오늘
-      }
-
-      // ✅ 페이지 로드시 또는 날짜 선택 시 호출 → 해당 날짜의 완료된 습관 목록을 불러옴
-      function loadTrackingStatus() {
-        const selectedDate = getSelectedDate(); // 선택된 날짜 가져오기
-
-        fetch(`/habit/tracking/status?date=${selectedDate}`)
-          .then((response) => response.text())
-          .then((trackedHabitIds) => {
-            document
-              .querySelectorAll('input[type="checkbox"]')
-              .forEach((checkbox) => {
-                const habitId = parseInt(checkbox.id.split("-")[1]);
-                checkbox.checked = trackedHabitIds.includes(habitId); // 완료된 습관은 체크 처리
-              });
-          });
-      }
-
-      // ✅ 체크박스에 이벤트 바인딩: 변경 시 서버로 상태 전송
-      function attachCheckboxEvents() {
-        document
-          .querySelectorAll('input[type="checkbox"]')
-          .forEach(function (checkbox) {
-            checkbox.addEventListener("change", function () {
-              const habitId = this.id.split("-")[1]; // habit-3 → 3
-              const isChecked = this.checked ? 1 : 0; // 1: 체크됨, 0: 해제됨
-              const selectedDate = getSelectedDate(); // 선택한 날짜 가져오기
-
-              fetch("/habit/tracking", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  habit_id: habitId,
-                  completed: isChecked,
-                  tracking_date: selectedDate,
-                }),
-              }).then((response) => {
-                if (!response.ok) {
-                  alert("습관 저장 실패");
-                  this.checked = !isChecked; // 실패하면 원래대로 돌림
-                }
-              });
-            });
-          });
-      }
-
-      // ✅ 페이지 로드되면 한 번 실행
-      document.addEventListener("DOMContentLoaded", function () {
-        attachCheckboxEvents(); // 체크박스 이벤트 등록
-        loadTrackingStatus(); // 해당 날짜 기준 체크 상태 불러오기
-      });
-
-      // ✅ 이후에 날짜 클릭 시에도 이 함수 2개 호출 필요!
-      // 👉 달력 클릭 시: loadTrackingStatus(), attachCheckboxEvents() 호출 잊지 마!
-    </script>
-  </body>
+</body>
 </html>
+
