@@ -33,16 +33,22 @@ public class HabitService {
     }
 
     public HabitVO addHabit(HabitVO habitVO) {
+        // 중복 습관 여부 확인
+        int count = habitMapper.countHabitByName(habitVO.getUser_id(), habitVO.getHabit_name());
+        if (count > 0) {
+            return null; // 이미 존재하면 insert 하지 않음
+        }
+
         int newHabitId = habitMapper.getNewHabitId();
         habitVO.setHabit_id(newHabitId);
-        habitVO.setUser_id("user1");
+
 
         habitMapper.insertHabitForTracking(habitVO);
         return habitVO;
     }
 
     public boolean deleteHabit(String userId, int habitId) {
-        userId = "user1";
+
         int result = habitMapper.deleteHabit(userId, habitId);
         return result > 0;
     }
@@ -181,26 +187,47 @@ public class HabitService {
         return resultList;
     }
 
-    // ✅ 회고 메모 저장 (insert 또는 update)
+//    // ✅ 회고 메모 저장 (insert 또는 update)
+//    public void saveWeeklyFeedback(String userId, Date trackingDate, String feedback) {
+//        // 1️⃣ 유저의 가장 오래된 습관 ID 가져오기
+//        Integer habitId = habitMapper.getFirstHabitId(userId);
+//        if (habitId == null) {
+//            System.out.println("❌ 저장할 습관이 없습니다.");
+//            return;
+//        }
+//
+//        // 2️⃣ 기존 tracking 기록 있는지 확인
+//        HabitTrackingVO existing = habitMapper.findTrackingByHabitAndDate(habitId, userId, trackingDate);
+//
+//        if (existing != null) {
+//            habitMapper.updateWeeklyFeedback(userId, trackingDate, feedback);
+//            System.out.println("🔁 주간 피드백 update 완료");
+//        } else {
+//            habitMapper.insertWeeklyFeedback(habitId, userId, trackingDate, feedback);
+//            System.out.println("🆕 주간 피드백 insert 완료");
+//        }
+//    }
     public void saveWeeklyFeedback(String userId, Date trackingDate, String feedback) {
-        // 1️⃣ 유저의 가장 오래된 습관 ID 가져오기
+    // 1️⃣ 해당 날짜에 이미 피드백 있는지 확인
+    String existing = habitMapper.getWeeklyFeedback(userId, trackingDate);
+
+    if (existing != null) {
+        habitMapper.updateWeeklyFeedback(userId, trackingDate, feedback);
+        System.out.println("🔁 주간 피드백 update 완료");
+    } else {
+        // 2️⃣ habit_id는 가장 오래된 걸 하나만 형식상 사용
         Integer habitId = habitMapper.getFirstHabitId(userId);
         if (habitId == null) {
             System.out.println("❌ 저장할 습관이 없습니다.");
             return;
         }
 
-        // 2️⃣ 기존 tracking 기록 있는지 확인
-        HabitTrackingVO existing = habitMapper.findTrackingByHabitAndDate(habitId, userId, trackingDate);
-
-        if (existing != null) {
-            habitMapper.updateWeeklyFeedback(userId, trackingDate, feedback);
-            System.out.println("🔁 주간 피드백 update 완료");
-        } else {
-            habitMapper.insertWeeklyFeedback(habitId, userId, trackingDate, feedback);
-            System.out.println("🆕 주간 피드백 insert 완료");
-        }
+        habitMapper.insertWeeklyFeedback(habitId, userId, trackingDate, feedback);
+        System.out.println("🆕 주간 피드백 insert 완료");
     }
+}
+
+
 
     // ✅ 회고 메모 조회
     public String getWeeklyFeedback(String userId, Date trackingDate) {

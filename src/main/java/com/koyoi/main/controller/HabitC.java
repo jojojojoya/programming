@@ -1,8 +1,11 @@
 package com.koyoi.main.controller;
 
+import com.koyoi.main.service.AdminMypageService;
 import com.koyoi.main.service.HabitService;
+import com.koyoi.main.vo.AdminMypageVO;
 import com.koyoi.main.vo.HabitTrackingVO;
 import com.koyoi.main.vo.HabitVO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +24,21 @@ public class HabitC {
 
     @Autowired
     private HabitService habitService;
+    @Autowired
+    private AdminMypageService adminMypageService;
 
     @GetMapping("")
-    public String habit(Model model) {
+    public String habit(HttpSession session ,Model model) {
         // user_id를 "user1"로 고정
-        String userId = "user1";
+        //String userId = "user1";
+        // 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
+
 
         // userId에 맞는 습관 목록을 DB에서 가져옴
         List<HabitVO> habits = habitService.getUserHabits(userId);
@@ -35,11 +48,18 @@ public class HabitC {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addHabit(@RequestBody HabitVO habitVO) {
-        String userId = "user1";  // 테스트용
+    public ResponseEntity<?> addHabit(HttpSession session, @RequestBody HabitVO habitVO, Model model) {
+        //String userId = "user1";  // 테스트용
+// 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
         try {
             System.out.println("📥 습관 추가 요청: " + habitVO); // ✅ 로그 찍어보기
-
+            habitVO.setUser_id(userId);  // 로그인한 사용자 ID 주입
             HabitVO newHabit = habitService.addHabit(habitVO);
             return ResponseEntity.status(HttpStatus.OK).body(newHabit);
 
@@ -125,9 +145,16 @@ public class HabitC {
 
     @DeleteMapping("/delete/{habitId}")
     @ResponseBody
-    public String deleteHabit(@PathVariable int habitId) {
+    public String deleteHabit(HttpSession session, @PathVariable int habitId, Model model) {
 
-        String userId = "user1";  // user_id를 "user1"로 고정
+        //String userId = "user1";  // user_id를 "user1"로 고정
+        // 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
         System.out.println("삭제 요청 - userId: " + userId + ", habitId: " + habitId); // 로깅 추가
 
         // 해당 습관을 삭제하는 서비스 호출
@@ -176,16 +203,31 @@ public class HabitC {
     // ✅ 해당 날짜의 완료된 습관 목록 조회 (체크 상태 표시용)
     @GetMapping("/tracking/status")
     @ResponseBody
-    public List<Integer> getCompletedHabits(@RequestParam String date) {
-        String userId = "user1"; // 로그인 사용자로 대체 가능
+    public List<Integer> getCompletedHabits(HttpSession session , @RequestParam String date, Model model) {
+        //String userId = "user1"; // 로그인 사용자로 대체 가능
+        // 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
+
         return habitService.getCompletedHabitIds(userId, date);
     }
 
     // ✅ 습관 체크/해제 저장
     @PostMapping("/tracking")
     @ResponseBody
-    public ResponseEntity<?> saveHabitTracking(@RequestBody HabitTrackingVO vo) {
-        String userId = "user1"; // 로그인 사용자로 대체 가능
+    public ResponseEntity<?> saveHabitTracking(HttpSession session, @RequestBody HabitTrackingVO vo, Model model) {
+        //String userId = "user1"; // 로그인 사용자로 대체 가능
+        // 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
         vo.setUser_id(userId);
 
         try {
@@ -216,8 +258,15 @@ public class HabitC {
 
     @GetMapping("/week/status")
     @ResponseBody
-    public ResponseEntity<?> getWeeklyStatus(@RequestParam(required = false) String date) {
-        String userId = "user1"; // 로그인 유저로 대체 가능
+    public ResponseEntity<?> getWeeklyStatus(HttpSession session, @RequestParam(required = false) String date, Model model) {
+        //String userId = "user1"; // 로그인 유저로 대체 가능
+        // 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
 
         if (date == null || date.trim().isEmpty() || "null".equals(date)) {
             return ResponseEntity.badRequest().body("유효한 날짜가 전달되지 않았습니다.");
@@ -238,10 +287,30 @@ public class HabitC {
     // ✅ 회고 메모 저장 (insert 또는 update)
     @PostMapping("/memo")
     @ResponseBody
-    public ResponseEntity<?> saveWeeklyFeedback(@RequestBody Map<String, Object> payload) {
-        String userId = "user1"; // 테스트용 고정 유저
+    public ResponseEntity<?> saveWeeklyFeedback(HttpSession session, @RequestBody Map<String, Object> payload, Model model) {
+//        String userId = "user1"; // 테스트용 고정 유저
+
+        // 로그인 세션
+        //String userId = (String) session.getAttribute("userId");
+        // 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+        }
+
         String dateStr = (String) payload.get("tracking_date");
         String feedback = (String) payload.get("feedback");
+
+        // debug
+        System.out.println(dateStr);
+        System.out.println(feedback);
 
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
