@@ -2,6 +2,18 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<style>
+    @font-face {
+        font-family: 'MyFont';
+        src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+    }
+
+    body {
+        font-family: 'MyFont', sans-serif;
+        font-size: 32px;
+        color: black;
+    }
+</style>
 
 <%  // 세션 체크 추가 부분 시작
     HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
@@ -27,11 +39,12 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap"
       rel="stylesheet">
-<link rel="stylesheet" href="/static/css/counselormypage/counselormypage.css">
+<link rel="stylesheet" href="/static/css/usermypage/usermypage.css">
 
-<div class="top-section">
-    <div class="profile_table">
-        <div class="profile_content">
+<main class="content">
+    <div class="top-section">
+        <div class="profile_table">
+            <div class="profile_content">
             <div class="profile_img">
                 <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'">
             </div>
@@ -48,7 +61,7 @@
                     <span> PW: ******** </span>
                 </div>
                 <div class="profile_item">
-                    <img src="/static/imgsource/profile/personicon.png" alt="ニックネーム">
+                    <img src="/static/imgsource/profile/nicknameicon.png" alt="ニックネーム">
                     <span id="nicknameDisplay">ニックネーム: ${user.user_nickname} </span>
                 </div>
                 <button class="profile_edit_btn" id="openPasswordCheckModal">プロフィール編集</button>
@@ -59,13 +72,15 @@
 
 
     <div class="chatbot_table">
-        <div class="chatbot_title">チャットボットとのやりとり</div>
+        <div class="chatbot_title">チャットボットとのやりとり
+        <img class="shiningdeco" src="/static/imgsource/background/shining.png">
+        </div>
         <div class="chatbot_info">
             <c:if test="${not empty chats}">
                 <c:forEach var="chat" items="${chats}">
                     <div class="chatbot_list" data-title="${chat.chat_title}" data-summary="${chat.chat_summary}">
                         <strong>${chat.chat_title}</strong>
-                        <button class="view_chat_summary_btn">内容を確認する</button>
+                        <button class="view_chat_summary_btn">内容確認</button>
                     </div>
                 </c:forEach>
 
@@ -81,9 +96,15 @@
 
 <div class="bottom-section">
     <div class="calendar-container">
-        <div class="calendar-iframe-wrapper" style="position: relative;">
+        <div class="calendar-iframe-wrapper" style="position: relative; transform: scale(0.7); transform-origin: top left; width: 100%; height: auto;">
             <iframe src="/maincalendar" frameborder="0"
-                    style="width: 100%; height: 450px; border: none;"></iframe>
+                    style="   width: 458px;
+    height: 456px;
+    border-radius: 16px;border: none;"></iframe>
+
+            <img src="/static/imgsource/background/book.png" class="calendar-illust">
+
+
             <a href="/diary" style="
         position: absolute;
         top: 0; left: 0;
@@ -127,7 +148,7 @@
                                     <button type="button" class="enter_counseling_btn">今すぐ入室</button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="button" class="view_counseling_btn">内容を確認する</button>
+                                    <button type="button" class="view_counseling_btn">内容確認</button>
                                 </c:otherwise>
                             </c:choose>
 
@@ -142,7 +163,7 @@
 <!-- 패스워드 체크 모달 -->
 <div id="passwordCheckModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <p> パスワードを入力してください </p>
+        <p> パスワードを入力してください。</p>
         <input type="password" id="passwordCheck" autocomplete="off">
         <button id="checkPasswordBtn">確認</button>
         <button class="close">X</button>
@@ -154,7 +175,7 @@
     <div class="modal-content">
         <div class="chatbot-detail-title" style="font-weight:bold; margin-bottom:10px;"></div>
         <div class="chatbot-detail-text"></div>
-        <button class="close" onclick="closeChatDetail()">閉じる</button>
+        <button class="close" onclick="closeChatDetail()">X</button>
     </div>
 </div>
 
@@ -163,7 +184,7 @@
 <!-- 프로필 수정 모달 -->
 <div id="profileModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <h3>プロフィールを編集する</h3>
+        <h3>プロフィールを編集</h3>
 
         <div class="profile_img">
             <img src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'">
@@ -187,7 +208,7 @@
         <br>
 
         <button id="saveProfileBtn">保存</button>
-        <button class="close">閉じる</button>
+        <button class="close">X</button>
     </div>
 </div>
 <script>
@@ -196,6 +217,5 @@
     });
 </script>
 <script src="/static/js/counselormypage/counselormypage.js"></script>
-
-</body>
+</main>
 </html>

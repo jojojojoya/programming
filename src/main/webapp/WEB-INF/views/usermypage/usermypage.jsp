@@ -71,7 +71,7 @@
                                 <span> パスワード: ******** </span>
                             </div>
                             <div class="profile_item">
-                                <img src="/static/imgsource/profile/personicon.png" alt="ニックネーム">
+                                <img src="/static/imgsource/profile/nicknameicon.png" alt="ニックネーム">
                                 <span id="nicknameDisplay">ニックネーム: ${user.user_nickname} </span>
                             </div>
                             <button class="profile_edit_btn" id="openPasswordCheckModal">プロフィール編集</button>
@@ -81,13 +81,15 @@
                 </div>
 
                 <div class="chatbot_table">
-                    <div class="chatbot_title">チャットボットとのやりとり</div>
+                    <div class="chatbot_title">チャットボットとのやりとり
+                    <img class="shiningdeco" src="/static/imgsource/background/shining.png">
+                    </div>
                     <div class="chatbot_info">
                         <c:if test="${not empty chats}">
                             <c:forEach var="chat" items="${chats}">
                                 <div class="chatbot_list" data-title="${chat.chat_title}" data-summary="${chat.chat_summary}">
                                     <strong>${chat.chat_title}</strong>
-                                    <button class="view_chat_summary_btn">内容を確認する</button>
+                                    <button class="view_chat_summary_btn">内容確認</button>
                                 </div>
                             </c:forEach>
 
@@ -149,7 +151,7 @@
                         <div class="reserved_counseling_table_comment">
                             <div> ご予約中のライブ相談 </div>
 
-                            <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'"> 追加相談を予約する
+                            <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'"> 追加相談を予約
                             </button>
                         </div>
 
@@ -180,7 +182,7 @@
                                                 <button type="button" class="enter_counseling_btn">今すぐ入室</button>
                                             </c:when>
                                             <c:otherwise>
-                                                <button type="button" class="view_counseling_btn">内容を確認する</button>
+                                                <button type="button" class="view_counseling_btn">内容確認</button>
                                             </c:otherwise>
                                         </c:choose>
 
@@ -208,7 +210,7 @@
                         <div class="modal-content">
                             <div class="chatbot-detail-title" style="font-weight:bold; margin-bottom:10px;"></div>
                             <div class="chatbot-detail-text"></div>
-                            <button class="close" onclick="closeChatDetail()">閉じる</button>
+                            <button class="close" onclick="closeChatDetail()">X</button>
                         </div>
                     </div>
 
@@ -216,7 +218,7 @@
 
                     <div id="profileModal" class="modal" style="display: none;">
                     <div class="modal-content">
-                        <h3>プロフィールを編集する</h3>
+                        <h3>プロフィール編集</h3>
 
                         <div class="profile_img">
                             <img src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">

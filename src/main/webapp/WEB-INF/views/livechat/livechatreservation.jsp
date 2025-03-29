@@ -1,4 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+
+<style>
+    @font-face {
+        font-family: 'MyFont';
+        src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+    }
+
+    body {
+        font-family: 'MyFont', sans-serif;
+        font-size: 32px;
+        color: black;
+    }
+</style>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -13,10 +27,9 @@
 
             <div class="top-section">
                 <div class="livechat_table">
-                    <div style="color: #D8D2C2; font-size: 20px;"  > 専門家との相談を予約しませんか？ </div>
+                    <div style="color: #D8D2C2; font-size: 16px; margin-top:20px;"  > 専門家との相談を予約しませんか？ </div>
                     <div class="livechat_info">
 
-                        <div id="livechat_step1" class="show">
                             <div class="livechat_list"> ご希望の日付を選択してください。</div>
                             <input type="text" id="livechat_reserve_date" onchange="showNext('step2')">
 
@@ -73,8 +86,12 @@
                         <div id="conformation">
                             <div id="conformation_text" class="livechat_list" style="display: none;">
                                 内容に基づいて、最適なカウンセラーを割り当てました。
+
                             </div>
+                            <img class="livechattabledeco" src="/static/imgsource/login/mainbanner08.png">
+
                             <button id="livechat_exit_btn" class="hide"> 戻る</button>
+
                         </div>
 
 

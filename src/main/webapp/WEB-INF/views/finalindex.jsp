@@ -76,10 +76,10 @@
         <aside class="sidebar">
             <nav class="sidebar-menu">
                 <a href="/main" class="sidebar-btn">
-                    <img src="/static/imgsource/layout/home.png" alt="홈">
+                    <img src="/static/imgsource/layout/homeicon.png" alt="홈">
                 </a>
-                <a href="/diary" class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="캘린더"></a>
-                <a href="/habit" class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="습관"></a>
+                <a href="/diary" class="sidebar-btn"><img src="/static/imgsource/layout/nitkiicon.png" alt="캘린더"></a>
+                <a href="/habit" class="sidebar-btn"><img src="/static/imgsource/layout/pencilicon.png" alt="습관"></a>
                 <a href="/livechatreservation" class="sidebar-btn"><img src="/static/imgsource/layout/chat.png"
                                                                         alt="라챗"></a>
 <%--                <a href="/chat">--%>

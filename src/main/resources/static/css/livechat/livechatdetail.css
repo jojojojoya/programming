@@ -1,206 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
 
-body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background-color: #f5f0ea;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    min-height: 100vh;
-    overflow-y: auto;
-}
 
-.container {
-    width: 100vw;
-    height: auto;
-    overflow-y: auto;
-    background-color: #fff3e7;
-    display: flex;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.left-container {
-    width: 60px;
-    background-color: #FFF3E7;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 5px;
-    position: relative;
-    border-right: 1px solid #f4dfcd;
-}
-
-.sidebar {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 15px;
-}
-
-.sidebar-btn {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin: 36px 0;
-}
-
-.sidebar-btn::before {
-    content: "...";
-    font-size: 11px;
-    font-weight: bold;
-    color: black;
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.sidebar-btn img {
-    width: 24px;
-    height: 24px;
-}
-
-.sidebar-btn:hover {
-    transform: scale(1.1);
-}
-
-
-
-.right-container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.header-bar {
-    width: 100%;
-    height: 120px;
-    background-color: #ede0d4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 30px;
-    border-radius: 0px 0px 0 0;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-
-.brand-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 150px;
-    height: 100px;
-}
-
-.brand-title img {
-    width: 100%;
-    height: auto;
-    max-width: 125px;
-}
-
-
-.header-icons {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: absolute;
-    right: 100px;
-}
-
-.header-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-}
-
-.header-btn img {
-    width: 20px;
-    height: 20px;
-}
-
-.header-btn:hover {
-    transform: scale(1.1);
-}
-
-
-.profile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 2px solid #ddd;
-}
-
-
-/* 프로필 이미지 */
-.myprofile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 2px solid #ddd;
-}
-
-/* 🟡 메인 콘텐츠 */
-.content {
-    width: calc(100% - 60px);  /* ✅ sidebar 제외한 크기로 설정 */
-    padding: 20px;
-    text-align: center;
-    font-size: 18px;
-}
 
 .bbiyak {
-    position: absolute; /* 절대 위치 */
-    bottom: 47px; /* 보라색 파도 위로 조정 */
-    left: 73%; /* 가운데 정렬 */
-    transform: translateX(-50%); /* 정확한 중앙 정렬 */
-    width: 70px;  /* 크기 조절 (작게) */
-    height: 70px; /* 크기 조절 (작게) */
-    background-color: transparent; /* 배경색 없음 */
+    position: absolute;
+    bottom: 47px;
+    left: 73%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    background-color: transparent;
     border-radius: 50%;
-    box-sizing: border-box; /* 크기 조정 */
-    z-index: 20; /* 다른 요소 위에 표시 */
-    overflow: hidden; /* 혹시라도 삐져나오면 숨김 */
+    box-sizing: border-box;
+    z-index: 20;
+    overflow: hidden;
 }
 
-/* bbiyak 내부 이미지 크기 조정 */
 .bbiyak img {
-    width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
+    width: 100%;
     height: 100%;
-    object-fit: contain; /* 이미지 비율 유지하며 맞춤 */
+    object-fit: contain;
 }
-/* 🔹 메인 콘텐츠 레이아웃 */
 .content {
     display: flex;
-    flex-direction: column; /* 🔹 상하 정렬 */
+    flex-direction: column;
     gap: 20px;
     padding: 20px;
 }
 
-/* 🔹 상단 (프로필 + 챗봇) 그룹 */
 .top-section {
     display: flex;
     gap: 30px;
@@ -209,7 +36,6 @@ body {
     height: 330px;
 }
 
-/* 🔹 하단 (다이어리 + 상담) 그룹 */
 .bottom-section {
     display: flex;
     gap: 30px;
@@ -219,10 +45,9 @@ body {
 }
 
 
-/* 🔵 개별 테이블 스타일 */
 .profile_table, .livechat_table,
 .diary_table, .counseling_table, .chatbot_detail_table {
-    min-width: 440px; /* 🔹 최소 크기 증가 */
+    min-width: 440px;
     padding: 20px;
     border-radius: 12px;
     background: #ffffff;
@@ -230,15 +55,13 @@ body {
     text-align: center;
 }
 
-/* 🔹 상단 그룹 (프로필 + 챗봇) */
 .top-section {
     display: flex;
-    gap: 30px; /* 🔹 간격 조정 (너무 넓지 않도록) */
+    gap: 30px;
     justify-content: space-between;
     width: 100%;
 }
 
-/* 🔹 하단 그룹 (다이어리 + 상담) */
 .bottom-section {
     display: flex;
     gap: 30px;
@@ -246,10 +69,9 @@ body {
     width: 100%;
 }
 
-/* 🟢 너비 조정 가능하도록 설정 */
 .profile_table {
-    flex-grow: 3; /* 🔹 프로필을 더 크게 */
-    flex-basis: 65%; /* 🔹 기본 크기 65% */
+    flex-grow: 3;
+    flex-basis: 65%;
     background-color: white;
 }
 .chat-container {
@@ -270,11 +92,12 @@ body {
     padding: 10px;
     height: 400px;
     overflow-y: auto;
-    background-color: #f5f5f5;
+    background-color: #f5f0ea;
     border-radius: 8px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
-/* 공통 메시지 스타일 */
 .chat-message {
     max-width: 60%;
     padding: 10px 14px;
@@ -285,7 +108,6 @@ body {
     display: inline-block;
 }
 
-/* 내가 보낸 메시지: 오른쪽 정렬 */
 .my-msg {
     align-self: flex-end;
     background-color: #d1e7dd;
@@ -293,34 +115,36 @@ body {
     border-bottom-right-radius: 0;
 }
 
-/* 상대가 보낸 메시지: 왼쪽 정렬 */
 .other-msg {
     align-self: flex-start;
     background-color: #ffffff;
-    border: 1px solid #ccc;
-    color: #333;
-    border-bottom-left-radius: 0;
+    color: #3f2e29;
+    border:1px solid #f5f0ea;
+    border-radius: 12px 12px 12px 0;
 }
 
 .chat-input {
     display: none;
-    padding: 10px 20px;
+    padding: 2px 18px;
     background-color: #ede0d4;
-    display: flex;
+    display: flex
+;
     align-items: center;
     gap: 10px;
-    border-top: 1px solid #c7b4a2;
+    border-top: 0px solid #c7b4a2;
+    margin-bottom: 0px;
 }
 
 .chat-input input {
     flex: 1;
-    padding: 10px;
+    padding: 6px;
     border-radius: 20px;
     border: none;
     outline: none;
     font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
-
 
 .no-messages {
     color: #FFD27A; /* 원하는 색상 코드로 변경 */
@@ -329,12 +153,10 @@ body {
     text-align: center; /* 가운데 정렬 */
     margin-top: 20px;
 }
-/* 상담 시작 버튼 */
-/* 상담 시작 버튼 */
 #enterButton {
-    display: block; /* 🔥 강제 표시 */
+    display: block;
     margin: 20px auto;
-    padding: 10px 15px;
+    padding: 4px 15px;
     background-color: #3f2e29;
     color: #ffd27a;
     border: none;
@@ -342,15 +164,15 @@ body {
     cursor: pointer;
     font-size: 14px;
     text-align: center;
-    width: 150px;
+    width: 134px;
+    font-weight: 600;
 }
 
 
-/* 나가기 버튼 */
 #exitButton {
     display: block;
     margin: auto;
-    padding: 10px 20px;
+    padding: 4px 20px;
     background-color: #ffd27a;
     cursor: pointer;
     font-size: 14px;
@@ -360,15 +182,16 @@ body {
     border: none;
     text-align: center;
 }
-/* 🔹 전송 버튼 스타일 */
+
 .chat-input button {
     margin-left: 10px;
-    padding: 8px 15px;
+    padding: 5px 14px;
     background-color: #ffd27a;
     border: none;
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 13px;
 }
 
 .chat-input button:hover {
@@ -376,7 +199,6 @@ body {
 }
 
 
-/* 🔵 채팅 메시지 */
 .user-msg {
     float: right;
     background-color: #ffd27a;
@@ -388,7 +210,7 @@ body {
 
 
 .chat-message {
-    padding: 10px 14px;
+    padding: 6px 14px;
     max-width: 60%;
     word-wrap: break-word;
     font-size: 14px;
@@ -396,16 +218,13 @@ body {
     clear: both;
     display: inline-block;
 }
-
-/* 내가 보낸 말 - 오른쪽 */
 .my-msg {
     align-self: flex-end;
-    background-color: #d1e7dd;
-    color: #000;
+    background-color: #3f2e29;
+    color: #f4dfcd;
     border-radius: 12px 12px 0 12px;
 }
 
-/* 상대방 말 - 왼쪽 */
 .other-msg {
     align-self: flex-start;
     background-color: #fff;

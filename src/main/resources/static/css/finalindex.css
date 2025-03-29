@@ -180,20 +180,18 @@ body {
     font-size: 18px;
 }
 .chatbotlogo {
-    position: absolute; /* 절대 위치 */
-    bottom: 47px; /* 보라색 파도 위로 조정 */
-    left: 73%; /* 가운데 정렬 */
-    transform: translateX(-50%); /* 정확한 중앙 정렬 */
-    width: 70px;  /* 크기 조절 (작게) */
-    height: 70px; /* 크기 조절 (작게) */
-    background-color: transparent; /* 배경색 없음 */
+    position: fixed;
+    bottom: 12px;
+    left: 51px;
+    transform: translateX(-50%);
+    width: 99px;
+    height: 99px;
+    background-color: transparent;
     border-radius: 50%;
-    box-sizing: border-box; /* 크기 조정 */
-    z-index: 20; /* 다른 요소 위에 표시 */
-    overflow: hidden; /* 혹시라도 삐져나오면 숨김 */
+    box-sizing: border-box;
+    z-index: 21;
+    overflow: hidden;
 }
-
-/* bbiyak 내부 이미지 크기 조정 */
 .chatbotlogo img {
     width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
     height: 100%;
