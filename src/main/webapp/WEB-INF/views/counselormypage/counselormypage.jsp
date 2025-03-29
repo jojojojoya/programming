@@ -145,7 +145,7 @@
         <p> パスワードを入力してください </p>
         <input type="password" id="passwordCheck" autocomplete="off">
         <button id="checkPasswordBtn">確認</button>
-        <button class="close">閉じる</button>
+        <button class="close">X</button>
         <p id="passwordErrorMsg" style="display: none; color: red;">パスワードが正しくありません。</p>
     </div>
 </div>

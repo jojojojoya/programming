@@ -74,7 +74,7 @@
     <%-- 헤더 --%>
     <header class="header-bar">
         <div class="logo-container">
-            <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
+            <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/koyoi_name.png" alt="KOYOI"> </a>
         </div>
         <div class="header-icons">
             <button class="header-btn" id="notice">

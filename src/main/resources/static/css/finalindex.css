@@ -98,12 +98,11 @@ body {
 /* 🟣 헤더 바 */
 .header-bar {
     width: 100%;
-    height: 120px;
+    height: 10vh;
     background-color: #ede0d4;
     display: flex; /* 🔹 flexbox 적용 */
     align-items: center; /* 🔹 세로 중앙 정렬 */
     justify-content: center; /* 🔹 가로 중앙 정렬 */
-
     padding: 0 30px;
     border-radius: 0px 0px 0 0;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -121,9 +120,8 @@ body {
 }
 
 .brand-title img {
-    width: 100%; /* 🔹 부모 요소에 맞게 조정 */
-    height: auto;
-    max-width: 125px; /* 🔹 최대 크기 제한 */
+    width: 200px; /* 🔹 부모 요소에 맞게 조정 */
+    height: 200px;
 }
 
 /* 🟡 우측 상단 아이콘 */

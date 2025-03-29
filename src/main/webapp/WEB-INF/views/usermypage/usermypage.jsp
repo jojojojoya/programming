@@ -4,6 +4,18 @@
 <%@ page import="com.koyoi.main.vo.UserMyPageVO" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<style>
+    @font-face {
+        font-family: 'MyFont';
+        src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+    }
+
+    body {
+        font-family: 'MyFont', sans-serif;
+        font-size: 32px;
+        color: black;
+    }
+</style>
 
 
 <%  // 세션 체크 추가 부분 시작
@@ -91,9 +103,14 @@
 
             <div class="bottom-section">
                 <div class="calendar-container">
-                    <div class="calendar-iframe-wrapper" style="position: relative;">
+                    <div class="calendar-iframe-wrapper" style="position: relative; transform: scale(0.7); transform-origin: top left; width: 100%; height: auto;">
                         <iframe src="/maincalendar" frameborder="0"
-                                style="width: 100%; height: 450px; border: none;"></iframe>
+                                style="   width: 458px;
+    height: 456px;
+    border-radius: 16px;border: none;"></iframe>
+
+                        <img src="/static/imgsource/background/book.png" class="calendar-illust">
+
 
                         <a href="/diary" style="
         position: absolute;
@@ -103,6 +120,7 @@
         background: transparent;
         cursor: pointer;
     "></a>
+
                     </div>
 
                 </div>
@@ -130,6 +148,7 @@
                     <div class="counseling_table">
                         <div class="reserved_counseling_table_comment">
                             <div> ご予約中のライブ相談 </div>
+
                             <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'"> 追加相談を予約する
                             </button>
                         </div>
@@ -176,10 +195,10 @@
 
                 <div id="passwordCheckModal" class="modal" style="display: none;">
                     <div class="modal-content">
-                        <p> パスワードを入力してください </p>
+                        <p> パスワードを入力してください。</p>
                         <input type="password" id="passwordCheck" autocomplete="off">
                         <button id="checkPasswordBtn">確認</button>
-                        <button class="close">閉じる</button>
+                        <button class="close"> X </button>
                         <p id="passwordErrorMsg" style="display: none; color: red;">パスワードが正しくありません。</p>
                     </div>
                 </div>
@@ -222,7 +241,7 @@
                         <br>
 
                         <button id="saveProfileBtn">保存</button>
-                        <button class="close">閉じる</button>
+                        <button class="close">X</button>
                     </div>
                 </div>
 

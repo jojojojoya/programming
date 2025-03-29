@@ -19,7 +19,7 @@
 
     <header class="header-bar">
         <div class="header-logo-center">
-            <img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고" class="header-logo">
+            <img src="/static/imgsource/layout/koyoi_name.png" alt="KOYOI 로고" class="header-logo">
         </div>
     </header>
 
@@ -31,9 +31,10 @@
             <div class="signup-left">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="/static/imgsource/login/test1.jpeg" alt="슬라이드1"/></div>
-                        <div class="swiper-slide"><img src="/static/imgsource/login/test2.jpeg" alt="슬라이드2"/></div>
-                        <div class="swiper-slide"><img src="/static/imgsource/login/test3.jpeg" alt="슬라이드3"/></div>
+                        <div class="swiper-slide"><img src="/static/imgsource/login/mainbanner4.jpg" alt="슬라이드1"/></div>
+                        <div class="swiper-slide"><img src="/static/imgsource/login/mainbanner5.jpg" alt="슬라이드2"/></div>
+                        <div class="swiper-slide"><img src="/static/imgsource/login/mainbanner06.png" alt="슬라이드3"/></div>
+                        <div class="swiper-slide"><img src="/static/imgsource/login/mainbanner2.jpg" alt="슬라이드4"/></div>
                     </div>
 
                     <!-- 페이지네이션 -->

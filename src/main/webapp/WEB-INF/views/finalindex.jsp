@@ -89,7 +89,7 @@
 <%--                </a>--%>
                 <a href="javascript:void(0);" onclick="openChatModal()">
                     <div class="chatbotlogo">
-                        <img src="/static/imgsource/layout/chatbotlogo.png" alt="챗봇">
+                        <img src="/static/imgsource/layout/koyoi_moon.png" alt="챗봇">
                     </div>
                 </a>
             </nav>
@@ -99,7 +99,7 @@
     <div class="right-container">
         <header class="header-bar">
             <div class="brand-title">
-                <a href="/main"><img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고"></a>
+                <a href="/main"><img src="/static/imgsource/layout/koyoi_name.png" alt="KOYOI 로고"></a>
             </div>
             <div class="header-icons">
                 <button class="header-btn">

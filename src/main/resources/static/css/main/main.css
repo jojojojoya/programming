@@ -51,7 +51,7 @@ body {
 /* header */
 .header-bar {
     width: 100%;
-    height: 12vh;
+    height: 10vh;
     background-color: #EDE0D4;
     display: flex;
     align-items: center;
@@ -72,8 +72,8 @@ body {
 }
 
 .logo-icon {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
 }
 
 .logo-text {
