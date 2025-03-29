@@ -559,3 +559,22 @@ INSERT INTO TEST_QUOTE (admin_id, content, created_at)
 VALUES ('admin001',     '"人生の意味とは、自分がやりたいと思うことをすること。" - パウロ・コエーリョ', sysdate);
 
 select * from TEST_QUOTE;
+SELECT chat_title, DBMS_LOB.SUBSTR(chat_summary, 4000, 1) FROM test_chat WHERE user_id = 'jojot';
+
+
+INSERT INTO TEST_CHAT (chat_id, user_id, chat_title, chat_summary, create_at)
+VALUES (TEST_CHAT_SEQ.NEXTVAL, 'test02', '오늘 하루 어땠어?', '오늘은 기분이 좋았고, 친구랑 산책을 했어!', SYSDATE);
+
+
+INSERT INTO TEST_CHAT (chat_id, user_id, chat_title, chat_summary, create_at)
+VALUES (TEST_CHAT_SEQ.NEXTVAL, 'test02', '스트레스 해소법', '스트레스가 쌓여서 음악 들으면서 마음을 진정시켰어.', SYSDATE);
+
+INSERT INTO TEST_CHAT (chat_id, user_id, chat_title, chat_summary, create_at)
+VALUES (TEST_CHAT_SEQ.NEXTVAL, 'test02', '내일 계획', '내일은 아침에 운동하고 책을 읽을 계획이야.', SYSDATE);
+
+
+SELECT chat_id, chat_title, DBMS_LOB.SUBSTR(chat_summary, 4000, 1)
+FROM test_chat
+WHERE user_id = 'jojot';
+
+select  * from test_user;

@@ -5,7 +5,6 @@ import com.koyoi.main.service.UserMyPageService;
 import com.koyoi.main.vo.UserMyPageVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,7 +69,6 @@ public class UserMypageC {
 
         String password = requestData.get("password");
         boolean isValid = userMyPageService.checkPassword(userId, password);
-        System.out.println("비밀번호 확인 결과: " + (isValid ? "성공" : "실패"));
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("valid", isValid);
@@ -83,7 +81,6 @@ public class UserMypageC {
         String userId = getLoginUserId(session);
 
         boolean isUpdated = userMyPageService.updateProfile(user);
-        System.out.println("프로필 업데이트 결과: " + (isUpdated ? "성공" : "실패"));
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("updated", isUpdated);
@@ -96,7 +93,6 @@ public class UserMypageC {
             int counselingId = (int) requestData.get("counseling_id");
             String status = (String) requestData.get("status");
 
-            System.out.println("상담 상태 업데이트 요청 - ID: " + counselingId + ", 상태: " + status);
             boolean success = liveChatService.updateReservationStatus(counselingId, status);
 
             Map<String, Boolean> response = new HashMap<>();
@@ -128,11 +124,6 @@ public class UserMypageC {
             userId = userIdFromSession;
 
 
-            System.out.println("userId: " + userId);
-            System.out.println("nickname: " + nickname);
-            System.out.println("password: " + password);
-            System.out.println("첨부된 파일: " + (profileImg != null ? profileImg.getOriginalFilename() : "없음"));
-
             String imgPath = null;
             if (profileImg != null && !profileImg.isEmpty()) {
                 String projectPath = System.getProperty("user.dir");
@@ -140,7 +131,6 @@ public class UserMypageC {
 
                 File uploadDir = new File(uploadDirPath);
                 if (!uploadDir.exists()) {
-                    System.out.println("디렉토리 없음 → 생성 시도");
                     uploadDir.mkdirs();
                 }
 

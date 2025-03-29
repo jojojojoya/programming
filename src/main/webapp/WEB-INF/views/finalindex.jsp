@@ -88,8 +88,8 @@
 <%--                    </div>--%>
 <%--                </a>--%>
                 <a href="javascript:void(0);" onclick="openChatModal()">
-                    <div class="bbiyak">
-                        <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇">
+                    <div class="chatbotlogo">
+                        <img src="/static/imgsource/layout/chatbotlogo.png" alt="챗봇">
                     </div>
                 </a>
             </nav>
@@ -107,6 +107,8 @@
                 </button>
                 <button class="header-btn" onclick="goToMyPage()">
                 <img class="profile-img" src="<%=imgPath%>" alt="프로필" onerror="this.src='/imgsource/testprofile.png'">
+<%--        <img class="profile-img" src="${user.user_img}" alt="프로필 이미지" onerror="this.src='/imgsource/userProfile/default.png'">--%>
+
                 </button>
             </div>
         </header>
@@ -131,8 +133,9 @@
 
             <!-- 유저마이페이지 인클루드 -->
             <c:if test="${not empty usermypage}">
-                <jsp:include page="${usermypage}"/>
+                <jsp:include page="${usermypage}" />
             </c:if>
+
 
             <!-- 라이브챗 디테일  인클루드 -->
             <c:if test="${not empty livechatdetail}">

@@ -44,26 +44,33 @@
                 <input type="hidden" id="hiddenUserId" value="${user.user_id}">
 
                 <div class="profile_item">
-                    <img src="/static/imgsource/profile/lockicon.png" alt="비밀번호">
+                    <img src="/static/imgsource/profile/lockicon.png" alt="パスワード">
                     <span> PW: ******** </span>
                 </div>
                 <div class="profile_item">
-                    <img src="/static/imgsource/profile/personicon.png" alt="">
+                    <img src="/static/imgsource/profile/personicon.png" alt="ニックネーム">
                     <span id="nicknameDisplay">ニックネーム: ${user.user_nickname} </span>
                 </div>
-                <button class="profile_edit_btn" id="openPasswordCheckModal">프로필 수정하기</button>
+                <button class="profile_edit_btn" id="openPasswordCheckModal">プロフィール編集</button>
             </div>
 
         </div>
     </div>
+
 
     <div class="chatbot_table">
         <div class="chatbot_title">チャットボットとのやりとり</div>
         <div class="chatbot_info">
             <c:if test="${not empty chats}">
                 <c:forEach var="chat" items="${chats}">
-                    <div class="chatbot_list">${chat.chat_summary}</div>
+                    <div class="chatbot_list" data-title="${chat.chat_title}" data-summary="${chat.chat_summary}">
+                        <strong>${chat.chat_title}</strong>
+                        <button class="view_chat_summary_btn">内容を確認する</button>
+                    </div>
                 </c:forEach>
+
+
+
             </c:if>
             <c:if test="${empty chats}">
                 <div class="chatbot_list"> チャットボットの会話履歴はありません。</div>
@@ -143,15 +150,15 @@
     </div>
 </div>
 
-<%--        챗봇 내역 열람 모달 --%>
-<div id="chatbotDetailModal" class="modal" style="display: none">
+<div id="chatbotDetailModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <div class="chatbot-detail-title"> チャットボットのタイトル </div>
-        <div class="chatbot-detail-text"> チャットボットの内容 </div>
-        <button class="close">閉じる</button>
+        <div class="chatbot-detail-title" style="font-weight:bold; margin-bottom:10px;"></div>
+        <div class="chatbot-detail-text"></div>
+        <button class="close" onclick="closeChatDetail()">閉じる</button>
     </div>
-
 </div>
+
+
 
 <!-- 프로필 수정 모달 -->
 <div id="profileModal" class="modal" style="display: none;">
@@ -183,7 +190,12 @@
         <button class="close">閉じる</button>
     </div>
 </div>
-
-<script src="/static/js/counselormypage/counselormypage.js">
-
+<script>
+    document.querySelector(".calendar-container").addEventListener("click", function () {
+        window.location.href = "/diary";
+    });
 </script>
+<script src="/static/js/counselormypage/counselormypage.js"></script>
+
+</body>
+</html>

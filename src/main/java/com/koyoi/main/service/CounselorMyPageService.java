@@ -5,18 +5,14 @@ import com.koyoi.main.vo.CounselorMyPageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @Service
 public class CounselorMyPageService {
 
-    private final DataSource dataSource;
-
     @Autowired
-    public CounselorMyPageService(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    private CounselorMyPageMapper counselorMyPageMapper;
+
 
     @Autowired
     private CounselorMyPageMapper CounselorMyPageMapper;
@@ -26,10 +22,15 @@ public class CounselorMyPageService {
     }
 
     public List<CounselorMyPageVO> getUserChatBotDetail(String user_id) {
-        return CounselorMyPageMapper.getUserChatBotDetail(user_id);
+        List<CounselorMyPageVO> chatList = CounselorMyPageMapper.getUserChatBotDetail(user_id);
 
+        for (CounselorMyPageVO chat : chatList) {
+            if (chat.getChat_summary() != null) {
+            }
+        }
+
+        return chatList;
     }
-
     public List<CounselorMyPageVO> getUserReservations(String user_id) {
         return CounselorMyPageMapper.getUserReservations(user_id);
     }
@@ -53,10 +54,6 @@ public class CounselorMyPageService {
         }
         return storedPassword.trim().equals(inputPassword.trim());
 
-    }
-
-    public boolean isNicknameDuplicate(String nickname, String currentUserId) {
-        return CounselorMyPageMapper.countByNicknameExcludeCurrentUser(nickname, currentUserId) > 0;
     }
 
     public int countNicknameExcludeCurrentUser(String nickname, String userId) {
