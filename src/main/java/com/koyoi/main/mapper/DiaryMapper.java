@@ -46,13 +46,12 @@ public interface DiaryMapper {
             "FROM TEST_DIARY D " +
             "LEFT JOIN TEST_EMOTION E ON D.diary_id = E.diary_id " +
             "WHERE D.user_id = #{userId} " +
-            "AND D.created_at >= TO_DATE(#{startDate}, 'YYYY-MM-DD') " +
-            "AND D.created_at < TO_DATE(#{endDate}, 'YYYY-MM-DD') " +
+            "AND TRUNC(D.created_at) BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') " +
+            "AND TO_DATE(#{endDate}, 'YYYY-MM-DD') " +
             "ORDER BY D.created_at")
     List<DiaryVO> getWeeklyDiaries(@Param("userId") String userId,
                                    @Param("startDate") String startDate,
                                    @Param("endDate") String endDate);
-
 
     // 일기 등록
     @Insert("INSERT INTO TEST_DIARY (user_id, title, diary_content, created_at) " +
