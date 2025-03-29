@@ -542,3 +542,20 @@ WHERE table_name = 'TEST_COUNSELING_RESERVATION'
 
 ALTER TABLE TEST_COUNSELING_RESERVATION
     MODIFY category VARCHAR2(30);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001', '"勝負においては、自分が苦しいときは相手も苦しいのである。" – 羽生善治', sysdate);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001', '"暗くならなければ、星は見えない。" – チャールズ・A・ビアード', sysdate);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001', '"お前の道を進め。人には勝手なことを言わせておけ。" – ダンテ・アリギエーリ', sysdate);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001', '"挑戦しなければ、定められた人生を歩くしかない。" – ビヴァリー・シルズ', sysdate);
+
+INSERT INTO TEST_QUOTE (admin_id, content, created_at)
+VALUES ('admin001',     '"人生の意味とは、自分がやりたいと思うことをすること。" - パウロ・コエーリョ', sysdate);
+
+select * from TEST_QUOTE;
