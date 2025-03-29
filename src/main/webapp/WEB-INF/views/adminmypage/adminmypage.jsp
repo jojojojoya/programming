@@ -86,7 +86,7 @@
                 <button class="header-btn">
                     <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
                 </button>
-                <img class="profile-img" src="${user.user_img}" alt="profile">
+                <img class="profile-img" src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="profile">
             </div>
         </header>
 
@@ -157,7 +157,7 @@
                             <label> パスワード </label>
                             <div class="input-wrap">
                                 <div class="input-inner">
-                                    <input type="password" id="modalUserPassword">
+                                    <input type="password" id="modalUserPassword" autocomplete="off" />
                                     <i class="fa-solid fa-eye password-toggle" id="passwordToggleIcon"></i>
                                 </div>
                             </div>

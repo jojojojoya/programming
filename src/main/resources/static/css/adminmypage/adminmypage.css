@@ -558,6 +558,10 @@ button:hover {
     cursor: pointer;
 }
 
+#modalUserPassword {
+    font-family: Arial, sans-serif;
+}
+
 .modal-buttons {
     margin-top: 1.5rem;
     display: flex;
