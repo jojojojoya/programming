@@ -3,9 +3,9 @@ let calendar;
 let currentDiaryId = null;
 let selectedEmoji = DEFAULT_EMOJI;
 let isViewMode = false;
+let currentEmotionScore = 50;
 
-
-// 유틸 함수
+// 유틸함수
 /* 미래 날짜 여부 확인 */
 function isFutureDate(dateStr) {
     const today = new Date();
@@ -31,49 +31,18 @@ function resetEmojiSelection(sectionId, emoji = DEFAULT_EMOJI, isEditable = true
 
 }
 
-/* 작성 폼 초기화 함수 */
-function resetDiaryForm() {
-    // 제목 초기화
-    document.getElementById("diaryTitle").value = "";
-    // 내용 초기화
-    document.getElementById("diaryContent").value = "";
-    // 이모지 초기화
-    selectedEmoji = "🙂";
-    resetEmojiSelection("diaryWriteSection", selectedEmoji);
-}
-
-/* 조회모드 렌더링 함수 */
-function renderDiaryView(data) {
-    document.getElementById("diaryWriteSection").style.display = "none";
-    document.getElementById("diaryViewSection").style.display = "block";
-    document.getElementById("viewDiaryDate").innerText = data.formattedCreatedAt || data.created_at?.split('T')[0] || "날짜 없음";
-    document.getElementById("viewDiaryTitle").innerText = data.title || "제목 없음";
-    document.getElementById("viewDiaryContent").innerText = data.diary_content || "내용 없음";
-    resetEmojiSelection("diaryViewSection", data.emotion_emoji || DEFAULT_EMOJI, false);
-    document.getElementById("editBtn").style.display = "inline-block";
-    document.getElementById("deleteBtn").style.display = "inline-block";
-}
-
-/* 수정하기 버튼 클릭 → 수정 모드 전환 */
-function switchToEditMode() {
-    isViewMode = false;
-    document.getElementById("diaryViewSection").style.display = "none";
-    document.getElementById("diaryWriteSection").style.display = "block";
-
-    document.getElementById("diaryDate").innerText = document.getElementById("viewDiaryDate").innerText;
-    document.getElementById("diaryTitle").value = document.getElementById("viewDiaryTitle").innerText;
-
-    const contentHtml = document.getElementById("viewDiaryContent").innerHTML;
-    const contentText = contentHtml.replace(/<br\s*\/?>/gi, "\n");
-    document.getElementById("diaryContent").value = contentText;
-
-    resetEmojiSelection("diaryWriteSection", selectedEmoji, true);
-
-    document.getElementById("saveBtn").style.display = "none";
-    document.getElementById("updateBtn").style.display = "inline-block";
-}
 
 // 초기화
+/* 캘린더 날짜 하이라이트 강조 */
+function highlightSelectedDate(dateStr) {
+    document.querySelectorAll('.fc-daygrid-day').forEach(cell => {
+        cell.classList.remove('fc-day-selected', 'fc-day-today');
+        if (cell.getAttribute('data-date') === dateStr) {
+            cell.classList.add('fc-day-selected');
+        }
+    });
+}
+
 /* 페이지 로드 후 초기 세팅 */
 document.addEventListener('DOMContentLoaded', function () {
     const today = new Date().toISOString().slice(0, 10);
@@ -86,22 +55,22 @@ document.addEventListener('DOMContentLoaded', function () {
     resetEmojiSelection("diaryWriteSection");
     initCalendar();
     bindWeeklySummaryClickEvent();
+    loadDiaryByDate(window.selectedDate);
 });
 
 /* 캘린더 초기화 함수 */
 function initCalendar() {
     const calendarEl = document.getElementById('calendar');
     const initialDate = window.selectedDate;
-    console.log("캘린더 초기 날짜:", initialDate);
 
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView   : 'dayGridMonth',
         initialDate   : initialDate,
-        locale        : 'jp',
+        locale        : 'ja',
         timeZone      : 'local',
         expandRows    : true,
         fixedWeekCount: false,
-        aspectRatio   : 1.8,
+        aspectRatio   : 1.2,
         height        : 'auto',
 
         headerToolbar: {
@@ -114,12 +83,22 @@ function initCalendar() {
             nextCustom: {text: '▶', click: () => calendar.next()}
         },
 
+        dayCellContent: function(arg) {
+            return {
+                html: `
+            <div class="day-content">
+                <div class="day-number">${arg.date.getDate()}</div>
+            </div>
+        `
+            };
+        },
+
         events: (fetchInfo, successCallback, failureCallback) => {
             fetch('/diary/events')
                 .then(res => res.json())
                 .then(data => successCallback(data))
                 .catch(error => {
-                    console.error("이벤트 로딩 실패", error);
+                    console.error("イベント読み込み失敗", error);
                     failureCallback(error);
                 });
         },
@@ -127,11 +106,12 @@ function initCalendar() {
         // 날짜 클릭 → 작성 모드
         dateClick: (info) => {
             const dateStr = info.dateStr;
-            if (isFutureDate(dateStr)) return alert("미래의 일기는 작성할 수 없습니다.");
+            if (isFutureDate(dateStr)) return alert("未来の日記は作成できません。");
             window.selectedDate = dateStr;
             document.getElementById("diaryDate").innerText = dateStr;
-            openWriteMode(dateStr);
             highlightSelectedDate(dateStr);
+            loadDiaryByDate(dateStr);
+            loadWeeklySummary(dateStr);
         },
 
         // 이벤트 클릭 → 상세 조회
@@ -163,16 +143,86 @@ function initCalendar() {
 }
 
 
-// CRUD 함수
+// UI 전환
+/* 이모지 선택 */
+function selectEmoji(emoji) {
+    if (isViewMode) {
+        return;
+    }
+
+    selectedEmoji = emoji;
+    resetEmojiSelection("diaryWriteSection", selectedEmoji, true);
+
+    document.querySelectorAll("#diaryWriteSection .emoji-option").forEach(option => {
+        option.classList.remove("selected");
+    });
+
+    const writeEmojiElement = document.getElementById(`write-${selectedEmoji}`);
+    if (writeEmojiElement) writeEmojiElement.classList.add("selected");
+}
+
+/* 조회모드 렌더링 함수 */
+function renderDiaryView(data) {
+    document.getElementById("diaryWriteSection").style.display = "none";
+    document.getElementById("diaryViewSection").style.display = "block";
+    document.getElementById("viewDiaryDate").innerText = data.formattedCreatedAt || data.created_at?.split('T')[0] || "日付なし";
+    document.getElementById("viewDiaryTitle").innerText = data.title || "タイトルなし";
+    document.getElementById("viewDiaryContent").innerText = data.diary_content || "内容なし";
+    resetEmojiSelection("diaryViewSection", data.emotion_emoji || DEFAULT_EMOJI, false);
+    document.getElementById("editBtn").style.display = "inline-block";
+    document.getElementById("deleteBtn").style.display = "inline-block";
+}
+
+/* 뷰모드 -> 작성 모드 전환 */
+function openWriteMode(dateStr) {
+    if (isFutureDate(dateStr)) {
+        alert("未来の日記は作成できません。");
+        return;
+    }
+    isViewMode = false;
+    // 폼 전환
+    document.getElementById("diaryWriteSection").style.display = "block";
+    document.getElementById("diaryViewSection").style.display = "none";
+    // 값 초기화
+    document.getElementById("diaryDate").innerText = dateStr;
+    document.getElementById("diaryContent").value = "";
+    currentDiaryId = null;
+    resetEmojiSelection("diaryWriteSection");
+    // 버튼 상태
+    document.getElementById("saveBtn").style.display = "inline-block";
+    document.getElementById("updateBtn").style.display = "none";
+}
+
+/* 수정하기 버튼 클릭 → 수정 모드 전환 */
+function switchToEditMode() {
+    isViewMode = false;
+    document.getElementById("diaryViewSection").style.display = "none";
+    document.getElementById("diaryWriteSection").style.display = "block";
+
+    document.getElementById("diaryDate").innerText = document.getElementById("viewDiaryDate").innerText;
+    document.getElementById("diaryTitle").value = document.getElementById("viewDiaryTitle").innerText;
+
+    const contentHtml = document.getElementById("viewDiaryContent").innerHTML;
+    const contentText = contentHtml.replace(/<br\s*\/?>/gi, "\n");
+    document.getElementById("diaryContent").value = contentText;
+
+    resetEmojiSelection("diaryWriteSection", selectedEmoji, true);
+
+    document.getElementById("saveBtn").style.display = "none";
+    document.getElementById("updateBtn").style.display = "inline-block";
+}
+
+
+// CRUD, 조회, 감정점수 함수
 /* 일기 등록 */
 function saveDiary() {
-    const diaryTitle = document.getElementById("diaryTitle")?.value || "제목 없음";
+    const diaryTitle = document.getElementById("diaryTitle")?.value || "タイトルなし";
     const diaryContent = document.getElementById("diaryContent").value;
     const diaryDateTime = `${window.selectedDate}T00:00:00`;
 
-    if (isFutureDate(window.selectedDate)) return alert("미래의 일기는 저장할 수 없습니다.");
-    if (!diaryTitle.trim()) return alert("일기 제목을 입력해주세요!");
-    if (!diaryContent.trim()) return alert("일기 내용을 입력해주세요!");
+    if (isFutureDate(window.selectedDate)) return alert("未来の日記は作成できません。");
+    if (!diaryTitle.trim()) return alert("こよいのタイトルは忘れずに書いてください。");
+    if (!diaryContent.trim()) return alert("こよいのことばを忘れずに書いてください。");
 
     const data = {
         user_id      : "userId",
@@ -193,19 +243,19 @@ function saveDiary() {
                 currentDiaryId = resData.diaryId;
                 openEmotionModal();
             } else {
-                alert("일기 등록에 실패했습니다.");
+                alert("こよいを登録に失敗しました。もう一度お試しください");
             }
         });
 }
 
 /* 일기 수정 */
 function updateDiary() {
-    if (!currentDiaryId) return alert("선택된 일기가 없습니다.");
-
     const diaryTitle = document.getElementById("diaryTitle").value;
     const diaryContent = document.getElementById("diaryContent").value;
 
-    if (!diaryContent.trim()) return alert("일기 내용을 입력해주세요.");
+    if (!currentDiaryId) return alert("選択された日記が見つかりません。");
+    if (!diaryTitle.trim()) return alert("こよいのタイトルは忘れずに書いてください。");
+    if (!diaryContent.trim()) return alert("こよいのことばを忘れずに書いてください。");
 
     const data = {
         diary_id: currentDiaryId,
@@ -224,33 +274,31 @@ function updateDiary() {
             if (response.ok) {
                 openEmotionModal();
             } else {
-                alert("일기 수정 실패");
+                alert("こよいの編集に失敗しました。");
             }
         })
         .catch(error => {
-            console.error("❌ 수정 중 에러 발생:", error);
+            console.error("編集中にエラーが発生しました:", error);
         });
 }
 
 /* 일기 삭제 */
 function deleteDiary() {
-    if (!currentDiaryId) return alert("삭제할 일기가 없습니다.");
-    if (!confirm("정말 삭제하시겠습니까?")) return;
+    if (!currentDiaryId) return alert("削除できる日記が見つかりません。");
+    if (!confirm("本当に削除してもよろしいですか？")) return;
 
     fetch(`/diary/delete/${currentDiaryId}`, {method: 'DELETE'})
         .then(response => {
-            if (!response.ok) throw new Error("일기 삭제 실패");
-            alert("일기가 삭제 되었습니다.");
+            if (!response.ok) throw new Error("こよいの削除に失敗しました。");
+            alert("こよいを削除しました。");
             currentDiaryId = null;
             loadDiaryByDate(window.selectedDate);
             refreshCalendarEvents();
             openWriteMode(window.selectedDate);
         })
-        .catch(() => alert("삭제 중 오류가 발생했습니다!"));
+        .catch(() => alert("削除中にエラーが発生しました。もう一度お試しください。"));
 }
 
-
-// 조회 함수
 /* diaryId 기준 상세 조회 */
 function loadDiaryById(diaryId) {
     isViewMode = true;
@@ -261,10 +309,10 @@ function loadDiaryById(diaryId) {
                 currentDiaryId = data.diary_id;
                 renderDiaryView(data);
             } else {
-                alert("일기를 불러오지 못했습니다.");
+                alert("こよいを読み込めませんでした。");
             }
         })
-        .catch(() => alert("일기 조회 중 오류가 발생했습니다!"));
+        .catch(() => alert("こよいの読み込み中にエラーが発生しました。"));
 }
 
 /* 날짜 기준 조회 */
@@ -280,7 +328,6 @@ function loadDiaryByDate(dateStr) {
             }
         })
         .catch(() => {
-            alert("일기를 불러오지 못했습니다.");
             openWriteMode(dateStr);
         });
 }
@@ -291,7 +338,7 @@ function bindWeeklySummaryClickEvent() {
         item.addEventListener("click", function () {
             const diaryId = this.getAttribute("data-diary-id");
             if (!diaryId) {
-                alert("일기 ID가 없습니다!");
+                alert("日記のIDが見つかりません。");
                 return;
             }
             loadDiaryById(diaryId);
@@ -307,7 +354,7 @@ function loadWeeklySummary(dateStr) {
             const summaryBox = document.querySelector(".weekly-summary ul");
             summaryBox.innerHTML = "";
             if (!data || data.length === 0) {
-                summaryBox.innerHTML = "<li class='weekly-item'>이번 주 일기가 없습니다.</li>";
+                summaryBox.innerHTML = "<li class='weekly-item'>今週はまだ、こよいが残されていません。</li>";
                 return;
             }
             data.forEach(diary => {
@@ -330,13 +377,18 @@ function loadWeeklySummary(dateStr) {
         });
 }
 
-
-// 오늘의 점수 함수
 /* 오늘의 감정 점수 모달 열기 */
 function openEmotionModal() {
     const modal = document.getElementById("emotionScoreModal");
     modal.style.display = "flex";
-    loadEmotionScoreByDiaryId(currentDiaryId);
+
+    if (currentDiaryId) {
+        loadEmotionScoreByDiaryId(currentDiaryId);
+    } else {
+        document.getElementById("emotionScoreInput").value = 50;
+        document.getElementById("scoreDisplay").innerText = 50;
+        currentEmotionScore = 50;
+    }
 }
 
 /* 오늘의 감정 점수 모달 닫기 */
@@ -345,130 +397,62 @@ function closeEmotionModal() {
     modal.style.display = "none";
 }
 
+/* 오늘의 점수 입력값 변경*/
+function updateScoreValue(value) {
+    document.getElementById("scoreDisplay").innerText = value;
+}
+
 /* 오늘의 점수 가져오는 함수 */
 function loadEmotionScoreByDiaryId(diaryId) {
-    if (!diaryId) {
-        console.warn("❗ diaryId가 없습니다. 감정 점수 조회 불가");
-        return;
-    }
+    if (!diaryId) return;
 
     fetch(`/diary/emotion/score/${diaryId}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error();
+            return response.json();
+        })
         .then(data => {
             if (data && data.emotion_score !== undefined) {
                 const score = data.emotion_score;
-
-                // input에 값 반영
                 document.getElementById("emotionScoreInput").value = score;
                 document.getElementById("scoreDisplay").innerText = score;
-
-                // 전역 변수도 세팅 (선택 사항)
                 currentEmotionScore = score;
-            } else {
-                console.warn("❗ 감정 점수 없음, 기본값 사용");
             }
         })
-        .catch(error => {
-            console.error("❌ 감정 점수 조회 실패", error);
+        .catch(() => {
+            console.error("感情スコアを取得できませんでした。");
         });
 }
 
 /* 감정 점수 저장 */
 function saveEmotionScore() {
     const score = document.getElementById("emotionScoreInput").value;
-
-    if (!currentDiaryId) {
-        alert("일기가 저장되어야 점수 등록 가능!");
-        return;
-    }
+    if (!currentDiaryId) return alert("こよいを登録したあとにスコアを入力できます。");
 
     const data = {
-        diary_id     : currentDiaryId,
+        diary_id: currentDiaryId,
         emotion_score: parseInt(score)
     };
 
     fetch('/diary/emotion/score', {
-        method : 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body   : JSON.stringify(data)
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
     })
         .then(response => {
             if (response.ok) {
                 closeEmotionModal();
-
-                // 캘린더 이벤트 리프레시 상세조회 호출
                 refreshCalendarEvents();
                 loadDiaryById(currentDiaryId);
-
-                // currentDiaryId 초기화
-                currentDiaryId = null;
-
-                resetDiaryForm();
             } else {
-                alert("감정 점수 저장 실패");
+                alert("スコアの登録に失敗しました。");
             }
         });
-}
-
-/* 오늘의 점수 입력값 변경*/
-function updateScoreValue(value) {
-    document.getElementById("scoreDisplay").innerText = value;
-}
-
-
-// UI 보조 함수
-/* 뷰모드 -> 작성 모드 전환 */
-function openWriteMode(dateStr) {
-    if (isFutureDate(dateStr)) {
-        alert("미래의 일기는 작성할 수 없습니다.");
-        return;
-    }
-    isViewMode = false;
-    // 폼 전환
-    document.getElementById("diaryWriteSection").style.display = "block";
-    document.getElementById("diaryViewSection").style.display = "none";
-    // 값 초기화
-    document.getElementById("diaryDate").innerText = dateStr;
-    document.getElementById("diaryContent").value = "";
-    currentDiaryId = null;
-    resetEmojiSelection("diaryWriteSection");
-    // 버튼 상태
-    document.getElementById("saveBtn").style.display = "inline-block";
-    document.getElementById("updateBtn").style.display = "none";
-}
-
-/* 캘린더 날짜 하이라이트 강조 */
-function highlightSelectedDate(dateStr) {
-    document.querySelectorAll('.fc-daygrid-day').forEach(cell => {
-        cell.classList.remove('fc-day-selected', 'fc-day-today');
-        if (cell.getAttribute('data-date') === dateStr) {
-            cell.classList.add('fc-day-selected');
-        }
-    });
-}
-
-/* 이모지 선택 */
-function selectEmoji(emoji) {
-    if (isViewMode) {
-        return;
-    }
-
-    selectedEmoji = emoji;
-    resetEmojiSelection("diaryWriteSection", selectedEmoji, true);
-
-    document.querySelectorAll("#diaryWriteSection .emoji-option").forEach(option => {
-        option.classList.remove("selected");
-    });
-
-    const writeEmojiElement = document.getElementById(`write-${selectedEmoji}`);
-    if (writeEmojiElement) writeEmojiElement.classList.add("selected");
 }
 
 /* 캘린더 이벤트 리프레시 */
 function refreshCalendarEvents() {
     if (calendar) {
         calendar.refetchEvents();
-    } else {
-        console.warn("❗ 캘린더 인스턴스를 찾을 수 없음");
     }
 }

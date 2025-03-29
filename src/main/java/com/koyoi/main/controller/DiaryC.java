@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class DiaryC {
     private String getLoginUserId(HttpSession session) {
         String userId = (String) session.getAttribute("userId");
         if (userId == null) {
-            throw new IllegalStateException("로그인이 필요합니다.");
+            throw new IllegalStateException("ログインが必要です。");
         }
         return userId;
     }
@@ -38,7 +39,7 @@ public class DiaryC {
         String selectedDateStr = requestBody.get("date"); // "YYYY-MM-DD"
 
         if (selectedDateStr == null || selectedDateStr.isEmpty()) {
-            return ResponseEntity.badRequest().body("날짜 값이 없습니다.");
+            return ResponseEntity.badRequest().body("日付の値が見つかりません。");
         }
 
         LocalDateTime selectedDate = LocalDate.parse(selectedDateStr).atStartOfDay();
@@ -61,7 +62,6 @@ public class DiaryC {
                 LocalDateTime parsedDate = LocalDate.parse(selectedDateParam).atStartOfDay();
                 session.setAttribute("selectedDate", parsedDate);
             } catch (Exception e) {
-                System.err.println("날짜 파싱 실패: " + selectedDateParam);
             }
         }
 
@@ -105,11 +105,8 @@ public class DiaryC {
         DiaryVO vo = diaryService.getDiaryById(diaryId);
 
         if (vo == null) {
-            System.out.println("[DiaryC] 일기 없음, diaryId: " + diaryId);
-            return ResponseEntity.status(404).body(Map.of("message", "일기를 찾을 수 없습니다."));
+            return ResponseEntity.status(404).body(Map.of("message", "こよいが見つかりませんでした。"));
         }
-
-        System.out.println("[DiaryC] 반환할 DiaryVO: " + vo);
         return ResponseEntity.ok(vo);
     }
 
@@ -132,11 +129,10 @@ public class DiaryC {
         String userId = getLoginUserId(session);
         LocalDate selectedDate = LocalDate.parse(date);
 
-        List<DiaryVO> weeklyDiaries = diaryService.getWeeklyDiaries(userId, selectedDate);
-        System.out.println("🗓️ 주간 조회 범위: " + selectedDate.with(DayOfWeek.SUNDAY) + " ~ " + selectedDate.with(DayOfWeek.SATURDAY));
-        System.out.println("✅ Ajax용 weeklyDiaries size = " + weeklyDiaries.size());
+        LocalDate start = selectedDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        LocalDate end = start.plusDays(6);
 
-        return weeklyDiaries;
+        return diaryService.getWeeklyDiaries(userId, selectedDate);
     }
 
     /* 일기 등록 */
@@ -144,12 +140,11 @@ public class DiaryC {
     @ResponseBody
     public Map<String, Object> saveDiary(@RequestBody DiaryVO diaryVO, HttpSession session) {
         String userId = getLoginUserId(session);
-        System.out.println("[DiaryC] 받은 diaryVO: " + diaryVO);
 
         diaryVO.setUser_id(userId);
         diaryService.saveDiary(diaryVO);
 
-        return Map.of("message", "일기 등록 완료!", "diaryId", diaryVO.getDiary_id());
+        return Map.of("message", "こよいの登録ができました。", "diaryId", diaryVO.getDiary_id());
     }
 
     /* 일기 수정 */
@@ -161,17 +156,17 @@ public class DiaryC {
         diaryVO.setUser_id(userId);
         diaryService.updateDiaryAndEmotion(diaryVO);
 
-        return Map.of("message", "일기 수정 완료!");
+        return Map.of("message", "こよいの編集ができました。");
     }
 
-    /* 일기 삭제 (추가로 userId 검증 넣어도 좋음) */
+    /* 일기 삭제 */
     @DeleteMapping("/delete/{diaryId}")
     @ResponseBody
     public Map<String, Object> deleteDiary(@PathVariable int diaryId, HttpSession session) {
-        String userId = getLoginUserId(session);    // 유저 검증시 필요
+        String userId = getLoginUserId(session);
 
         diaryService.deleteDiary(diaryId, userId);
-        return Map.of("message", "일기 삭제 완료!");
+        return Map.of("message", "こよいを削除しました。");
     }
 
     /* 감정 점수 저장 */
@@ -184,6 +179,6 @@ public class DiaryC {
         int emotionScore = (int) scoreData.get("emotion_score");
 
         diaryService.saveEmotionScore(diaryId, emotionScore, userId);
-        return Map.of("message", "감정 점수 저장 완료!");
+        return Map.of("message", "スコアの登録ができました");
     }
 }
