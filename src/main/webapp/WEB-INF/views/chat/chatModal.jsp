@@ -41,8 +41,12 @@
         </div>
 
         <form action="/livechatreservation" method="get">
-            <button type="submit">カウンセリング予約</button>
+            <!-- <button type="submit">カウンセリング予約</button> -->
+            <button type="submit" class="modal-link-btn">
+                深いお悩みは、専門家と一緒に。→
+            </button>
         </form>
+
     </div>
 </div>
 

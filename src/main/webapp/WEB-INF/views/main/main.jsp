@@ -74,7 +74,7 @@
     <%-- 헤더 --%>
     <header class="header-bar">
         <div class="logo-container">
-            <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
+            <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/koyoi_name.png" alt="KOYOI"> </a>
         </div>
         <div class="header-icons">
             <button class="header-btn" id="notice">
@@ -84,7 +84,7 @@
                 <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
             </button>
             <button class="profile-btn" onclick="goToMyPage()">
-                <img class="profile-img" src="${user.user_img}" alt="profile">
+                <img class="profile-img" src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="profile">
             </button>
         </div>
     </header>
@@ -166,13 +166,23 @@
                             <canvas id="moodChart"></canvas>
                         </div>
 
-                        <%-- 챗봇, 라이브챗 연결 --%>
                         <div class="chat-connect">
-                            <button class="chatbot" onclick="openChatModal()">チャットボット</button>
-                            <button class="livechat" onclick="location.href='/livechatreservation'"> ライブチャット </button>
+                            <!-- 챗봇 영역 -->
+                            <div class="chatbot-bubble-container">
+                                <p class="chatbot-guide-text">ちょっとしたお悩みは、</p>
+                                <button class="chatbot" onclick="openChatModal()">チャットボット</button>
+                                <img class="chatbot_menuimg" src="/static/imgsource/layout/koyoi_moon.png" onclick="openChatModal()">
+                            </div>
+
+                            <!-- 라이브챗 영역 -->
+                            <div class="livechat-bubble-container">
+                                <p class="livechat-guide-text"> 深いお悩みは、</p>
+                                <button class="livechat" onclick="goToLiveChat()">ライブ相談</button>
+                                <img class="livechat_menuimg" src="/static/imgsource/login/mainbanner4.jpg" onclick="goToLiveChat()">
+                            </div>
                         </div>
+
                     </div>
-                </div>
             </div>
         </div>
     </main>
@@ -183,6 +193,13 @@
 <script src="/static/js/main/main.js"></script>
 <script>
     const userName = "<%= userNickName %>";
+        function goToLiveChat() {
+        if (userType === "2") {
+        location.href = "/counselormypage";
+    } else {
+        location.href = "/livechatreservation";
+    }
+    }
 </script>
 <script src="/static/js/chat/chat-modal.js"></script>
 </body>
