@@ -222,9 +222,21 @@
          pageEncoding="utf-8" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
                                             prefix="c" %>
 
+<style>
+  @font-face {
+    font-family: 'MyFont';
+    src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+  }
+
+  body {
+    font-family: 'MyFont', sans-serif;
+    font-size: 32px;
+    color: black;
+  }
+</style>
+
 <!DOCTYPE html>
 <html lang="ja">
-<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link
@@ -233,53 +245,8 @@
   />
   <link rel="stylesheet" href="/static/css/habit/habit.css" />
 
-</head>
 
-<body>
-<!-- 全体コンテナ -->
-<div class="container">
-  <!-- 🟠 左側コンテナ（サイドバー） -->
-  <div class="left-container">
-    <aside class="sidebar">
-      <nav class="sidebar-menu">
-        <button class="sidebar-btn">
-          <img src="/static/imgsource/layout/home.png" alt="ホーム" />
-        </button>
-        <button class="sidebar-btn">
-          <img src="/static/imgsource/layout/calandar.png" alt="リスト" />
-        </button>
-        <button class="sidebar-btn">
-          <img src="/static/imgsource/layout/pencil.png" alt="チャット" />
-        </button>
-        <button class="sidebar-btn">
-          <img src="/static/imgsource/layout/chat.png" alt="共有" />
-        </button>
-        <button class="sidebar-btn">
-          <img src="/static/imgsource/layout/settingss.png" alt="設定" />
-        </button>
-        <div class="bbiyak">
-          <img src="/static/imgsource/layout/bbiyak.png" />
-        </div>
-      </nav>
-    </aside>
-  </div>
 
-  <!-- 🟣 右側コンテナ（ヘッダーバー＋コンテンツ） -->
-  <div class="right-container">
-    <header class="header-bar">
-      <div class="brand-title">
-        <img src="/static/imgsource/layout/logo.png" alt="KOYOI ロゴ" />
-      </div>
-      <div class="header-icons">
-        <img
-                class="profile-img"
-                src="/static/imgsource/layout/testprofile.png"
-                alt="プロフィール"
-        />
-      </div>
-    </header>
-
-    <main class="content">
       <div class="habit-page">
         <!-- ✅ 1行目：マイ習慣 / カレンダー / 週間履歴 -->
         <div class="widget-box habit-list">
@@ -329,7 +296,7 @@
             <div id="calendarBody" class="calendar-body"></div>
             <div
                     id="selectedDateDisplay"
-                    style="margin-top: 10px; font-weight: bold"
+                    style="margin-top: 10px;font-weight: bold;font-size: 18px;"
             >
               日付：未選択
             </div>
@@ -337,7 +304,7 @@
         </div>
 
         <div class="widget-box habit-week">
-          <h3>週間習慣履歴</h3>
+          <h3 style="    font-size: 18px;">週間習慣履歴</h3>
           <table class="week-table">
             <thead>
             <tr>
@@ -357,7 +324,6 @@
           </table>
         </div>
 
-        <!-- ✅ 2行目：おすすめ習慣 / 励まし言葉 / メモ -->
         <div class="widget-box habit-recommend">
           <div class="habit-tabs">
             <div
@@ -419,23 +385,22 @@
         </div>
 
         <div class="widget-box habit-memo">
-          <h3>週間振り返りメモ</h3>
+          <h3 style="
+          font-size: 18px;
+          "> 週間振り返りメモ</h3>
           <textarea
                   id="weeklyMemoText"
                   rows="6"
                   placeholder="今週の振り返りを自由に書いてみましょう..."
-                  style="width: 100%; resize: none"
+                  style="width: 100%;resize: none;border-radius: 12px;border: 3px solid #f7efe7;padding: 11px;"
           ></textarea>
           <button id="saveMemoBtn">保存する</button>
         </div>
       </div>
-    </main>
   </div>
 </div>
 
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="/static/js/habit/habit.js"></script>
-
-</body>
 </html>
 

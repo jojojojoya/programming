@@ -51,7 +51,6 @@
 
 
 <div class="usermypage-form">
-        <main class="content">
             <div class="top-section">
                 <div class="profile_table">
                     <div class="profile_content">
@@ -104,7 +103,7 @@
             </div>
 
             <div class="bottom-section">
-                <div class="calendar-container">
+                <div class="calendar-container" onclick="location.href='/diary'">
                     <div class="calendar-iframe-wrapper"
                          style="    position: relative; transform: scale(0.7);
     transform-origin: center;    width: 100px;
@@ -260,6 +259,5 @@
 
                 </script>
                 <script src="/static/js/usermypage/usermypage.js"></script>
-        </main>
 </div>
 </html>

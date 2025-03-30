@@ -27,6 +27,7 @@ public class HabitC {
     @Autowired
     private AdminMypageService adminMypageService;
 
+
     @GetMapping("")
     public String habit(HttpSession session ,Model model) {
         // user_id를 "user1"로 고정
@@ -40,11 +41,12 @@ public class HabitC {
         }
 
 
-        // userId에 맞는 습관 목록을 DB에서 가져옴
         List<HabitVO> habits = habitService.getUserHabits(userId);
-        model.addAttribute("habits", habits);  // 습관 목록을 JSP로 전달
+        model.addAttribute("habits", habits);
 
-        return "habit/finalhabit";  // habit/finalhabit.jsp 페이지로 이동
+        model.addAttribute("finalhabit", "habit/finalhabit.jsp");
+
+        return "finalindex";  // 전체 레이아웃 페이지로 이동
     }
 
 //    @PostMapping("/add")

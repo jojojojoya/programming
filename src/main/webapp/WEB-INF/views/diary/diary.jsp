@@ -5,6 +5,24 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/static/js/diary/diary.js" defer></script>
 <script>window.selectedDate = "${selectedDate}";</script>
+
+
+
+<style>
+    @font-face {
+        font-family: 'MyFont';
+        src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+    }
+
+    body {
+        font-family: 'MyFont', sans-serif;
+        font-size: 32px;
+        color: #000000;
+    }
+</style>
+
+
+
 <%
     HttpSession session1 = request.getSession(false);
     String userId = null;

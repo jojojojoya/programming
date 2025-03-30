@@ -9,7 +9,6 @@
 </head>
 <body>
 <div class="livechatdetail-form">
-    <main class="content">
         <div class="chat-container"
              data-session-id="${counseling.session_id}"
              data-counseling-id="${counseling.counseling_id}"
@@ -56,7 +55,6 @@
 
 </div>
 
-</main>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
