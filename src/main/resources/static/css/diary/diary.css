@@ -214,9 +214,9 @@
     background-color: #fff3e7;
     display: flex;
     flex-direction: column;
-    padding: 20px 20px;
+    padding: 2vh 2vw;
     border-radius: 1rem;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
     flex-grow: 1;
     min-height: 0;
@@ -231,6 +231,7 @@
     overflow: hidden;
 }
 
+/* 작성 영역 */
 .diary-write-section {
     flex: 1;
     display: flex;
@@ -242,20 +243,21 @@
 .diary-write-content {
     flex-grow: 1;
     overflow-y: auto;
-    min-height: 450px;
+    min-height: 45vh;
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 20px;
+    padding: 2vh 2vw;
     border-radius: 1rem;
     background-color: #f9f9f9;
     border: 1px solid #ede0d4;
     color: #3f2e29;
-    font-size: 15px;
-    margin-bottom: 20px;
+    font-size: 1.5vh;
+    margin-bottom: 2vh;
     resize: none;
     word-break: break-word;
 }
 
+/* 뷰 영역 */
 .diary-view-section {
     flex: 1;
     display: flex;
@@ -268,31 +270,33 @@
     flex-grow: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    min-height: 450px;
-    height: 550px;
+    min-height: 45vh;
+    height: 55%;
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 20px;
+    padding: 2vh 2vw;
     border-radius: 1rem;
     background-color: #f9f9f9;
     border: 1px solid #ede0d4;
     color: #3f2e29;
-    font-size: 15px;
-    margin-bottom: 20px;
+    font-size: 1.5vh;
+    margin-bottom: 2vh;
     word-break: break-word;
 }
 
+/* 날짜 스타일 */
 #diaryDate,
 #viewDiaryDate {
     font-weight: bold;
-    margin-bottom: 10px;
-    font-size: 18px;
+    margin-bottom: 1vh;
+    font-size: 1.8vh;
 }
 
+/* 이모지 선택 옵션 */
 .emoji-option {
-    font-size: 30px;
-    margin: 10px;
-    padding: 10px;
+    font-size: 3vh;
+    margin: 1vh;
+    padding: 1vh;
     display: inline-block;
     border-radius: 50%;
     background-color: #ede0d4;
@@ -300,7 +304,7 @@
 }
 
 .emoji-option.selected {
-    border: 3px solid #996d4f;
+    border: 0.3vh solid #996d4f;
     background-color: #ffd27a;
 }
 
@@ -317,18 +321,18 @@
     cursor: default;
 }
 
-.diary-write-title,
-.diary-view-title {
+/* 다이어리 작성 타이틀 (input) */
+.diary-write-title, .diary-view-title {
     width: 100%;
-    height: 60px;
+    height: 6vh;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 1rem;
-    padding: 10px 10px;
-    font-size: 18px;
+    padding: 1vh 1vw;
+    font-size: 1.8vh;
     background-color: #f9f9f9;
     color: #3f2e29;
-    margin: 10px 0;
+    margin: 1vh 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -337,11 +341,12 @@
 
 .diary-write-title {
     line-height: 1.5;
-    margin: 10px 0;
+    margin: 1vh 0;
     text-align: center;
     word-break: break-word;
 }
 
+/* 다이어리 조회 타이틀 (div) */
 .diary-view-title {
     text-align: center;
 }
@@ -349,27 +354,29 @@
 .diary-button-wrapper {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 2vw;
     margin-top: auto;
-    padding-bottom: 10px;
+    padding-bottom: 1vh;
+
 }
 
+/* diary-section 내부 버튼 */
 .diary-section-container .diary-btn {
-    padding: 15px 30px;
+    padding: 1.5vh 3vw;
     background-color: #ffd27a;
     color: #3f2e29;
-    font-size: 16px;
+    font-size: 1.6vh;
     font-weight: bold;
     border: none;
     border-radius: 1rem;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 1vh;
     transition: all 0.2s ease-in-out;
 }
 
 .diary-section-container .diary-btn:hover {
     background-color: #ffcf60;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
 }
 
 /* 감정 점수 모달 */
@@ -389,44 +396,46 @@
 .modal-container {
     background-color: #fff8f0;
     border-radius: 1.5rem;
-    padding: 30px 20px;
-    width: 300px;
+    padding: 3vh 2vw;
+    width: 30vw;
     max-width: 400px;
     min-width: 300px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
 .modal-container h2 {
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
     color: #3f2e29;
-    font-size: 20px;
+    font-size: 2vh;
 }
 
 .modal-container p {
-    font-size: 16px;
+    font-size: 1.6vh;
     color: #3f2e29;
 }
 
 .score-slider-container input[type='range'] {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 2vh;
 }
 
+/* 감정 점수 값 */
 .score-value {
-    margin: 20px 0;
-    font-size: 20px;
+    margin: 2vh 0;
+    font-size: 2vh;
     color: #3f2e29;
 }
 
+/* 모달 버튼 기본 스타일 */
 .modal-buttons button {
-    padding: 15px 30px;
+    padding: 1.5vh 3vw;
     border-radius: 1rem;
     font-weight: bold;
     cursor: pointer;
     border: none;
-    font-size: 16px;
-    margin: 0 5px;
+    font-size: 1.6vh;
+    margin: 0 0.5vw;
 }
 
 .btn-confirm {
