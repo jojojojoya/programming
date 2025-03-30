@@ -141,6 +141,7 @@ body {
     padding: 20px;
     text-align: center;
     font-size: 18px;
+    overflow: scroll;
 }
 
 
@@ -167,17 +168,17 @@ body {
 
 /* ✅ 개별 위젯 높이 설정 (필요에 따라 조절 가능) */
 .habit-list {
-    background: #fff;
+    background: #EDE0D4;
     border-radius: 1.5vw;
     box-shadow: 0 0.3vw 0.6vw rgba(0, 0, 0, 0.1);
     padding: 1vw;
     box-sizing: border-box;
     height: auto;
-    min-height: 22vh;
+    /*min-height: 22vh;*/
 }
 
 .habit-recommend {
-    background: #fff;
+    background: #EDE0D4;
     border-radius: 1.5vw;
     box-shadow: 0 0.3vw 0.6vw rgba(0, 0, 0, 0.1);
     padding: 1vw;
@@ -189,10 +190,63 @@ body {
 .habit-hidden {
     display: none !important;
 }
+
+
+
+
+
+
+
+
+
+
+/* 추천 습관 공통 스타일 */
+.habit-content p {
+    background-color: #EDE0D4;
+    border-radius: 1vw;
+    padding: 0.6vw 1vw;
+    font-size: 0.7vw;
+    white-space: nowrap;
+    box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    text-align: center;
+    width: auto;
+}
+
+/* 탭별 레이아웃 컨테이너 */
+.habit-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.habit-정신건강-part {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vw;
+    justify-items: center;
+    align-items: center;
+    padding: 1vw;
+}
+.habit-정신건강-part p {
+    background-color: #EDE0D4;
+    border-radius: 1vw;
+    padding: 0.6vw 1vw;
+    font-size: 1vw;
+    white-space: nowrap;
+    box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    text-align: center;
+}
+
+
+
+
 .habit-calendar {
-    background: #fff;
+    background: #EDE0D4;
     border-radius: 1.5vw;
-    box-shadow: 0 0.3vw 0.6vw rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.3vw 0.6vw #EADCC8;
     padding: 1vw;
     box-sizing: border-box;
     height: auto;
@@ -200,9 +254,9 @@ body {
 }
 
 .habit-week {
-    background: #fff;
+    background: #EDE0D4;
     border-radius: 1.5vw;
-    box-shadow: 0 0.3vw 0.6vw rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.3vw 0.6vw #EADCC8;
     padding: 1vw;
     box-sizing: border-box;
     height: auto;
@@ -210,9 +264,9 @@ body {
 }
 
 .habit-rate {
-    background: #fff;
+    background: #EDE0D4;
     border-radius: 1.5vw;
-    box-shadow: 0 0.3vw 0.6vw rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.3vw 0.6vw #EADCC8;
     padding: 1vw;
     box-sizing: border-box;
     height: auto;
@@ -220,7 +274,7 @@ body {
 }
 
 .habit-memo {
-    background: #fff;
+    background: #EDE0D4;
     border-radius: 1.5vw;
     box-shadow: 0 0.3vw 0.6vw rgba(0, 0, 0, 0.1);
     padding: 1vw;
@@ -252,13 +306,13 @@ body {
 .calendar-day {
     padding: 8px;
     border-radius: 6px;
-    background-color: #f3f3f3;
+    background-color: #F7EFE7;
     font-size: 14px;
     cursor: pointer;
 }
 
 .calendar-day.selected {
-    background-color: #007bff;
+    background-color: #CFCBB3;
     color: white;
     font-weight: bold;
 }
@@ -274,7 +328,7 @@ body {
 .week-table th,
 .week-table td {
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #B7B393;
     text-align: center;
 }
 
@@ -304,12 +358,13 @@ body {
     border-radius: 20px;
     margin: 0 5px;
     cursor: pointer;
-    background-color: #f2f2f2;
+    background-color: #EDE0D4 ;
     transition: 0.3s;
+    border: 1px solid #D6C5B7;
 }
 
 .habit-tab.habit-active {
-    background-color: #ff8ac0;
+    background-color: #A77C75;
     color: white;
     font-weight: bold;
 }
@@ -334,4 +389,18 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+
+button,
+.btn {
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #D6C5B7;
+    border-radius: 999px;
+    background-color: #F3E8DC;
+    color: #5C4A45;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
