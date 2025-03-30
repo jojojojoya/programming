@@ -96,11 +96,14 @@
 
 <div class="bottom-section">
     <div class="calendar-container">
-        <div class="calendar-iframe-wrapper" style="position: relative; transform: scale(0.7); transform-origin: top left; width: 100%; height: auto;">
+        <div class="calendar-iframe-wrapper"
+             style="    position: relative; transform: scale(0.7);
+    transform-origin: center;    width: 100px;
+    height: 133px;">
             <iframe src="/maincalendar" frameborder="0"
-                    style="   width: 458px;
-    height: 456px;
-    border-radius: 16px;border: none;"></iframe>
+                    style="      width: 440px;
+    height: 440px;
+    border-radius: 16px;border: none; "></iframe>
 
             <img src="/static/imgsource/background/book.png" class="calendar-illust">
 

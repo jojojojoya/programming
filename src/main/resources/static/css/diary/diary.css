@@ -9,6 +9,7 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    margin-left: 19px;
 }
 
 /*------------------------------*/
@@ -22,18 +23,24 @@
 
 #calendar {
     width: 100%;
+    max-width: 401px;
+    min-height: 201px;
+    max-height: 358px;
     box-sizing: border-box;
-    background-color: #fff3e7;
-    padding: 20px 30px;
+    background-color: #fdf7f2;
+    padding: 28px 28px;
     border-radius: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    min-height: 350px;
-    max-height: 700px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    display: flex
+;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .fc-toolbar-title {
-    font-size: 25px !important;
+    font-size: 16px !important;
+    width: 102px;
     color: #3D2C2E !important;
 }
 
@@ -60,8 +67,9 @@
 }
 
 .fc .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 10px;
+    margin-bottom: -6px;
     padding: 0 20px;
+    margin-left: 31px;
 }
 
 .fc-today-button {
@@ -70,9 +78,9 @@
 }
 
 .fc .fc-col-header-cell {
-    background-color: #fff3e7;
+    background-color: #fdf7f2;
     color: #3f2e29;
-    font-size: 14px;
+    font-size: 12px;
     text-transform: uppercase;
     padding: 10px 0;
 }
@@ -87,7 +95,7 @@
 .fc .fc-daygrid-day {
     border: 1px solid #e3d5ca !important;
     border-radius: 10px !important;
-    background-color: #fff4e8 !important;
+    background-color: #fdf7f2 !important;
     transition: background-color 0.2s ease;
 }
 
@@ -104,22 +112,32 @@
 }
 
 .fc-daygrid-day-number {
-    font-size: 14px;
+    font-size: 11px;!important;
     color: #3f2e29;
     font-weight: bold;
     z-index: 1;
+    padding: 2px !important;
     transition: opacity 0.3s ease;
 }
 
+
+
+
 .fc-daygrid-day-frame {
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* 날짜 숫자 위, 이모지 아래 */
+    justify-content: flex-start;
     align-items: center;
     position: relative;
-    border: 2px solid #e3d5ca !important;
-    border-radius: 10px !important;
-    margin: 2px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid #f7eadb;
+    border-radius: 9px;
+    margin: 1px;
 }
+
+
+
 
 .fc-daygrid-day-frame:has(.fc-event) .fc-daygrid-day-number {
     display: none;
@@ -139,31 +157,47 @@
 }
 
 .emoji-event {
-    font-size: 23px;
-    height: 100%;
-    width: 100%;
-    background: none;
-    border: none;
+    font-size: 18px;
+    line-height: 1;
     padding: 0;
     margin: 0;
-    box-shadow: none;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.fc-event-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .fc-event {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
 }
+
 
 /*------------------------------*/
 /* 주간 감정 요약 */
 .weekly-summary {
-    width: 100%;
+    width: 405px;
     box-sizing: border-box;
     flex-grow: 1;
-    background-color: #ede0d4;
+    background-color: #3f2e29;
     border-radius: 16px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -171,28 +205,28 @@
 
 .weekly-summary-title {
     text-align: center;
-    margin: 20px 0;
-    font-size: 18px;
+    margin: 2px 0;
+    font-size: 16px;
     font-weight: bold;
-    color: #3f2e29;
+    color: #fff3e7;
 }
 
 .weekly-summary ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: #EDE0D4;
+    background-color: #3f2e29;
 }
+
 
 .weekly-item {
     display: flex;
     align-items: center;
-    padding: 10px 0;
+    padding: 4px 0px;
     border-bottom: 1px solid #e0d4c0;
-    font-size: 16px;
-    color: #3F2E29;
+    font-size: 14px;
+    color: #fff3e7;
     cursor: pointer;
-    transition: background-color 0.2s ease;
 }
 
 .weekly-item:hover {
@@ -211,16 +245,17 @@
 /*------------------------------*/
 /* 다이어리 영역 */
 .diary-section-container {
-    background-color: #fff3e7;
+    background-color: #fdf7f2;
     display: flex;
     flex-direction: column;
-    padding: 20px 20px;
+    padding: 9px 20px;
     border-radius: 1rem;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
     flex-grow: 1;
     min-height: 0;
     overflow: hidden;
+    margin-left: -51px;
 }
 
 .diary-wrapper {
@@ -240,21 +275,21 @@
 }
 
 .diary-write-content {
-    flex-grow: 1;
-    overflow-y: auto;
-    min-height: 450px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 20px 20px;
-    border-radius: 1rem;
-    background-color: #f9f9f9;
-    border: 1px solid #ede0d4;
-    color: #3f2e29;
-    font-size: 15px;
-    margin-bottom: 20px;
-    resize: none;
-    word-break: break-word;
-}
+        flex-grow: 1;
+        overflow-y: auto;
+        min-height: 310px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px 20px;
+        border-radius: 1rem;
+        background-color: #f9f9f9;
+        border: 1px solid #ede0d4;
+        color: #3f2e29;
+        font-size: 15px;
+        margin-bottom: 20px;
+        resize: none;
+        word-break: break-word;
+    }
 
 .diary-view-section {
     flex: 1;
@@ -282,27 +317,30 @@
     word-break: break-word;
 }
 
-#diaryDate,
-#viewDiaryDate {
+#diaryDate, #viewDiaryDate {
     font-weight: bold;
     margin-bottom: 10px;
     font-size: 18px;
+    color: #151e27;
 }
 
 .emoji-option {
-    font-size: 30px;
-    margin: 10px;
+    font-size: 23px;
+    margin-bottom: 12px;
     padding: 10px;
     display: inline-block;
     border-radius: 50%;
     background-color: #ede0d4;
     transition: transform 0.2s ease;
+    margin-left: 9px;
+    margin-top: -8px;
 }
 
 .emoji-option.selected {
-    border: 3px solid #996d4f;
-    background-color: #ffd27a;
+    border: 3px solid #ede0d4;
+    background-color: #3f2e29;
 }
+
 
 .diary-write-section .emoji-option {
     cursor: pointer;
@@ -319,14 +357,14 @@
 
 .diary-write-title,
 .diary-view-title {
-    width: 100%;
-    height: 60px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 1rem;
-    padding: 10px 10px;
-    font-size: 18px;
-    background-color: #f9f9f9;
+        width: 100%;
+        height: 42px;
+        box-sizing: border-box;
+        border: 1px solid #ede0d4;
+        border-radius: 1rem;
+        padding: 10px 10px;
+        font-size: 14px;
+        background-color: #f9f9f9;
     color: #3f2e29;
     margin: 10px 0;
     display: flex;
@@ -337,7 +375,7 @@
 
 .diary-write-title {
     line-height: 1.5;
-    margin: 10px 0;
+    margin: 7px 0;
     text-align: center;
     word-break: break-word;
 }
@@ -355,20 +393,21 @@
 }
 
 .diary-section-container .diary-btn {
-    padding: 15px 30px;
-    background-color: #ffd27a;
-    color: #3f2e29;
-    font-size: 16px;
+    padding: 10px 23px;
+    background-color: #3f2e29;
+    font-size: 14px;
     font-weight: bold;
     border: none;
+    color: #fff3e7;
     border-radius: 1rem;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 5px;
     transition: all 0.2s ease-in-out;
 }
 
 .diary-section-container .diary-btn:hover {
-    background-color: #ffcf60;
+    background-color: #ede0d4;
+    color: #3F2E29;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -390,7 +429,7 @@
     background-color: #fff8f0;
     border-radius: 1.5rem;
     padding: 30px 20px;
-    width: 300px;
+    width: 310px;
     max-width: 400px;
     min-width: 300px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -398,13 +437,13 @@
 }
 
 .modal-container h2 {
-    margin-bottom: 20px;
+    margin-bottom: 17px;
     color: #3f2e29;
     font-size: 20px;
 }
 
 .modal-container p {
-    font-size: 16px;
+    font-size: 15px;
     color: #3f2e29;
 }
 
@@ -414,19 +453,21 @@
 }
 
 .score-value {
-    margin: 20px 0;
-    font-size: 20px;
+    margin: 16px 0;
+    font-size: 18px;
     color: #3f2e29;
 }
 
 .modal-buttons button {
-    padding: 15px 30px;
-    border-radius: 1rem;
+    padding: 6px 24px;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
     border: none;
-    font-size: 16px;
+    font-size: 14px;
     margin: 0 5px;
+    margin-top: 22px;
+    margin-bottom: 16px;
 }
 
 .btn-confirm {

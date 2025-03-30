@@ -53,7 +53,6 @@
             onclick="${counseling.status eq '完了' ? 'goBack()' : 'confirmExit()'}">
         ${counseling.status eq '完了' ? '戻る' : '終了する'}
     </button>
-    <div class="wave-container"></div>
 
 </div>
 

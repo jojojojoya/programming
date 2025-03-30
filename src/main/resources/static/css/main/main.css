@@ -325,6 +325,7 @@ body {
     align-items: flex-start;
     gap: 3vw;
     margin-top: 5px;
+    margin-left: 25px;
 }
 
 .left-content {
@@ -487,16 +488,17 @@ body {
 .checklist-container {
     flex: 0 0 40%;
     height: 65vh;
-    background-color: #ede0d4;
+    background-color: #ffd27a;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-right: 40px;
-    display: flex;
+    display: flex
+;
     flex-direction: column;
     overflow-y: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .checklist-container h3 {
@@ -541,7 +543,7 @@ body {
 .no-habit-box {
     text-align: center;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #fdf7f2;
     border-radius: 12px;
     border: 1px solid #ddd;
     margin-top: -10px;
