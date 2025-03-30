@@ -1,7 +1,7 @@
 (() => {
     console.log("[DEBUG] setupChatEvents 실행");
 
-    // ✅ 중복 실행 방지
+    // 중복 실행 방지
     if (window.chatModalInitialized) {
         console.log("[chat-modal.js] 이미 초기화됨 - 실행 중단");
         return;
@@ -10,7 +10,7 @@
 
     let chatHistory = [];
 
-    // ✅ 모달 열기
+    // 모달 열기
     function openChatModal() {
         console.log("[DEBUG] openChatModal 호출됨");
 
@@ -31,7 +31,7 @@
             });
     }
 
-    // ✅ 이벤트 바인딩
+    // 이벤트 바인딩
     function setupChatEvents() {
         const input = document.getElementById("user-input");
         const sendBtn = document.getElementById("send-btn");
@@ -50,7 +50,7 @@
         document.onkeydown = null;
 
         // 인사 출력
-        const welcomeMessage = `안녕 ${userName}! 오늘 하루는 어땠어?`;
+        const welcomeMessage = `こんにちは、 ${userName}！今日も楽しい一日でしたか？`;
         chatBox.innerHTML += `<p><b>GPT:</b> ${welcomeMessage}</p>`;
         chatHistory.push({ role: "assistant", content: welcomeMessage });
 
@@ -81,7 +81,7 @@
         };
     }
 
-    // ✅ 메시지 전송
+    // 메시지 전송
     async function sendMessage() {
         const input = document.getElementById('user-input');
         const userInput = input.value.trim();
@@ -104,12 +104,12 @@
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // ✅ 상담 종료 및 요약 저장
+    // 상담 종료 및 요약 저장
     async function endChat() {
-        const confirmEnd = confirm("대화를 종료하시겠습니까?");
+        const confirmEnd = confirm("この会話を終了してもよろしいですか？");
         if (!confirmEnd) return;
 
-        const save = confirm("오늘 대화를 요약해서 저장하시겠습니까?");
+        const save = confirm("今日の会話を要約して保存してもよろしいですか？");
         if (save) {
             const res = await fetch("/api/chat/summary", {
                 method: "POST",
@@ -123,7 +123,7 @@
         closeChatModal();
     }
 
-    // ✅ 모달 닫기
+    // 모달 닫기
     function closeChatModal() {
         const modal = document.getElementById("chat-modal-wrapper");
         if (modal) modal.remove();
@@ -131,7 +131,7 @@
         console.log("[closeChatModal] 모달 닫힘 및 초기화 해제");
     }
 
-    // ✅ 전역에서 사용할 수 있도록 등록
+    // 전역에서 사용할 수 있도록 등록
     window.openChatModal = openChatModal;
     window.closeChatModal = closeChatModal;
 })();

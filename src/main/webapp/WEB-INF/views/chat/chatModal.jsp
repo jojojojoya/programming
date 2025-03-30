@@ -28,20 +28,20 @@
 <div id="chat-modal-wrapper">
     <div id="chat-modal">
         <div class="chat-header">
-            <span> ✨ KOYOI 상담 ✨</span>
+            <span> ✨ KOYOI Open Chat ✨</span>
             <button class="close-btn" type="button" onclick="closeChatModal()">&#x2715;</button>
         </div>
 
         <div id="chat-box"></div>
 
         <div class="chat-input">
-            <input type="text" id="user-input" placeholder="메시지를 입력하세요">
-            <button id="send-btn" type="button">보내기</button>
-            <button id="end-btn" type="button">대화 종료</button>
+            <input type="text" id="user-input" placeholder="メッセージを入力してください。">
+            <button id="send-btn" type="button">送信</button>
+            <button id="end-btn" type="button">会話終了</button>
         </div>
 
         <form action="/livechatreservation" method="get">
-            <button type="submit">상담사 예약</button>
+            <button type="submit">カウンセリング予約</button>
         </form>
     </div>
 </div>
