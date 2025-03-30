@@ -283,7 +283,7 @@
       <div class="habit-page">
         <!-- ✅ 1行目：マイ習慣 / カレンダー / 週間履歴 -->
         <div class="widget-box habit-list">
-          <div class="myhabit">マイ習慣</div>
+          <div class="myhabit">習慣リスト</div>
           <div class="myhabit-list">
             <c:forEach var="habit" items="${habits}">
               <div id="habit-box-${habit.habit_id}">
@@ -337,7 +337,7 @@
         </div>
 
         <div class="widget-box habit-week">
-          <h3>週間習慣履歴</h3>
+          <h3>Weekly習慣履歴</h3>
           <table class="week-table">
             <thead>
             <tr>
@@ -365,7 +365,7 @@
                     class="habit-tab habit-active"
                     onclick="habitShowTab('신체건강')"
             >
-              身体の健康
+              体の健康
             </div>
             <div
                     id="habit-tab-정신건강"
@@ -378,19 +378,19 @@
 
           <div id="habit-신체건강" class="habit-content">
             <div style="float: left; width: 25%">
-              <p id="exercise">✅ 運動</p>
-              <p id="meal">🍽️ 食事</p>
-              <p id="diet">🏋️ 体重管理</p>
+              <p id="exercise">運動</p>
+              <p id="meal">食事</p>
+              <p id="diet">体重管理</p>
             </div>
             <div style="float: left; width: 25%">
-              <p id="supplement">✅ サプリメント</p>
-              <p id="water">🍽️ 水分摂取</p>
-              <p id="posture">🏋️ 姿勢を正す</p>
+              <p id="supplement">サプリ</p>
+              <p id="water">水分摂取</p>
+              <p id="posture">姿勢を正す</p>
             </div>
             <div style="float: left; width: 25%">
-              <p id="sunshine">✅ 日光浴</p>
-              <p id="rest">🍽️ 休憩</p>
-              <p id="stretch">🏋️ ストレッチ</p>
+              <p id="sunshine">日光浴</p>
+              <p id="rest">休憩</p>
+              <p id="stretch">ストレッチ</p>
             </div>
           </div>
 

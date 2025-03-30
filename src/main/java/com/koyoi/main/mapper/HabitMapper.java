@@ -25,7 +25,7 @@ public interface HabitMapper {
             "VALUES (#{habit_id}, #{user_id}, #{habit_name}, SYSDATE)")
     void insertHabitForTracking(HabitVO habit);
 
-    @Delete("DELETE FROM TEST_HABIT WHERE user_id = 'user1' AND habit_id = #{habitId}")
+    @Delete("DELETE FROM TEST_HABIT WHERE user_id = #{userId} AND habit_id = #{habitId}")
     int deleteHabit(String userId, @Param("habitId") int habitId);
 
 

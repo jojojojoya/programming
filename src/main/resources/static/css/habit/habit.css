@@ -404,3 +404,49 @@ button,
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #5C4A45; /* 따뜻한 브라운 텍스트 */
+    background-color: #F7EFE7; /* 너무 하얗지 않은 크림 배경 */
+    border: 1px solid #D6C5B7; /* 은은한 베이지 테두리 */
+    border-radius: 8px; /* 살짝 둥글게 */
+    transition: all 0.2s ease-in-out;
+    box-shadow: none;
+}
+
+input[type="text"],
+textarea {
+    width: 360px; /* 너비 줄였어! 필요 시 조정 가능 */
+    max-width: 100%; /* 반응형 대응 */
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #5C4A45;
+    background-color: #F7EFE7;
+    border: 1px solid #D6C5B7;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+    color: #A89A92;
+    font-size: 13px;
+    text-align: center;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #B08A82;
+    background-color: #F3E8DC;
+    box-shadow: 0 0 0 3px rgba(176, 138, 130, 0.1);
+}
+
