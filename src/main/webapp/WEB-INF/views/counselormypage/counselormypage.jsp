@@ -28,21 +28,21 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
         <div class="profile_item">
           <img src="/static/imgsource/profile/lockicon.png" alt="비밀번호" />
-          <span> PW: ******** </span>
+          <span> パスワード: ******** </span>
         </div>
         <div class="profile_item">
           <img src="/static/imgsource/profile/personicon.png" alt="" />
-          <span id="nicknameDisplay">닉네임: ${user.user_nickname} </span>
+          <span id="nicknameDisplay">ニックネーム: ${user.user_nickname} </span>
         </div>
         <button class="profile_edit_btn" id="openPasswordCheckModal">
-          프로필 수정하기
+          プロフィール編集
         </button>
       </div>
     </div>
   </div>
 
   <div class="chatbot_table">
-    <div class="chatbot_title">챗봇과의 대화 내역</div>
+    <div class="chatbot_title">チャットボットとのやりとり</div>
     <div class="chatbot_info">
       <c:if test="${not empty chats}">
         <c:forEach var="chat" items="${chats}">
@@ -50,14 +50,14 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
         </c:forEach>
       </c:if>
       <c:if test="${empty chats}">
-        <div class="chatbot_list">챗봇 이용 내역이 없습니다.</div>
+        <div class="chatbot_list">チャットボットの会話履歴はありません。</div>
       </c:if>
     </div>
   </div>
 </div>
 
 <div class="bottom-section">
-    <div class="calendar-container">
+  <div class="calendar-container" onclick="location.href='/diary'">
         <div class="calendar-iframe-wrapper"
              style="    position: relative; transform: scale(0.7);
     transform-origin: center;    width: 100px;
@@ -70,23 +70,14 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
             <img src="/static/imgsource/background/book.png" class="calendar-illust">
 
 
-            <a href="/diary" style="
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 10;
-        background: transparent;
-        cursor: pointer;
-    "></a>
         </div>
     </div>
-  </div>
 
   <!-- 상담 영역 (상담사용) -->
   <div class="counseling_wrapper">
     <div class="counseling_table">
       <div class="reserved_counseling_table_comment">
-        <div>📅 상담사로 예약된 상담 목록입니다</div>
+        <div>ご予約されている相談</div>
       </div>
 
       <div class="reservation_slider">
@@ -100,30 +91,30 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
               data-counseling-time="${reservation.counseling_time}"
               data-status="${reservation.status}"
             >
-              <div><strong>[상담일시] </strong></div>
+              <div><strong>[相談日時] </strong></div>
               <fmt:formatDate
                 value="${reservation.counseling_date}"
-                pattern="yyyy년 MM월 dd일"
+                pattern="yyyy年MM月dd日"
               />
-              ${reservation.counseling_time}시 00분
+              ${reservation.counseling_time}時00分
 
               <div>
-                <strong>[상담 카테고리] </strong>${reservation.category}
+                <strong>[カテゴリー] </strong>${reservation.category}
               </div>
               <div><strong>[USER ID] </strong>${reservation.user_id}</div>
               <div class="counseling_status">
-                <strong>[상담 상태] </strong>${reservation.status}
+                <strong>[状況] </strong>${reservation.status}
               </div>
 
               <c:choose>
-                <c:when test="${reservation.status eq '대기'}">
+                <c:when test="${reservation.status eq '待機中'}">
                   <button type="button" class="enter_counseling_btn">
-                    상담 입장하기
+                    今すぐ入室
                   </button>
                 </c:when>
                 <c:otherwise>
                   <button type="button" class="view_counseling_btn">
-                    상담 내용보기
+                    内容確認
                   </button>
                 </c:otherwise>
               </c:choose>
@@ -138,10 +129,10 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!-- 패스워드 체크 모달 -->
 <div id="passwordCheckModal" class="modal" style="display: none">
   <div class="modal-content">
-    <p>パスワードを入力してください</p>
+    <p>パスワードを入力してください。</p>
     <input type="password" id="passwordCheck" autocomplete="off" />
     <button id="checkPasswordBtn">確認</button>
-    <button class="close">閉じる</button>
+    <button class="close">X</button>
     <p id="passwordErrorMsg" style="display: none; color: red">
       パスワードが正しくありません。
     </p>
@@ -153,7 +144,7 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
   <div class="modal-content">
     <div class="chatbot-detail-title">チャットボットのタイトル</div>
     <div class="chatbot-detail-text">チャットボットの内容</div>
-    <button class="close">閉じる</button>
+    <button class="close">X</button>
   </div>
 </div>
 
@@ -162,7 +153,7 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!-- 프로필 수정 모달 -->
 <div id="profileModal" class="modal" style="display: none">
   <div class="modal-content">
-    <h3>プロフィールを編集する</h3>
+    <h3>プロフィール編集</h3>
 
     <%-- <label> 写真を選択 </label>--%> <%--
     <input type="file" id="editProfileImg" accept="image/*" />--%> <%--
@@ -198,13 +189,14 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
     <br />
 
     <button id="saveProfileBtn">保存</button>
-    <button class="close">閉じる</button>
+    <button class="close">X</button>
   </div>
 </div>
 <script>
     document.querySelector(".calendar-container").addEventListener("click", function () {
         window.location.href = "/diary";
     });
+
 </script>
 <script src="/static/js/counselormypage/counselormypage.js"></script>
 </html>

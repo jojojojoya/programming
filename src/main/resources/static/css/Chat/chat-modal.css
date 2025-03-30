@@ -17,11 +17,13 @@
 }
 
 .chat-header {
-    display: flex;
+    display: flex
+;
     justify-content: space-between;
     font-weight: bold;
     margin-bottom: 10px;
     color: #444;
+    font-size: 25px;
 }
 
 .chat-header .close-btn {

@@ -103,7 +103,7 @@
             </div>
 
             <div class="bottom-section">
-                <div class="calendar-container">
+                <div class="calendar-container" onclick="location.href='/diary'">
                     <div class="calendar-iframe-wrapper"
                          style="    position: relative; transform: scale(0.7);
     transform-origin: center;    width: 100px;

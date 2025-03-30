@@ -106,13 +106,17 @@
     margin-left: 10px;
 }
 
+
 .chatbot_table {
     background-color: #ede0d4;
-    width: 500px;
-    height: 220px;
+    width: 493px;
+    height: 199px;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #c2a98e #ede0d4;
 }
 
 .counseling_wrapper {
@@ -206,18 +210,20 @@
 }
 
 
-.profile_table {
-    width: 610px;
-    height: 220px;
+profile_table {
+    width: 590px;
+    height: 200px;
     padding: 20px;
     border-radius: 12px;
     background: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: left;
-    display: flex;
+    display: flex
+;
     align-items: center;
     justify-content: center;
 }
+
 
 .profile_content {
     display: flex;
@@ -304,15 +310,16 @@
 .view_chat_summary_btn:hover {
     background-color: #d8c3a5;
 }
-
 .chatbot-detail-text {
     background-color: #f5f0ea;
-    height: 300px;
-    width: 327px;
+    height: 269px;
+    width: 328px;
     border-radius: 15px;
     padding: 15px;
     border: solid 7px #ede0d4;
+    overflow-y: scroll;
 }
+
 .modal {
     display: none;
     position: fixed;
@@ -625,4 +632,30 @@ input:invalid::placeholder {
 
 .usermypage-form::-webkit-scrollbar-track {
     background-color: transparent;
+}
+.chatbot_table::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비 */
+}
+
+.chatbot_table::-webkit-scrollbar-track {
+    background-color: #ede0d4; /* 트랙 배경 */
+    border-radius: 10px;
+}
+
+.chatbot_table::-webkit-scrollbar-thumb {
+    background-color: #c2a98e; /* thumb 색상 */
+    border-radius: 10px;
+    border: 2px solid #ede0d4; /* thumb 여백 효과 */
+}
+
+.chatbot_table::-webkit-scrollbar-thumb:hover {
+    background-color: #a88b6f; /* hover 시 색상 */
+}
+
+.top-section,
+.bottom-section {
+    display: flex;
+    flex-wrap: wrap; /* 💡 줄바꿈 가능하게 */
+    justify-content: center;
+    gap: 20px;
 }
