@@ -33,7 +33,8 @@
     }
 %>
 <!DOCTYPE html>
-<html lang="en">
+<%--<html lang="en">--%>
+<html lang="ja">
 <head>
     <title>KOYOI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
@@ -64,13 +65,13 @@
         <aside class="sidebar">
             <nav class="sidebar-menu">
                 <button class="sidebar-btn" id="user">
-                    <img src="/static/imgsource/profile/user.png" alt="user">
+                    <img src="/static/imgsource/layout/personicon2.png" alt="user">
                 </button>
                 <button class="sidebar-btn" id="counselor">
-                    <img src="/static/imgsource/profile/counselor.png" alt="counselor">
+                    <img src="/static/imgsource/layout/counicon.png" alt="counselor">
                 </button>
                 <button class="sidebar-btn" id="announcement">
-                    <img src="/static/imgsource/announcements.png" alt="announcement">
+                    <img src="/static/imgsource/layout/announceicon.png" alt="announcement">
                 </button>
             </nav>
         </aside>
@@ -79,7 +80,7 @@
     <div class="right-container">
         <header class="header-bar">
             <div class="brand-title">
-                <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
+                <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/koyoi_name.png" alt="KOYOI"> </a>
             </div>
 
             <div class="header-icons">

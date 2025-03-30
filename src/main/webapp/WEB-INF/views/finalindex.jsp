@@ -71,25 +71,23 @@
 <body>
 <!-- 전체 컨테이너 -->
 <div class="container">
-    <!-- 🟠 왼쪽 컨테이너 (사이드바) -->
     <div class="left-container">
         <aside class="sidebar">
             <nav class="sidebar-menu">
                 <a href="/main" class="sidebar-btn">
-                    <img src="/static/imgsource/layout/home.png" alt="홈">
+                    <img src="/static/imgsource/layout/homeicon.png" alt="홈">
                 </a>
-                <a href="/diary" class="sidebar-btn"><img src="/static/imgsource/layout/calandar.png" alt="캘린더"></a>
-                <a href="/habit" class="sidebar-btn"><img src="/static/imgsource/layout/pencil.png" alt="습관"></a>
-                <a href="/livechatreservation" class="sidebar-btn"><img src="/static/imgsource/layout/chat.png"
-                                                                        alt="라챗"></a>
-<%--                <a href="/chat">--%>
-<%--                    <div class="bbiyak">--%>
-<%--                        <img src="/static/imgsource/layout/bbiyak.png" alt="챗봇">--%>
-<%--                    </div>--%>
-<%--                </a>--%>
+                <a href="/diary" class="sidebar-btn"><img src="/static/imgsource/layout/nitkiicon2.png" alt="캘린더"></a>
+                <a href="/habit" class="sidebar-btn"><img src="/static/imgsource/layout/pencilicon.png" alt="습관"></a>
+                <% if (!"2".equals(userType)) { %>
+                <a href="/livechatreservation" class="sidebar-btn">
+                    <img src="/static/imgsource/layout/counicon.png" alt="라이브상담">
+                </a>
+                <% } %>
+
                 <a href="javascript:void(0);" onclick="openChatModal()">
                     <div class="chatbotlogo">
-                        <img src="/static/imgsource/layout/chatbotlogo.png" alt="챗봇">
+                        <img src="/static/imgsource/layout/koyoi_moon.png" alt="챗봇">
                     </div>
                 </a>
             </nav>
@@ -99,7 +97,7 @@
     <div class="right-container">
         <header class="header-bar">
             <div class="brand-title">
-                <a href="/main"><img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고"></a>
+                <a href="/main"><img src="/static/imgsource/layout/koyoi_name.png" alt="KOYOI 로고"></a>
             </div>
             <div class="header-icons">
                 <button class="header-btn">
@@ -113,7 +111,6 @@
             </div>
         </header>
 
-        <!-- 🔵 실제 콘텐츠 영역 -->
         <main class="content">
             <c:if test="${not empty diaryContent}">
                 <jsp:include page="${diaryContent}"/>
@@ -143,10 +140,21 @@
             </c:if>
 
             <!-- 라이브챗 예약 인클루드 -->
+
+            <% if (!"2".equals(userType)) { %>
             <c:if test="${not empty livechatreservation}">
                 <jsp:include page="${livechatreservation}"/>
             </c:if>
+            <% } %>
         </main>
+
+        <%-- 상담사 접근 제한 알림 처리 --%>
+        <% if ("2".equals(userType) && request.getAttribute("livechatreservation") != null) { %>
+        <script>
+            alert("このページにはアクセスできません。");
+            location.href = "/main";
+        </script>
+        <% } %>
     </div>
 </div>
 </body>

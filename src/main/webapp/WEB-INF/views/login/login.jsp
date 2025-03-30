@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html lang="ko">
+
+<%--<html lang="ko">--%>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>KOYOI - Login</title>
@@ -21,21 +23,25 @@
 
     <header class="header-bar">
         <div class="header-logo-center">
-            <img src="/static/imgsource/layout/logo.png" alt="KOYOI 로고" class="header-logo">
+            <img src="/static/imgsource/layout/koyoi_name.png" alt="KOYOI 로고" class="header-logo">
         </div>
+        <img class="innercontentmoon" src="/static/imgsource/layout/koyoi_moon.png">
+
     </header>
 
     <!-- 메인 콘텐츠 영역 -->
     <main class="content">
+
         <div class="login-wrapper">
 
             <!-- 왼쪽 슬라이드 -->
             <div class="login-left">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="/static/imgsource/login/test1.jpeg" alt="슬라이드1"/></div>
-                        <div class="swiper-slide"><img src="/static/imgsource/login/test2.jpeg" alt="슬라이드2"/></div>
-                        <div class="swiper-slide"><img src="/static/imgsource/login/test3.jpeg" alt="슬라이드3"/></div>
+                        <div class="swiper-slide"><img src="/static/imgsource/login/mainbanner4.jpg" alt="슬라이드1"/></div>
+                        <div class="swiper-slide"><img src="/static/imgsource/login/mainbanner5.jpg" alt="슬라이드2"/></div>
+                        <div class="swiper-slide"><img src="/static/imgsource/login/mainbanner06.png" alt="슬라이드3"/></div>
+                        <div class="swiper-slide"><img src="/static/imgsource/login/mainbanner2.jpg" alt="슬라이드4"/></div>
                     </div>
 
                     <!-- 페이지네이션 -->
@@ -69,8 +75,11 @@
                         <p>Don't have an account? <a href="/signup">Sign Up</a></p>
                     </div>
                 </form>
+
             </div>
+
         </div>
+
     </main>
 
     <!-- 파도 영역 -->
