@@ -33,7 +33,8 @@
     }
 %>
 <!DOCTYPE html>
-<html lang="en">
+<%--<html lang="en">--%>
+<html lang="ja">
 <head>
     <title>KOYOI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
@@ -64,13 +65,13 @@
         <aside class="sidebar">
             <nav class="sidebar-menu">
                 <button class="sidebar-btn" id="user">
-                    <img src="/static/imgsource/profile/user.png" alt="user">
+                    <img src="/static/imgsource/layout/personicon2.png" alt="user">
                 </button>
                 <button class="sidebar-btn" id="counselor">
-                    <img src="/static/imgsource/profile/counselor.png" alt="counselor">
+                    <img src="/static/imgsource/layout/counicon.png" alt="counselor">
                 </button>
                 <button class="sidebar-btn" id="announcement">
-                    <img src="/static/imgsource/announcements.png" alt="announcement">
+                    <img src="/static/imgsource/layout/announceicon.png" alt="announcement">
                 </button>
             </nav>
         </aside>
@@ -79,14 +80,14 @@
     <div class="right-container">
         <header class="header-bar">
             <div class="brand-title">
-                <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
+                <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/koyoi_name.png" alt="KOYOI"> </a>
             </div>
 
             <div class="header-icons">
                 <button class="header-btn">
                     <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
                 </button>
-                <img class="profile-img" src="${user.user_img}" alt="profile">
+                <img class="profile-img" src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="profile">
             </div>
         </header>
 
@@ -157,7 +158,7 @@
                             <label> パスワード </label>
                             <div class="input-wrap">
                                 <div class="input-inner">
-                                    <input type="password" id="modalUserPassword">
+                                    <input type="password" id="modalUserPassword" autocomplete="off" />
                                     <i class="fa-solid fa-eye password-toggle" id="passwordToggleIcon"></i>
                                 </div>
                             </div>

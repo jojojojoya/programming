@@ -50,7 +50,7 @@ public class MainC {
         model.addAttribute("announcements", announcementService.getFiveAnnouncements());
 
         // 슬라이더에 명언 데이터 띄우기
-        model.addAttribute("quotes", quoteService.getAllQuotes());
+        model.addAttribute("quotes", quoteService.getRandomQuotes());
 
         return "main/main";
     }

@@ -232,7 +232,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("modalUserEmail").value = data.user_email;
                     document.getElementById("modalUserType").textContent = data.user_type === 2 ? "Counselor" : "User";
                     document.getElementById("modalCreatedAt").textContent = data.formattedCreatedAt;
-                    document.getElementById("modalUserImg").src = data.user_img ? `/static/${data.user_img}` : "/static/imgsource/layout/testprofile.png";
+                    document.getElementById("modalUserImg").src = data.user_img ? `/static/${data.user_img}` : "/static/imgsource/userProfile/default.png";
+                    const pwInput = document.getElementById("modalUserPassword");
+                    const pwIcon = document.getElementById("passwordToggleIcon");
+                    pwInput.type = "password";
+                    pwIcon.classList.remove("fa-eye");
+                    pwIcon.classList.add("fa-eye-slash");
                     document.getElementById("userDetailModal").style.display = "block";
                 });
         }
@@ -425,8 +430,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const isVisible = input.type === "text";
 
             input.type = isVisible ? "password" : "text";
-            icon.classList.toggle("fa-eye", isVisible);
-            icon.classList.toggle("fa-eye-slash", !isVisible);
+
+            if (isVisible) {
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
         }
     });
 

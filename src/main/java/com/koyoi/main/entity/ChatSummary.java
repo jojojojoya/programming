@@ -26,4 +26,8 @@ public class ChatSummary {
 
     @Column(name = "create_at", insertable = false, updatable = false)
     private LocalDateTime createAt;
+
+    @Column(name = "chat_title", length = 200)
+    private String chatTitle;
+
 }

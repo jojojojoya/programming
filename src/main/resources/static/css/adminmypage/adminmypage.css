@@ -102,38 +102,31 @@ body {
 
 .header-bar {
     width: 100%;
-    height: 12vh;
-    background-color: #EDE0D4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 10vh;
+    background-color: #ede0d4;
+    display: flex; /* 🔹 flexbox 적용 */
+    align-items: center; /* 🔹 세로 중앙 정렬 */
+    justify-content: center; /* 🔹 가로 중앙 정렬 */
     padding: 0 30px;
-    /* border-radius: 30px 30px 0 0;*/
+    border-radius: 0px 0px 0 0;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
+
 .brand-title {
     display: flex;
     align-items: center;
-    gap: 12px;
-    position: absolute;
-    left: 48%;
-    transform: translateX(-50%);
+    justify-content: center;
+    width: 150px; /* 🔹 적절한 너비 설정 */
+    height: 100px; /* 🔹 적절한 높이 설정 */
 }
 
 .brand-title img {
-    width: 100px;
-    height: 100px;
+    width: 200px; /* 🔹 부모 요소에 맞게 조정 */
+    height: 200px;
 }
 
-/*.header-icons {
-    position: absolute;
-    right: 90px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}*/
 
 .header-icons {
     display: flex;
@@ -158,6 +151,9 @@ body {
     transition: transform 0.2s ease-in-out;
 }
 
+
+
+
 .header-btn a {
     display: flex;
     align-items: center;
@@ -166,9 +162,10 @@ body {
     height: 100%;
 }
 
+
 .header-btn img {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
 }
 
 .header-btn:hover {
@@ -556,6 +553,10 @@ button:hover {
     font-size: 1rem;
     color: #8d6e63;
     cursor: pointer;
+}
+
+#modalUserPassword {
+    font-family: Arial, sans-serif;
 }
 
 .modal-buttons {

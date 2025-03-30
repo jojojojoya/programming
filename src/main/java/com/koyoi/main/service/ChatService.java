@@ -31,7 +31,11 @@ public class ChatService {
     public String askGpt(String userMessage) {
         Map<String, Object> systemPrompt = Map.of(
                 "role", "system",
-                "content", "あなたは共感力の高い心理カウンセラーです。ユーザーがどの言語で入力しても、必ず日本語でのみ返答してください。ユーザーの感情を理解し、全てに共感する必要はありませんが、問題の本質に集中して助言してください。医学的な助言は避け、ユーザーの立場でできる実践的な解決策を提案してください。意図を読み取り、必要に応じて質問もしてください。すべての返答は300文字以内の簡潔な日本語にしてください。日本語以外での出力は禁止されています。"
+                "content", "You are a compassionate Japanese-speaking psychological counselor who talks like a close friend. " +
+                        "Regardless of the language used by the user, always reply in Japanese using no more than 2–3 sentences (within 300 characters). " +
+                        "Avoid excessive empathy or advice, and aim for a natural, friendly tone. " +
+                        "Medical advice is not allowed. Ask questions as needed to better understand the user's intent. " +
+                        "Do not output in any language other than Korean."
         );
 
         Map<String, Object> userPrompt = Map.of(
@@ -45,11 +49,53 @@ public class ChatService {
     // summary prompt
     public String createSummary(List<Map<String, Object>> messages) {
         List<Map<String, Object>> prompt = new ArrayList<>();
-        prompt.add(Map.of("role", "system", "content", "다음 대화를 감정 중심으로 500자 이내로 요약해줘. 사용자의 감정을 반영하고 상담 내용을 간결하게 정리해."));
+        prompt.add(Map.of("role", "system", "content", "Based on the following conversation, summarize briefly in Korean what the user experienced today, " +
+                "how they felt, and how the suggested coping or solutions worked out. " +
+                "Reflect their emotions with empathy, and keep the tone warm rather than analytical. " +
+                "The response must be in Korean only and within 500 characters."));
         prompt.addAll(messages);
 
         return callGptApi(prompt, 500); //글자수 500자 이내
     }
+
+    // title prompt
+//    public String createTitle(List<Map<String, Object>> messages) {
+//        List<Map<String, Object>> prompt = new ArrayList<>();
+//        prompt.add(Map.of("role", "system", "content", "Based on the following summary text, " +
+//                "create a natural-sounding Korean title that reflects both the content and emotions. " +
+//                "The title must be within 30 characters and the response should be in Korean only. " +
+//                "Choose words that are accurate yet emotionally resonant."));
+//        prompt.addAll(messages);
+//
+//        return callGptApi(prompt, 30);
+//    }
+
+    // 요약 + 제목 생성 후 DB 저장하는 새로운 메서드
+    public void saveSummaryWithTitle(String userId, List<Map<String, Object>> messages) {
+        // 요약 생성
+        String summary = createSummary(messages);
+
+        // summary 기반으로 title 생성
+        List<Map<String, Object>> titlePrompt = new ArrayList<>();
+        titlePrompt.add(Map.of("role", "system", "content", "Based on the following summary text, " +
+                "create a natural-sounding Korean title that reflects both the content and emotions. " +
+                "The title must be within 30 characters and the response should be in Korean only. " +
+                "Choose words that are accurate yet emotionally resonant."));
+        titlePrompt.add(Map.of("role", "user", "content", summary));
+        String title = callGptApi(titlePrompt, 30);
+
+        System.out.println(title);
+        System.out.println(summary);
+
+        // DB 저장
+        ChatSummary chatSummary = new ChatSummary();
+        chatSummary.setUserId(userId);
+        chatSummary.setChatSummary(summary);
+        chatSummary.setChatTitle(title.length() > 30 ? title.substring(0, 30) : title); // 30자 숫자 제한
+
+        chatSummaryRepository.save(chatSummary);
+    }
+
 
     private String callGptApi(List<Map<String, Object>> messages, int maxTokens) {
         Map<String, Object> requestBody = new HashMap<>();
@@ -90,12 +136,12 @@ public class ChatService {
         throw new RuntimeException("GPT 요청 실패: 여러 번 재시도 했지만 실패했습니다.");
     }
 
-    public void saveSummary(String userId, String summary) {
-        ChatSummary chatSummary = new ChatSummary();
-        chatSummary.setUserId(userId);
-        chatSummary.setChatSummary(summary);
-        chatSummaryRepository.save(chatSummary);
-    }
+//    public void saveSummary(String userId, String summary) {
+//        ChatSummary chatSummary = new ChatSummary();
+//        chatSummary.setUserId(userId);
+//        chatSummary.setChatSummary(summary);
+//        chatSummaryRepository.save(chatSummary);
+//    }
 
 }
 
