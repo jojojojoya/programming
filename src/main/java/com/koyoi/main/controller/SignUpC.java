@@ -56,13 +56,13 @@ public class SignUpC {
         user.setUserType(userType); // 일반 유저 기본값
 
         // 추후 삭제 디버깅용
-        System.out.println("login info : " + userId);
-        System.out.println("login info : " + userName);
-        System.out.println("login info : " + userNickname);
-        System.out.println("login info : " + userEmail);
-        System.out.println("login info : " + userPw);
-        System.out.println("login info : " + userId);
-        System.out.println("login info : " + userType);
+        System.out.println("login userID : " + userId);
+        System.out.println("login userName : " + userName);
+        System.out.println("login userNickname : " + userNickname);
+        System.out.println("login userEmail : " + userEmail);
+        System.out.println("login userPW : " + userPw);
+        System.out.println("login userId : " + userId);
+        System.out.println("login userType : " + userType);
 
 
         log.debug("[SignUpC] UserVO 생성 완료: {}", user);
@@ -71,6 +71,9 @@ public class SignUpC {
 
         try {
             result = signUpService.registerUser(user, userImg);
+
+            // debug
+            System.out.println(result);
 
             if (result) {
                 log.info("[SignUpC] 회원가입 성공 - userId: {}", userId);

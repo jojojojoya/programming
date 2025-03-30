@@ -33,12 +33,12 @@ public class ChatRestC {
         String userId = (String) session.getAttribute("userId");
 
         if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ログインが必要です。");
         }
 
 //        String summary = chatService.createSummary(historyDTO.getMessages());
         chatService.saveSummaryWithTitle(userId, historyDTO.getMessages());
 
-        return ResponseEntity.ok("요약과 제목이 저장되었습니다!");
+        return ResponseEntity.ok("要約とタイトルが保存されました！");
     }
 }
