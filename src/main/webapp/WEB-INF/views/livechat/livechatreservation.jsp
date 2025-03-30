@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="/static/css/livechat/livechatreservation.css">
 
 <div class="livechatreservation-form">
-        <main class="content">
-
             <div class="top-section">
                 <div class="livechat_table">
                     <div style="color: #D8D2C2; font-size: 16px; margin-top:20px;"  > 専門家との相談を予約しませんか？ </div>
@@ -98,7 +96,6 @@
                     </div>
                 </div>
             </div>
-        </main>
 
 <script src="/static/js/livechat/livechatreservation.js">
 

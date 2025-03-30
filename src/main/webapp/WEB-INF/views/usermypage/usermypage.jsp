@@ -51,7 +51,6 @@
 
 
 <div class="usermypage-form">
-        <main class="content">
             <div class="top-section">
                 <div class="profile_table">
                     <div class="profile_content">
@@ -260,6 +259,5 @@
 
                 </script>
                 <script src="/static/js/usermypage/usermypage.js"></script>
-        </main>
 </div>
 </html>

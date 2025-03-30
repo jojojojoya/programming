@@ -207,5 +207,4 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
     });
 </script>
 <script src="/static/js/counselormypage/counselormypage.js"></script>
-</main>
 </html>

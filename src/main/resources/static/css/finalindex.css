@@ -162,13 +162,14 @@ body {
 }
 
 
-/* 🟡 메인 콘텐츠 */
 .content {
-    /*flex-grow: 1;*/
+    flex-grow: 1;
     padding: 20px;
     text-align: center;
     font-size: 18px;
+    overflow: scroll;
 }
+
 .chatbotlogo {
     position: fixed;
     bottom: 12px;
