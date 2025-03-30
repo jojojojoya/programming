@@ -543,7 +543,7 @@ body {
 .no-habit-box {
     text-align: center;
     padding: 20px;
-    background-color: #fdf7f2;
+    background-color: #fff4df;
     border-radius: 12px;
     border: 1px solid #ddd;
     margin-top: -10px;
@@ -632,7 +632,7 @@ body {
 
 .register-btn {
     padding: 4px 20px;
-    background-color: #3F2E29;
+    background-color: #ffd27a;
     color: white;
     font-size: 14px;
     border: none;
@@ -642,7 +642,8 @@ body {
 }
 
 .register-btn:hover {
-    background-color: #e6d7f1;
+    background-color: #3F2E29;
+    color: white;
 }
 
 .selected-date {
