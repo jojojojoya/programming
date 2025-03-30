@@ -57,26 +57,28 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 </div>
 
 <div class="bottom-section">
-  <div class="calendar-container">
-    <div class="calendar-iframe-wrapper" style="position: relative">
-      <iframe
-        src="/maincalendar"
-        frameborder="0"
-        style="width: 100%; height: 450px; border: none"
-      ></iframe>
-      <a
-        href="/diary"
-        style="
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 10;
-          background: transparent;
-          cursor: pointer;
-        "
-      ></a>
+    <div class="calendar-container">
+        <div class="calendar-iframe-wrapper"
+             style="    position: relative; transform: scale(0.7);
+    transform-origin: center;    width: 100px;
+    height: 133px;">
+            <iframe src="/maincalendar" frameborder="0"
+                    style="      width: 440px;
+    height: 440px;
+    border-radius: 16px;border: none; "></iframe>
+
+            <img src="/static/imgsource/background/book.png" class="calendar-illust">
+
+
+            <a href="/diary" style="
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 10;
+        background: transparent;
+        cursor: pointer;
+    "></a>
+        </div>
     </div>
   </div>
 

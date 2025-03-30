@@ -45,7 +45,7 @@
         <!-- diary-write-section -->
         <div class="diary-write-section" id="diaryWriteSection" style="display: block;">
             <!-- date -->
-            <p><strong>今日のこと:</strong> <span id="diaryDate"></span></p>
+            <p><strong style="font-size: 18px; color:#3f2e29; ">今日のこと:</strong> <span id="diaryDate"></span></p>
 
             <!-- emoji -->
             <div>

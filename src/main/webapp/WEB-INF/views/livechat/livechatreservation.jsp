@@ -31,7 +31,7 @@
                     <div class="livechat_info">
 
                             <div class="livechat_list"> ご希望の日付を選択してください。</div>
-                            <input type="text" id="livechat_reserve_date" onchange="showNext('step2')">
+                            <input type="text" id="livechat_reserve_date" onchange="showNext('step2')" value="ご希望の日付">
 
                             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
                             <script src="https://npmcdn.com/flatpickr/dist/l10n/ja.js"></script>
@@ -100,7 +100,6 @@
             </div>
         </main>
 
-    <!-- 파도 영역 -->
 <script src="/static/js/livechat/livechatreservation.js">
 
 
