@@ -27,6 +27,7 @@ public class ChatRestC {
         return ResponseEntity.ok(gptResponse);
     }
 
+    // summary + title 저장
     @PostMapping("/summary")
     public ResponseEntity<String> saveSummary(@RequestBody ChatHistoryDTO historyDTO, HttpSession session) {
         String userId = (String) session.getAttribute("userId");
@@ -35,9 +36,9 @@ public class ChatRestC {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
 
-        String summary = chatService.createSummary(historyDTO.getMessages());
-        chatService.saveSummary(userId, summary);
+//        String summary = chatService.createSummary(historyDTO.getMessages());
+        chatService.saveSummaryWithTitle(userId, historyDTO.getMessages());
 
-        return ResponseEntity.ok("요약이 저장되었습니다!");
+        return ResponseEntity.ok("요약과 제목이 저장되었습니다!");
     }
 }

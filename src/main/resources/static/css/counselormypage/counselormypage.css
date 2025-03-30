@@ -1,0 +1,622 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+
+.myprofile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;}
+
+.bbiyak {
+    position: absolute;
+    bottom: 47px;
+    left: 73%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-sizing: border-box;
+    z-index: 20;
+    overflow: hidden;
+}
+
+
+.bbiyak img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+
+.top-section {
+    display: flex;
+    gap: 20px;
+    height: 306px;
+    justify-content: center;
+    margin-bottom: -31px;
+    margin-top: -17px;
+}
+
+
+.bottom-section {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+
+.diary_table, .counseling_table,.chatbot_detail_table {
+    min-width: 390px;
+    max-width: 700px;
+    padding: 20px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.calendar-container {
+    min-width: 431px;
+    max-width: 400px;
+    height: 322px;
+    padding: 9px;
+    border-radius: 12px;
+    background:#fff3e7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.calendar-cell {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+}
+.chatbot_title {
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    gap: 8px; /* 텍스트와 이미지 간 간격 */
+    font-size: 17px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.chatbot_table {
+    background-color: #ede0d4;
+    width: 500px;
+    height: 226px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.counseling_wrapper {
+    min-width: 400px;
+}
+
+.counseling_table {
+    width: 100%;
+    height: 291px;
+    max-width: 689px;
+    padding: 25px;
+    background-color: #fff3e7;
+    color: #3d2c2e;
+}
+
+.nonreserved_counseling_table {
+    flex-grow: 2;
+    flex-basis: 45%;
+    height: 440px;
+    position: relative;
+    background-color: #3D2C2E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* 이미지 크기를 부모 요소에 맞게 조정 */
+.nonreserved_counseling_table img {
+    width: 144%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nonreserved_counseling_table_comment {
+    position: absolute;
+    bottom: 9%;
+    color: white;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    z-index: 2;
+    width: 80%;
+    margin-bottom: 90px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.counseling_background_img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.counseling_background_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.diary_table {
+    position: relative;
+    flex-grow: 2;
+    flex-basis: 45%;
+    background-color: #3D2C2E;
+    height: 400px;
+    overflow: hidden;
+}
+
+.diary_background_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.diary_background_img img {
+    width: 92%;
+    height: 92%;
+    object-fit: unset;
+    margin-top :10px
+}
+
+
+.profile_table {
+    width: 610px;
+    height: 226px;
+    padding: 20px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile_content {
+    display: flex;
+    align-items: center;
+    gap: 54px;
+}
+
+.profile_img img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+
+.profile_info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile_item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #333;
+    padding-right: 36px;
+    padding-bottom: 7px;
+}
+
+.profile_item img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.profile_edit_btn {
+    padding: 6px 10px;
+    background-color: #3d2c2e;
+    cursor: pointer;
+    font-size: 13px;
+    color: #fff3e7;
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    border: none;
+    width: 179px;}
+
+
+.profile_edit_btn:hover {
+    background-color: #d8c3a5;
+}
+.chatbot_list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 3px 16px;
+    height: 24px;
+    background-color: #fff3e7;
+    margin: 5px;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.chatbot_list strong {
+    font-weight: 300;
+}
+
+.view_chat_summary_btn {
+    padding: 1px 11px;
+    font-size: 13px;
+    background-color: #ede0d4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.view_chat_summary_btn:hover {
+    background-color: #d8c3a5;
+}
+
+.chatbot-detail-text {
+    background-color: #f5f0ea;
+    height: 300px;
+    width: 327px;
+    border-radius: 15px;
+    padding: 15px;
+    border: solid 7px #ede0d4;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* 모달 크기 */
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    text-align: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    font-size: 15px;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 19px;
+    border: none;
+    background: #f5f0ea;
+}
+
+#passwordCheck {
+    width: 68%;
+    padding: 12px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin: 10px 37px;
+}
+
+#checkPasswordBtn, .profile-submit-btn {
+    padding: 4px 17px;
+    background-color: #3d2c2e;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff3e7;
+    transition: background-color 0.2s;
+}
+
+#checkPasswordBtn:hover, .profile-submit-btn:hover {
+    background-color: #d8c3a5;
+}
+
+#passwordErrorMsg {
+    color: red;
+    display: none;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+.modal-content input {
+    width: 159px;
+    height: 21px;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+#editId {
+    border: 2px solid #88623d;
+    background-color: #ede0d4;
+}
+
+input:invalid::placeholder {
+    color: #ede0d4;
+}
+
+.counseling_background_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+
+.reserved_counseling_table_comment {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: -15px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+/* 텍스트를 가운데 정렬 */
+.reserved_counseling_table_comment div {
+    flex-grow: 1;
+    text-align: center;
+}
+
+
+.reserved_reservation_box strong,
+.reserved_reservation_box div,
+.reserved_reservation_box br {
+    margin-bottom: 0;
+    padding: 0;
+    color: #3d2c2e;
+}
+
+
+
+
+.reservation_box {
+    padding: 10px;
+    border: 2px solid;
+    margin: 5px;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 240px;
+    font-size: 25px;
+    width: 220px;
+}
+
+
+
+.enter-btn {
+    padding: 6px 11px;
+    background-color: #ffd27a;
+    cursor: pointer;
+    font-size: 17px;
+    color: rgb(61 44 46);
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    border: none;
+    margin-top: 7px;
+}
+.shiningdeco{
+    width: 40px;
+    height: 40px;
+}
+
+.reservation_submit_btn {
+    padding: 4px 10px;
+    background-color: #ffd27a;
+    cursor: pointer;
+    font-size: 14px;
+    color: #3d2c2e;
+    transition: background-color 0.2s;
+    border-radius: 6px;
+    border: none;
+    margin-left: 333px;
+    margin-right: 28px;
+    font-weight: 600;
+}
+
+#saveProfileBtn {
+    padding: 4px 10px;
+    background-color: #ffd27a;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s;
+    border-radius: 6px;
+    border: none;
+}
+
+.completed-btn {
+    padding: 6px 11px;
+    background-color: rgb(61 44 46);
+    cursor: pointer;
+    font-size: 17px;
+    color: #D8D2C2;
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    border: none;
+    margin-top: 7px;
+}
+
+
+
+.enter_counseling_btn {
+    background-color: #3d2c2e;
+    color: rgb(253 247 242);
+    border: none;
+    padding: 2px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.view_counseling_btn {
+    background-color: #fff3e7;
+    color: #fff;
+    border: none;
+    padding: 2px 16px;
+    border-radius: 8px;
+    color: #5d4037;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.reservation_list {
+    display: flex
+;
+    flex-wrap: nowrap;
+    gap: 17px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: auto;
+    scrollbar-color: #9a6e50 #ede0d4;
+    white-space: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-top: 40px;
+    margin-bottom: -3px;
+    font-size: 13px;
+    color: #3d2c2e;
+}
+
+.reserved_reservation_box:last-child {
+    margin-right: 0;
+}
+
+.reservation_slider {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.calendar-illust {
+    position: absolute;
+    right: -198px;
+    bottom: -31px;
+    width: 257px;
+    height: auto;
+    z-index: 5;
+    opacity: 0.95;
+    pointer-events: none;
+}
+
+.reserved_reservation_box {
+    flex: none;
+    width: 196px;
+    background-color: #ede0d4;
+    padding-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    margin-left: 9px;
+    margin-right: 12px;
+    margin-bottom: 25px;
+    padding-top: 13px;
+}
+
+.reserved_reservation_box:last-child {
+    margin-right: 0;
+}
+
+.reservation_slider::-webkit-scrollbar {
+    height: 10px;
+}
+
+.reservation_slider::-webkit-scrollbar-thumb {
+    background-color: #c2a98e;
+    border-radius: 4px;
+}
+
+.reservation_slider::-webkit-scrollbar-track {
+    background-color: #ede0d4;
+}
+
+.usermypage-form {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    padding-bottom: 50px; /* 모달 하단 여백 확보용 */
+}
+
+
+.usermypage-form::-webkit-scrollbar {
+    width: 8px;
+}
+
+.usermypage-form::-webkit-scrollbar-thumb {
+    background-color: rgba(63, 46, 41, 0.4);
+    border-radius: 4px;
+}
+
+.usermypage-form::-webkit-scrollbar-track {
+    background-color: transparent;
+}

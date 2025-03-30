@@ -12,7 +12,6 @@ body {
     height: 100vh;
 }
 
-/* 🟢 전체 컨테이너 */
 .container {
     width: 100vw;
     height: 100vh;
@@ -23,7 +22,6 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 🟠 왼쪽 컨테이너 (사이드바) */
 .left-container {
     width: 60px;
     background-color: #FFF3E7; /* 오른쪽과 동일 */
@@ -33,9 +31,9 @@ body {
     padding-top: 5px;
     position: relative;
     border-right: 1px solid #f4dfcd; /* 경계선 */
+    z-index: 100;
 }
 
-/* 🟣 사이드바 */
 .sidebar {
     width: 100%;
     display: flex;
@@ -46,7 +44,6 @@ body {
 }
 
 
-/* 🔵 사이드바 버튼 */
 .sidebar-btn {
     position: relative;
     display: flex;
@@ -82,12 +79,10 @@ body {
     height: 24px;
 }
 
-/* 🔵 버튼 호버 효과 */
 .sidebar-btn:hover {
     transform: scale(1.1);
 }
 
-/* 🟠 오른쪽 컨테이너 */
 .right-container {
     flex-grow: 1;
     display: flex;
@@ -95,15 +90,13 @@ body {
 }
 
 
-/* 🟣 헤더 바 */
 .header-bar {
     width: 100%;
-    height: 120px;
+    height: 10vh;
     background-color: #ede0d4;
     display: flex; /* 🔹 flexbox 적용 */
     align-items: center; /* 🔹 세로 중앙 정렬 */
     justify-content: center; /* 🔹 가로 중앙 정렬 */
-
     padding: 0 30px;
     border-radius: 0px 0px 0 0;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -111,7 +104,6 @@ body {
 }
 
 
-/* 🌙 중앙 브랜드 로고 */
 .brand-title {
     display: flex;
     align-items: center;
@@ -121,12 +113,10 @@ body {
 }
 
 .brand-title img {
-    width: 100%; /* 🔹 부모 요소에 맞게 조정 */
-    height: auto;
-    max-width: 125px; /* 🔹 최대 크기 제한 */
+    width: 200px; /* 🔹 부모 요소에 맞게 조정 */
+    height: 200px;
 }
 
-/* 🟡 우측 상단 아이콘 */
 .header-icons {
     position: absolute;
     right: 90px;
@@ -151,13 +141,11 @@ body {
 }
 
 
-/* 아이콘 크기 조절 */
 .header-btn img {
     width: 24px;
     height: 24px;
 }
 
-/* 버튼 호버 효과 */
 .header-btn:hover {
     transform: scale(1.1);
 }
@@ -165,8 +153,8 @@ body {
 
 /* 프로필 이미지 */
 .profile-img {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
@@ -181,22 +169,20 @@ body {
     text-align: center;
     font-size: 18px;
 }
-.bbiyak {
-    position: absolute; /* 절대 위치 */
-    bottom: 47px; /* 보라색 파도 위로 조정 */
-    left: 73%; /* 가운데 정렬 */
-    transform: translateX(-50%); /* 정확한 중앙 정렬 */
-    width: 70px;  /* 크기 조절 (작게) */
-    height: 70px; /* 크기 조절 (작게) */
-    background-color: transparent; /* 배경색 없음 */
+.chatbotlogo {
+    position: fixed;
+    bottom: 12px;
+    left: 51px;
+    transform: translateX(-50%);
+    width: 99px;
+    height: 99px;
+    background-color: transparent;
     border-radius: 50%;
-    box-sizing: border-box; /* 크기 조정 */
-    z-index: 20; /* 다른 요소 위에 표시 */
-    overflow: hidden; /* 혹시라도 삐져나오면 숨김 */
+    box-sizing: border-box;
+    z-index: 21;
+    overflow: hidden;
 }
-
-/* bbiyak 내부 이미지 크기 조정 */
-.bbiyak img {
+.chatbotlogo img {
     width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
     height: 100%;
     object-fit: contain; /* 이미지 비율 유지하며 맞춤 */

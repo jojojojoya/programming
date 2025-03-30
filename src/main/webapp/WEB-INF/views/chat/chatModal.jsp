@@ -41,8 +41,11 @@
         </div>
 
         <form action="/livechatreservation" method="get">
-            <button type="submit">상담사 예약</button>
+            <button type="submit" class="modal-link-btn">
+                深いお悩みは、専門家と一緒に。→
+            </button>
         </form>
+
     </div>
 </div>
 

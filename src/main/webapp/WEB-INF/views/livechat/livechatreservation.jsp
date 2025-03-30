@@ -1,23 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+
+<style>
+    @font-face {
+        font-family: 'MyFont';
+        src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+    }
+
+    body {
+        font-family: 'MyFont', sans-serif;
+        font-size: 32px;
+        color: black;
+    }
+</style>
+
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
     <link rel="stylesheet" href="/static/css/livechat/livechatreservation.css">
-</head>
-<body>
+
+<div class="livechatreservation-form">
         <main class="content">
 
             <div class="top-section">
                 <div class="livechat_table">
-                    <div style="color: #D8D2C2; font-size: 20px;"  > 専門家との相談を予約しませんか？ </div>
+                    <div style="color: #D8D2C2; font-size: 16px; margin-top:20px;"  > 専門家との相談を予約しませんか？ </div>
                     <div class="livechat_info">
 
-                        <div id="livechat_step1" class="show">
                             <div class="livechat_list"> ご希望の日付を選択してください。</div>
                             <input type="text" id="livechat_reserve_date" onchange="showNext('step2')">
 
@@ -63,7 +75,7 @@
                                 <option value="健康">健康</option>
                                 <option value="将来">将来</option>
                                 <option value="人間関係">人間関係</option>
-                                <option value="その他のお悩み">その他のお悩み</option>
+                                <option value="sonota">その他のお悩み</option>
                             </select>
                         </div>
 
@@ -74,8 +86,12 @@
                         <div id="conformation">
                             <div id="conformation_text" class="livechat_list" style="display: none;">
                                 内容に基づいて、最適なカウンセラーを割り当てました。
+
                             </div>
+                            <img class="livechattabledeco" src="/static/imgsource/login/mainbanner08.png">
+
                             <button id="livechat_exit_btn" class="hide"> 戻る</button>
+
                         </div>
 
 
@@ -83,7 +99,11 @@
                 </div>
             </div>
         </main>
-<script src="/static/js/livechat/livechatreservation.js"></script>
 
-</body>
+    <!-- 파도 영역 -->
+<script src="/static/js/livechat/livechatreservation.js">
+
+
+</script>
+</div>
 </html>

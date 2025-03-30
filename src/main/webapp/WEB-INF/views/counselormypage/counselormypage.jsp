@@ -155,6 +155,8 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
   </div>
 </div>
 
+
+
 <!-- 프로필 수정 모달 -->
 <div id="profileModal" class="modal" style="display: none">
   <div class="modal-content">
@@ -197,5 +199,11 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
     <button class="close">閉じる</button>
   </div>
 </div>
-
+<script>
+    document.querySelector(".calendar-container").addEventListener("click", function () {
+        window.location.href = "/diary";
+    });
+</script>
 <script src="/static/js/counselormypage/counselormypage.js"></script>
+</main>
+</html>

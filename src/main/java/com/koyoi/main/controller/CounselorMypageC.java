@@ -41,14 +41,14 @@ public class CounselorMypageC {
     public String counselormypage(HttpSession session, Model model) {
         String userId = getLoginUserId(session);
 
-        // ✅ 세션에서 가져온 userId로 조회
+        // 세션에서 가져온 userId로 조회
         List<CounselorMyPageVO> userList = counselorMyPageService.getUserById(userId);
         if (!userList.isEmpty()) {
             CounselorMyPageVO counselor = userList.get(0);
             model.addAttribute("user", counselor);
-            System.out.println("✅ 유저 정보 로딩: " + counselor.getUser_id());
+            System.out.println("유저 정보 로딩: " + counselor.getUser_id());
         } else {
-            System.out.println("❌ 해당 user_id 없음: " + userId);
+            System.out.println("해당 user_id 없음: " + userId);
         }
 
         liveChatService.updateReservationsStatus();
@@ -71,7 +71,7 @@ public class CounselorMypageC {
 
         String password = requestData.get("password");
         boolean isValid = counselorMyPageService.checkPassword(userId, password);
-        System.out.println("🔎 비밀번호 확인 결과: " + (isValid ? "성공" : "실패"));
+        System.out.println("비밀번호 확인 결과: " + (isValid ? "성공" : "실패"));
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("valid", isValid);
@@ -84,7 +84,6 @@ public class CounselorMypageC {
         String userId = getLoginUserId(session);
 
         boolean isUpdated = counselorMyPageService.updateProfile(user);
-        System.out.println("🔄 프로필 업데이트 결과: " + (isUpdated ? "성공" : "실패"));
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("updated", isUpdated);
@@ -97,7 +96,6 @@ public class CounselorMypageC {
             int counselingId = (int) requestData.get("counseling_id");
             String status = (String) requestData.get("status");
 
-            System.out.println("🔍 상담 상태 업데이트 요청 - ID: " + counselingId + ", 상태: " + status);
             boolean success = liveChatService.updateReservationStatus(counselingId, status);
 
             Map<String, Boolean> response = new HashMap<>();
@@ -105,7 +103,7 @@ public class CounselorMypageC {
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
-            System.err.println("🚨 예외 발생: " + e.getMessage());
+            System.err.println("예외 발생: " + e.getMessage());
             e.printStackTrace();
 
             Map<String, Boolean> response = new HashMap<>();
@@ -129,28 +127,22 @@ public class CounselorMypageC {
             userId = userIdFromSession;
 
 
-            System.out.println("userId: " + userId);
-            System.out.println("nickname: " + nickname);
-            System.out.println("password: " + password);
-            System.out.println("첨부된 파일: " + (profileImg != null ? profileImg.getOriginalFilename() : "없음"));
-
             String imgPath = null;
             if (profileImg != null && !profileImg.isEmpty()) {
-                String projectPath = System.getProperty("user.dir"); // 현재 프로젝트 루트 경fh
+                String projectPath = System.getProperty("user.dir"); // 현재 프로젝트 루트 경로
                 String uploadDirPath = new ClassPathResource("static/imgsource/userProfile").getFile().getAbsolutePath();
                 File uploadDir = new File(uploadDirPath);
                 if (!uploadDir.exists()) {
-                    System.out.println("📁 디렉토리 없음 → 생성 시도");
                     uploadDir.mkdirs();
                 }
 
                 String filename = userId + "_" + profileImg.getOriginalFilename();
-                File file = new File(uploadDir, filename); // ✅ 올바른 경로 연결 방식
+                File file = new File(uploadDir, filename); // 올바른 경로 연결 방식
                 profileImg.transferTo(file);
                 imgPath = "/imgsource/userProfile/" + filename;
 
 
-                System.out.println("✅ 이미지 저장 완료: " + imgPath);
+                System.out.println("이미지 저장 완료: " + imgPath);
             }
 
             CounselorMyPageVO user = new CounselorMyPageVO();
@@ -169,7 +161,7 @@ public class CounselorMypageC {
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            System.err.println("🚨 예외 발생: " + e.getMessage());
+            System.err.println("예외 발생: " + e.getMessage());
             e.printStackTrace();
             response.put("updated", false);
             return ResponseEntity.internalServerError().body(response);
@@ -196,7 +188,7 @@ public class CounselorMypageC {
     }
     @GetMapping("/maincalendar")
     public String maincalendar() {
-        return "main/maincalendar";  // 이건 /WEB-INF/views/main/maincalendar.jsp로 렌더됨
+        return "main/maincalendar";
     }
 
 

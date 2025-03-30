@@ -115,6 +115,7 @@ CREATE TABLE MAIN_CHAT
 (
     chat_id      NUMBER PRIMARY KEY,                                             -- 챗봇 대화 고유 ID
     user_id      VARCHAR2(50) NOT NULL,                                          -- 대화한 사용자 ID
+    chat_title VARCHAR2(30) NOT NULL,                                           -- 대화 제목
     chat_summary CLOB         NOT NULL,                                          -- 대화 요약 내용 (전체 내용 저장 가능)
     create_at TIMESTAMP DEFAULT SYSDATE NOT NULL,                                -- 대화 일시
     CONSTRAINT fk_chat_user FOREIGN KEY (user_id) REFERENCES MAIN_USER (user_id) -- 사용자 외래키
@@ -158,7 +159,7 @@ CREATE TABLE MAIN_COUNSELING_RESERVATION
     counselor_id    VARCHAR2(50)                 NOT NULL,                                 -- 예약된 상담사 사용자 ID
     counseling_date DATE                         NOT NULL,                                 -- 상담 날짜
     counseling_time NUMBER(2) CHECK (counseling_time BETWEEN 10 AND 22),                   -- 상담 시간대 (10시~22시)
-    category        VARCHAR2(20) CHECK (category IN ('健康', '将来', '人間関係', 'その他のお悩み')),         -- 상담 카테고리
+    category        VARCHAR2(30) CHECK (category IN ('健康', '将来', '人間関係', 'その他のお悩み')),         -- 상담 카테고리
     status          VARCHAR2(20) DEFAULT '待機中' CHECK (status IN ('待機中',  '完了')), -- 상담 진행 상태
     created_at      DATE         DEFAULT SYSDATE NOT NULL,                                 -- 예약 생성일시
     CONSTRAINT fk_cr_user FOREIGN KEY (user_id) REFERENCES MAIN_USER (user_id),            -- 사용자 외래키
@@ -629,3 +630,5 @@ ALTER TABLE TEST_HABIT_TRACKING
 
 DELETE FROM TEST_HABIT_TRACKING
 WHERE  tracking_id = 3;
+ALTER TABLE TEST_CHAT MODIFY chat_title VARCHAR2(100);
+ALTER TABLE TEST_CHAT MODIFY create_at DEFAULT SYSDATE;

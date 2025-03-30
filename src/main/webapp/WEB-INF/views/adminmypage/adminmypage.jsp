@@ -4,20 +4,55 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%-- 로그인 기능 --%>
 <%
-    AdminMypageVO user = (AdminMypageVO) request.getAttribute("user");
-    String imgPath = (user != null && user.getUser_img() != null)
-            ? user.getUser_img()
-            : "/imgsource/usermypage_profiletest.jpg"; // 기본 이미지
+    HttpSession session1 = request.getSession(false); // 기존 세션 가져오기
+    String userId = null;
+    String userType = null;
+    String userNickName = "친구";
+    String userImg = null;
+
+    if (session1 != null) {
+        userId = (String) session1.getAttribute("userId"); // 세션에 저장된 userId 값
+        userImg = (String) session1.getAttribute("userImg"); // 세션에 저장된 userImg 값
+
+        String nicknameFromSession = (String) session1.getAttribute("userNickName");   // session userNickname값
+        if (nicknameFromSession != null) {
+            userNickName = nicknameFromSession;
+        }
+
+        Object userTypeObj = session1.getAttribute("userType"); // int로 저장된 경우
+        if (userTypeObj != null) {
+            userType = userTypeObj.toString(); // int → String 변환
+        }
+    }
+
+    if (userId == null) {
+        response.sendRedirect("/login"); // 세션 없거나 만료 시 로그인 페이지로 이동
+        return;
+    }
 %>
 <!DOCTYPE html>
-<html lang="en">
+<%--<html lang="en">--%>
+<html lang="ja">
 <head>
     <title>KOYOI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/static/css/adminmypage/adminmypage.css">
     <script src="/static/js/adminmypage/adminmypage.js"></script>
+    <style>
+        @font-face {
+            font-family: 'MyFont';
+            src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+        }
+
+        body {
+            font-family: 'MyFont', sans-serif;
+            font-size: 32px;
+            color: black;
+        }
+    </style>
 </head>
 <body
         data-user-total="${userTotal}" data-user-page="${userPage}"
@@ -30,13 +65,13 @@
         <aside class="sidebar">
             <nav class="sidebar-menu">
                 <button class="sidebar-btn" id="user">
-                    <img src="/static/imgsource/profile/user.png" alt="user">
+                    <img src="/static/imgsource/layout/personicon2.png" alt="user">
                 </button>
                 <button class="sidebar-btn" id="counselor">
-                    <img src="/static/imgsource/profile/counselor.png" alt="counselor">
+                    <img src="/static/imgsource/layout/counicon.png" alt="counselor">
                 </button>
                 <button class="sidebar-btn" id="announcement">
-                    <img src="/static/imgsource/announcements.png" alt="announcement">
+                    <img src="/static/imgsource/layout/announceicon.png" alt="announcement">
                 </button>
             </nav>
         </aside>
@@ -45,14 +80,14 @@
     <div class="right-container">
         <header class="header-bar">
             <div class="brand-title">
-                <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/logo.png" alt="KOYOI"> </a>
+                <a href="/main"> <img class="logo-icon" src="/static/imgsource/layout/koyoi_name.png" alt="KOYOI"> </a>
             </div>
 
             <div class="header-icons">
                 <button class="header-btn">
                     <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
                 </button>
-                <img class="profile-img" src="/static<%=imgPath%>" alt="profile">
+                <img class="profile-img" src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="profile">
             </div>
         </header>
 
@@ -80,17 +115,6 @@
                         <div class="cell col-date">${user.formattedCreatedAt}</div>
                     </div>
                 </c:forEach>
-              <%--  <c:set var="totalUsers" value="${fn:length(users)}" />
-                <c:forEach var="user" items="${users}" varStatus="status">
-                    <div class="user-row user-detail-btn" data-user-id="${user.user_id}">
-                        <div class="cell col-num">${totalUsers - status.index}</div>
-                        <div class="cell col-id">${user.user_id}</div>
-                        <div class="cell col-name">${user.user_name}</div>
-                        <div class="cell col-nickname">${user.user_nickname}</div>
-                        <div class="cell col-email">${user.user_email}</div>
-                        <div class="cell col-date">${user.formattedCreatedAt}</div>
-                    </div>
-                </c:forEach>--%>
             </div>
 
             <%-- 상담사 목록 --%>
@@ -113,17 +137,6 @@
                         <div class="cell col-date">${counselor.formattedCreatedAt}</div>
                     </div>
                 </c:forEach>
-                <%--<c:set var="totalCounselors" value="${fn:length(counselors)}" />
-                <c:forEach var="counselor" items="${counselors}" varStatus="status">
-                    <div class="user-row user-detail-btn" data-user-id="${counselor.user_id}" data-type="counselor">
-                        <div class="cell col-num">${totalCounselors - status.index}</div>
-                        <div class="cell col-id">${counselor.user_id}</div>
-                        <div class="cell col-name">${counselor.user_name}</div>
-                        <div class="cell col-nickname">${counselor.user_nickname}</div>
-                        <div class="cell col-email">${counselor.user_email}</div>
-                        <div class="cell col-date">${counselor.formattedCreatedAt}</div>
-                    </div>
-                </c:forEach>--%>
             </div>
 
             <%-- 상세 데이터 모달 --%>
@@ -145,7 +158,7 @@
                             <label> パスワード </label>
                             <div class="input-wrap">
                                 <div class="input-inner">
-                                    <input type="password" id="modalUserPassword">
+                                    <input type="password" id="modalUserPassword" autocomplete="off" />
                                     <i class="fa-solid fa-eye password-toggle" id="passwordToggleIcon"></i>
                                 </div>
                             </div>
@@ -196,15 +209,6 @@
                         <div class="cell col-announcement-created">${announcement.formattedCreatedAt}</div>
                     </div>
                 </c:forEach>
-                <%--<c:set var="totalAnnouncements" value="${fn:length(announcements)}" />
-                <c:forEach var="announcement" items="${announcements}" varStatus="status">
-                <div class="announcement-row announcement-detail-btn" data-user-id="${announcement.announcement_id}">
-                    <div class="cell col-announcement-num">${totalAnnouncements - status.index}</div>
-                    <div class="cell col-announcement-id">${announcement.admin_id}</div>
-                    <div class="cell col-announcement-title">${announcement.title}</div>
-                    <div class="cell col-announcement-created">${announcement.formattedCreatedAt}</div>
-                </div>
-                </c:forEach>--%>
             </div>
 
             <%-- 공지사항 상세 모달 --%>

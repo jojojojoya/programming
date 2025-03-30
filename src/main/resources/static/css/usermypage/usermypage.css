@@ -1,68 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
 
-body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background-color: #f5f0ea;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
-    width: 100vw;
-    height: 100vh;
-    background-color: #fff3e7;
-    /*border-radius: 30px;*/
-    overflow: hidden;
-    display: flex;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.left-container {
-    width: 60px;
-    background-color: #FFF3E7;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 5px;
-    position: relative;
-    border-right: 1px solid #f4dfcd;
-}
-
-.sidebar {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 15px;
-}
-
-.sidebar-btn {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin: 36px 0;
-}
-
-#customFileLabel {
-    display: inline-block;
-    background-color: #ffd27a;
-    padding: 4px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 5px;
-    font-size: 15px;
-}
-
+    #customFileLabel {
+        display: inline-block;
+        background-color: #fff3e7;
+        padding: 4px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #3d2c2e;
+        margin-top: 9px;
+        margin-bottom: 7px;
+        font-size: 12px;
+    }
 
 
 #fileNameDisplay {
@@ -71,105 +19,7 @@ body {
     color: #555;
 }
 
-.sidebar-btn::before {
-    content: "...";
-    font-size: 11px;
-    font-weight: bold;
-    color: black;
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-}
 
-.sidebar-btn img {
-    width: 24px;
-    height: 24px;
-}
-
-.sidebar-btn:hover {
-    transform: scale(1.1);
-}
-
-
-
-.right-container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.header-bar {
-    width: 100%;
-    height: 120px;
-    background-color: #ede0d4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 30px;
-    border-radius: 0px 0px 0 0;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-
-.brand-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 150px;
-    height: 100px;
-}
-
-.brand-title img {
-    width: 100%;
-    height: auto;
-    max-width: 125px;
-}
-
-
-.header-icons {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: absolute;
-    right: 100px;
-}
-
-.header-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-}
-
-.header-btn img {
-    width: 20px;
-    height: 20px;
-}
-
-.header-btn:hover {
-    transform: scale(1.1);
-}
-
-
-.profile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 2px solid #ddd;
-}
 
 
 .myprofile-img {
@@ -185,53 +35,29 @@ body {
     flex-grow: 1;
     padding: 20px;
     text-align: center;
-    font-size: 18px;
-}
-.bbiyak {
-    position: absolute;
-    bottom: 47px;
-    left: 73%;
-    transform: translateX(-50%);
-    width: 70px;
-    height: 70px;
-    background-color: transparent;
-    border-radius: 50%;
-    box-sizing: border-box;
-    z-index: 20;
-    overflow: hidden;
-}
-
-
-.bbiyak img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
+    font-size: 17px;
+    font-weight: 600;}
 
 
 .top-section {
-    display: flex;
-    gap: 40px;
-    height: 337px;
-    justify-content: center;
-}
+        display: flex;
+        gap: 20px;
+        height: 306px;
+        justify-content: center;
+        margin-bottom: -31px;
+        margin-top: -17px;
+    }
+
 
 .bottom-section {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     justify-content: center;
-    margin-top: 82px;
 }
 
-.profile_table, .chatbot_table,.calendar-container,
+
 .diary_table, .counseling_table,.chatbot_detail_table {
-    min-width: 440px;
+    min-width: 390px;
     max-width: 700px;
     padding: 20px;
     border-radius: 12px;
@@ -240,24 +66,38 @@ body {
     text-align: center;
 }
 
+.calendar-container {
+    min-width: 431px;
+    max-width: 400px;
+    height: 322px;
+    padding: 9px;
+    border-radius: 12px;
+    background:#fff3e7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
 
-
-.profile_table {
-    flex-grow: 3;
-    flex-basis: 65%;
-    background-color: white;
+.calendar-cell {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+}
+.chatbot_title {
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    gap: 8px; /* 텍스트와 이미지 간 간격 */
+    font-size: 17px;
+    font-weight: bold;
+    margin-left: 10px;
 }
 
 .chatbot_table {
-    flex-grow: 2;
-    flex-basis: 35%;
     background-color: #ede0d4;
-    height: 100%;
-}
-.calendar-container {
-    flex: 0 0 60%;
-    min-width: 237px;
-    max-width: 528px;
+    width: 500px;
+    height: 226px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .counseling_wrapper {
@@ -266,8 +106,11 @@ body {
 
 .counseling_table {
     width: 100%;
-    max-width: 830px;
-    padding: 41px;
+    height: 291px;
+    max-width: 689px;
+    padding: 25px;
+    background-color: #fff3e7;
+    color: #3d2c2e;
 }
 
 .nonreserved_counseling_table {
@@ -301,6 +144,8 @@ body {
     z-index: 2;
     width: 80%;
     margin-bottom: 90px;
+    font-size: 17px;
+    font-weight: 600;
 }
 
 .counseling_background_img {
@@ -344,9 +189,8 @@ body {
 
 
 .profile_table {
-    width: 100%;
-    max-width: 700px;
-    height: 338px;
+    width: 610px;
+    height: 226px;
     padding: 20px;
     border-radius: 12px;
     background: #ffffff;
@@ -364,11 +208,11 @@ body {
 }
 
 .profile_img img {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 
 
 
@@ -382,9 +226,10 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 16px;
+    font-size: 13px;
     color: #333;
-    padding: 10px;
+    padding-right: 36px;
+    padding-bottom: 7px;
 }
 
 .profile_item img {
@@ -394,30 +239,62 @@ body {
 }
 
 .profile_edit_btn {
-    padding: 13px 12px;
-    background-color: #ede0d4;
+    padding: 6px 10px;
+    background-color: #3d2c2e;
     cursor: pointer;
-    font-size: 15px;
-    color: #333;
+    font-size: 13px;
+    color: #fff3e7;
     transition: background-color 0.2s;
     border-radius: 10px;
     border: none;
-}
+    width: 179px;}
+
 
 .profile_edit_btn:hover {
     background-color: #d8c3a5;
 }
-
 .chatbot_list {
-    border: none;
-    background-color: #f5f0ea;
-    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 3px 16px;
+    height: 24px;
+    background-color: #fff3e7;
+    margin: 5px;
     border-radius: 10px;
-    height: 35px;
+    font-size: 13px;
+    text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
+
+.chatbot_list strong {
+    font-weight: 300;
+}
+
+.view_chat_summary_btn {
+    padding: 1px 11px;
+    font-size: 13px;
+    background-color: #ede0d4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.view_chat_summary_btn:hover {
+    background-color: #d8c3a5;
+}
+
+.chatbot-detail-text {
+        background-color: #f5f0ea;
+        height: 300px;
+        width: 327px;
+        border-radius: 15px;
+        padding: 15px;
+        border: solid 7px #ede0d4;
+    }
 .modal {
     display: none;
     position: fixed;
@@ -425,7 +302,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 350px; /* 모달 크기 */
+    width: 400px; /* 모달 크기 */
     background-color: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
@@ -439,31 +316,36 @@ body {
     border-radius: 12px;
     text-align: center;
     position: relative;
+    font-size: 15px;
 }
 
 .close {
     position: absolute;
     right: 10px;
     top: 10px;
-    font-size: 20px;
+    font-size: 16px;
     cursor: pointer;
+    border-radius: 19px;
+    border: none;
+    background: #f5f0ea;
 }
 
 #passwordCheck {
-    width: 90%;
-    padding: 10px;
+    width: 68%;
+    padding: 12px 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    margin: 10px 0;
+    margin: 10px 37px;
 }
 
 #checkPasswordBtn, .profile-submit-btn {
-    padding: 10px 15px;
-    background-color: #ede0d4;
+    padding: 4px 17px;
+    background-color: #3d2c2e;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
+    color: #fff3e7;
     transition: background-color 0.2s;
 }
 
@@ -478,22 +360,10 @@ body {
     margin-top: 5px;
 }
 
-.profile-submit-btn {
-    padding: 7px 18px;
-    background-color: #ede0d4;
-    cursor: pointer;
-    font-size: 14px;
-    color: #333;
-    transition: background-color 0.2s;
-    border-radius: 6px;
-    border: none;
-    margin-top: 16px;
-    margin-bottom: 20px;
-}
 
 .modal-content input {
-    width: 120px;
-    height: 18px;
+    width: 159px;
+    height: 21px;
     border-radius: 4px;
     margin: 4px;
 }
@@ -519,14 +389,14 @@ input:invalid::placeholder {
 
 .reserved_counseling_table_comment {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: -15px;
     text-align: center;
-    font-size: 20px;
+    font-size: 17px;
+    font-weight: 600;
 }
 
 /* 텍스트를 가운데 정렬 */
@@ -541,6 +411,7 @@ input:invalid::placeholder {
 .reserved_reservation_box br {
     margin-bottom: 0;
     padding: 0;
+    color: #3d2c2e;
 }
 
 
@@ -571,18 +442,49 @@ input:invalid::placeholder {
     border: none;
     margin-top: 7px;
 }
+.shiningdeco{
+        width: 40px;
+        height: 40px;
+}
 
 .reservation_submit_btn {
-    padding: 7px 25px;
+    padding: 4px 10px;
     background-color: #ffd27a;
     cursor: pointer;
-    font-size: 17px;
+    font-size: 14px;
+    color: #3d2c2e;
+    transition: background-color 0.2s;
+    border-radius: 6px;
+    border: none;
+    margin-left: 333px;
+    margin-right: 28px;
+    font-weight: 600;
+}
+
+.profile_edit_btn {
+    padding: 6px 10px;
+    background-color: #3d2c2e;
+    cursor: pointer;
+    font-size: 13px;
+    color: #fff3e7;
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    border: none;
+    width: 179px;}
+
+
+.profile_edit_btn:hover {
+    background-color: #d8c3a5;
+}
+#saveProfileBtn {
+    padding: 4px 10px;
+    background-color: #ffd27a;
+    cursor: pointer;
+    font-size: 14px;
     color: #333;
     transition: background-color 0.2s;
     border-radius: 6px;
     border: none;
-    margin-left: auto;
-
 }
 
 .completed-btn {
@@ -600,44 +502,46 @@ input:invalid::placeholder {
 
 
 .enter_counseling_btn {
-    background-color:    #ffd27a;
-    color: rgb(61 44 46);
+    background-color: #3d2c2e;
+    color: rgb(253 247 242);
     border: none;
-    padding: 10px 15px;
+    padding: 2px 16px;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     text-align: center;
     margin-top: 10px;
 }
-
 
 .view_counseling_btn {
-    background-color: rgb(61 44 46);
+    background-color: #fff3e7;
     color: #fff;
     border: none;
-    padding: 10px 15px;
+    padding: 2px 16px;
     border-radius: 8px;
-    font-size: 16px;
+    color: #5d4037;
+    font-size: 14px;
     cursor: pointer;
     text-align: center;
     margin-top: 10px;
 }
 
-
-
 .reservation_list {
-    display: flex;
+    display: flex
+;
     flex-wrap: nowrap;
-    gap: 15px;
+    gap: 17px;
     overflow-x: auto;
     padding-bottom: 10px;
     scrollbar-width: auto;
-    scrollbar-color: #c2a98e #ede0d4;
+    scrollbar-color: #9a6e50 #ede0d4;
     white-space: nowrap;
     justify-content: flex-start;
     align-items: stretch;
-    margin-top: 77px;
+    margin-top: 40px;
+    margin-bottom: -3px;
+    font-size: 13px;
+    color: #3d2c2e;
 }
 
 .reserved_reservation_box:last-child {
@@ -653,21 +557,30 @@ input:invalid::placeholder {
     align-items: flex-start;
 }
 
-
+.calendar-illust {
+    position: absolute;
+    right: -198px;
+    bottom: -31px;
+    width: 257px;
+    height: auto;
+    z-index: 5;
+    opacity: 0.95;
+    pointer-events: none;
+}
 
 .reserved_reservation_box {
-    flex: 0 0 auto;
-    width: 228px;
-    background-color: #fff;
-    padding: 15px;
+    flex: none;
+    width: 196px;
+    background-color: #ede0d4;
+    padding-bottom: 15px;
     border-radius: 8px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     word-wrap: break-word;
-    margin-left: 0px;
-    margin-right: 15px;
-    margin-bottom: 62px;
+    margin-left: 9px;
+    margin-right: 12px;
+    margin-bottom: 25px;
+    padding-top: 13px;
 }
-
 .reserved_reservation_box:last-child {
     margin-right: 0;
 }
@@ -683,4 +596,26 @@ input:invalid::placeholder {
 
 .reservation_slider::-webkit-scrollbar-track {
     background-color: #ede0d4;
+}
+
+.usermypage-form {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    padding-bottom: 50px; /* 모달 하단 여백 확보용 */
+}
+
+
+.usermypage-form::-webkit-scrollbar {
+    width: 8px;
+}
+
+.usermypage-form::-webkit-scrollbar-thumb {
+    background-color: rgba(63, 46, 41, 0.4);
+    border-radius: 4px;
+}
+
+.usermypage-form::-webkit-scrollbar-track {
+    background-color: transparent;
 }

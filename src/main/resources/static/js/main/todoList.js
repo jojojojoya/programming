@@ -4,7 +4,7 @@
 
     const taskList = document.getElementById("task-list");
 
-    // 오늘 날짜의 체크리스트 불러오기
+    /* 오늘 날짜의 체크리스트 불러오기 */
     function loadTodoList() {
         fetch(`/habit-tracking/list/today`)
             .then(response => response.json())
@@ -15,7 +15,7 @@
             .catch(error => console.error("데이터 불러오기 실패:", error));
     }
 
-    // 특정 날짜의 체크리스트 불러오기
+    /* 특정 날짜의 체크리스트 불러오기 */
     function loadChecklistByDate(dateString) {
         fetch(`/habit-tracking/list/by-date?date=${dateString}`)
             .then(response => response.json())
@@ -25,10 +25,11 @@
             .catch(error => console.error("체크리스트 불러오기 실패:", error));
     }
 
-    // 체크리스트 렌더링 함수 (공통)
+    /* 체크리스트 렌더링 함수(공통) */
     function renderChecklist(hasHabits, habitList, dateString) {
         taskList.innerHTML = "";
 
+        // 습관이 없는 경우
         if (!hasHabits) {
             taskList.innerHTML = `
         <div class="no-habit-box">
@@ -42,6 +43,7 @@
             return;
         }
 
+        // 선택한 날짜에 습관이 없는 경우
         if (!Array.isArray(habitList) || habitList.length === 0) {
             taskList.innerHTML = `
         <div class="no-habit-box">
@@ -51,6 +53,7 @@
             return;
         }
 
+        // 날짜 유효성 검사
         const isToday = (dateString) => {
             const today = new Date().toISOString().split("T")[0];
             return dateString === today;
@@ -112,6 +115,7 @@
         const habitPageLinkBox = document.createElement("div");
         habitPageLinkBox.classList.add("habit-page-link-box");
 
+        // 습관 페이지로 이동
         const habitButton = document.createElement("button");
         habitButton.classList.add("habit-link-btn");
         habitButton.textContent = "習慣ページへ";
@@ -124,7 +128,7 @@
     }
 
 
-    // 체크박스 클릭 시 완료 상태 업데이트
+    /* 체크박스 클릭 시 완료 상태 업데이트 */
     function toggleHabit(habitId, completed) {
         fetch(`/habit-tracking/toggle/${habitId}`, {
             method: "POST",
