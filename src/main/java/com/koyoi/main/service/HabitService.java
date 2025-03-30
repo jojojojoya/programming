@@ -137,7 +137,9 @@ public class HabitService {
     public List<Map<String, Object>> getWeeklySummary(String userId, Date selectedDate) {
         // 주간 날짜 범위 계산
         LocalDate localDate = selectedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate startOfWeek = localDate.with(DayOfWeek.MONDAY);
+//        LocalDate startOfWeek = localDate.with(DayOfWeek.MONDAY);
+        LocalDate startOfWeek = localDate.with(java.time.temporal.TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+
         LocalDate endOfWeek = startOfWeek.plusDays(6);
 
         Date startDate = Date.from(startOfWeek.atStartOfDay(ZoneId.systemDefault()).toInstant());

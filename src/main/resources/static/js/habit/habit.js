@@ -604,7 +604,8 @@ function renderWeeklyMemo(data) {
   data.forEach(habit => {
     const tracking = habit.tracking;
     let row = `<tr><td>${habit.habit_name}</td>`;
-    const dayOrder = [6, 0, 1, 2, 3, 4, 5];
+    // const dayOrder = [6, 0, 1, 2, 3, 4, 5];
+      const dayOrder = [0, 1, 2, 3, 4, 5, 6]; // 순서대로 일~토
     dayOrder.forEach(i => {
       row += `<td>${tracking[i] ? "O" : "X"}</td>`;
     });

@@ -232,6 +232,7 @@
           rel="stylesheet"
   />
   <link rel="stylesheet" href="/static/css/habit/habit.css" />
+
 </head>
 
 <body>
