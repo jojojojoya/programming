@@ -613,6 +613,7 @@ INSERT INTO TEST_HABIT (habit_id, user_id, habit_name, created_at)
 VALUES (MAIN_HABIT_SEQ.NEXTVAL, 'user001', '아침 운동', SYSDATE);
 
 select * from TEST_HABIT_TRACKING;
+select * from TEST_HABIT;
 
 SELECT constraint_name, delete_rule
 FROM user_constraints

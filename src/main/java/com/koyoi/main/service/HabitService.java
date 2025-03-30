@@ -33,31 +33,75 @@ public class HabitService {
     }
 
     public HabitVO addHabit(HabitVO habitVO) {
+        // 중복 습관 여부 확인
+        int count = habitMapper.countHabitByName(habitVO.getUser_id(), habitVO.getHabit_name());
+        if (count > 0) {
+            return null; // 이미 존재하면 insert 하지 않음
+        }
+
         int newHabitId = habitMapper.getNewHabitId();
         habitVO.setHabit_id(newHabitId);
-        habitVO.setUser_id("user1");
+
 
         habitMapper.insertHabitForTracking(habitVO);
         return habitVO;
     }
 
     public boolean deleteHabit(String userId, int habitId) {
-        userId = "user1";
+
         int result = habitMapper.deleteHabit(userId, habitId);
         return result > 0;
     }
 
     // ✅ 완료된 habit_id 리스트 조회 (문자열 → Date 변환)
+//    public List<Integer> getCompletedHabitIds(String userId, String trackingDate) {
+//        try {
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            Date parsedDate = sdf.parse(trackingDate);
+//            return habitMapper.getCompletedHabitIdsByDate(userId, parsedDate);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return List.of();
+//        }
+//    }
+
+//    public List<Integer> getCompletedHabitIds(String userId, String trackingDate) {
+//        if (trackingDate == null || trackingDate.trim().isEmpty()) {
+//            System.out.println("⛔ [getCompletedHabitIds] 유효하지 않은 날짜 입력: " + trackingDate);
+//            return Collections.emptyList(); // 빈 리스트 반환
+//        }
+//
+//        try {
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            Date parsedDate = sdf.parse(trackingDate);
+//            return habitMapper.getCompletedHabitIdsByDate(userId, parsedDate);
+//        } catch (Exception e) {
+//            System.out.println("❌ [getCompletedHabitIds] 날짜 파싱 실패: " + trackingDate);
+//            e.printStackTrace();
+//            return Collections.emptyList();
+//        }
+//    }
+
     public List<Integer> getCompletedHabitIds(String userId, String trackingDate) {
+        if (trackingDate == null || trackingDate.trim().isEmpty()) {
+            System.out.println("⛔ [getCompletedHabitIds] 유효하지 않은 날짜 입력: '" + trackingDate + "'");
+            return Collections.emptyList(); // 👈 여기에서 예외 발생 대신 빈 리스트 반환
+        }
+
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date parsedDate = sdf.parse(trackingDate);
             return habitMapper.getCompletedHabitIdsByDate(userId, parsedDate);
         } catch (Exception e) {
+            System.out.println("❌ [getCompletedHabitIds] 날짜 파싱 실패: " + trackingDate);
             e.printStackTrace();
-            return List.of();
+            return Collections.emptyList(); // 예외 시에도 빈 리스트 반환
         }
     }
+
+
+
+
 
     // ✅ 체크 여부 저장
     public void saveOrUpdateTracking(HabitTrackingVO vo) {
@@ -93,7 +137,9 @@ public class HabitService {
     public List<Map<String, Object>> getWeeklySummary(String userId, Date selectedDate) {
         // 주간 날짜 범위 계산
         LocalDate localDate = selectedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate startOfWeek = localDate.with(DayOfWeek.MONDAY);
+//        LocalDate startOfWeek = localDate.with(DayOfWeek.MONDAY);
+        LocalDate startOfWeek = localDate.with(java.time.temporal.TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+
         LocalDate endOfWeek = startOfWeek.plusDays(6);
 
         Date startDate = Date.from(startOfWeek.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -132,8 +178,8 @@ public class HabitService {
             int completedCount = 0;
             for (boolean b : tracking) if (b) completedCount++;
 
-            String encouragement = completedCount >= 6 ? "참 잘했어요"
-                    : completedCount >= 4 ? "잘했어요" : "좀 더 해봐요";
+            String encouragement = completedCount >= 6 ? "よくできました！"
+                    : completedCount >= 4 ? "頑張りましたね！" : "あと少し！";
 
             habitInfo.put("completed_count", completedCount);
             habitInfo.put("encouragement", encouragement);
@@ -142,6 +188,54 @@ public class HabitService {
 
         return resultList;
     }
+
+//    // ✅ 회고 메모 저장 (insert 또는 update)
+//    public void saveWeeklyFeedback(String userId, Date trackingDate, String feedback) {
+//        // 1️⃣ 유저의 가장 오래된 습관 ID 가져오기
+//        Integer habitId = habitMapper.getFirstHabitId(userId);
+//        if (habitId == null) {
+//            System.out.println("❌ 저장할 습관이 없습니다.");
+//            return;
+//        }
+//
+//        // 2️⃣ 기존 tracking 기록 있는지 확인
+//        HabitTrackingVO existing = habitMapper.findTrackingByHabitAndDate(habitId, userId, trackingDate);
+//
+//        if (existing != null) {
+//            habitMapper.updateWeeklyFeedback(userId, trackingDate, feedback);
+//            System.out.println("🔁 주간 피드백 update 완료");
+//        } else {
+//            habitMapper.insertWeeklyFeedback(habitId, userId, trackingDate, feedback);
+//            System.out.println("🆕 주간 피드백 insert 완료");
+//        }
+//    }
+    public void saveWeeklyFeedback(String userId, Date trackingDate, String feedback) {
+    // 1️⃣ 해당 날짜에 이미 피드백 있는지 확인
+    String existing = habitMapper.getWeeklyFeedback(userId, trackingDate);
+
+    if (existing != null) {
+        habitMapper.updateWeeklyFeedback(userId, trackingDate, feedback);
+        System.out.println("🔁 주간 피드백 update 완료");
+    } else {
+        // 2️⃣ habit_id는 가장 오래된 걸 하나만 형식상 사용
+        Integer habitId = habitMapper.getFirstHabitId(userId);
+        if (habitId == null) {
+            System.out.println("❌ 저장할 습관이 없습니다.");
+            return;
+        }
+
+        habitMapper.insertWeeklyFeedback(habitId, userId, trackingDate, feedback);
+        System.out.println("🆕 주간 피드백 insert 완료");
+    }
+}
+
+
+
+    // ✅ 회고 메모 조회
+    public String getWeeklyFeedback(String userId, Date trackingDate) {
+        return habitMapper.getWeeklyFeedback(userId, trackingDate);
+    }
+
 
 
 }

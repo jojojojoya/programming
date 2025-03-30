@@ -74,6 +74,8 @@ public class SignUpService {
         }
 
         // DB 저장
+        System.out.println("-----여기 확인-----");
+        System.out.println(user);
         int result = signupMapper.insertUser(user);
         log.info("회원가입 DB 저장 결과: {}", result);
 
