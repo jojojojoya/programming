@@ -12,7 +12,6 @@ body {
     height: 100vh;
 }
 
-/* 🟢 전체 컨테이너 */
 .container {
     width: 100vw;
     height: 100vh;
@@ -23,7 +22,6 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 🟠 왼쪽 컨테이너 (사이드바) */
 .left-container {
     width: 60px;
     background-color: #FFF3E7; /* 오른쪽과 동일 */
@@ -33,9 +31,9 @@ body {
     padding-top: 5px;
     position: relative;
     border-right: 1px solid #f4dfcd; /* 경계선 */
+    z-index: 100;
 }
 
-/* 🟣 사이드바 */
 .sidebar {
     width: 100%;
     display: flex;
@@ -46,7 +44,6 @@ body {
 }
 
 
-/* 🔵 사이드바 버튼 */
 .sidebar-btn {
     position: relative;
     display: flex;
@@ -82,12 +79,10 @@ body {
     height: 24px;
 }
 
-/* 🔵 버튼 호버 효과 */
 .sidebar-btn:hover {
     transform: scale(1.1);
 }
 
-/* 🟠 오른쪽 컨테이너 */
 .right-container {
     flex-grow: 1;
     display: flex;
@@ -95,7 +90,6 @@ body {
 }
 
 
-/* 🟣 헤더 바 */
 .header-bar {
     width: 100%;
     height: 10vh;
@@ -110,7 +104,6 @@ body {
 }
 
 
-/* 🌙 중앙 브랜드 로고 */
 .brand-title {
     display: flex;
     align-items: center;
@@ -124,7 +117,6 @@ body {
     height: 200px;
 }
 
-/* 🟡 우측 상단 아이콘 */
 .header-icons {
     position: absolute;
     right: 90px;
@@ -149,13 +141,11 @@ body {
 }
 
 
-/* 아이콘 크기 조절 */
 .header-btn img {
     width: 24px;
     height: 24px;
 }
 
-/* 버튼 호버 효과 */
 .header-btn:hover {
     transform: scale(1.1);
 }
@@ -163,8 +153,8 @@ body {
 
 /* 프로필 이미지 */
 .profile-img {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;

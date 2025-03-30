@@ -3,11 +3,11 @@
 #chat-modal-wrapper {
     position: fixed;
     bottom: 40px;
-    right: 40px;
-    width: 360px;
+    right: 55px;
+    width: 376px;
     background: #fefefe;
     border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     font-family: 'Arial', sans-serif;
 }
@@ -84,4 +84,24 @@
     align-self: flex-start;
     text-align: left;
     margin-right: auto;
+}
+
+
+.modal-link-btn {
+    background: none;
+    border: none;
+    color: #d2c4d6;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px auto 0;
+    display: block;
+    transition: color 0.3s ease;
+    font-family: 'Sawarabi Maru', 'M PLUS Rounded 1c', sans-serif;
+}
+
+.modal-link-btn:hover {
+    color: #3f2e29;
+    text-decoration: underline;
 }

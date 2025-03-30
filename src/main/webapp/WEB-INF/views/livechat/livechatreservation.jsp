@@ -99,6 +99,11 @@
                 </div>
             </div>
         </main>
-<script src="/static/js/livechat/livechatreservation.js"></script>
+
+    <!-- 파도 영역 -->
+<script src="/static/js/livechat/livechatreservation.js">
+
+
+</script>
 </div>
 </html>
