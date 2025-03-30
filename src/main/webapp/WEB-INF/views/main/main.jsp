@@ -84,7 +84,7 @@
                 <a href="/logout"> <img src="/static/imgsource/layout/logout.png" alt="logout"> </a>
             </button>
             <button class="profile-btn" onclick="goToMyPage()">
-                <img class="profile-img" src="${user.user_img}" alt="profile">
+                <img class="profile-img" src="${user.user_img}" onerror="this.onerror=null; this.src='/imgsource/userProfile/default.png'" alt="profile">
             </button>
         </div>
     </header>

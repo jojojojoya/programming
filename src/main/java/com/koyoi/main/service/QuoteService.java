@@ -22,7 +22,7 @@ public class QuoteService {
     @Autowired
     private QuoteMapper quoteMapper;
 
-    public List<QuoteVO> getAllQuotes() {
-        return quoteMapper.getAllQuotes();
+    public List<QuoteVO> getRandomQuotes() {
+        return quoteMapper.getRandomQuotes();
     }
 }

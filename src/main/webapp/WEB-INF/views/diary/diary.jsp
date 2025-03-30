@@ -5,14 +5,28 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/static/js/diary/diary.js" defer></script>
 <script>window.selectedDate = "${selectedDate}";</script>
+<%
+    HttpSession session1 = request.getSession(false);
+    String userId = null;
+    if (session1 != null) {
+        userId = (String) session1.getAttribute("userId");
+    }
+    if (userId == null) {
+        response.sendRedirect("/login");
+        return;
+    }
+%>
+<script>
+    const userId = "<%= userId %>";
+</script>
 
-<!-- 달력 & 위클리 -->
+<!-- calendar & weekly -->
 <div class="calendar-container">
 
     <div id="calendar"></div>
 
     <div class="weekly-summary">
-        <div class="weekly-summary-title">일주일간의 감정</div>
+        <div class="weekly-summary-title">こころの1週間</div>
         <ul>
             <c:forEach var="diary" items="${weeklyDiaries}">
                 <li class="weekly-item" data-diary-id="${diary.diary_id}">
@@ -24,81 +38,81 @@
     </div>
 </div>
 
-<!-- 일기 작성 & 조회 -->
+<!-- diary -->
 <div class="diary-section-container">
     <div class="diary-wrapper">
 
-        <!-- 일기 작성 뷰 -->
+        <!-- diary-write-section -->
         <div class="diary-write-section" id="diaryWriteSection" style="display: block;">
-            <!-- 날짜 -->
-            <p><strong>TODAY:</strong> <span id="diaryDate"></span></p>
+            <!-- date -->
+            <p><strong>今日のこと:</strong> <span id="diaryDate"></span></p>
 
-            <!-- 이모지 선택 -->
+            <!-- emoji -->
             <div>
-                <span id="write-🙂" class="emoji-option" onclick="selectEmoji('🙂')">🙂</span>
-                <span id="write-😢" class="emoji-option" onclick="selectEmoji('😢')">😢</span>
-                <span id="write-😡" class="emoji-option" onclick="selectEmoji('😡')">😡</span>
-                <span id="write-😆" class="emoji-option" onclick="selectEmoji('😆')">😆</span>
-                <span id="write-🥰" class="emoji-option" onclick="selectEmoji('🥰')">🥰</span>
+                <span id="write-🙂" class="emoji-option" data-emoji="🙂">🙂</span>
+                <span id="write-😢" class="emoji-option" data-emoji="😢">😢</span>
+                <span id="write-😡" class="emoji-option" data-emoji="😡">😡</span>
+                <span id="write-😆" class="emoji-option" data-emoji="😆">😆</span>
+                <span id="write-🥰" class="emoji-option" data-emoji="🥰">🥰</span>
             </div>
 
-            <!-- 타이틀 입력 -->
-            <input type="text" class="diary-write-title" id="diaryTitle" placeholder="오늘 하루를 한 줄로 표현해 보세요!">
+            <!-- diary title -->
+            <input type="text" class="diary-write-title" id="diaryTitle" placeholder="今日はどんな一日だったの？">
 
-            <!-- 일기 내용 입력 -->
+            <!-- diary content -->
             <textarea class="diary-write-content" id="diaryContent"
-                      placeholder="오늘 있었던 일이나 감정을 적어보세요 :)"></textarea><br>
+                      placeholder="一日中のことやあなたの気分を書いてみてね :)"></textarea><br>
 
-            <!-- 버튼 -->
+            <!-- button -->
             <div class="diary-button-wrapper">
-                <button id="saveBtn" class="diary-btn" onclick="saveDiary()">일기 등록하기</button>
-                <button id="updateBtn" class="diary-btn" onclick="updateDiary()" style="display: none;">일기 수정 완료
+                <button id="saveBtn" class="diary-btn" onclick="saveDiary()">こよいを登録する</button>
+                <button id="updateBtn" class="diary-btn" onclick="updateDiary()" style="display: none;">編集をおわる
                 </button>
             </div>
         </div>
 
-        <!-- 상세 조회 뷰 -->
+        <!-- diary-view-section -->
         <div class="diary-view-section" id="diaryViewSection" style="display: none;">
-            <!-- 날짜 -->
-            <p><strong>TODAY:</strong> <span id="viewDiaryDate"></span></p>
+            <!-- date -->
+            <p><strong>今日のこと:</strong> <span id="viewDiaryDate"></span></p>
 
 
-            <!-- 이모지 선택 (비활성화) -->
+            <!-- emoji (Disabled) -->
             <div>
-                <span id="view-🙂" class="emoji-option readonly" onclick="selectEmoji('🙂')">🙂</span>
-                <span id="view-😢" class="emoji-option readonly" onclick="selectEmoji('😢')">😢</span>
-                <span id="view-😡" class="emoji-option readonly" onclick="selectEmoji('😡')">😡</span>
-                <span id="view-😆" class="emoji-option readonly" onclick="selectEmoji('😆')">😆</span>
-                <span id="view-🥰" class="emoji-option readonly" onclick="selectEmoji('🥰')">🥰</span>
+                <span id="view-🙂" class="emoji-option readonly" data-emoji="🙂">🙂</span>
+                <span id="view-😢" class="emoji-option readonly" data-emoji="😢">😢</span>
+                <span id="view-😡" class="emoji-option readonly" data-emoji="😡">😡</span>
+                <span id="view-😆" class="emoji-option readonly" data-emoji="😆">😆</span>
+                <span id="view-🥰" class="emoji-option readonly" data-emoji="🥰">🥰</span>
             </div>
-            <!-- 타이틀 출력 -->
-            <div class="diary-view-title" id="viewDiaryTitle">오늘의 타이틀</div>
+            <!-- diary title view -->
+            <div class="diary-view-title" id="viewDiaryTitle">タイトル</div>
 
-            <!-- 일기 내용 출력 -->
+            <!-- diary title view -->
             <div class="diary-view-content" id="viewDiaryContent" class="diary-content-view"></div>
 
-            <!-- 수정/삭제 버튼 -->
+            <!-- update/delete button -->
             <div class="diary-button-wrapper">
-                <button id="editBtn" class="diary-btn" onclick="switchToEditMode()">일기 수정하기</button>
-                <button id="deleteBtn" class="diary-btn" onclick="deleteDiary()">일기 삭제하기</button>
+                <button id="editBtn" class="diary-btn" onclick="switchToEditMode()">こよいを編集する</button>
+                <button id="deleteBtn" class="diary-btn" onclick="deleteDiary()">こよいを削除する</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ✅ 오늘의 감정 점수 모달 -->
+<!-- emotion score modal -->
 <div id="emotionScoreModal" class="modal-overlay" style="display: none;">
     <div class="modal-container">
-        <h2>오늘 하루는 어땠나요?</h2>
-        <p>점수를 입력해 주세요! (10점 ~ 100점)</p>
+        <h2>今日の一日はどうでしたか？</h2>
+        <p>スコアを入れてください! (10点 ~ 100点)</p>
         <div class="score-slider-container">
             <input type="range" id="emotionScoreInput" min="10" max="100" value="50" step="10"
                    oninput="updateScoreValue(this.value)">
-            <div class="score-value"><span id="scoreDisplay">50</span> 점</div>
+            <div class="score-value"><span id="scoreDisplay">50</span> 点</div>
         </div>
         <div class="modal-buttons">
-            <button id="confirmBtn" class="btn-confirm" onclick="saveEmotionScore()">저장하기</button>
-            <button id="cancelBtn" class="btn-cancel" onclick="closeEmotionModal()">취소</button>
+            <button id="confirmBtn" class="btn-confirm" onclick="saveEmotionScore()">こよいをまとめる</button>
+            <button id="cancelBtn" class="btn-cancel" onclick="closeEmotionModal()">キャンセル</button>
         </div>
     </div>
 </div>
