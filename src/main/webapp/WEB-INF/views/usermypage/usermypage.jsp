@@ -51,7 +51,6 @@
 
 
 <div class="usermypage-form">
-        <main class="content">
             <div class="top-section">
                 <div class="profile_table">
                     <div class="profile_content">
@@ -104,12 +103,15 @@
             </div>
 
             <div class="bottom-section">
-                <div class="calendar-container">
-                    <div class="calendar-iframe-wrapper" style="position: relative; transform: scale(0.7); transform-origin: top left; width: 100%; height: auto;">
+                <div class="calendar-container" onclick="location.href='/diary'">
+                    <div class="calendar-iframe-wrapper"
+                         style="    position: relative; transform: scale(0.7);
+    transform-origin: center;    width: 100px;
+    height: 133px;">
                         <iframe src="/maincalendar" frameborder="0"
-                                style="   width: 458px;
-    height: 456px;
-    border-radius: 16px;border: none;"></iframe>
+                                style="      width: 440px;
+    height: 440px;
+    border-radius: 16px;border: none; "></iframe>
 
                         <img src="/static/imgsource/background/book.png" class="calendar-illust">
 
@@ -135,14 +137,15 @@
                         <div class="nonreserved_counseling_table">
                             <img src="/static/imgsource/background/padoo2.png">
 
-                            <div class="nonreserved_counseling_table_comment">
-                                <div><img style="width: 70px" src="/static/imgsource/background/shining5.png"></div>
-                                <p>現在、予定されている相談はありません。<br>お話ししましょうか？</p>
-                                <button class="reservation_submit_btn" onclick="location.href='/livechatreservation'"> 相談予約
-                                </button>
+                            <div class="nonreserved-hover-layer">
+                                <div class="nonreserved_counseling_table_comment">
+                                    <div><img style="width: 50px" src="/static/imgsource/background/shining5.png"></div>
+                                    <p style="font-size: 16px;">現在、予定されている相談はありません。<br>お話ししましょうか？</p>
+                                    <button class="nonreservation_submit_btn" onclick="location.href='/livechatreservation'">相談予約</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
                     </c:if>
 
 
@@ -256,6 +259,5 @@
 
                 </script>
                 <script src="/static/js/usermypage/usermypage.js"></script>
-        </main>
 </div>
 </html>

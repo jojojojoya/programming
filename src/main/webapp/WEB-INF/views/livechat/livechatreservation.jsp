@@ -23,15 +23,13 @@
     <link rel="stylesheet" href="/static/css/livechat/livechatreservation.css">
 
 <div class="livechatreservation-form">
-        <main class="content">
-
             <div class="top-section">
                 <div class="livechat_table">
                     <div style="color: #D8D2C2; font-size: 16px; margin-top:20px;"  > 専門家との相談を予約しませんか？ </div>
                     <div class="livechat_info">
 
                             <div class="livechat_list"> ご希望の日付を選択してください。</div>
-                            <input type="text" id="livechat_reserve_date" onchange="showNext('step2')">
+                            <input type="text" id="livechat_reserve_date" onchange="showNext('step2')" value="ご希望の日付">
 
                             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
                             <script src="https://npmcdn.com/flatpickr/dist/l10n/ja.js"></script>
@@ -98,9 +96,7 @@
                     </div>
                 </div>
             </div>
-        </main>
 
-    <!-- 파도 영역 -->
 <script src="/static/js/livechat/livechatreservation.js">
 
 

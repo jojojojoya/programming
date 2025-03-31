@@ -133,7 +133,8 @@ public class ChatService {
             }
         }
 
-        throw new RuntimeException("GPT 요청 실패: 여러 번 재시도 했지만 실패했습니다.");
+//        throw new RuntimeException("GPT 요청 실패: 여러 번 재시도 했지만 실패했습니다.");
+        throw new RuntimeException("GPTリクエストに失敗しました：複数回再試行しましたが、失敗しました。");
     }
 
 //    public void saveSummary(String userId, String summary) {

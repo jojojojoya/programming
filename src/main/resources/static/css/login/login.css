@@ -102,7 +102,7 @@ body {
 
 .login-right .title {
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: clamp(24px, 4vw, 60px);
+    font-size: clamp(24px, 2vw, 45px);
     font-weight: bold;
     color: #3F2E29;
     margin-bottom: 0.5vh;

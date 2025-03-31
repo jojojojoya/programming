@@ -5,6 +5,24 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/static/js/diary/diary.js" defer></script>
 <script>window.selectedDate = "${selectedDate}";</script>
+
+
+
+<style>
+    @font-face {
+        font-family: 'MyFont';
+        src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+    }
+
+    body {
+        font-family: 'MyFont', sans-serif;
+        font-size: 32px;
+        color: #000000;
+    }
+</style>
+
+
+
 <%
     HttpSession session1 = request.getSession(false);
     String userId = null;
@@ -45,7 +63,7 @@
         <!-- diary-write-section -->
         <div class="diary-write-section" id="diaryWriteSection" style="display: block;">
             <!-- date -->
-            <p><strong>今日のこと:</strong> <span id="diaryDate"></span></p>
+            <p><strong style="font-size: 18px; color:#3f2e29; ">今日のこと:</strong> <span id="diaryDate"></span></p>
 
             <!-- emoji -->
             <div>

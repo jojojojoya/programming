@@ -134,6 +134,12 @@
             </c:if>
 
 
+            <!-- 해빗 페이지 인클루드 -->
+            <c:if test="${not empty finalhabit}">
+                <jsp:include page="${finalhabit}" />
+            </c:if>
+
+
             <!-- 라이브챗 디테일  인클루드 -->
             <c:if test="${not empty livechatdetail}">
                 <jsp:include page="${livechatdetail}"/>
