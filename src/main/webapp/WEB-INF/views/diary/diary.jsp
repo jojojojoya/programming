@@ -75,11 +75,11 @@
             </div>
 
             <!-- diary title -->
-            <input type="text" class="diary-write-title" id="diaryTitle" placeholder="今日はどんな一日だったの？">
+            <input type="text" class="diary-write-title" id="diaryTitle" placeholder="今日はどんな一日だったんですか？">
 
             <!-- diary content -->
             <textarea class="diary-write-content" id="diaryContent"
-                      placeholder="一日中のことやあなたの気分を書いてみてね :)"></textarea><br>
+                      placeholder="一日中のことやあなたの気分を書いてみてください :)"></textarea><br>
 
             <!-- button -->
             <div class="diary-button-wrapper">
@@ -121,8 +121,8 @@
 <!-- emotion score modal -->
 <div id="emotionScoreModal" class="modal-overlay" style="display: none;">
     <div class="modal-container">
-        <h2>今日の一日はどうでしたか？</h2>
-        <p>スコアを入れてください! (10点 ~ 100点)</p>
+        <h2>今日はどんな一日だったんですか？</h2>
+        <p>スコアを入力してください！ (10点 ~ 100点)</p>
         <div class="score-slider-container">
             <input type="range" id="emotionScoreInput" min="10" max="100" value="50" step="10"
                    oninput="updateScoreValue(this.value)">
