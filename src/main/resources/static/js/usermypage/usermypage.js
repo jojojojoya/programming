@@ -1,8 +1,9 @@
-document.addEventListener("DOMContentLoaded", function () {
+window.onload = function () {
     mypageLoad();
     reservationHandler();
     chatbotSummaryHandler();
-});
+};
+
 
 function reservationHandler() {
     console.log("usermypage ページのロードが完了しました！");
@@ -74,9 +75,8 @@ function mypageLoad() {
     const editNicknameInput = document.getElementById("editNickname");
     const saveProfileBtn = document.getElementById("saveProfileBtn");
     const chatbotDetailModal = document.getElementById("chatbotDetailModal");
-    const chatbotList = document.querySelectorAll(".chatbot_list");
 
-    let userId = document.getElementById("hiddenUserId").value || "user5";
+    const userId = document.getElementById("hiddenUserId")?.value;
     console.log("現在のuser_id:", userId);
 
     openPasswordCheckModal.addEventListener("click", function () {

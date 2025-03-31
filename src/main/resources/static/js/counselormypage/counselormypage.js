@@ -95,7 +95,7 @@ function mypageLoad() {
     const chatbotDetailModal = document.getElementById("chatbotDetailModal");
     const chatbotList = document.querySelectorAll(".chatbot_list");
 
-    let userId = document.getElementById("hiddenUserId").value || "user5";
+    const userId = document.getElementById("hiddenUserId")?.value;
     console.log("現在のuser_id:", userId);
 
     openPasswordCheckModal.addEventListener("click", function () {
