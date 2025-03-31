@@ -103,7 +103,6 @@ body {
     position: relative;
 }
 
-
 .brand-title {
     display: flex;
     align-items: center;
@@ -187,4 +186,28 @@ body {
     width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
     height: 100%;
     object-fit: contain; /* 이미지 비율 유지하며 맞춤 */
+}
+
+.announcement-view .content {
+    overflow: unset !important;
+}
+
+/* 스크롤 스타일 */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f0ea;  /* 트랙 배경색 */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d2c4d6;  /* 스크롤바 색상 */
+    border-radius: 10px;
+    border: 2px solid #f5f0ea; /* thumb 외곽 여백 효과 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b8a5b9; /* hover 시 색상 */
 }

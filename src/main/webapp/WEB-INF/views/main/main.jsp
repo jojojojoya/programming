@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="/static/css/main/main.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         /* userType에 따라 각 마이페이지로 이동*/
@@ -97,6 +98,7 @@
             <ul id="notice-lists">
                 <c:forEach var="announcement" items="${announcements}">
                     <li>
+                        <i class="fa-solid fa-moon notice-icon"></i>
                         <a href="/announcement/view/${announcement.announcement_id}">${announcement.title}</a>
                         <c:if test="${announcement.isNew == 'Y'}">
                         <span class="new-tag"> New </span>

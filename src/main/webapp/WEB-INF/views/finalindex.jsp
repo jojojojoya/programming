@@ -64,6 +64,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <title>KOYOI</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/finalindex.css">
