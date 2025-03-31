@@ -41,17 +41,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const startPage = (currentGroup - 1) * groupSize + 1;
         const endPage = Math.min(startPage + groupSize - 1, totalPages);
 
-        if (startPage > 1) {
+        /* 주석 6페이지부터 이전, 다음 버튼 생기는 것 (시연을 위해 잠궈둠) */
+     /*   if (startPage > 1) {
             html += `<button class="page-btn move-prev" data-type="${type}" data-page="${startPage - 1}">&laquo;</button>`;
+        }*/
+
+        if (startPage > 1 || totalPages <= groupSize) {
+            html += `<button class="page-btn move-prev" data-type="${type}" data-page="${Math.max(startPage - 1, 1)}">&laquo;</button>`;
         }
 
         for (let i = startPage; i <= endPage; i++) {
             html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-type="${type}" data-page="${i}">${i}</button>`;
         }
 
-        if (endPage < totalPages) {
-            html += `<button class="page-btn move-next" data-type="${type}" data-page="${endPage + 1}">&raquo;</button>`;
+        if (endPage < totalPages || totalPages <= groupSize) {
+            html += `<button class="page-btn move-next" data-type="${type}" data-page="${Math.min(endPage + 1, totalPages)}">&raquo;</button>`;
         }
+      /*  if (endPage < totalPages) {
+            html += `<button class="page-btn move-next" data-type="${type}" data-page="${endPage + 1}">&raquo;</button>`;
+        }*/
 
         pagination.innerHTML = html;
         pagination.style.display = totalPages > 1 ? "block" : "none";

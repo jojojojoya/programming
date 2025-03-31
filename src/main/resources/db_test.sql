@@ -578,3 +578,130 @@ FROM test_chat
 WHERE user_id = 'jojot';
 
 select  * from test_user;
+
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「他人や過去は変えられないが、未来と自分は変えられる」 - エリック・バーン', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「自分のことを、この世の誰とも比べてはいけない」 - ビル･ゲイツ', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「自分の姿をありのまま直視する、それは強さだ」 - 岡本太郎', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「世界には、君以外には誰も歩むことのできない唯一の道がある」 - フリードリヒ・ニーチェ', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「暗くならなければ、星は見えない」 - チャールズ・A・ビアード', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「希望は強い勇気であり、あらたな意志である」 - マルティン・ルター', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「お前の道を進め。人には勝手なことを言わせておけ」 - ダンテ・アリギエーリ', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「挑戦しなければ、定められた人生を歩くしかない」 - ビヴァリー・シルズ', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「成功とはただ一つしかない。自分の人生を自分の流儀で過ごせることだ」 - クリストファー・モーリー', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「人生の意味とは、自分がやりたいと思うことをすること」 - パウロ・コエーリョ', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「楽しい顔で食べれば、皿一つでも宴会だ」 - ブルデンチウス', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「夢を見るから、人生は輝く」 - ヴォルフガング・アマデウス・モーツァルト', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「人を信じよ、しかし、その百倍も自らを信じよ」 - 手塚治虫', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「自分にもっとやさしくなってもいいのよ」 - アドリエンヌ・リッチ', SYSDATE);
+INSERT INTO MAIN_QUOTE (admin_id, content, created_at) VALUES ('admin1', '「前を向いて、できるだけ幸せでいましょう」 - ドロシー・パーカー', SYSDATE);
+
+SELECT * FROM MAIN_QUOTE;
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【システムメンテナンスのお知らせ】', '安定したサービス提供のため、下記のスケジュールで定期メンテナンスを実施いたします。
+
+■日時：2025年4月5日（土）午前2時〜4時
+■影響：上記時間帯、サービスをご利用いただけません。
+
+ご不便をおかけしますが、ご理解のほどよろしくお願いいたします。', TO_DATE('2025-04-03'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【AI感情分析の新機能リリース】', 'あなたの感情データをもとに、毎日おすすめの名言やルーティンをAIが提案します。
+
+一日の始まりを、心に響く言葉と共に。
+マイページ ＞ 感情分析 でご確認ください。', TO_DATE('2025-04-02'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【4月継続チャレンジイベント開催】', '4月中、毎日日記を記録し、チェックリストを完了すると抽選でプレゼントが当たります！
+
+■参加方法：1日1回日記＋習慣チェック
+■期間：4月1日～4月30日
+■発表：5月2日　お知らせ欄にて
+
+たくさんのご参加をお待ちしております！', TO_DATE('2025-04-01'));
+
+-- 以下、過去のお知らせ
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【マイページのUIを改善しました】', 'ユーザーの皆様のご意見を反映し、マイページのUIをより使いやすく改善しました。
+
+・プロフィール画像の変更機能を追加
+・相談予約履歴を可視化
+・チャットボットの要約表示機能追加', TO_DATE('2025-03-31'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【プライバシーポリシー改定のお知らせ】', '2025年4月1日より、新しいプライバシーポリシーが適用されます。
+
+■主な変更点
+・感情分析およびAI推薦に関するデータの収集と利用目的の明記
+・データ保存期間の詳細化
+
+詳細はプライバシーポリシーをご覧ください。', TO_DATE('2025-03-30'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【専門カウンセラーとの連携サービス開始】', '感情記録やチャットボットで解消できない時は、
+専門のカウンセラーとリアルタイムで相談できます。
+
+・チャット機能付き相談
+・カウンセラープロフィールの確認・予約可能', TO_DATE('2025-03-29'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【カレンダー機能の不具合修正】', '一部のユーザーで発生していた、
+カレンダー日付クリック時にムードチャートが表示されない問題を修正しました。', TO_DATE('2025-03-28'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【習慣リマインダー通知機能追加】', '毎日のルーティンを忘れずに実行できるように、
+リマインダー機能を導入しました。
+
+マイページ ＞ 通知設定 からオン/オフ可能です。', TO_DATE('2025-03-27'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【感性モードのテーマ追加】', '目に優しいダークテーマ「感性モード」が新しく追加されました。
+設定 ＞ テーマ からご利用いただけます。', TO_DATE('2025-03-26'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【チャットボットの精度向上】', 'AI感情分析アルゴリズムを改善し、
+より繊細で的確なフィードバックが可能となりました。', TO_DATE('2025-03-25'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【100の心に響く名言を追加】', '「今日のひとこと」スライダーに新たに100個の名言を追加しました。
+マイページやメイン画面からご覧いただけます。', TO_DATE('2025-03-24'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【出席チェックイベント開始】', '毎日ログインするだけでマインドコインをプレゼント！
+
+・7日連続ログインで100コイン
+・30日達成で追加特典あり', TO_DATE('2025-03-23'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【相談時間10分前に通知機能追加】', '予約された相談時間の10分前に、通知が自動で送信されます。
+忘れずに相談をスタートしましょう！', TO_DATE('2025-03-22'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【ヘルスアプリとの連携機能追加】', 'あなたの活動量や睡眠データを基に、
+感情パターンを分析できるようになりました。', TO_DATE('2025-03-21'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【相談記録の保存期間について】', '相談履歴は6ヶ月間保管され、その後自動的に削除されます。
+必要な方は事前にバックアップをお願いします。', TO_DATE('2025-03-20'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【日記投稿は1日1回まで】', 'より充実した記録を残すために、
+1日1回のみ日記を書けるように仕様変更しました。', TO_DATE('2025-03-19'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【ウェブアクセシビリティ向上】', 'キーボード操作や読み上げソフトにも対応し、
+誰でも使いやすいUIへと改善を行いました。', TO_DATE('2025-03-18'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【モバイル表示の最適化】', 'モバイルユーザーの利便性を向上するため、
+全体UIをレスポンシブデザインに改善しました。', TO_DATE('2025-03-17'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【サーバー移行作業のお知らせ】', 'より快適なサービス提供のため、
+2025年4月10日にサーバー移行作業を予定しております。
+
+作業時間中は一時的に接続が不安定になる可能性があります。', TO_DATE('2025-03-16'));
+
+INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
+VALUES ('admin1', '【カウンセラー評価機能を追加】', '相談終了後、担当カウンセラーへのフィードバックを投稿できるようになりました。
+皆様の声を今後のサービス改善に活かしてまいります。', TO_DATE('2025-03-15'));

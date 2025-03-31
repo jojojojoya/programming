@@ -103,7 +103,6 @@ body {
     position: relative;
 }
 
-
 .brand-title {
     display: flex;
     align-items: center;
@@ -204,8 +203,4 @@ body {
     background: #d2c4d6;
     border-radius: 10px;
     border: 2px solid #f5f0ea;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #b8a5b9;
 }
