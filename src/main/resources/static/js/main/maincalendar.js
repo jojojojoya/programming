@@ -109,6 +109,7 @@ function generateCalendar() {
                     return;
                 }
 
+
                 // 서버에 날짜를 전달해서 서버 세션에 저장
                 fetch('/diary/setSelectedDate', {
                     method: 'POST',
@@ -116,7 +117,7 @@ function generateCalendar() {
                     body: JSON.stringify({ date: formattedDate })
                 })
                 .then(() => {
-                    window.location.href = '/diary'; // 저장 성공 시 Diary 페이지로 이동
+                    window.top.location.href = '/diary'; // 저장 성공 시 Diary 페이지로 이동
                 })
                 .catch(err => {
                     console.error("서버 세션 저장 실패:", err);

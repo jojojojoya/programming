@@ -5,6 +5,24 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/static/js/diary/diary.js" defer></script>
 <script>window.selectedDate = "${selectedDate}";</script>
+
+
+
+<style>
+    @font-face {
+        font-family: 'MyFont';
+        src: url('/static/fonts/Boku2-Regular.otf') format('opentype');
+    }
+
+    body {
+        font-family: 'MyFont', sans-serif;
+        font-size: 32px;
+        color: #000000;
+    }
+</style>
+
+
+
 <%
     HttpSession session1 = request.getSession(false);
     String userId = null;
@@ -45,7 +63,7 @@
         <!-- diary-write-section -->
         <div class="diary-write-section" id="diaryWriteSection" style="display: block;">
             <!-- date -->
-            <p><strong>今日のこと:</strong> <span id="diaryDate"></span></p>
+            <p><strong style="font-size: 18px; color:#3f2e29; ">今日のこと:</strong> <span id="diaryDate"></span></p>
 
             <!-- emoji -->
             <div>
@@ -57,11 +75,11 @@
             </div>
 
             <!-- diary title -->
-            <input type="text" class="diary-write-title" id="diaryTitle" placeholder="今日はどんな一日だったの？">
+            <input type="text" class="diary-write-title" id="diaryTitle" placeholder="今日はどんな一日だったんですか？">
 
             <!-- diary content -->
             <textarea class="diary-write-content" id="diaryContent"
-                      placeholder="一日中のことやあなたの気分を書いてみてね :)"></textarea><br>
+                      placeholder="一日中のことやあなたの気分を書いてみてください :)"></textarea><br>
 
             <!-- button -->
             <div class="diary-button-wrapper">
@@ -103,8 +121,8 @@
 <!-- emotion score modal -->
 <div id="emotionScoreModal" class="modal-overlay" style="display: none;">
     <div class="modal-container">
-        <h2>今日の一日はどうでしたか？</h2>
-        <p>スコアを入れてください! (10点 ~ 100点)</p>
+        <h2>今日はどんな一日だったんですか？</h2>
+        <p>スコアを入力してください！ (10点 ~ 100点)</p>
         <div class="score-slider-container">
             <input type="range" id="emotionScoreInput" min="10" max="100" value="50" step="10"
                    oninput="updateScoreValue(this.value)">

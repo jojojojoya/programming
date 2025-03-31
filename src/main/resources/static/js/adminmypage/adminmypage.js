@@ -89,16 +89,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const startPage = (currentGroup - 1) * groupSize + 1;
         const endPage = Math.min(startPage + groupSize - 1, totalPages);
 
-        if (startPage > 1) {
+        /* 주석 6페이지부터 이전, 다음 버튼 생기는 것 (시연을 위해 잠궈둠) */
+       /* if (startPage > 1) {
             html += `<button class="page-btn move-prev" data-type="${type}" data-page="${startPage - 1}">&laquo;</button>`;
+        }*/
+
+        if (startPage > 1 || totalPages <= groupSize) {
+            html += `<button class="page-btn move-prev" data-type="${type}" data-page="${Math.max(startPage - 1, 1)}">&laquo;</button>`;
         }
 
         for (let i = startPage; i <= endPage; i++) {
             html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-type="${type}" data-page="${i}">${i}</button>`;
         }
 
-        if (endPage < totalPages) {
+        /*if (endPage < totalPages) {
             html += `<button class="page-btn move-next" data-type="${type}" data-page="${endPage + 1}">&raquo;</button>`;
+        }*/
+
+        if (endPage < totalPages || totalPages <= groupSize) {
+            html += `<button class="page-btn move-next" data-type="${type}" data-page="${Math.min(endPage + 1, totalPages)}">&raquo;</button>`;
         }
 
         pagination.innerHTML = html;
@@ -232,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("modalUserEmail").value = data.user_email;
                     document.getElementById("modalUserType").textContent = data.user_type === 2 ? "Counselor" : "User";
                     document.getElementById("modalCreatedAt").textContent = data.formattedCreatedAt;
-                    document.getElementById("modalUserImg").src = data.user_img ? `/static/${data.user_img}` : "/static/imgsource/userProfile/default.png";
+                    document.getElementById("modalUserImg").src = data.user_img ? `/static${data.user_img}` : "/static/imgsource/userProfile/default.png";
                     const pwInput = document.getElementById("modalUserPassword");
                     const pwIcon = document.getElementById("passwordToggleIcon");
                     pwInput.type = "password";

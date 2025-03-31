@@ -64,6 +64,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <title>KOYOI</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/finalindex.css">
@@ -131,6 +132,12 @@
             <!-- 유저마이페이지 인클루드 -->
             <c:if test="${not empty usermypage}">
                 <jsp:include page="${usermypage}" />
+            </c:if>
+
+
+            <!-- 해빗 페이지 인클루드 -->
+            <c:if test="${not empty finalhabit}">
+                <jsp:include page="${finalhabit}" />
             </c:if>
 
 
