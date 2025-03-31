@@ -103,7 +103,6 @@ body {
     position: relative;
 }
 
-
 .brand-title {
     display: flex;
     align-items: center;
@@ -187,4 +186,8 @@ body {
     width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
     height: 100%;
     object-fit: contain; /* 이미지 비율 유지하며 맞춤 */
+}
+
+.announcement-view .content {
+    overflow: unset !important;
 }
