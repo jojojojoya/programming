@@ -103,7 +103,6 @@ body {
     position: relative;
 }
 
-
 .brand-title {
     display: flex;
     align-items: center;
@@ -189,6 +188,11 @@ body {
     object-fit: contain; /* 이미지 비율 유지하며 맞춤 */
 }
 
+.announcement-view .content {
+    overflow: unset !important;
+}
+
+/* 스크롤 스타일 */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -199,15 +203,11 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #d2c4d6;  / 스크롤바 색상 /
+    background: #d2c4d6;  /* 스크롤바 색상 */
     border-radius: 10px;
-    border: 2px solid #f5f0ea; / thumb 외곽 여백 효과 /
+    border: 2px solid #f5f0ea; /* thumb 외곽 여백 효과 */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #b8a5b9;  /* hover 시 색상 */
-}
-
-.announcement-view .content {
-    overflow: unset !important;
+    background: #b8a5b9; /* hover 시 색상 */
 }
