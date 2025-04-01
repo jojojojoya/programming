@@ -496,6 +496,7 @@ select * from test_user;
 
 -- main유저 디비지우기
 select * from test_user;
+
 select * from MAIN_CHAT;
 select * from test_CHAT;
 
