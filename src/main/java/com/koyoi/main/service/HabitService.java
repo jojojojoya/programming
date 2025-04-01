@@ -53,34 +53,8 @@ public class HabitService {
         return result > 0;
     }
 
-    // ✅ 완료된 habit_id 리스트 조회 (문자열 → Date 변환)
-//    public List<Integer> getCompletedHabitIds(String userId, String trackingDate) {
-//        try {
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//            Date parsedDate = sdf.parse(trackingDate);
-//            return habitMapper.getCompletedHabitIdsByDate(userId, parsedDate);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return List.of();
-//        }
-//    }
+    //  완료된 habit_id 리스트 조회 (문자열 → Date 변환)
 
-//    public List<Integer> getCompletedHabitIds(String userId, String trackingDate) {
-//        if (trackingDate == null || trackingDate.trim().isEmpty()) {
-//            System.out.println("⛔ [getCompletedHabitIds] 유효하지 않은 날짜 입력: " + trackingDate);
-//            return Collections.emptyList(); // 빈 리스트 반환
-//        }
-//
-//        try {
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//            Date parsedDate = sdf.parse(trackingDate);
-//            return habitMapper.getCompletedHabitIdsByDate(userId, parsedDate);
-//        } catch (Exception e) {
-//            System.out.println("❌ [getCompletedHabitIds] 날짜 파싱 실패: " + trackingDate);
-//            e.printStackTrace();
-//            return Collections.emptyList();
-//        }
-//    }
 
     public List<Integer> getCompletedHabitIds(String userId, String trackingDate) {
         if (trackingDate == null || trackingDate.trim().isEmpty()) {
@@ -103,7 +77,7 @@ public class HabitService {
 
 
 
-    // ✅ 체크 여부 저장
+    // 체크 여부 저장
     public void saveOrUpdateTracking(HabitTrackingVO vo) {
         try {
             System.out.println("📥 [saveOrUpdateTracking] 받은 VO:");
@@ -189,83 +163,19 @@ public class HabitService {
         return resultList;
     }
 
-//    // ✅ 회고 메모 저장 (insert 또는 update)
-//    public void saveWeeklyFeedback(String userId, Date trackingDate, String feedback) {
-//        // 1️⃣ 유저의 가장 오래된 습관 ID 가져오기
-//        Integer habitId = habitMapper.getFirstHabitId(userId);
-//        if (habitId == null) {
-//            System.out.println("❌ 저장할 습관이 없습니다.");
-//            return;
-//        }
-//
-//        // 2️⃣ 기존 tracking 기록 있는지 확인
-//        HabitTrackingVO existing = habitMapper.findTrackingByHabitAndDate(habitId, userId, trackingDate);
-//
-//        if (existing != null) {
-//            habitMapper.updateWeeklyFeedback(userId, trackingDate, feedback);
-//            System.out.println("🔁 주간 피드백 update 완료");
-//        } else {
-//            habitMapper.insertWeeklyFeedback(habitId, userId, trackingDate, feedback);
-//            System.out.println("🆕 주간 피드백 insert 완료");
-//        }
-//    }
-//    public void saveWeeklyFeedback(String userId, Date trackingDate, String feedback) {
-//    // 1️⃣ 해당 날짜에 이미 피드백 있는지 확인
-//    String existing = habitMapper.getWeeklyFeedback(userId, trackingDate);
-//
-//    if (existing != null) {
-//        habitMapper.updateWeeklyFeedback(userId, trackingDate, feedback);
-//        System.out.println("🔁 주간 피드백 update 완료");
-//    } else {
-//        // 2️⃣ habit_id는 가장 오래된 걸 하나만 형식상 사용
-//        Integer habitId = habitMapper.getFirstHabitId(userId);
-//        if (habitId == null) {
-//            System.out.println("❌ 저장할 습관이 없습니다.");
-//            return;
-//        }
-//
-//        habitMapper.insertWeeklyFeedback(habitId, userId, trackingDate, feedback);
-//        System.out.println("🆕 주간 피드백 insert 완료");
-//    }
-//}
-//public void saveWeeklyFeedback(String userId, Date trackingDate, String feedback) {
-//    // 1️⃣ trackingDate를 해당 주의 일요일로 변환
-//    LocalDate localDate = trackingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//    LocalDate sunday = localDate.with(DayOfWeek.SUNDAY);
-//    Date sundayDate = Date.from(sunday.atStartOfDay(ZoneId.systemDefault()).toInstant());
-//
-//    // 2️⃣ 해당 주(일요일)에 이미 피드백이 있는지 확인
-//    String existing = habitMapper.getWeeklyFeedback(userId, sundayDate);
-//
-//    if (existing != null) {
-//        // 3️⃣ 있으면 업데이트
-//        habitMapper.updateWeeklyFeedback(userId, sundayDate, feedback);
-//        System.out.println("🔁 주간 피드백 update 완료");
-//    } else {
-//        // 4️⃣ 없으면 insert (habit_id는 대표 하나 사용)
-//        Integer habitId = habitMapper.getFirstHabitId(userId);
-//        if (habitId == null) {
-//            System.out.println("❌ 저장할 습관이 없습니다.");
-//            return;
-//        }
-//
-//        habitMapper.insertWeeklyFeedback(habitId, userId, sundayDate, feedback);
-//        System.out.println("🆕 주간 피드백 insert 완료");
-//    }
-//}
+//    // 회고 메모 저장 (insert 또는 update)
 
 
 
 
 
 
-//    // ✅ 회고 메모 조회
-//    public String getWeeklyFeedback(String userId, Date trackingDate) {
-//        return habitMapper.getWeeklyFeedback(userId, trackingDate);
-//    }
+
+//    //  회고 메모 조회
+
 
     public String getWeeklyFeedback(String userId, Date trackingDate) {
-        // ✅ trackingDate를 해당 주의 '일요일'로 맞춰준다
+        //  trackingDate를 해당 주의 '일요일'로 맞춰준다
         LocalDate localDate = trackingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate sunday = localDate.with(DayOfWeek.SUNDAY);
         Date sundayDate = Date.from(sunday.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -273,19 +183,19 @@ public class HabitService {
         return habitMapper.getWeeklyFeedback(userId, sundayDate);
     }
     public void saveWeeklyFeedback(String userId, Date trackingDate, String feedback) {
-        // 📌 trackingDate → 그 주의 일요일로 보정
+        //  trackingDate → 그 주의 일요일로 보정
         LocalDate localDate = trackingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate sunday = localDate.with(DayOfWeek.SUNDAY);
         Date sundayDate = Date.from(sunday.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        // 📌 가장 오래된 습관 ID 가져오기
+        //  가장 오래된 습관 ID 가져오기
         Integer habitId = habitMapper.getFirstHabitId(userId);
         if (habitId == null) {
             System.out.println("❌ 저장할 습관이 없습니다.");
             return;
         }
 
-        // 📌 해당 habit_id + tracking_date 기준으로 존재 여부 확인
+        //  해당 habit_id + tracking_date 기준으로 존재 여부 확인
         HabitTrackingVO existing = habitMapper.findTrackingByHabitAndDate(habitId, userId, sundayDate);
 
         if (existing != null) {

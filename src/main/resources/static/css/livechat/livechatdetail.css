@@ -86,9 +86,11 @@
 }
 
 .chat-box {
-    display: flex;
+    display: flex
+;
     flex-direction: column;
     gap: 8px;
+    margin-top: -28px;
     padding: 10px;
     height: 400px;
     overflow-y: auto;
@@ -173,6 +175,7 @@
     display: block;
     margin: auto;
     padding: 4px 20px;
+    margin-top: 17px;
     background-color: #ffd27a;
     cursor: pointer;
     font-size: 14px;
