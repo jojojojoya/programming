@@ -90,6 +90,7 @@ language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
               data-counseling-date="<fmt:formatDate value='${reservation.counseling_date}' pattern='yyyy-MM-dd'/>"
               data-counseling-time="${reservation.counseling_time}"
               data-status="${reservation.status}"
+
             >
               <div><strong>[相談日時] </strong></div>
               <fmt:formatDate
