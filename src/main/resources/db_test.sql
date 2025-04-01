@@ -705,3 +705,20 @@ VALUES ('admin1', '【サーバー移行作業のお知らせ】', 'より快適
 INSERT INTO MAIN_ANNOUNCEMENT (admin_id, title, content, created_at)
 VALUES ('admin1', '【カウンセラー評価機能を追加】', '相談終了後、担当カウンセラーへのフィードバックを投稿できるようになりました。
 皆様の声を今後のサービス改善に活かしてまいります。', TO_DATE('2025-03-15'));
+
+SELECT * FROM TEST_LIVE_CHAT WHERE counseling_id = 657;
+SELECT TEST_LIVE_CHAT_SEQ.CURRVAL FROM dual;
+
+SELECT cr.*, lc.session_id
+FROM TEST_COUNSELING_RESERVATION cr, TEST_LIVE_CHAT lc
+WHERE cr.COUNSELING_ID = lc.counseling_id
+  AND cr.COUNSELING_ID = 657;
+
+
+SELECT *
+FROM TEST_LIVE_CHAT
+WHERE counseling_id = 661;  -- ← 방금 insert된 상담 ID
+
+-- 중복되었다면 삭제
+DELETE FROM TEST_LIVE_CHAT
+WHERE counseling_id = 661 AND session_id != 229;

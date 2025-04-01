@@ -138,34 +138,83 @@ function sendAndSaveMessage(message) {
             }
         });
 }
+// 3/31 기존 ver
+// document.addEventListener("DOMContentLoaded", function () {
+//     const container = document.querySelector(".chat-container");
+//     const sessionId = container.dataset.sessionId;
+//     const isCompleted = container.dataset.isCompleted === "true";
+//     const enterButton = document.getElementById("enterButton");
+//     const chatInputContainer = document.querySelector(".chat-input");
+//     const userType = container.dataset.userType;
+//
+//     if (isCompleted) {
+//         enterButton && (enterButton.style.display = "none");
+//         chatInputContainer.style.display = "none";
+//     } else {
+//         enterButton.addEventListener("click", async function () {
+//             enterButton.style.display = "none";
+//             try {
+//                 await connect(sessionId);     // 연결 및 구독 완료
+//                 if (userType === "1") {
+//                     await startCounseling();  // 구독 완료 후 전송해야 유저가 받을 수 있음
+//                 }
+//                 chatInputContainer.style.display = "flex";
+//             } catch (err) {
+//                 alert("WebSocket接続に失敗しました。");
+//                 console.error(err);
+//             }
+//         });
+//     }
+// });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const container = document.querySelector(".chat-container");
+document.addEventListener("DOMContentLoaded", async function () {
+        const container = document.querySelector(".chat-container");
+
+        console.log("[라이브챗] livechatdetail.jsp 로딩됨");
+        console.log("→ sessionId:", container.dataset.sessionId);
+        console.log("→ counselingId:", container.dataset.counselingId);
+        console.log("→ userId:", container.dataset.userId);
+        console.log("→ userType:", container.dataset.userType);
+        console.log("→ counselorId:", container.dataset.counselorId);
+        console.log("→ isCompleted:", container.dataset.isCompleted);
+    console.log("세션 ID:", document.querySelector('.chat-container').dataset.sessionId);
+
+
     const sessionId = container.dataset.sessionId;
     const isCompleted = container.dataset.isCompleted === "true";
     const enterButton = document.getElementById("enterButton");
     const chatInputContainer = document.querySelector(".chat-input");
     const userType = container.dataset.userType;
 
+    try {
+        await connect(sessionId);
+        console.log("WebSocket 구독 완료");
+    } catch (err) {
+        console.error("WebSocket 연결 실패", err);
+    }
+
     if (isCompleted) {
-        enterButton && (enterButton.style.display = "none");
+        if (enterButton) enterButton.style.display = "none";
         chatInputContainer.style.display = "none";
-    } else {
+        return;
+    }
+
+    if (enterButton) {
         enterButton.addEventListener("click", async function () {
             enterButton.style.display = "none";
-            try {
-                await connect(sessionId);     // 연결 및 구독 완료
-                if (userType === "1") {
-                    await startCounseling();  // 구독 완료 후 전송해야 유저가 받을 수 있음
-                }
-                chatInputContainer.style.display = "flex";
-            } catch (err) {
-                alert("WebSocket接続に失敗しました。");
-                console.error(err);
+
+            if (userType === "1") {
+                // 유저일 경우 자동 메시지 전송 (상담사 입장 메시지)
+                await startCounseling();
             }
+
+            chatInputContainer.style.display = "flex";
         });
+    } else {
+        chatInputContainer.style.display = "flex";
     }
 });
+
 function sendMessage() {
     let chatInput = document.getElementById("chatInput");
     let messageContent = chatInput.value.trim();
