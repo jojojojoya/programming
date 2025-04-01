@@ -62,7 +62,6 @@ public class LiveChatService {
         return liveChatMapper.countWelcomeMessage(sessionId) > 0;
     }
 
-    // 예약된 상담 조회 (읽기 전용 트랜잭션)
     @Transactional(readOnly = true)
     public List<LiveChatVO> getAvailableReservations() {
         List<LiveChatVO> reservations = liveChatMapper.findAvailableReservations();
@@ -73,6 +72,15 @@ public class LiveChatService {
         }
         return reservations;
     }
+
+    public int createChatRoom(LiveChatVO reservation) {
+        Integer existingSession = liveChatMapper.findSessionIdByCounselingId(reservation.getCounseling_id());
+        if (existingSession != null) {
+            return existingSession; // 이미 생성된 세션이면 재사용
+        }
+        return liveChatMapper.createChatRoom(reservation);
+    }
+
 
     // 완료된 상담 조회 (읽기 전용 트랜잭션)
     @Transactional(readOnly = true)

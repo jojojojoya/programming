@@ -22,15 +22,19 @@ function reservationHandler() {
         console.log(enterButton)
         console.log(viewButton)
         enterButton?.addEventListener("click", () => {
-            console.log("aaa")
+            console.log("[유저페이지] 상담 입장 버튼 클릭됨");
+            console.log("→ sessionId:", sessionId);
+            console.log("→ counselingId:", counselingId);
             goToLiveChatDetail(sessionId, counselingId, false);
-
-        })
+        });
 
         viewButton?.addEventListener("click", () => {
+            console.log("[유저페이지] 상담 내용 보기 버튼 클릭됨");
+            console.log("→ sessionId:", sessionId);
+            console.log("→ counselingId:", counselingId);
             goToLiveChatDetail(sessionId, counselingId, true);
         });
-        // 현재 시간 가져오기
+        
         let now = new Date();
         let currentDate = now.toISOString().split("T")[0]; // YYYY-MM-DD 형식
         let currentHour = now.getHours(); // 현재 시간 (24시간제)

@@ -14,12 +14,11 @@ public class WebSocketC {
         this.messagingTemplate = messagingTemplate;
     }
 
-    @MessageMapping("/chat")  // 프론트에서 보낸 메시지 → "/app/chat"
-    public void handleChatMessage(@Payload LiveChatVO message) {
-        System.out.println("[WebSocketController] 받은 메시지: " + message);
+    @MessageMapping("/chat/{sessionId}")
+    public void handleMessage(@Payload LiveChatVO message, @DestinationVariable String sessionId) {
+        System.out.println("[WebSocket] 메시지 수신: " + message.getMessage());
 
-        String destination = "/topic/chat/" + message.getSession_id();
+        String destination = "/topic/chat/" + sessionId;
         messagingTemplate.convertAndSend(destination, message);
-    }
-}
+    }}
 

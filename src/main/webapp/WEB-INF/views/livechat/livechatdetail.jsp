@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -19,6 +18,8 @@
              data-user-type="${userType}"
              data-counselor-id="${counseling.counselor_id}"
         data-is-completed="${isCompleted}">
+            <c:out value="${counseling.session_id}" />
+
 
         <div class="chat-box" id="chatBox">
             <c:choose>

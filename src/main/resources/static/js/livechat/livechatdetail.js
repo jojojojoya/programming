@@ -19,12 +19,13 @@ function formatDate(counselingDate) {
         return "日付の変換に失敗";
     }
 }
-
 function connect(sessionId) {
     return new Promise((resolve, reject) => {
         if (stompClient && stompClient.connected) {
             return resolve();
         }
+
+        console.log("[livechatdetail] connect() 호출됨, 전달된 sessionId:", sessionId);
 
         let socket = new SockJS(`${window.location.protocol}//${window.location.host}/ws`);
         stompClient = Stomp.over(socket);
@@ -131,8 +132,8 @@ function sendAndSaveMessage(message) {
         .then(data => {
             if (data.success) {
                 showMessage(message);
+                showMessage(message);
                 saveChatToLocal(message);
-                stompClient.send("/app/chat", {}, JSON.stringify(message));
             } else {
                 alert("メッセージの送信に失敗しました。");
             }
@@ -168,7 +169,18 @@ function sendAndSaveMessage(message) {
 // });
 
 document.addEventListener("DOMContentLoaded", async function () {
-    const container = document.querySelector(".chat-container");
+        const container = document.querySelector(".chat-container");
+
+        console.log("[라이브챗] livechatdetail.jsp 로딩됨");
+        console.log("→ sessionId:", container.dataset.sessionId);
+        console.log("→ counselingId:", container.dataset.counselingId);
+        console.log("→ userId:", container.dataset.userId);
+        console.log("→ userType:", container.dataset.userType);
+        console.log("→ counselorId:", container.dataset.counselorId);
+        console.log("→ isCompleted:", container.dataset.isCompleted);
+    console.log("세션 ID:", document.querySelector('.chat-container').dataset.sessionId);
+
+
     const sessionId = container.dataset.sessionId;
     const isCompleted = container.dataset.isCompleted === "true";
     const enterButton = document.getElementById("enterButton");
@@ -187,24 +199,30 @@ document.addEventListener("DOMContentLoaded", async function () {
         chatInputContainer.style.display = "none";
         return;
     }
-
     if (enterButton) {
         enterButton.addEventListener("click", async function () {
             enterButton.style.display = "none";
 
-            if (userType === "1") {
-                // 유저일 경우 자동 메시지 전송 (상담사 입장 메시지)
-                await startCounseling();
-            }
+            try {
+                await connect(sessionId);  // ✅ 상담사든 유저든 입장 시점에서 보장
+                console.log("입장 시 WebSocket 연결 완료");
 
-            chatInputContainer.style.display = "flex";
+                if (userType === "1") {
+                    await startCounseling();  // 유저만 자동 메시지 전송
+                }
+
+                chatInputContainer.style.display = "flex";
+            } catch (err) {
+                alert("WebSocket接続に失敗しました。");
+                console.error(err);
+            }
         });
     } else {
         chatInputContainer.style.display = "flex";
     }
-});
+})
 
-function sendMessage() {
+    function sendMessage() {
     let chatInput = document.getElementById("chatInput");
     let messageContent = chatInput.value.trim();
     if (messageContent === "") return;
@@ -213,23 +231,23 @@ function sendMessage() {
     let sessionId = chatContainer.dataset.sessionId;
     let userId = chatContainer.dataset.userId;
 
-    let message = {
+    const chatMessage = {
         session_id: sessionId,
         sender: userId,
         message: messageContent,
         user_type: "USER",
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        user_id: userId
     };
 
-    console.log("[Frontend] 送信するメッセージ:", message);
+    console.log("[Frontend] 送信するメッセージ:", chatMessage);
 
-    // showMessage(message);
-    saveChatToLocal(message);
+    stompClient.send("/app/chat/" + sessionId, {}, JSON.stringify(chatMessage));
 
     fetch("/chatmessage", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(message)
+        body: JSON.stringify(chatMessage)
     })
         .then(response => response.json())
         .then(data => {
@@ -241,9 +259,9 @@ function sendMessage() {
         })
         .catch(error => console.error("[Frontend] メッセージ保存中にエラーが発生しました:", error));
 
-    stompClient.send("/app/chat", {}, JSON.stringify(message));
     chatInput.value = "";
 }
+
 
 function goBack() {
     const chatContainer = document.querySelector(".chat-container");
