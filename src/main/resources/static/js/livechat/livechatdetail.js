@@ -24,10 +24,10 @@ function formatDate(counselingDate) {
 function connect(sessionId) {
     return new Promise((resolve, reject) => {
         if (stompClient && stompClient.connected) {
-            return resolve(); // 이미 연결돼있으면 재연결 안 함
+            return resolve();
         }
-
-        let socket = new SockJS("/ws");
+        
+        let socket = new SockJS(`${window.location.protocol}//${window.location.host}/ws`);
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, function () {
