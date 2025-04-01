@@ -25,7 +25,6 @@ function connect(sessionId) {
         if (stompClient && stompClient.connected) {
             return resolve();
         }
-
         let socket = new SockJS(`${window.location.protocol}//${window.location.host}/ws`);
         stompClient = Stomp.over(socket);
 
