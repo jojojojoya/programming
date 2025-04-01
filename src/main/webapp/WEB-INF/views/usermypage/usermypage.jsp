@@ -40,10 +40,7 @@
     }
 %>
 
-<!DOCTYPE html>
-<html lang="ja">
 
-    <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;700&display=swap"
           rel="stylesheet">
@@ -104,8 +101,8 @@
 
             <div class="bottom-section">
                 <div class="calendar-container" onclick="location.href='/diary'">
-                    <div class="calendar-iframe-wrapper"
-                         style="    position: relative; transform: scale(0.7);
+                    <div class="calendar-iframe-wrapper" style="position: relative;
+                         position: relative; transform: scale(0.7);
     transform-origin: center;    width: 100px;
     height: 133px;">
                         <iframe src="/maincalendar" frameborder="0"
@@ -114,19 +111,7 @@
     border-radius: 16px;border: none; "></iframe>
 
                         <img src="/static/imgsource/background/book.png" class="calendar-illust">
-
-
-                        <a href="/diary" style="
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 10;
-        background: transparent;
-        cursor: pointer;
-    "></a>
-
                     </div>
-
                 </div>
 
 
@@ -252,12 +237,10 @@
 
             </div>
 
+                </div>
                 <script>
                     document.querySelector(".calendar-container").addEventListener("click", function () {
                     window.location.href = "/diary";
                 });
-
                 </script>
                 <script src="/static/js/usermypage/usermypage.js"></script>
-</div>
-</html>

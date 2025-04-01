@@ -25,7 +25,7 @@ public interface HabitMapper {
             "VALUES (#{habit_id}, #{user_id}, #{habit_name}, SYSDATE)")
     void insertHabitForTracking(HabitVO habit);
 
-    @Delete("DELETE FROM TEST_HABIT WHERE user_id = 'user1' AND habit_id = #{habitId}")
+    @Delete("DELETE FROM TEST_HABIT WHERE user_id = #{userId} AND habit_id = #{habitId}")
     int deleteHabit(String userId, @Param("habitId") int habitId);
 
 
@@ -149,15 +149,27 @@ public interface HabitMapper {
                               @Param("weekly_feedback") String feedback);
 
     // ✅ 회고 메모 조회 (해당 날짜에 피드백 존재 여부 확인용)
+//    @Select("""
+//    SELECT weekly_feedback
+//    FROM TEST_HABIT_TRACKING
+//    WHERE user_id = #{user_id}
+//    AND TRUNC(tracking_date) = TRUNC(#{tracking_date})
+//    AND weekly_feedback IS NOT NULL
+//    FETCH FIRST 1 ROWS ONLY
+//""")
+//    String getWeeklyFeedback(@Param("user_id") String userId,
+//                             @Param("tracking_date") Date trackingDate);
+//
     @Select("""
     SELECT weekly_feedback
     FROM TEST_HABIT_TRACKING
     WHERE user_id = #{user_id}
     AND TRUNC(tracking_date) = TRUNC(#{tracking_date})
-    AND weekly_feedback IS NOT NULL
+    
     FETCH FIRST 1 ROWS ONLY
 """)
     String getWeeklyFeedback(@Param("user_id") String userId,
                              @Param("tracking_date") Date trackingDate);
 
 }
+

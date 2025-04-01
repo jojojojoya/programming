@@ -22,3 +22,4 @@ public class WebSocketC {
         messagingTemplate.convertAndSend(destination, message);
     }
 }
+
