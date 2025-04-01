@@ -69,11 +69,25 @@ public interface LiveChatMapper {
     List<LiveChatVO> findCompletedReservations();
 
     // 특정 상담 ID로 상담 내역 조회
+//    @Select("""
+//                    SELECT cr.*, lc.session_id FROM TEST_COUNSELING_RESERVATION cr, TEST_LIVE_CHAT lc
+//                                                          WHERE cr.COUNSELING_ID = lc.counseling_id and cr.COUNSELING_ID = #{counseling_id}
+//                """)
+//    LiveChatVO findReservationById(@Param("counseling_id") int counselingId);
+
     @Select("""
-                    SELECT cr.*, lc.session_id FROM TEST_COUNSELING_RESERVATION cr, TEST_LIVE_CHAT lc
-                                                          WHERE cr.COUNSELING_ID = lc.counseling_id and cr.COUNSELING_ID = #{counseling_id}
-                """)
+    SELECT *
+    FROM (
+        SELECT cr.*, lc.session_id 
+        FROM TEST_COUNSELING_RESERVATION cr 
+        JOIN TEST_LIVE_CHAT lc ON cr.COUNSELING_ID = lc.counseling_id
+        WHERE cr.COUNSELING_ID = #{counseling_id}
+        ORDER BY lc.session_id DESC
+    )
+    WHERE ROWNUM = 1
+""")
     LiveChatVO findReservationById(@Param("counseling_id") int counselingId);
+
 
     // 특정 상담의 상태를 '대기'로 변경
     @Update("""
@@ -128,6 +142,12 @@ Integer createChatRoom(LiveChatVO reservation);
 """)
     Integer findCounselingIdBySession(@Param("session_id") int sessionId);
 
+    @Select("""
+    SELECT session_id 
+    FROM TEST_LIVE_CHAT 
+    WHERE counseling_id = #{counseling_id}
+""")
+    Integer findSessionIdByCounselingId(@Param("counseling_id") int counselingId);
 
     // 상담 종료 시 상태 변경
     @Update("""
