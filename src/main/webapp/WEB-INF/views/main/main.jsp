@@ -173,7 +173,7 @@
                             <div class="chatbot-bubble-container">
                                 <p class="chatbot-guide-text">ちょっとしたお悩みは、</p>
                                 <button class="chatbot" onclick="openChatModal()">チャットボット</button>
-                                <img class="chatbot_menuimg" src="/static/imgsource/layout/koyoi_moon.png" onclick="openChatModal()">
+                                <img class="chatbot_menuimg" src="/static/imgsource/layout/sittingwoman.png" onclick="openChatModal()">
                             </div>
 
                             <!-- 라이브챗 영역 -->

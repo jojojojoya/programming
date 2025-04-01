@@ -167,7 +167,18 @@ function sendAndSaveMessage(message) {
 // });
 
 document.addEventListener("DOMContentLoaded", async function () {
-    const container = document.querySelector(".chat-container");
+        const container = document.querySelector(".chat-container");
+
+        console.log("[라이브챗] livechatdetail.jsp 로딩됨");
+        console.log("→ sessionId:", container.dataset.sessionId);
+        console.log("→ counselingId:", container.dataset.counselingId);
+        console.log("→ userId:", container.dataset.userId);
+        console.log("→ userType:", container.dataset.userType);
+        console.log("→ counselorId:", container.dataset.counselorId);
+        console.log("→ isCompleted:", container.dataset.isCompleted);
+    console.log("세션 ID:", document.querySelector('.chat-container').dataset.sessionId);
+
+
     const sessionId = container.dataset.sessionId;
     const isCompleted = container.dataset.isCompleted === "true";
     const enterButton = document.getElementById("enterButton");

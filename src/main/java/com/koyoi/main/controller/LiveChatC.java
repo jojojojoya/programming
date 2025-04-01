@@ -78,7 +78,10 @@ public class LiveChatC {
                                       @RequestParam(value = "isCompleted", required = false, defaultValue = "false") boolean isCompleted,
                                       Model model, HttpSession session) {
 
+
         String userId = getLoginUserId(session);
+        System.out.println(userId);
+
         List<UserMyPageVO> userList = liveChatService.getUserInfoById(userId);
         UserMyPageVO loggedInUser = userList.isEmpty() ? null : userList.get(0);
         model.addAttribute("user", loggedInUser);
@@ -87,8 +90,7 @@ public class LiveChatC {
         model.addAttribute("livechatdetail", "livechat/livechatdetail.jsp");
 
         LiveChatVO counselingDetail = liveChatService.getCounselingDetail(counselingId);
-        System.out.println("counselingDetail : " + counselingDetail);
-        if (counselingDetail.getSession_id() == 0) {
+        if (counselingDetail.getSession_id() == null || counselingDetail.getSession_id() == 0) {
             System.out.println("상담 내역 없음: sessionId=" + sessionId);
             counselingDetail.setSession_id(sessionId);
         }
@@ -177,19 +179,24 @@ public class LiveChatC {
         System.out.println("user_id: [" + reservation.getUser_id() + "]");
         System.out.println("counselor_id: [" + reservation.getCounselor_id() + "]");
 
-        if (isReserved) {
-            System.out.println("상담 예약 성공: " + reservation.getCounseling_id());
-            return ResponseEntity.ok(Map.of(
-                    "success", true,
-                    "message", "예약이 완료되었습니다.",
-                    "counseling_id", reservation.getCounseling_id(),
-                    "session_id", reservation.getSession_id()
-            ));
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("success", false, "message", "상담 예약에 실패했습니다."));
-        }
+            if (isReserved) {
+                // 👇 여기 추가!!
+                int sessionId = liveChatService.createChatRoom(reservation);
+                reservation.setSession_id(sessionId);
 
+                System.out.println("상담 예약 성공: " + reservation.getCounseling_id());
+                System.out.println("생성된 세션 ID: " + reservation.getSession_id());
+
+                return ResponseEntity.ok(Map.of(
+                        "success", true,
+                        "message", "예약이 완료되었습니다.",
+                        "counseling_id", reservation.getCounseling_id(),
+                        "session_id", reservation.getSession_id()
+                ));
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Map.of("success", false, "message", "상담 예약에 실패했습니다."));
+            }
     } catch (Exception e) {
         e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
