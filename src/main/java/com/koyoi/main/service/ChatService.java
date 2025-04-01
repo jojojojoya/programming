@@ -35,7 +35,7 @@ public class ChatService {
                         "Regardless of the language used by the user, always reply in Japanese using no more than 2–3 sentences (within 300 characters). " +
                         "Avoid excessive empathy or advice, and aim for a natural, friendly tone. " +
                         "Medical advice is not allowed. Ask questions as needed to better understand the user's intent. " +
-                        "Do not output in any language other than Korean."
+                        "Do not output in any language other than Japanese."
         );
 
         Map<String, Object> userPrompt = Map.of(
@@ -49,10 +49,10 @@ public class ChatService {
     // summary prompt
     public String createSummary(List<Map<String, Object>> messages) {
         List<Map<String, Object>> prompt = new ArrayList<>();
-        prompt.add(Map.of("role", "system", "content", "Based on the following conversation, summarize briefly in Korean what the user experienced today, " +
+        prompt.add(Map.of("role", "system", "content", "Based on the following conversation, summarize briefly in Japnese what the user experienced today, " +
                 "how they felt, and how the suggested coping or solutions worked out. " +
                 "Reflect their emotions with empathy, and keep the tone warm rather than analytical. " +
-                "The response must be in Korean only and within 500 characters."));
+                "The response must be in Japanese only and within 500 characters."));
         prompt.addAll(messages);
 
         return callGptApi(prompt, 500); //글자수 500자 이내
@@ -78,8 +78,8 @@ public class ChatService {
         // summary 기반으로 title 생성
         List<Map<String, Object>> titlePrompt = new ArrayList<>();
         titlePrompt.add(Map.of("role", "system", "content", "Based on the following summary text, " +
-                "create a natural-sounding Korean title that reflects both the content and emotions. " +
-                "The title must be within 30 characters and the response should be in Korean only. " +
+                "create a natural-sounding Japanese title that reflects both the content and emotions. " +
+                "The title must be within 30 characters and the response should be in Japnese only. " +
                 "Choose words that are accurate yet emotionally resonant."));
         titlePrompt.add(Map.of("role", "user", "content", summary));
         String title = callGptApi(titlePrompt, 30);
@@ -133,8 +133,8 @@ public class ChatService {
             }
         }
 
-//        throw new RuntimeException("GPT 요청 실패: 여러 번 재시도 했지만 실패했습니다.");
-        throw new RuntimeException("GPTリクエストに失敗しました：複数回再試行しましたが、失敗しました。");
+        throw new RuntimeException("GPT 요청 실패: 여러 번 재시도 했지만 실패했습니다.");
+//        throw new RuntimeException("GPTリクエストに失敗しました：複数回再試行しましたが、失敗しました。");
     }
 
 //    public void saveSummary(String userId, String summary) {
