@@ -104,7 +104,7 @@ function attachCheckboxEvents() {
 
 // 습관 삭제
 function deleteHabit(habit_id) {
-  if (confirm("정말로 삭제하시겠습니까?")) {
+  if (confirm("本当に削除していいですか?")) {
     fetch("/habit/delete/" + habit_id, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -117,7 +117,7 @@ function deleteHabit(habit_id) {
             // ✅ 주간 이력 요약도 즉시 갱신!
             loadWeeklySummary();
           } else {
-            alert("삭제 실패");
+            alert("削除失敗");
           }
         })
         .catch((error) => {
@@ -158,48 +158,7 @@ function addHabit() {
       });
 }
 
-// 추천 습관 추가
-// // 추천 습관 추가
-// function addHabitToDatabase(habitName) {
-//   const data = { habit_name: habitName, user_id: "user1" };
-//
-//   fetch("/habit/add", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(data)
-//   })
-//       .then(res => {
-//         if (!res.ok) {
-//           return res.json().then(errorData => {
-//             console.log("🧾 서버 응답 메시지:", errorData);  // ✅ 여기 추가!
-//             console.log("💬 서버 메시지:", errorData.message);  // ✅ 여기만 추가!
-//             // ✅ 중복 메시지: 한국어("이미"), 일본어("すでに"), 혹은 status로 대응
-//             const isDuplicate =
-//                 (errorData.message && (
-//                     errorData.message.includes("이미") ||
-//                     errorData.message.includes("すでに")
-//                 )) ||
-//                 errorData.status === "duplicate";
-//
-//             if (isDuplicate) {
-//               alert("すでに追加された習慣です！");
-//             } else {
-//               alert("習慣の追加に失敗しました（サーバーエラー）");
-//             }
-//
-//             throw new Error("サーバー応答エラー");
-//           });
-//         }
-//         return res.json(); // 정상 응답 시 JSON 파싱
-//       })
-//       .then(data => {
-//         alert("おすすめ習慣を追加しました！");
-//         location.reload();
-//       })
-//       .catch(err => {
-//         console.error("おすすめ追加エラー:", err);
-//       });
-// }
+
 
 function addHabitToDatabase(habitName) {
   const data = { habit_name: habitName, user_id: "user1" };
@@ -254,22 +213,6 @@ function addHabitToDatabase(habitName) {
         console.error("おすすめ追加エラー:", err);
       });
 }
-// function isEditableWeek(dateStr) {
-//   const selected = new Date(dateStr);
-//   const today = new Date();
-//
-//   const selectedWeekStart = getSunday(selected);
-//   const todayWeekStart = getSunday(today);
-//
-//   return selectedWeekStart.getTime() === todayWeekStart.getTime();
-// }
-
-// function getSunday(d) {
-//   const date = new Date(d);
-//   const day = date.getDay(); // 0 = Sunday
-//   const diff = date.getDate() - day;
-//   return new Date(date.getFullYear(), date.getMonth(), diff);
-// }
 
 
 //이번주만 메모 가능하게
@@ -310,7 +253,7 @@ function renderWeeklyMemo(data) {
     // const dayOrder = [6, 0, 1, 2, 3, 4, 5];
       const dayOrder = [0, 1, 2, 3, 4, 5, 6]; // 순서대로 일~토
     dayOrder.forEach(i => {
-      row += `<td>${tracking[i] ? "O" : "X"}</td>`;
+      row += `<td>${tracking[i] ? "😄" : "☹️"}</td>`;
     });
     row += "</tr>";
     tbody.innerHTML += row;
@@ -380,22 +323,7 @@ function habitShowTab(tab) {
   if (targetBtn) targetBtn.classList.add("habit-active");
 }
 //메모불러오기
-// function loadWeeklyMemo() {
-//   if (!selectedDate) return;
-//
-//   fetch("/habit/memo/get", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     body: new URLSearchParams({ date: selectedDate })
-//   })
-//       .then(res => res.text())
-//       .then(memo => {
-//         document.getElementById("weeklyMemoText").value = memo || "";
-//       })
-//       .catch(err => {
-//         console.error("메모 불러오기 실패:", err);
-//       });
-// }
+
 
 function loadWeeklyMemo() {
   if (!selectedDate) return;
