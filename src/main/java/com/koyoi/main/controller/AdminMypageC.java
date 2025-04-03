@@ -152,8 +152,18 @@ public class AdminMypageC {
     /* 공지사항 작성 */
     @PostMapping("/admin/createAnnouncement")
     @ResponseBody
-    public int createAnnouncement(@RequestBody AnnouncementVO announcementVO) {
-        announcementVO.setAdmin_id("admin001");
+    public int createAnnouncement(HttpSession session, @RequestBody AnnouncementVO announcementVO, Model model) {
+
+        // 로그인 세션
+        String userId = (String) session.getAttribute("userId");
+
+        if (userId != null) {
+            AdminMypageVO user = adminMypageService.getUserById(userId);
+            model.addAttribute("user", user);
+
+            announcementVO.setAdmin_id(userId);
+        }
+
         return announcementService.createAnnouncement(announcementVO);
     }
 }
