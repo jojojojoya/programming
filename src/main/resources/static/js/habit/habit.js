@@ -1,8 +1,4 @@
 
-
-
-
-
 // 오늘 날짜 반환
 function getTodayDateStr() {
   const today = new Date();
@@ -253,7 +249,7 @@ function renderWeeklyMemo(data) {
     // const dayOrder = [6, 0, 1, 2, 3, 4, 5];
       const dayOrder = [0, 1, 2, 3, 4, 5, 6]; // 순서대로 일~토
     dayOrder.forEach(i => {
-      row += `<td>${tracking[i] ? "😄" : "☹️"}</td>`;
+      row += `<td>${tracking[i] ? "🅾️" : "❎"}</td>`;
     });
     row += "</tr>";
     tbody.innerHTML += row;
