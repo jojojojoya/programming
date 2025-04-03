@@ -242,6 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("modalUserType").textContent = data.user_type === 2 ? "Counselor" : "User";
                     document.getElementById("modalCreatedAt").textContent = data.formattedCreatedAt;
                     document.getElementById("modalUserImg").src = data.user_img ? `${data.user_img}` : "/imgsource/userProfile/default.png";
+                    console.log("user_img", data.user_img);
                     const pwInput = document.getElementById("modalUserPassword");
                     const pwIcon = document.getElementById("passwordToggleIcon");
                     pwInput.type = "password";
