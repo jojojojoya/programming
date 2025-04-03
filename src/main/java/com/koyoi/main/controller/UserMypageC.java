@@ -126,8 +126,9 @@ public class UserMypageC {
 
             String imgPath = null;
             if (profileImg != null && !profileImg.isEmpty()) {
-                String projectPath = System.getProperty("user.dir");
-                String uploadDirPath = projectPath + "/src/main/resources/static/imgsource/userProfile";
+//                String projectPath = System.getProperty("user.dir");
+//                String uploadDirPath = projectPath + "/src/main/resources/static/imgsource/userProfile";
+                String uploadDirPath = "C:/SHY/koyoi_upload/";
 
                 File uploadDir = new File(uploadDirPath);
                 if (!uploadDir.exists()) {
@@ -137,7 +138,7 @@ public class UserMypageC {
                 String filename = userId + "_" + profileImg.getOriginalFilename();
                 File file = new File(uploadDir, filename); // 올바른 경로 연결 방식
                 profileImg.transferTo(file);
-                imgPath = "/imgsource/userProfile/" + filename;
+                imgPath = "/upload/userprofile/" + filename;
 
 
                 System.out.println("이미지 저장 완료: " + imgPath);

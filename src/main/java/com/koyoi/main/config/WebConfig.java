@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 기존 설정 유지
         registry.addResourceHandler("/upload/userprofile/**")
-                .addResourceLocations("file:///C:/upload/userprofile/");
+                .addResourceLocations("file:C:/SHY/koyoi_upload/");
 
         registry.addResourceHandler("/imgsource/**")
                 .addResourceLocations("classpath:/static/imgsource/");
