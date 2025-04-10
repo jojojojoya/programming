@@ -1,0 +1,502 @@
+/*------------------------------*/
+/* 메인 콘텐츠 영역 레이아웃 */
+.content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    min-height: calc(100vh - 120px);
+    box-sizing: border-box;
+    height: 100%;
+    margin-left: 19px;
+}
+
+/*------------------------------*/
+/* 캘린더 & 위클리 영역 */
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#calendar {
+    width: 100%;
+    max-width: 401px;
+    min-height: 201px;
+    max-height: 358px;
+    box-sizing: border-box;
+    background-color: #fdf7f2;
+    padding: 28px 28px;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex
+;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.fc-toolbar-title {
+    font-size: 16px !important;
+    width: 102px;
+    color: #3D2C2E !important;
+}
+
+.fc .fc-button {
+    background: none !important;
+    border: none !important;
+    color: #3f2e29 !important;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+    box-shadow: none !important;
+}
+
+.fc .fc-button:hover {
+    color: #3f2e29 !important;
+}
+
+.fc .fc-prev-button,
+.fc .fc-next-button {
+    font-size: 14px !important;
+    padding: 0 12px;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: -6px;
+    padding: 0 20px;
+    margin-left: 31px;
+}
+
+.fc-today-button {
+    margin-left: 10px;
+    background-color: #D8D2C2;
+}
+
+.fc .fc-col-header-cell {
+    background-color: #fdf7f2;
+    color: #3f2e29;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 10px 0;
+}
+
+.fc .fc-daygrid-day {
+    border: 1px solid #e3d5ca !important;
+    border-radius: 10px !important;
+    background-color: #fdf7f2 !important;
+    transition: background-color 0.2s ease;
+}
+
+.fc-daygrid-day:hover {
+    background-color: #f1e5da;
+    border: 1px solid #e3d5ca !important;
+}
+
+.fc-day-today,
+.fc-day-selected {
+    background-color: #ffd27a !important;
+    color: #3f2e29;
+    border-radius: 10px;
+}
+
+.fc-daygrid-day.fc-day-selected{
+    outline: 2px solid #fbbf24;
+    outline-offset: -2px;
+    box-shadow: inset 0 0 0 2px #f59e0b;
+    background-color: #ffe8aa !important;
+    border-radius: 10px;
+    position: relative;
+    z-index: 5;
+}
+
+
+.fc-daygrid-day-number {
+    font-size: 11px;!important;
+    color: #3f2e29;
+    font-weight: bold;
+    z-index: 1;
+    padding: 2px !important;
+    transition: opacity 0.3s ease;
+}
+
+
+
+
+.fc-daygrid-day-frame {
+    display: flex;
+    flex-direction: column; /* 날짜 숫자 위, 이모지 아래 */
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    height: 42px;
+    padding: 0;
+    border: 1px solid #f7eadb;
+    border-radius: 9px;
+    margin: 1px;
+}
+
+
+
+
+.fc-daygrid-day-frame:has(.fc-event) .fc-daygrid-day-number {
+    display: none;
+}
+
+.fc-daygrid-event,
+.emoji-event {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.fc .fc-scrollgrid,
+.fc .fc-scrollgrid td,
+.fc .fc-scrollgrid th {
+    border: none !important;
+}
+
+.emoji-event {
+    font-size: 18px;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.fc-event-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.fc-event {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+
+/*------------------------------*/
+/* 주간 감정 요약 */
+.weekly-summary {
+    width: 405px;
+    box-sizing: border-box;
+    flex-grow: 1;
+    background-color: #3f2e29;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow-y: hidden;
+}
+
+.weekly-summary-title {
+    text-align: center;
+    margin: 2px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff3e7;
+}
+
+.weekly-summary ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #3f2e29;
+}
+
+
+.weekly-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 0px;
+    border-bottom: 1px solid #e0d4c0;
+    font-size: 14px;
+    color: #fff3e7;
+    cursor: pointer;
+}
+
+.weekly-item:hover {
+    background-color: #3f2e29;
+    color: #ffd27a;
+}
+
+.weekly-item:last-child {
+    border-bottom: none;
+}
+
+.weekly-item-emoji {
+    font-size: 20px;
+    margin-right: 12px;
+}
+
+/*------------------------------*/
+/* 다이어리 영역 */
+.diary-section-container {
+    background-color: #fdf7f2;
+    display: flex;
+    flex-direction: column;
+    padding: 9px 20px;
+    border-radius: 1rem;
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+    margin-left: -14px;
+}
+
+.diary-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* 작성 영역 */
+.diary-write-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.diary-write-content {
+        flex-grow: 1;
+        overflow-y: auto;
+        min-height: 310px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px 20px;
+        border-radius: 1rem;
+        background-color: #f9f9f9;
+        border: 1px solid #ede0d4;
+        color: #3f2e29;
+        font-size: 15px;
+        margin-bottom: 20px;
+        resize: none;
+        word-break: break-word;
+    }
+
+/* 뷰 영역 */
+.diary-view-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    overflow-y: hidden;
+}
+
+.diary-view-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 45vh;
+    height: 55%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2vh 2vw;
+    border-radius: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ede0d4;
+    color: #3f2e29;
+    font-size: 1.5vh;
+    margin-bottom: 2vh;
+    word-break: break-word;
+}
+
+#diaryDate, #viewDiaryDate {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #151e27;
+}
+
+/* 이모지 선택 옵션 */
+.emoji-option {
+    font-size: 23px;
+    margin-bottom: 12px;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #ede0d4;
+    transition: transform 0.2s ease;
+    margin-left: 9px;
+    margin-top: -8px;
+}
+
+.emoji-option.selected {
+    border: 3px solid #ede0d4;
+    background-color: #3f2e29;
+}
+
+
+.diary-write-section .emoji-option {
+    cursor: pointer;
+}
+
+.diary-write-section .emoji-option:hover {
+    transform: scale(1.2);
+    background-color: #ffd27a;
+}
+
+.diary-view-section .emoji-option {
+    cursor: default;
+}
+
+.diary-write-title,
+.diary-view-title {
+        width: 100%;
+        height: 42px;
+        box-sizing: border-box;
+        border: 1px solid #ede0d4;
+        border-radius: 1rem;
+        padding: 10px 10px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+    color: #3f2e29;
+    margin: 1vh 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.diary-write-title {
+    line-height: 1.5;
+    margin: 7px 0;
+    text-align: center;
+    word-break: break-word;
+}
+
+/* 다이어리 조회 타이틀 (div) */
+.diary-view-title {
+    text-align: center;
+}
+
+.diary-button-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 2vw;
+    margin-top: auto;
+    padding-bottom: 1vh;
+
+}
+
+/* diary-section 내부 버튼 */
+.diary-section-container .diary-btn {
+    padding: 10px 23px;
+    background-color: #3f2e29;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    color: #fff3e7;
+    border-radius: 1rem;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+.diary-section-container .diary-btn:hover {
+    background-color: #ede0d4;
+    color: #3F2E29;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 감정 점수 모달 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-container {
+    background-color: #fff8f0;
+    border-radius: 1.5rem;
+    padding: 30px 20px;
+    width: 310px;
+    max-width: 400px;
+    min-width: 300px;
+    box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal-container h2 {
+    margin-bottom: 17px;
+    color: #3f2e29;
+    font-size: 2vh;
+}
+
+.modal-container p {
+    font-size: 15px;
+    color: #3f2e29;
+}
+
+.score-slider-container input[type='range'] {
+    width: 100%;
+    margin-top: 2vh;
+}
+
+/* 감정 점수 값 */
+.score-value {
+    margin: 16px 0;
+    font-size: 18px;
+    color: #3f2e29;
+}
+
+/* 모달 버튼 기본 스타일 */
+.modal-buttons button {
+    padding: 6px 24px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+    margin: 0 5px;
+    margin-top: 22px;
+    margin-bottom: 16px;
+}
+
+.btn-confirm {
+    background-color: #ffd27a;
+    color: #3f2e29;
+}
+
+.btn-confirm:hover {
+    background-color: #ffcf60;
+}
+
+.btn-cancel {
+    background-color: #EDE0D4;
+    color: #3f2e29;
+}
+
+.btn-cancel:hover {
+    background-color: #ddd;
+}

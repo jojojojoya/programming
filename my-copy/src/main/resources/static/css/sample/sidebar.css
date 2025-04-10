@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
+
+
+
+/* 전체 배경 */
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #f5f0ea;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 전체 컨테이너 */
+.container {
+    width: 1440px;
+    height: 90vh;
+    background-color: #fff3e7; /* 연한 베이지 */
+    border-radius: 30px; /* 전체 모서리 둥글게 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+/* 헤더 아이콘 컨테이너 (우측 상단) */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    background: #fff3e7; /* 배경색: 흰색 */
+    border-radius: 50px; /* 둥근 형태 */
+    position: absolute;
+    top: 15px;
+    right: 50px; /* 왼쪽으로 이동 */
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    padding: 8px 12px;
+}
+
+/* 헤더 버튼 스타일 (아이콘) */
+.header-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* 아이콘 개별 원형 */
+    background: #ffffff; /* 버튼 배경 흰색 */
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* 아이콘 크기 조절 */
+.header-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 버튼 호버 효과 */
+.header-btn:hover {
+    transform: scale(1.1);
+}
+
+/* 프로필 이미지 (우측 끝) */
+.profile-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+
+
+/* 헤더 아이콘 컨테이너 (우측 상단) */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2); /* 반투명 배경 */
+    border-radius: 20px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+/* 헤더 버튼 스타일 (아이콘) */
+.header-btn {
+    background: white;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 아이콘 크기 조절 */
+.header-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 프로필 이미지 (우측 끝) */
+.profile-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #fff;
+}
+
+
+
+/* 메인 콘텐츠 */
+.content {
+    flex-grow: 1;
+    margin: 100px 20px;
+    text-align: center;
+    font-size: 18px;
+}
+/* 우측 상단 고정 이미지 */
+.fixed-top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 120px; /* 이미지 크기 조절 */
+    height: auto;
+    z-index: 10; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.logo-icon {
+    height: 150px;
+    width: 150px;
+    margin-left: 30px;
+}
+
+/* 파도 효과 컨테이너 */
+/* 파도 효과 컨테이너 */
+.wave-container {
+    position: relative;
+    width: 100%;
+    height: 140px; /* 높이 조절 */
+    overflow: hidden;
+    bottom: 0;
+}
+
+/* 기존 하단 파도 (더 둥글고 자연스럽게 변경) */
+.wave-container::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 180%;
+    bottom: -10px;
+    left: -81px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23D2C4D6" fill-opacity="1" d="M0,256L80,245.3C160,235,320,213,480,208C640,203,800,213,960,218.7C1120,224,1280,224,1360,229.3L1440,235L1440,320L0,320Z"></path></svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    transform: translateY(8px);
+}
+
+/* 우측 둥근 곡선 (더 자연스럽게 연결) */
+.wave-container::after {
+    content: "";
+    position: absolute;
+    width: 115%;
+    height: 180%;
+    bottom: 6px;
+    left: -81px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23D2C4D6" fill-opacity="1" d="M0,256L80,245.3C160,235,320,213,480,208C640,203,800,213,960,218.7C1120,224,1280,224,1360,229.3L1440,235L1440,320L0,320Z"></path></svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    transform: translateY(8px);
+}
+
+.bbiyak {
+    position: absolute; /* 절대 위치 */
+    bottom: 47px; /* 보라색 파도 위로 조정 */
+    left: 9%; /* 가운데 정렬 */
+    transform: translateX(-50%); /* 정확한 중앙 정렬 */
+    width: 70px;  /* 크기 조절 (작게) */
+    height: 70px; /* 크기 조절 (작게) */
+    background-color: transparent; /* 배경색 없음 */
+    border-radius: 50%;
+    box-sizing: border-box; /* 크기 조정 */
+    z-index: 20; /* 다른 요소 위에 표시 */
+    overflow: hidden; /* 혹시라도 삐져나오면 숨김 */
+}
+
+/* bbiyak 내부 이미지 크기 조정 */
+.bbiyak img {
+    width: 100%;  /* 부모 요소 크기에 맞게 자동 조정 */
+    height: 100%;
+    object-fit: contain; /* 이미지 비율 유지하며 맞춤 */
+}
+
+
+
+/* 사이드바 */
+.sidebar {
+    position: absolute;
+    left: 73px;
+    top: 183px;
+    width: 51px;
+    padding: 11px;
+    /*    background-color: #d1c3d5; 없는게 더 예쁨*/
+    border-radius: 15px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 🔵 사이드바 버튼 스타일 */
+.sidebar-btn {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-bottom: 15px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* 🔵 버튼 내부 아이콘 크기 */
+.sidebar-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 🔵 버튼 호버 효과 */
+.sidebar-btn:hover {
+    transform: scale(1.1);
+}
