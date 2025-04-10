@@ -1,0 +1,133 @@
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    background-color: #f4f4f4;
+    height: 100vh;
+    margin: 0;
+}
+.login-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h2{
+    font-size: 30px;
+}
+.goToMainPageImg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
+.goToMainPageImg img{
+    width: 130px;
+}
+.login-container {
+    background-color: #E9E2DC;
+    color: rgb(70, 44, 32);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.loginBox {
+    margin-bottom: 15px;
+}
+.loginBox label{
+    font-size: 20px;
+}
+.loginBox input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 13px;
+    border: 3px rgb(70, 44, 32) solid;
+    font-size: 18px;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+}
+
+.loginBox button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    font-size: 13pt;
+    font-family: 'BMJUA',serif;
+    font-weight: 70;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+    cursor: pointer;
+}
+
+.loginBox button:hover {
+    background-color: rgb(70, 44, 32);
+    color: rgb(205, 187, 173);
+    border: 3px rgb(205, 187, 173) solid;
+}
+
+.loginHelp {
+    margin-top: 10px;
+}
+
+.loginHelp a {
+    color: rgb(70, 44, 32);
+    text-decoration: none;
+}
+
+.loginHelp a:hover {
+    text-decoration: underline;
+}
+
+/* 모달 창*/
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 120%;
+    background-color: rgba(0, 0, 0, 0.5); /* 배경 투명도 */
+    overflow: hidden; /* 모달 스크롤 비활성화 */
+}
+
+/* 모달 내부 콘텐츠 */
+.modal-content {
+    position: relative;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    background-color: #E9E2DC;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 닫기 버튼 */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}

@@ -1,0 +1,194 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+h1{
+    text-align: center;
+    margin-bottom: 100px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+
+/*!* 기본 스타일 *!
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', 'Helvetica', 'Verdana', sans-serif; !* 고딕체 설정 *!
+}*/
+
+/* 컨테이너 설정 */
+/*.container {*/
+/*    background-color: #fff;*/
+/*    color: #000;*/
+/*    width: 100vw; !* 전체 화면 너비 *!*/
+/*    height: 100vh; !* 전체 화면 높이 *!*/
+/*}*/
+
+/* 헤더 스타일 */
+/*.header {*/
+/*    height: 6vh; !* 화면 비율로 높이 설정 *!*/
+/*    background-color: #000;*/
+/*    color: #fff;*/
+/*    text-align: center;*/
+/*    line-height: 6vh;*/
+/*}*/
+
+/*!* 네비게이션 바 스타일 *!*/
+/*.nav {*/
+/*    height: 5vh; !* 화면 비율로 높이 설정 *!*/
+/*    background-color: #333;*/
+/*    color: #fff;*/
+/*    text-align: center;*/
+/*    line-height: 5vh;*/
+/*}*/
+
+/* 콘텐츠 영역 */
+/*.content {
+    margin-top: 6vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    height: auto;
+    border: none;
+}
+
+!* 푸터 스타일 *!
+.footer {
+    height: 10vh; !* 화면 비율로 높이 설정 *!
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 10vh;
+}*/
+
+/* 마이페이지 */
+/*.mypage h1 {
+    font-size: 2vw; !* 화면 너비에 비례한 글씨 크기 *!
+    color: #000;
+
+    margin: 1vh 0;
+}*/
+
+
+/* 리뷰 목록 스타일 */
+.review-list {
+    display: flex;
+    justify-content: flex-start;
+    margin: 20px 0;
+}
+
+.review-list h2 {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* 각 리뷰의 스타일 */
+.review-comment {
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    padding: 30px;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+/* 리뷰에 있는 링크 스타일 */
+.review-comment a {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: rgb(70, 44, 32);
+    margin: 20px 0;
+    line-height: 1.6;
+    text-decoration: none;
+}
+
+.review-comment a:hover {
+    color: rgb(198,177,0);
+}
+
+/* 페이지 번호 */
+.bottom-list-num {
+    padding-top: 30px;
+    height: 150px;
+    text-align: center;
+}
+
+.bottom-list-num a {
+    text-decoration: none;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(70, 44, 32);
+}
+/*
+
+!* 푸터 스타일 *!
+.footer {
+    height: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    line-height: 200px;
+    font-size: 1.5rem;
+}
+*/
+
+/* 구분선 */
+/*hr {
+    border: 3px rgb(230, 213, 200) dotted;
+    margin: 20px 0;
+}*/
+
+
+/* 돌아가기 버튼 */
+.bottom-return-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1vh;
+}
+
+.bottom-return-btn input{
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 300px;
+    height: 55px;
+    font-size: 25px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+
+.bottom-return-btn input:hover {
+    background-color: rgb(70, 44, 32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(205, 187, 173) solid;
+    width: 300px;
+    height: 55px;
+    font-size: 25px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(205, 187, 173);
+}

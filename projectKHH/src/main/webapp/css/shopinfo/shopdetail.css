@@ -1,0 +1,289 @@
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/*body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}*/
+
+/* 탭 메뉴 스타일 */
+.tab-menu {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(205, 187, 173); /* 연갈색 배경 */
+    padding: 15px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.tab-menu button {
+    background-color: rgb(205, 187, 173); /* 연갈색 배경 */
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32); /* 부드러운 갈색 텍스트 */
+    padding: 12px 30px;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+.tab-menu button:hover {
+    color: rgb(198,177,0);
+}
+
+.tab-menu button.active {
+    color: rgb(198,177,0);
+}
+
+/* 탭 내용 */
+.tab-content {
+    display: none;
+    padding: 30px;
+    border-top: 2px solid #ddd;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.shop-detail {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-img img {
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.sub-img {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.sub-img img {
+    width: 200px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+.shop-name {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.shop-intro {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    font-size: 16px;
+    color: #555;
+    margin-top: 15px;
+}
+
+.info {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    font-size: 24px;
+    color: #333;
+    margin-top: 50px;
+    font-weight: bold;
+}
+
+.info div {
+    margin: 8px 0;
+    font-size: 20pt;
+}
+
+.info-content {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    font-size: 20pt;
+    margin: 40px;
+}
+
+.info-content div {
+    border-bottom: 1px #cccccc dotted;
+    margin-top: 20px;
+}
+
+.menu-one {
+    width: 800px;
+    margin: 30px auto;
+    border-bottom: dotted 1px #ccc;
+    padding-bottom: 20px;
+}
+
+.menu-nameprice {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.menu-type {
+    font-size: 18px;
+    color: #555;
+}
+.reservation-btn{
+    padding-top: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+.reservation-btn button{
+    margin-right: 10px;
+    margin-left: 12px;
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 160px;
+    height: 60px;
+    font-size: 25px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+.reservation-btn button:hover{
+    margin-right: 10px;
+    margin-left: 12px;
+    background-color: rgb(70, 44, 32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(205, 187, 173) solid;
+    width: 160px;
+    height: 60px;
+    font-size: 25px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(205, 187, 173);
+}
+/*.footer {
+    height: 150px;
+    text-align: center;
+    background-color: #f1f1f1;
+    padding-top: 50px;
+    font-size: 14px;
+    color: #777;
+}*/
+
+/* 리뷰 섹션 */
+.review-section {
+    margin: 50px auto;
+    width: 80%;
+    max-width: 1000px;
+}
+
+.review {
+    height: 340px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.nickname {
+    height: 7%;
+    font-size: 20px;
+    color: #333;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+}
+
+.stars {
+    height: 7%;
+    padding-bottom: 20px;
+}
+
+.star {
+    color: #ffcc00;
+    font-size: 22px;
+}
+
+.star2{
+    color: #BDBDBD;
+    font-size: 22px;
+}
+
+.review-content {
+    height: 15%;
+    font-size: 16px;
+    color: #666;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    text-align: left;
+}
+
+.photo-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.photo-container img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.like-button-div{
+    padding-top: 15px;
+}
+.like-button {
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    background-color: #9f8c75; /* 뮤트한 연갈색 */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.like-button:hover {
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    background-color: #8b7a5a; /* 버튼 호버 시 색상 */
+}
+
+.like-count {
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    margin-left: 10px;
+    font-size: 16px;
+    color: #555;
+}

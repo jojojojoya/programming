@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/*body {
+    font-family: Arial, sans-serif;
+    !*background-color: #f4f4f4;*!
+    margin: 0;
+    padding: 0;
+    color: #333;
+}*/
+h1{
+    text-align: center;
+    margin-bottom: 100px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.container {
+    width: 80%;
+    margin: 50px auto;
+}
+
+.shop-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* 메인 사진 스타일 */
+.main-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* 서브 사진을 6개 배치하는 부분 */
+.sub-img {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개씩 */
+    gap: 10px; /* 사진 간의 간격 */
+    margin-bottom: 20px;
+}
+
+.sub-img img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.shop-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.shop-name {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+    font-size: 2em; /* 글씨 크기 크게 */
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 15px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.shop-name:hover {
+    color: rgb(198,177,0);
+}
+
+.shop-description {
+    text-align: center;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    font-size: 1.2em; /* 글씨 크기 크게 */
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.shop-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1em;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.shop-details div {
+    width: 48%;
+}
+.shop-time{
+    padding-left: 45px;
+}
+.shop-time, .shop-access {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 주소 타입 디자인 추가 */
+.shop-addrtype {
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+    font-size: 1.2em;
+    padding: 5px 15px;
+    border-radius: 25px;
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+/* 반응형 디자인 - 화면이 좁아지면 서브사진이 2개씩 표시됨 */
+@media (max-width: 768px) {
+    .sub-img {
+        grid-template-columns: repeat(2, 1fr); /* 작은 화면에서 2개씩 */
+    }
+}
+@media (max-width: 480px) {
+    .sub-img {
+        grid-template-columns: 1fr; /* 아주 작은 화면에서 1개씩 */
+    }
+}

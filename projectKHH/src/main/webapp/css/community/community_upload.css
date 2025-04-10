@@ -1,0 +1,204 @@
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+h1{
+    text-align: center;
+    margin-bottom: 100px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+div{
+    /*border: 1px solid;*/
+}
+.community_title_div{
+    width: 100%;
+    display: flex;
+    height: 90px;
+}
+.title_title{
+    width:10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.title_title_input{
+    width:90%;
+    display: flex;
+    align-items: center;
+}
+.title_title_input input{
+    padding-left: 10px;
+    width: 88.8%;
+    height: 40px;
+    border-radius: 13px;
+    border: 3px rgb(70, 44, 32) solid;
+    box-shadow: inset 2px 2px 10px #e6e6e6;
+    font-size: 15px;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+}
+.community_writer_div {
+    width: 100%;
+    display: flex;
+    height: 50px;
+}
+.title_writer{
+    width:10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.title_writer_nickname{
+    width:90%;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+}
+.community_content_div{
+    display: flex;
+    width: 100%;
+    height: 340px;
+}
+.content_title{
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.content_textarea{
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+.content_textarea textarea{
+    padding-left: 10px;
+    padding-top: 10px;
+    min-width: 95%;
+    max-width: 95%;
+    min-height: 300px;
+    max-height: 300px;
+    box-shadow: inset 2px 2px 10px #e6e6e6;
+    border-radius: 13px;
+    border: 3px rgb(70, 44, 32) solid;
+    font-size: 15px;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+}
+.community_image_div{
+    width: 100%;
+    display: flex;
+    height: 90px;
+}
+.image_title{
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 450;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+.image_input{
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+.btn-upload {
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 150px;
+    height: 35px;
+    font-size: 13pt;
+    font-family: 'BMJUA',serif;
+    font-weight: 70;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+    cursor: pointer;
+    &:hover {
+        background-color: rgb(70, 44, 32);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        border: 3px rgb(205, 187, 173) solid;
+        width: 150px;
+        height: 35px;
+        font-size: 13pt;
+        font-family: 'BMJUA',serif;
+        font-weight: 70;
+        font-style: normal;
+        color: rgb(205, 187, 173);
+    }
+}
+#file {
+    display: none;
+}
+.community_uploadBtn_div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 130px;
+    margin-top: 70px;
+    margin-bottom: 100px;
+}
+.community_uploadBtn_div button{
+    margin-right: 10px;
+    margin-left: 12px;
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 140px;
+    height: 60px;
+    font-size: 25px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+.community_uploadBtn_div button:hover{
+    background-color: rgb(70, 44, 32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(205, 187, 173) solid;
+    width: 140px;
+    height: 60px;
+    font-size: 25px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(205, 187, 173);
+}

@@ -1,0 +1,269 @@
+/*.content {
+	margin-top: 100px;
+	margin-left: 100px;
+	margin-right: 100px;
+	height: 3500px;
+	border: none;
+}
+
+.footer {
+	height: 200px;
+}*/
+
+.profile-field {
+    display: flex;
+}
+
+.profile-circle img {
+    border-radius: 50%;
+    width: 170px;
+    height: 170px;
+}
+
+.myShop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.myShop_information_list {
+    text-align: center;
+    margin: 0px;
+    width: calc(25% - 16px); /* 4개씩 배치 */
+    height: 650px;
+    justify-content: center;
+    align-items: center;
+}
+
+.myShop_information_list img {
+    width: 280px;
+    height: 280px;
+    border-radius: 12px; /* 모서리 둥글게 */
+    border: 2px solid #ddd; /* 얇은 테두리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    transition: transform 0.3s, box-shadow 0.3s; /* 애니메이션 효과 */
+}
+
+.myShop_information_list_img:hover {
+    transform: scale(1.05); /* 호버 시 확대 효과 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강조 */
+}
+
+.myShop_information_list_field {
+    display: flex;
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 16px; /* 간격 추가 */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 100px;
+    font-style: normal;
+    font-family: 'BMJUA',serif;
+    color: rgb(70, 44, 32);
+}
+
+.myShop_information_list_field a{
+    color: rgb(70, 44, 32);
+    text-decoration: none;
+}
+
+.myShop_menuBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.myShop_menuBtn button{
+    margin-right: 10px;
+    margin-left: 6px;
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 100px;
+    height: 35px;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+.clearfix {
+    flex-basis: 100%; /* 줄바꿈을 강제 */
+    height: 0;
+}
+/*.myShop_place_box {
+    display: flex;
+    text-align: center;
+    border: none;
+    margin: 20px;
+}
+.myShop_photo {
+    border-radius: 12px; !* 모서리 둥글게 *!
+    border: 2px solid #ddd; !* 얇은 테두리 *!
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); !* 그림자 효과 *!
+    transition: transform 0.3s, box-shadow 0.3s; !* 애니메이션 효과 *!
+}
+
+.myShop_photo:hover {
+    transform: scale(1.05); !* 호버 시 확대 효과 *!
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); !* 호버 시 그림자 강조 *!
+}
+
+.myShop_place_box img {
+    width: 300px;
+    height: 300px;
+}*/
+
+.myShop button{
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 200px;
+    height: 35px;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+
+.myShop button:hover{
+    background-color: rgb(70, 44, 32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(205, 187, 173) solid;
+    width: 200px;
+    height: 35px;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(205, 187, 173);
+}
+
+.myShop_container {
+    display: flex;
+    overflow: hidden;
+    background-color: rgb(198, 232, 242);
+}
+
+/*.myShop_button_field {
+    margin-left: auto;
+}
+
+.myShop-button {
+    height: 50px;
+    padding: 10px 20px; !* 버튼 내부 여백 *!
+    font-size: 16px; !* 텍스트 크기 *!
+    font-weight: bold; !* 텍스트 두께 *!
+    color: #ffffff; !* 텍스트 색상 *!
+    background-color: #007bff; !* 버튼 배경색 *!
+    border: none; !* 테두리 제거 *!
+    border-radius: 8px; !* 모서리 둥글게 *!
+    cursor: pointer; !* 마우스 오버 시 포인터 표시 *!
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); !* 약간의 그림자 *!
+    transition: background-color 0.3s, transform 0.2s; !* 애니메이션 효과 *!
+}
+
+.myShop-button:hover {
+    background-color: #0056b3; !* 호버 시 배경색 변경 *!
+    transform: scale(1.05); !* 약간 확대 *!
+}
+
+.myShop-button:active {
+    background-color: #003d80; !* 클릭 시 배경색 변경 *!
+    transform: scale(0.95); !* 약간 축소 *!
+}
+
+.bottom-list-num {
+    text-align: center;
+    item-align: center;
+}
+
+.text-box {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 40px;
+}
+
+.bottom-list-num {
+    text-align: center;
+    item-align: center;
+}
+
+.bottom-return-btn {
+    text-align: center;
+    item-align: center;
+}
+.mypage a{
+    text-decoration: none;
+}*/
+.service_comment{
+    margin-top: 120px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+.service_comment2{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-family: 'BMJUA',serif;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+    margin-bottom: 170px;
+}
+/* 돌아가기 버튼 */
+.bottom-return-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 1vh;
+}
+
+.bottom-return-btn input{
+    background-color: rgb(205, 187, 173);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(70, 44, 32) solid;
+    width: 250px;
+    height: 55px;
+    font-size: 25px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(70, 44, 32);
+}
+
+.bottom-return-btn input:hover {
+    background-color: rgb(70, 44, 32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px rgb(205, 187, 173) solid;
+    width: 250px;
+    height: 55px;
+    font-size: 25px;
+    font-family: 'BMJUA',serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(205, 187, 173);
+}
