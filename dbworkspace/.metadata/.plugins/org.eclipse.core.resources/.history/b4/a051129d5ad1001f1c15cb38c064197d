@@ -1,0 +1,296 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', 'Helvetica', 'Verdana', sans-serif; /* 고딕체 설정 */
+}
+
+/* 컨테이너 설정 */
+.container {
+    background-color: #fff;
+    color: #000;
+    width: 100vw;  /* 전체 화면 너비 */
+    height: 100vh; /* 전체 화면 높이 */
+}
+
+/* 헤더 스타일 */
+.header {
+    height: 6vh;  /* 화면 비율로 설정 */
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 6vh;
+}
+
+/* 네비게이션 바 스타일 */
+.nav {
+    height: 5vh;  /* 화면 비율로 설정 */
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    line-height: 5vh;
+}
+
+/* 콘텐츠 영역 */
+.content {
+    margin-top: 6vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    height: auto;
+    border: none;
+}
+
+/* 푸터 스타일 */
+.footer {
+    height: 10vh;  /* 화면 비율로 설정 */
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 10vh;
+}
+
+/* 프로필 스타일 */
+.profile-field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.profile-circle img {
+    border-radius: 50%;
+    width: 10vw;  /* 화면 너비의 10% 크기 */
+    height: 10vw;  /* 화면 너비의 10% 크기 */
+    margin-right: 2vw;
+}
+
+/* 예약 목록 스타일 */
+.reservation-list {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 2vh;
+}
+
+.reservation-list h2 {
+    font-size: 2vw; /* 화면 너비에 비례한 글씨 크기 */
+    font-weight: bold;
+    color: #000;
+}
+
+/* 예약 리스트 스타일 */
+.reserv-place-list-field {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    margin-bottom: 2vh;
+    padding: 1vh;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    width: 80%; /* 화면 비율로 설정 */
+}
+
+/* 가게 리스트 스타일 */
+.reserv-place-list {
+    display: flex;
+    align-items: center;
+}
+
+.reserv-place-list img {
+    width: 18vw; /* 화면 너비의 18% 크기 */
+    height: 18vw; /* 화면 너비의 18% 크기 */
+    border-radius: 5px;
+    margin-right: 3vw;
+}
+
+/* 가게 정보 텍스트 */
+.reserv-place-list div {
+    text-align: left;
+}
+
+.reserv-place-list h1 {
+    font-size: 1.5vw; /* 화면 너비에 비례한 글씨 크기 */
+    color: #000;
+}
+
+.reserv-place-list p {
+    font-size: 0.9vw; /* 화면 너비에 비례한 글씨 크기 */
+    color: #555;
+}
+
+/* 예약 변경 버튼 */
+input[type="button"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.8vh 1.2vw; /* 화면 비례한 패딩 */
+    font-size: 1vw; /* 화면 너비에 비례한 글씨 크기 */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type="button"]:hover {
+    background-color: #555;
+}
+
+/* 페이지 번호 */
+.bottom-list-num {
+    text-align: center;
+    margin: 2vh 0;
+}
+
+.bottom-list-num h2 {
+    font-size: 1.5vw; /* 화면 너비에 비례한 글씨 크기 */
+    font-weight: bold;
+    color: #000;
+}
+
+/* 돌아가기 버튼 */
+.bottom-return-btn {
+    text-align: center;
+    margin-top: 2vh;
+}
+
+.bottom-return-btn input[type="button"] {
+    background-color: #000;
+    color: #fff;
+    padding: 1vh 2vw;
+    font-size: 1vw;
+    border-radius: 5px;
+}
+
+.bottom-return-btn input[type="button"]:hover {
+    background-color: #444;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="header">header</div>
+		<div class="nav">nav</div>
+		<div class="content">
+
+			<div class="mypage" style="border: none;">
+				<h1>MyPage (누르면 마이페이지 메인으로 이동)</h1>
+			</div>
+			<br>
+			<hr>
+
+			<div class="reservation-list" style="border: none;">
+				<h2 style="margin-inline-end: auto;">예약한 가게</h2>
+			</div>
+			<br>
+
+
+
+			<div class="reserv-place-list-field" style="border: solid 1px;">
+				<div class="reserv-place-list">
+					<img
+						src="https://mblogthumb-phinf.pstatic.net/MjAxODA3MDVfNDAg/MDAxNTMwNzU3MjEyNjQ0.RNprD67cJ2AOWI2GmRVprWVv7qtNI-d3WsN-XhRLTLIg.hpd6lxFA6mkoZ-78fN-zmiLtxAv9H3iP_Jxs6bF7XCEg.PNG.witchstudio/image.png?type=w800"
+						alt="place-name">
+					<div style="border: none; text-align: left; margin-left: 30px">
+						<h2>예약한 가게명</h2>
+						<h2>예약일시/예약인원</h2>
+				<div  style="border: none;">
+					<h3>가게 상세주소 </h3> 
+						<h3>예약자 이름 : 000</h3>  
+						<h3>예약자 전화번호 : 000  </h3> 
+
+					</div>
+					</div>
+				</div>
+						<div  style="border: none; align-content: center;">
+					<input type="button" value="예약 변경">
+					</div>
+			</div>
+
+			<div class="reserv-place-list-field" style="border: solid 1px;">
+				<div class="reserv-place-list">
+					<img src="https://kr.savorjapan.com/gg/content_image/t0283_017.jpg"
+						alt="place-name">
+				<div style="border: none; text-align: left; margin-left: 30px">
+						<h2>무라카미 하코다테 본점</h2>
+						<h2>2025.01.27 / 3명</h2>
+				<div  style="border: none;">
+					<h3>홋카이도 000 0000 </h3> 
+						<h3>예약자 이름 : 마루마루상 </h3>  
+						<h3>예약자 전화번호 : 010 3385 6138  </h3> 
+
+					</div>
+					</div>
+				</div>
+						<div  style="border: none; align-content: center;">
+					<input type="button" value="예약 변경">
+					</div>
+			</div>
+
+
+			<div class="reserv-place-list-field" style="border: solid 1px;">
+				<div class="reserv-place-list">
+					<img src="https://kr.savorjapan.com/gg/content_image/t0283_005.jpg"
+						alt="place-name">
+					<div style="border: none; text-align: left; margin-left: 30px">
+						<h2>라멘 삿포로 이치류안</h2>
+						<h2>2025.01.11 / 2명</h2>
+				<div  style="border: none;">
+					<h3>홋카이도 000 0000 </h3> 
+						<h3>예약자 이름 : 마루마루상 </h3>  
+						<h3>예약자 전화번호 : 010 3385 6138  </h3> 
+
+					</div>
+					</div>
+				</div>
+						<div  style="border: none; align-content: center;">
+					<input type="button" value="예약 변경">
+					</div>
+			</div>
+
+
+
+			<div class="reserv-place-list-field" style="border: solid 1px;">
+				<div class="reserv-place-list">
+					<img src="https://kr.savorjapan.com/gg/content_image/t0283_015.jpg"
+						alt="place-name">
+				<div style="border: none; text-align: left; margin-left: 30px">
+						<h2>해산물 로바타야키</h2>
+						<h2>2025.02.11 / 4명</h2>
+				<div  style="border: none;">
+					<h3>홋카이도 000 0000 </h3> 
+						<h3>예약자 이름 : 마루마루상 </h3>  
+						<h3>예약자 전화번호 : 010 3385 6138  </h3> 
+
+					</div>
+					</div>
+				</div>
+						<div  style="border: none; align-content: center;">
+					<input type="button" value="예약 변경">
+					</div>
+			</div>
+
+
+
+		<br> <br>
+
+		<div class="bottom-list-num" style="border: none;">  <h2> 1 2 3 4 (나중에 구현) > </h2>   </div>
+
+						<div class="bottom-return-btn"  style="border: none; align-content: center;">
+					<input type="button" value="마이페이지로 돌아가기">
+					</div>
+	
+
+
+
+		</div>
+
+	<div class="footer">footer</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+import java.util.Scanner;
+
+public class BMIMain {
+    public static void main(String[] args) throws InterruptedException {
+        // BMI (체질량 지수 구하는 프로그램)
+    	// bmi 테이블에 값 추가 
+        // 1. 필요한 값        키, 체중, 이름
+
+        // 2. 계산식
+            // 체중 / (신장 * 신장) m단위
+            // @ cm, m 다 되게
+
+        // 3. 판정
+
+        // 4. 결과 출력    소수점은 1 ~ 2자리 까지만.
+        // BMI 지수 : ㅇㅇ
+        // ㅇㅇ님, 당신은 ㅇㅇ 입니다.
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("이름을 입력하세요");
+        String name = sc.next();
+        System.out.println("키(cm)를 입력하세요");
+        double h = sc.nextDouble();
+        System.out.println("체중(kg)을 입력하세요");
+        double w = sc.nextDouble();
+
+        if (h > 10) {
+            // cm으로 입력했을 것
+            h /= 100;
+        } 
+        double bmi = w / (h * h); // m 단위
+
+        System.out.println(bmi);
+
+        String result = "";
+
+        if (bmi < 18.5) {
+            result    = "저체중";
+        } else if (bmi < 23) {
+            result    = "정상";
+        } else if (bmi < 25) {
+            result    = "비만 전단계";
+        } else if (bmi < 30) {
+            result    = "1단계 비만";
+        } else if (bmi < 35) {
+            result    = "2단계 비만";
+        } else {
+            result    = "3단게 비만";
+        }
+
+        System.out.print("계산중.");
+        Thread.sleep(300);
+        System.out.print(".");
+        Thread.sleep(300);
+        System.out.print(".");
+        Thread.sleep(300);
+        System.out.print(".");
+        Thread.sleep(300);
+        System.out.print(".");
+        Thread.sleep(300);
+        System.out.print(".\n\n");
+
+
+
+
+        System.out.printf("BMI 지수 : %.2f\n", bmi);
+        System.out.println(name + "님, 당신은 " + result + "입니다.");
+
+        System.out.println("종료하려면 아무키나 누르세요");
+        sc.next();
+
+
+
+    }
+
+}

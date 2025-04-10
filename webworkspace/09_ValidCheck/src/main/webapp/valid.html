@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="siteChk.js"></script>
+<script type="text/javascript" src="vaildCheck.js"></script>
+<script type="text/javascript">
+	function test() {
+		let a = 'asd';
+		if (a) {
+			alert('참')
+		} else {
+			alert('거짓')
+	}}
+
+
+		let aa = 'asd';
+		alert(aa.indexOf('d')) 
+		
+</script>
+
+</head>
+<body>
+
+
+<button onclick="test()">test</button>
+<h1>회원가입</h1>
+<!-- <form action="asd" onsubmit="return call()"> -->
+<form action="asd" id="myForm"> 
+	필수 입력 : <input
+	placeholder="필수, 3글자 이상, 한글x"
+	name="i1">
+	<hr>
+	글자 수 : <input name="i2" placeholder="3자 이상, 10글자 까지"
+	maxlength="10"
+	>
+	<hr>
+	비번 : <input name="i3" placeholder="5자 이상, 대문자, 숫자 포함">
+	<hr>
+	비번 확인 : <input name="i4" placeholder="비번 재확인">
+	<hr>
+	숫자 : <input name="i5" placeholder="숫자만, 공백x">
+	<hr>
+	파일 : <input name="i6" type="file">
+	<hr>
+	<button type="button" onclick="call()"
+	>가입</button>
+</body>
+</html>

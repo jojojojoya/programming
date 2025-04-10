@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	$(function(){
+			let m1Visible = true;
+		$("#b1").click(function(){
+			if (m1Visible) {
+			$("#menu1").css('left',"0px");							
+			} else {
+			$("#menu1").css('left',"-80px");			
+			}
+			m1Visible = !m1Visible;
+			
+		})
+		
+		$("#b2").click(function(){
+			if (m1Visible) {
+			$("#menu2").css('opacity',"1");							
+			} else {
+			$("#menu2").css('opacity',"0");			
+			}
+			m1Visible = !m1Visible;
+			
+			
+		})
+
+		
+		$("#b3").click(function(){
+			if (m1Visible) {
+			$("#menu3").css('visibility','visible');							
+			} else {
+			$("#menu3").css('visibility','hidden');			
+			}
+			m1Visible = !m1Visible;
+			
+			
+		})
+
+		
+	})
+
+</script>
+<style type="text/css">
+	#menu1{
+		position: fixed;
+		left: -80px;
+		transition: all 0.3s ease-out;
+	}
+	
+	
+	#menu2{
+		margin-top: 150px;
+		opacity: 0;
+		transition: all 0.3s ease-out;
+	}
+	#menu3{
+		visibility: hidden;
+		transition: all 0.3s ease-out;
+	}
+</style>
+</head>
+<body>
+ 나용짱 고마워 ♥
+ 	<button id="b1"> menu1	 </button>
+ 	<div id="menu1" style="border: 1px solid; width: 80px">
+		<div> <a href="https://www.naver.com"> naver </a></div>	 
+		<div> <a href="https://www.daum.net"> daum </a></div>	 
+		<div> <a href="https://www.google.com"> google </a></div>	 
+	 </div>
+	 
+	 
+	 
+ 	<button id="b2"> menu2	 </button>
+ 	<div id="menu2" style="border: 1px solid; width: 80px">
+		<div> <a href="https://www.naver.com"> naver </a></div>	 
+		<div> <a href="https://www.daum.net"> daum </a></div>	 
+		<div> <a href="https://www.google.com"> google </a></div>	 
+	 </div>
+	 
+	 
+	 
+	 
+ 	<button id="b3"> menu3	 </button>
+ 	<div id="menu3" style="border: 1px solid; width: 80px">
+		<div> <a href="https://www.naver.com"> naver </a></div>	 
+		<div> <a href="https://www.daum.net"> daum </a></div>	 
+		<div> <a href="https://www.google.com"> google </a></div>	 
+	 </div>
+	 
+	 
+	 
+</body>
+</html>

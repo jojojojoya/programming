@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+ $(function() {
+	 $('button').click(function() {
+		 //this : 이벤트가 발생한 그 객체
+		 $(this).css("background-color",'black');
+		 // 버튼을 누르면 눌러진 그 버튼이 소속된 td의 배경색을 검정으로
+		 $(this).parent().css('background-color','black')
+	
+		 //눌러진 버튼이 소속된 테이블의 크기를 400px로 변경
+//		 $(this).parent().parent().parent().parent().css("width","400px")
+//		 $(this).parent(3).css("width","400px")
+		 $(this).closest('table').css("width","400px");
+		 //버튼 옆에 인풋
+		 
+		 $(this).parent().find('input').val();
+		 
+	 })
+	 
+ });
+	
+</script>
+</script>
+
+</head>
+<body>
+asd
+
+
+<table border="1">
+	<tr>
+		<td height="60px">
+			<input> <button> 버튼1 </button>			
+		</td>
+	</tr>
+	<tr>
+		<td height="60px">
+			<input> <button> 버튼2 </button>			
+		</td>
+	</tr>
+	<tr>
+		<td height="60px">
+			<input> <button> 버튼3 </button>			
+		</td>
+	</tr>
+	
+</table>
+
+<table border="1">
+	<tr>
+		<td height="60px">
+			<input> <button> 버튼1 </button>			
+		</td>
+	</tr>
+	<tr>
+		<td height="60px">
+			<input> <button> 버튼2 </button>			
+		</td>
+	</tr>
+	<tr>
+		<td height="60px">
+			<input> <button> 버튼3 </button>			
+		</td>
+	</tr>
+	
+</table>
+
+
+<table border="1">
+	<tr>
+		<td height="60px">
+			<input> <button> 버튼1 </button>			
+		</td>
+	</tr>
+	<tr>
+		<td height="60px">
+			<input> <button> 버튼2 </button>			
+		</td>
+	</tr>
+	<tr>
+		<td height="60px">
+			<input> <button> 버튼3 </button>			
+		</td>
+	</tr>
+	
+</table>
+
+
+</body>
+</html>

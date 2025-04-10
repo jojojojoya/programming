@@ -1,0 +1,19 @@
+
+public class UMain {
+	public static void main(String[] args) {
+		
+		String s = "안녕";
+		System.out.println(s);
+		String s2 = "안녕";
+		System.out.println(s.equals(s2)); // 문자열 비교
+		System.out.println("==========");
+
+		String ss = new String("이제 두시간만..");
+		System.out.println(ss);
+		
+		String ss2 = "이제 두시간만.." ;
+		System.out.println(ss.equals(ss2)); // 문자열 비교
+		System.out.println(0;		
+		
+	}
+}

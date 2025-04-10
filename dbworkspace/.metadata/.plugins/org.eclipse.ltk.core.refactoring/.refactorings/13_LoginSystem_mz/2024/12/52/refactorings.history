@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements to &apos;14_Board/src/main/java/com.mz.board.main&apos;&#x0D;&#x0A;- Original project: &apos;13_LoginSystem_mz&apos;&#x0D;&#x0A;- Destination element: &apos;14_Board/src/main/java/com.mz.board.main&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     com.mz.login.main.HC.java&#x0D;&#x0A;     com.mz.login.main.DBManager.java" description="Copy compilation units" destination="=14_Board/src\/main\/java&lt;com.mz.board.main" element1="/src\/main\/java&lt;com.mz.login.main{HC.java" element2="/src\/main\/java&lt;com.mz.login.main{DBManager.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1735220575002" units="2" version="1.0"/>
+</session>

@@ -1,0 +1,1013 @@
+/* 
+a {
+  text-decoration: none; 
+  }
+*/
+
+.sj_body {
+  height: 100%;
+  margin: 0px;
+  display: grid;
+  place-items: center;
+  padding-left: 36px;
+  padding-right: 36px;
+}
+
+.topBar {
+  background-color: black;
+  width: 100%;
+  height: 48px;
+  color: white;
+  display: flex;
+  font-size: 9px;
+}
+
+.navbar-sub div > :nth-child(1) {
+  position: absolute;
+  margin-left: -30px;
+  gap: 10px;
+}
+
+.topBar-container {
+  width: 1700px;
+  padding: 30px 40px;
+  padding: 10px 20px;
+}
+
+.container-top {
+  padding: 30px 40px;
+  width: 1700px;
+}
+.container-navbar {
+  padding: 19px 40px;
+  width: 1700px;
+}
+
+.navbar-sub {
+  left: 100px;
+  top: 170px;
+  font-size: 16px;
+  display: flex;
+  gap: 30px;
+  margin-left: 30px;
+}
+
+.kr {
+  font-size: 19px;
+  width: 1700px;
+}
+.krLogo {
+  left: 60px;
+  position: absolute;
+  display: flex;
+  width: 35px;
+  height: auto;
+}
+
+.itemlistLogo {
+  width: 80px;
+  height: auto;
+  display: flex;
+}
+
+.woopyon {
+  position: absolute;
+  left: 1905px;
+  font-size: 19px;
+  display: flex;
+}
+
+.logisLogo {
+  left: 1865px;
+  position: absolute;
+  width: 35px;
+  height: auto;
+  display: flex;
+}
+.chooseShop {
+  left: 2100px;
+  position: absolute;
+  text-align: left;
+  font-size: 19px;
+  display: flex;
+}
+
+.chooseShopLogo {
+  left: 2055px;
+  position: absolute;
+  width: 35px;
+  height: auto;
+  display: flex;
+}
+.manwon {
+  left: 995px;
+  position: absolute;
+  font-size: 19px;
+}
+
+.manwonLogo {
+  left: 950px;
+  position: absolute;
+  width: 35px;
+  height: auto;
+}
+.navbar img {
+  display: flex;
+  left: 100px;
+  width: 100px;
+  top: 80px;
+  position: absolute;
+}
+.notice2 {
+  position: absolute;
+  background-color: rgb(64, 64, 185);
+  height: 65px;
+  width: 1900px;
+  padding-left: 6px;
+  box-shadow: 10px 10px 10px rgb(234, 224, 222);
+  border-radius: 3px;
+  z-index: 1;
+}
+.notice44 {
+  position: absolute;
+  height: 65px;
+  font-size: 15px;
+  user-select: auto;
+  width: 1900px;
+  background-color: white;
+  z-index: 3;
+}
+
+.container-notice {
+  width: 1700px;
+  margin-top: 80px;
+}
+
+.noticement {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 10px;
+}
+
+.itemlist {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  min-width: 100px;
+  max-width: 130px;
+  text-decoration: none;
+  scroll-margin-top: 180px;
+  gap: 42px;
+}
+.itemlist-container {
+  display: flex;
+  align-items: center;
+  width: 1700px;
+}
+
+a:link {
+  color: rgb(12, 2, 2);
+}
+
+a:visited {
+  color: rgb(5, 5, 5);
+}
+
+.dollIntro {
+  user-select: all;
+  width: 1700px;
+  margin-top: 50px;
+}
+
+.sortingttl {
+  width: 1700px;
+  user-select: auto;
+  margin-top: 50px;
+  font-size: 11px;
+}
+
+.filtering {
+  display: flex;
+  align-items: center;
+}
+
+.formclass {
+  width: 1800px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center; */
+  margin-left: 70px;
+}
+
+select {
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  background-color: rgb(241, 241, 241);
+  padding: 10px;
+  padding-left: 18px;
+  padding-right: 18px;
+  border-radius: 30px;
+  border-color: white;
+  font-size: 13px;
+  font-weight: bolder;
+}
+
+.formclass button {
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  background-color: rgb(241, 241, 241);
+  padding: 10px;
+  padding-left: 18px;
+  padding-right: 18px;
+  border-radius: 30px;
+  border-color: white;
+  font-size: 13px;
+  font-weight: bolder;
+}
+.filter-menu {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 27px;
+  background-color: rgb(245, 245, 245);
+  border-radius: 50px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+  font-weight: bolder;
+}
+
+.filter-item:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.active-filters {
+  margin-top: 20px;
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.filter-tag {
+  background-color: #ff6347;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.dropdown-icon {
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+}
+
+.product-itemlist {
+  height: 14vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.top-itemcontainer {
+  width: auto; /* 최대 너비 설정 */
+  padding: 14px;
+  margin-right: -290px;
+}
+
+/* 상품 이미지 섹션 */
+.products {
+  display: flex;
+  align-items: flex-start;
+  text-decoration: none;
+  width: 1700px;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.item-info {
+  display: block;
+  flex-wrap: wrap;
+  width: 2000px;
+  margin-top: 330px;
+  gap: 20px;
+}
+
+.container-line {
+  width: 1910px; /* 최대 너비 설정 */
+  margin-right: -200px;
+}
+
+.container-basic-line {
+  height: 1px;
+  background-color: #e0e0e0;
+  border-radius: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.see-more-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.see-more-results {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: rgb(65, 65, 65);
+  z-index: 10;
+  border: 1px solid rgb(88, 87, 87);
+  padding: 11px;
+  padding-left: 95px;
+  padding-right: 95px;
+  border-radius: 20px;
+  position: initial;
+  font-size: 12px;
+}
+
+.pickIntro {
+  user-select: all;
+  width: 1700px;
+  margin-top: 50px;
+}
+
+.categoryIntro {
+  user-select: all;
+  width: 1700px;
+  margin-top: 50px;
+}
+
+.bottom-itemlist {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  min-width: 100px;
+  max-width: 130px;
+  text-decoration: none;
+  scroll-margin-top: 180px;
+  gap: 32px;
+}
+
+.itemstag {
+  display: grid;
+  align-items: center;
+}
+
+.pricetag {
+  display: flex;
+  margin-bottom: -11px;
+}
+
+.pricetag-sale {
+  display: flex;
+  margin-bottom: -11px;
+  box-shadow: 4px 4px 3px rgb(238, 0, 0);
+}
+
+.item-checkin-hart {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 9px;
+  justify-content: flex-start;
+  margin-inline-start: auto;
+  margin-bottom: 60px;
+  margin-top: 20px;
+}
+
+.botcart-logo {
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.botitem-checkin-hart {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 9px;
+  justify-content: flex-start;
+  margin-inline-start: auto;
+  margin-bottom: 60px;
+  margin-top: 20px;
+}
+
+.new {
+  gap: 30px;
+  height: 1200px;
+  position: absolute;
+  margin-top: 10px;
+  width: 1200px;
+}
+
+.botheart {
+  width: 22px;
+  height: 22px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21l-1-1c-5-5-8-8-8-11a5 5 0 0110 0 5 5 0 0110 0c0 3-3 6-8 11l-1 1z"/></svg>')
+    no-repeat center/contain;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  margin-left: 9px;
+}
+
+.botheart.selected {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21l-1-1c-5-5-8-8-8-11a5 5 0 0110 0 5 5 0 0110 0c0 3-3 6-8 11l-1 1z"/></svg>')
+    no-repeat center/contain;
+  transform: scale(1.1);
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch-checkbox {
+  display: none;
+}
+
+.switch-label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+  border-radius: 34px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.switch-label .switch-inner {
+  display: none;
+}
+
+.switch-label .switch-slider {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.switch-checkbox:checked + .switch-label {
+  background-color: #292929;
+}
+
+.switch-checkbox:checked + .switch-label .switch-slider {
+  transform: translateX(26px);
+}
+
+.topseller {
+  background-color: rgb(244, 6, 6);
+  width: 80px;
+  color: white;
+  padding: 2px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.progress-container2 {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.progress-container {
+  text-align: center;
+  width: 40%;
+  max-width: 250px;
+}
+
+.progress-text {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  position: relative;
+  height: 2px;
+  background-color: #e0e0e0;
+  border-radius: 1px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.bs-button {
+  display: grid;
+      margin-left: -1580px;
+      margin-top: 30px;
+}
+
+.bs-button2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 27px;
+  background-color: rgb(245, 245, 245);
+  border-radius: 50px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+  font-weight: bolder;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 4%;
+  background-color: #000000;
+  transition: width 0.3s ease;
+}
+
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  font-size: 18px;
+  z-index: 10;
+}
+
+.bottom-itemlist-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+/* 진행 바 컨테이너 */
+.progress-bar-container3 {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.progress-bar3 {
+  width: 50px;
+  height: 5px;
+  background-color: #ccc;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.progress-bar.active {
+  background-color: #4caf50;
+}
+
+.image-container {
+  position: relative;
+  width: 460px;
+  height: 460px;
+}
+
+.default-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .default-image {
+  opacity: 0;
+}
+
+.image-container:hover .hover-image {
+  opacity: 1;
+}
+
+.progress-container-top {
+  width: 1730px;
+}
+.progress-container3 {
+  width: 880px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.progress-bar3 {
+  height: 2px;
+  background-color: #e0e0e0;
+  border-radius: 1px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.progress-fill3 {
+  height: 100%;
+  width: 12%;
+  background-color: #2603a4;
+}
+
+/* 별 전체 영역 */
+.star-rating {
+  position: relative;
+  display: inline-block;
+  width: 100px; /* 25px x 5개의 별 */
+  height: 20px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>')
+    repeat-x;
+  background-size: 20px 20px;
+  margin-top: 30px;
+}
+
+/* 채워진 별 */
+.stars-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%; /* 별 네 개 반 (4.5개) */
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>')
+    repeat-x;
+  background-size: 20px 20px;
+}
+
+/* 반쪽 별 */
+.stars-half {
+  position: absolute;
+  top: 0;
+  left: calc(4 * 25px); /* 네 번째 별의 위치 */
+  width: 12.5px; /* 반쪽 별 */
+  height: 10%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f0f0f0"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>')
+    no-repeat;
+  background-size: 20px 20px;
+  overflow: hidden;
+}
+
+.star5-rating {
+  position: relative;
+  display: inline-block;
+  width: 100px; /* 25px x 5개의 별 */
+  height: 20px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#e0e0e0"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>')
+    repeat-x;
+  background-size: 20px 20px;
+  margin-top: 30px;
+}
+
+/* 검은색 별 */
+.stars5-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* 5개의 별 모두 채움 */
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>')
+    repeat-x;
+  background-size: 20px 20px;
+}
+
+/* 채워진 별 */
+.stars4-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%; /* 별 네 개 반 (4.5개) */
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>')
+    repeat-x;
+  background-size: 20px 20px;
+}
+
+.hearts-container {
+  display: flex;
+  gap: 25px;
+  z-index: 999;
+}
+.heart {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="black" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>')
+    no-repeat center/contain;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.heart.selected {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" stroke="black" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>')
+    no-repeat center/contain;
+}
+/* 최하단 슬라이드 */
+.slider-container {
+  height: 606px;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  width: 1700px;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease;
+  position: relative;
+}
+
+.slide {
+  position: relative;
+  width: 320px;
+  margin: 10px;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slide button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+button.prev-btn {
+  position: absolute;
+  left: 5px;
+  top: 40%;
+  z-index: 3;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  transform: scale(1.3);
+  display: none;
+}
+
+button.next-btn {
+  position: absolute;
+  right: 5px;
+  top: 40%;
+  z-index: 3;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  transform: scale(1.3);
+}
+
+.bot-progress-bar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.bot-progress-bar {
+  width: 50px;
+  height: 5px;
+  background-color: #ccc;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.bot-progress-bar.active {
+  background-color: #4caf50;
+}
+
+.swiper-slide .item-checkin-hart {
+  position: relative;
+  z-index: 10; /* 버튼이 다른 요소 위에 오도록 설정 */
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.swiper-slide .item-checkin-hart img {
+  width: 40px; /* 버튼 크기 고정 */
+  height: 40px;
+  object-fit: cover; /* 이미지가 버튼 영역을 벗어나지 않도록 설정 */
+  border-radius: 50%; /* 버튼을 원형으로 유지 */
+}
+
+/* 버튼이 이미지 전환 영역과 충돌하지 않도록 분리 */
+.product-item:hover .item-checkin-hart {
+  z-index: 20; /* 이미지 전환 레이어 위로 올림 */
+}
+
+ .swiper {
+        width: 95%;
+        height: 70%;
+        align-items: end;
+        padding-left: 80px;
+      }
+  
+      .swiper-slide {
+        display: block;
+        flex-direction: column;
+        align-items: baseline;
+        justify-content: first baseline;
+        position: relative;
+      }
+  
+      .swiper-slide img {
+        max-width: 100%;
+        max-height: 500px; /* 고정된 최대 높이 */
+        object-fit: cover; /* 비율 유지 */
+      }
+
+      /* 비교 토글 스타일 */
+      .toggle-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 60px;
+        margin-left: 1970px;
+      }
+
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 25px;
+      }
+
+      .toggle-switch input {
+        display: none;
+      }
+
+      .slider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: 0.4s;
+      }
+
+      .slider:before {
+        content: "";
+        position: absolute;
+        height: 19px;
+        width: 19px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        border-radius: 50%;
+        transition: 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #2f2e2e;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(25px);
+      }
+
+      .product-container {
+        display: flex;
+        gap: 20px;
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        width: 40px; /* 버튼 너비 고정 */
+        height: 40px; /* 버튼 높이 고정 */
+        background-color: black; /* 버튼 배경색 */
+        border-radius: 50%; /* 버튼을 원형으로 유지 */
+        color: white; /* 화살표 색상 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px; /* 화살표 크기 */
+        transition: background-color 0.3s ease, transform 0.2s ease; /* 크기 변화 방지 */
+      }
+
+      /* 버튼에 hover 상태에서도 크기 유지 */
+      .swiper-button-next:hover,
+      .swiper-button-prev:hover {
+        background-color: gray; /* 버튼 hover 색상 변경 */
+        transform: scale(1); /* 크기 변화 방지 */
+      }
+
+      /* 버튼 active 상태에서도 크기 유지 */
+      .swiper-button-next:active,
+      .swiper-button-prev:active {
+        transform: scale(1); /* 크기 변화 방지 */
+      }
+
+      /* 비교 체크박스 */
+      .compare-overlay {
+        position: absolute;
+        top: -45px; /* 이미지 컨테이너 내 적절한 위치 */
+        left: -10px; /* 이미지 컨테이너 내 적절한 위치 */
+        display: flex; /* Flexbox 활성화 */
+        align-items: center; /* 세로 정렬 중앙 */
+        justify-content: center; /* 내부 요소의 수평 정렬 */
+        gap: 5px; /* 요소 간 간격 */
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 5px;
+        border-radius: 5px;
+        z-index: 10;
+      }
+
+      .compare-overlay input[type="checkbox"] {
+        width: 25px; /* 체크박스 크기 조정 */
+        height: 25px;
+      }
+
+      .comparison-bar {
+        margin-top: 20px; /* 상단과 간격 조정 */
+        margin-top: 20px;
+        width: 1911px;
+        margin-left: 200px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding-top: 13px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        border-top: 1px solid #ccc;
+        text-align: right;
+      }
+
+      .comparison-list img {
+        width: 80px;
+        margin-right: 20px;
+      }
+
+      .selected-items {
+        display: flex;
+        gap: 10px;
+      }
+
+      .selected-items img {
+        width: 50px;
+        height: 50px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        object-fit: cover;
+      }
+
+      .compare-button {
+        background-color: #000;
+        color: #fff;
+        padding: 20px 40px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .compare-button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }

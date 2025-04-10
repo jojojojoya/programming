@@ -1,0 +1,214 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class BMIMain3 {
+	
+		static Scanner sc = new Scanner(System.in);
+		String name;
+		double h;
+		double w;
+		double bmi;
+		String result;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String[] statusTbl = {"","저체중", "정상", "과체중", "비만","고도비만"};
+		
+		public static void main(String[] args) {
+			BMIMain3 bmiProgram = new BMIMain3();
+try {
+	bmiProgram.con = ConnectionMain.connect();
+	
+	while (true) {
+		bmiProgram.showUI();
+		int pick = sc.nextInt();
+		if (pick ==3) { 
+			break;
+		} else if (pick >3 || pick <=0) {
+			System.err.println("입력오류");
+			continue;
+		}
+		
+		if(pick==1) {
+			int save = bmiProgram.checkBMI();
+		 if (save ==1) {
+			bmiProgram.insertBMI(); // 데이터 베이스에 저장하는 역할
+		} else if (save == 2) {
+			continue;
+		}else {
+			System.err.println("입력오류, 초기화면으로 돌아갑니다.");
+			continue;
+	}} else if (pick ==2) {
+		System.out.println("어떤 정보로 조회하시겠습니까");
+		System.out.println("1.이름(포함검색)");
+		System.out.println("2.상태(저체중, 정상, 과체중...)");
+		sc.nextInt();
+		pick = sc.nextInt();
+		if (pick == 1) {
+			bmiProgram.selectByName();
+		
+			
+		} else if(pick ==2) {
+			bmiProgram.selectByStatus();
+	}
+		 
+		}}
+} catch (Exception e) {
+	e.printStackTrace();
+}			
+		}			
+
+		private void selectByStatus() {
+			System.out.println("1. 저체중 2. 정상  3. 과체중 \n 4. 비만 5. 고도비만");
+			int pick = sc.nextInt();
+			String sql = "select * from bmi_test where status = ?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pick);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					System.out.printf("%d]  %s / %.1f / %.1f /%.1f / %s",
+					rs.getInt(1),
+					rs.getString(2),
+					rs.getDouble(3),
+					rs.getDouble(4),
+					rs.getDouble(5),
+					rs.getString(6));
+			System.out.println("\n=============");
+				}
+		}
+
+		private void selectByName() {
+			System.out.println("검색할 이름 : ");
+			String name = sc.next();
+			String sql = "select * from bmi_test where b_name like '%'||?||'%'";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, name);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					System.out.printf("%d]  %s / %.1f / %.1f /%.1f / %s",
+					rs.getInt(1),
+					rs.getString(2),
+					rs.getDouble(3),
+					rs.getDouble(4),
+					rs.getDouble(5),
+					rs.getString(6));
+			System.out.println("\n=============");
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+
+		private void insertBMI() {
+			String sql = "insert into bmi_test values(bmi_test_seq.nextval, ?,?,?,?,?)";
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, name);
+				pstmt.setDouble(2, h);
+				pstmt.setDouble(3, w);
+				pstmt.setDouble(4, bmi);
+				pstmt.setString(5, result);
+				
+				if (pstmt.executeUpdate()==1) {
+					System.out.println("저장 성공");
+					
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}			
+		}
+
+		private int checkBMI() throws InterruptedException {
+		      Scanner sc = new Scanner(System.in);
+		        System.out.println("이름을 입력하세요");
+		        String name = sc.next();
+		        System.out.println("키(cm)를 입력하세요");
+		        h = sc.nextDouble();
+		        System.out.println("체중(kg)을 입력하세요");
+		        w = sc.nextDouble();
+
+		        
+
+		        if (h > 10) {
+		            // cm으로 입력했을 것
+		            h /= 100;
+		        } 
+		        double bmi = w / (h * h); // m 단위
+
+		        System.out.println(bmi);
+
+		        String result = "";
+
+		        if (bmi < 18.5) {
+		            result    = "저체중";
+		        } else if (bmi < 23) {
+		            result    = "정상";
+		        } else if (bmi < 25) {
+		            result    = "비만 전단계";
+		        } else if (bmi < 30) {
+		            result    = "1단계 비만";
+		        } else if (bmi < 35) {
+		            result    = "2단계 비만";
+		        } else {
+		            result    = "3단게 비만";
+		        }
+
+		        System.out.print("계산중.");
+		        Thread.sleep(300);
+		        System.out.print(".");
+		        Thread.sleep(300);
+		        System.out.print(".");
+		        Thread.sleep(300);
+		        System.out.print(".");
+		        Thread.sleep(300);
+		        System.out.print(".");
+		        Thread.sleep(300);
+		        System.out.print(".\n\n");
+
+
+
+
+		        System.out.printf("BMI 지수 : %.2f\n", bmi);
+		        System.out.println(name + "님, 당신은 " + result + "입니다.");
+		 
+		        
+		        
+		        //저장 유무 
+		        System.out.println("\n --- 저장 하시겠습니까? ---");
+		        System.out.println("1. yes / 2. no");
+		        int save = sc.nextInt();
+		        return save;
+		}
+
+		private void showUI() {
+			System.out.println("---BMI---");
+			System.out.println("1. 검사");
+			System.out.println("2. 조회");
+			System.out.println("3. 종료");
+			System.out.println("---------");
+			System.out.println("선택 : ");
+		}
+   }

@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f9;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.bmi-container {
+	border: 3px solid black;
+	border-radius: 10px;
+	width: 300px;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+}
+
+.bmi-header {
+	background-color: darkorchid;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px;
+	font-size: 1.2em;
+}
+
+.bmi-body {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+.bmi-body1 {
+	padding: 20px;
+	display: flex;
+	gap: 15px;
+}
+
+.bmi-body label {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 0.9em;
+}
+
+.bmi-body input {
+	width: calc(100% - 60px);
+	padding: 5px;
+	font-size: 0.9em;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.bmi-body input[type="file"] {
+	padding: 0;
+}
+
+.bmi-button {
+	background-color: darkorchid;
+	color: white;
+	border: none;
+	padding: 10px;
+	font-size: 1em;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.3s;
+}
+
+.bmi-button:hover {
+	background-color: rebeccapurple;
+}

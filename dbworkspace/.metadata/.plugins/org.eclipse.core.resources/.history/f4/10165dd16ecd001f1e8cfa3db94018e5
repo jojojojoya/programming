@@ -1,0 +1,133 @@
+package com.mz.ajax;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+public class M {
+
+	public static void test1(HttpServletRequest request) {
+		String name =  request.getParameter("name");
+		String age =  request.getParameter("age");
+		System.out.println(name + " / " + age);
+		
+	}
+	public static void test2(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String str = "안녕";
+		
+		// lib => jsonsimple, gson
+		JSONObject jobj = new JSONObject();
+		jobj.put("str", str);
+		
+	
+		
+		response.setContentType("application/json; charset=utf-8");
+		response.getWriter().print(jobj);
+		
+	}
+
+	public static void test3(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setContentType("application/json; charset=utf-8");
+		
+		Person p = new Person("mz",10);
+		System.out.println(p);
+//		response.getWriter().print(p);
+//		
+//		JSONObject jo = new JSONObject();
+//		jo.put("name", p.getName());
+//		jo.put("age", p.getAge());
+//		response.getWriter().print(jo);
+		
+		//1. 객체 응답 
+		System.out.println(p.toJSON());
+//		response.getWriter().print(p.toJSON());
+		
+		//2. 객체 키값 실어서 전송 
+		JsonObject jo = new JsonObject();
+		JsonParser parser = new JsonParser();
+		jo.add("person", parser.parse(p.toJSON()));
+		response.getWriter().print(jo);
+		
+		
+	}
+	
+	public static void test4(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setContentType("application/json; charset=utf-8");
+		Person p1 = new Person("mz1",10);
+		Person p2 = new Person("mz2",20);
+		Person p3 = new Person("mz3",30);
+		
+		
+		ArrayList<String> people = new ArrayList<String>();
+		people.add(p1.toJSON());
+		people.add(p2.toJSON());
+		people.add(p3.toJSON());
+		
+		System.out.println(people);
+		
+		//	1. 
+//		response.getWriter().print(people);
+		
+		//  2. 키값 부여 
+		JsonObject jo = new JsonObject();
+		JsonParser parser = new JsonParser();
+		jo.add("people", parser.parse(people.toString()));
+		response.getWriter().print(jo);
+		
+	}
+	public static void test5(HttpServletRequest request, HttpServletResponse response) {
+		//test 버튼 누르면 tbl에 있는 내용을 비동기로 클라이언트 화면에 나오게.
+		response.setContentType("application/json; charset=utf-8");
+		
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from people_test";
+		
+		
+		
+try {
+	con = DBManager.connect();
+	pstmt = con.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+	
+	ArrayList<String> humans = new ArrayList<String>();
+	Human human = null;
+	
+	while (rs.next()) {
+		human = new Human();
+		human.setNo(rs.getInt(1));
+		human.setName(rs.getString(2));
+		human.setAge(rs.getInt(1));
+		humans.add(human.toJSON());
+		
+	}
+	System.out.println(humans);
+	
+} catch (Exception e) {
+	e.printStackTrace();
+}		finally {
+	DBManager.close(con, pstmt, rs);
+}
+	JsonObject hm = new JsonObject();
+	JsonParser parser = new JsonParser();
+	hm.add("human", parser.parse(human.toString()));
+	response.getWriter().print(hm);
+
+	}
+	
+}
+
+

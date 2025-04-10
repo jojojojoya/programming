@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<!-- 20이상이면 "안녕하세요" 미만이면 "안녕" h1 써서 잘 보이게 -->
+	<form action="say_hi.jsp">
+		나이 <input name="age"> <br>
+		<button>확인</button>
+	</form>
+	<!-- 당신의 주소는 서울입니다. -->
+	<form action="addr_output.jsp">
+		<select name="addr">
+			<option value="seoul">서울</option>
+			<option value="gyeongju">경주</option>
+			<option value="busan">부산</option>
+		</select>
+		<button>확인</button>
+	</form>
+	<!-- 선택한 스포츠 다 나오게 >>  -->
+	<form action="sport_output.jsp">
+		<input type="checkbox" name="interest" value="football" />축구
+		<input type="checkbox" name="interest" value="basketball" />농구
+		<input type="checkbox" name="interest" value="badminton" />배드민턴
+		<button>확인</button>
+	</form>
+
+
+
+
+</body>
+
+</html>

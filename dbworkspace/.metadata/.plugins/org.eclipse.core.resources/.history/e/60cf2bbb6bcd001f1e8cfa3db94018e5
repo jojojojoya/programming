@@ -1,0 +1,10 @@
+package com.mz.ajax;
+
+public class Human {
+	
+	private int p_no;
+	private String p_name;
+	private int p_age;
+	
+
+}

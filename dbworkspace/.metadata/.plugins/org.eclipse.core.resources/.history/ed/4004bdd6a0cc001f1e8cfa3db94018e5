@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+
+$(function() {
+	
+</script>
+
+</head>
+<body>
+
+	<div class = "p-1">
+		<p class="star">
+			<a href="#" class="on">★</a>
+			<a href="#" class="on">★</a>
+			<a href="#" class="on">★</a>
+			<a href="#" class="on">★</a>
+			<a href="#" class="on">★</a>
+			<input type="hidden" name="score" value="5">
+			
+		</p>
+		
+		
+	</div>
+
+</body>
+</html>

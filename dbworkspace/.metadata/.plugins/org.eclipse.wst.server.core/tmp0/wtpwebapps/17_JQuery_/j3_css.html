@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+		$(function () {
+
+			$("#b1").click(function () {
+				alert('b1 clicked')
+				$("h1").css('color', 'red');
+			})
+
+			$("#b2").click(function () {
+				alert(111)
+				$("h1").css('background-color', 'blue').css('font-size', '30pt').css('font-family', '궁서');
+
+
+			})
+			$("#b3").click(function () {
+				$("h1").css('color', 'purple');
+				let color =		$("h1").css('color');
+				alert(color);
+		})
+		
+			$("#b4").click(function () {
+				let h1color = $("h1").css('color');
+				$("#b4").css("background-color",h1color);
+				
+				
+				
+		})
+		
+		
+		let time = 5;
+		let setTime =  
+		setInterval(() => {
+			let x = $('span');
+//			alert(x);
+//			x.text(time);
+$(x).text(time);
+//			x.innerText = time;
+			time = time - 1;
+			
+			if(time < 0) {
+				clearInterval(setTime);
+			}
+		}, 1000);
+//		setInterval(() => {
+//			let x = Math.random() * 500; 
+//			let y = Math.random() * 500; 
+			
+//			$('img').css('top',x);
+//			$('img').css('left',y);
+			
+//		}, 1000);
+	
+	
+	$(".test").click(function(){
+		console.log($(".test").val());	
+		
+		if($(".test").val() == 'night mode') {
+			$('body').css('background-color','black');
+			$('body').css('color','white');
+			
+			$(".test").val("day mode");
+			$(".test").text('day mode');
+		} else{
+			$('body').css('background-color','white');
+			$('body').css('color','black');
+			
+			$(".test").val("night mode");
+			$(".test").text('night mode');
+			
+			
+			
+			
+		}
+		
+	})
+		
+		})
+
+
+	</script>
+</head>
+
+<body>
+
+	<h1>ㅎㅎㅎ</h1>
+	<button id="b1"> b1 </button>
+	<button id="b2"> b2 </button>
+	<button id="b3"> b3 </button>
+	<button id="b4"> b4 </button>
+	<hr>
+	초 : <span></span>
+	
+	<hr>
+	<input class="test" type="button" value="night mode">
+	<button class="test">night mode</button>
+	
+	
+		
+	<img style="width: 200px; transition: all 0.2s ease-out; 
+	position: fixed; top : 500px;" 
+	src="https://blog.malcang.com/wp-content/uploads/2024/05/mangceo_Running_poodles_53521426-c8b4-4261-ba37-00176e10670e.png.jpeg">
+
+</body>
+
+</html>

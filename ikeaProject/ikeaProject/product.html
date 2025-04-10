@@ -1,0 +1,469 @@
+<!-- left sidebar 에서 연결하기 
+all product에서 편의상 연결-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        SKOGSDUVA 스콕스두바 인형2종, 어른수달과 아기수달/브라운 베이지, 45 cm
+    </title>
+    <link
+        rel="icon"
+        href="https://img.icons8.com/?size=100&id=VtHjhYNlXNEz&format=png&color=000000"
+        type="image/icon type"
+    />
+    <link rel="stylesheet" href="product.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="stylesheet_hm.css" />
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 전체영역 -->
+    <div class="h_container" style="color: white">
+        <!-- 언어선택버튼 -->
+        <div id="lang_select" style="padding: 15px 0px;">
+            <button class="modal_btn" type="button">
+            <img class="h_img" src="./ikeaAssets/www.ikea.com/ba221c01.png">
+            <span>&nbsp</span>
+                <span class="modal_btn_txt">KR | 한국어&nbsp</span>
+            </button>
+        </div>
+        
+        <!-- 우편번호 입력버튼 -->
+        <div id="modal_wrapper_pc">
+            <div id="postal_code" style="padding: 15px 0px">
+                <button type="button" class="modal_btn" id="postal_code_btn">
+                    <img class="h_img" src="./ikeaAssets/www.ikea.com/f4df1395.png">
+                    <span>&nbsp</span>
+                    <span class="modal_btn_txt">우편 번호 입력</span>
+                </button>
+            </div>
+        </div>
+        <div class="modal_overlay" id="postal_code_overlay"></div>
+
+        <!-- 매장선택버튼 -->
+        <div id="choose_store">
+            <div style="padding: 15px 0px">
+                <button type="button" class="modal_btn">
+                    <img class="h_img" src="./ikeaAssets/www.ikea.com/ec7c7151.png">
+                    <span>&nbsp</span>
+                    <span class="modal_btn_txt">매장 선택</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 우편번호 슬라이딩 모달 -->
+    <div class="modal_window_pc" id="">
+        <div class="modal_body_pc" id="">
+            <!-- 슬라이딩 메뉴 닫기 버튼 -->
+            <div class="close_modal_img_wrapper">
+                <a href="">
+                    <img class="close_modal_img" src="./ikeaAssets/www.ikea.com/e49f98ad.png">
+                </a>    
+            </div>    
+            <div class="modal_body_pc_inner">
+                <div>
+                    <h2>현재 위치 사용</h2>
+                <br>
+                <p>내 위치로 배송 가능여부 및 재고 정보를 확인하세요</p>
+                <br>
+            </div>
+            <div class="modal_inner_btn">
+                <button id="modal_inner_btn" type="button" onclick="openPostalCode()" style="border: none; color:white; background-color: transparent;">우편 번호 찾기</button>
+            </div>
+            <div>
+                <br>
+                <p>이 서비스를 제공하기 위해 쿠키를 사용합니다. 쿠키 사용 방식에 대한 자세한 내용은 정책에서 확인하세요. 위치는 공유되지 않습니다.</p>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- navigation menu -->
+    <div class="nav_bar">
+        <div id="nav_mainIcon">
+          <a href="main.html">
+            <img src="https://www.ikea.com/global/assets/logos/brand/ikea.svg">&nbsp&nbsp
+          </a>
+        </div>
+
+        <!-- 검색창 -->
+        <div class="search_wrapper">
+          <div id="search_box" style="position: relative" >
+            <div class="search_box_inner">
+              <img class="glass" id="glass" src="./ikeaAssets/www.ikea.com/4297063b.png" />
+              <input class="search_box_input"
+              type="search" placeholder="검색어 입력"/>
+              <img class="camera" id="camera" src="./ikeaAssets/www.ikea.com/ada85900.png" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측버튼 4개 -->
+        <div class="nav_img_wrapper">
+          <div class="nav_subIcon">
+            <div>
+              <a class="a_login" href="">
+                <img class="img_mypage" style="width: 35px; height: 35px" src="./ikeaAssets/www.ikea.com/137be782.png" >
+                <span class="" style="padding-bottom: 5px;">Hej! 로그인 하기</span>
+              </a>
+            </div>
+
+            <!-- 페이버릿 아이콘 -->
+            <div class="nav_subIcon">
+              <a href="favourite.html">
+                <img class="nav_img favourite" src="./ikeaAssets/www.ikea.com/d6949042.png">
+              </a>
+            </div>
+
+            <!-- 장바구니 아이콘 -->
+            <div class="nav_subIcon">
+              <a href="shoppingCart.html">
+                <img class="nav_img shoppingCart" src="./ikeaAssets/www.ikea.com/e98778b2.png">
+              </a>
+            </div>
+
+            <!-- 햄버거 메뉴 아이콘 -->
+            <div class="nav_subIcon">
+              <button type="button" class="modal_btn_ham">
+                <img class="nav_img menu" src="./ikeaAssets/www.ikea.com/2ffc52c3.png">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 왼쪽 슬라이딩 메뉴 -->
+      <aside class="left_sidebar">
+        <!-- 검색창 영역 -->
+        <div class="sidebar_search_box">
+          <div class="sidebar_search_box_inner">
+            <input class="sidebar_search_box_input"
+              type="search" placeholder="검색"/>
+          </div>
+        </div>
+        <br><br>
+
+        <!-- 사이드바 메뉴 -->
+        <div class="sidebarMenu_wrapper">
+          <ul class="menu first">
+            <li><a class="sidebar_menu_item" href="product.html"><span>모든 제품</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+            <li><a class="sidebar_menu_item" href=""><span>공간별 쇼핑하기</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+            <li><a class="sidebar_menu_item" href=""><span>특별한 가격</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+          </ul>
+          <br>
+          <ul class="menu second">
+            <li><a class="sidebar_menu_item" href=""><span>새로운 소식</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+            <li><a class="sidebar_menu_item" href=""><span>아이디어</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+            <li><a class="sidebar_menu_item" href=""><span>플래닝&체크 서비스</span><img class="menu_arrow" src="./ikeaAssets/www.ikea.com/873afa43.png"></a></li>
+          </ul>
+          <br>
+          <ul class="menu aux">
+            <li><a href="">매장안내</a></li>
+            <li><a href="">레스토랑 & 카페</a></li>
+            <li><a href="">쉽고 편한 전화주문, 헤이오더</a></li>
+            <li><a href="live.html">IKEA Live</a></li>
+            <li><a href="">IKEA Family 멤버십</a></li>
+            <li><a href="">IKEA For Business</a></li>
+            <li><a href="">고객 서비스</a></li>
+            <li><a href="">배송 조회</a></li>
+            <li><a href="">내 프로필</a></li>
+          </ul>
+          <br>
+        </div>
+        <!-- 사이드바 메뉴 -->
+
+        <!-- 사이드바 바텀 -->
+        <div class="phone-order" style="background-color: lightgray;">
+          <span>쉽고 편한 전화주문, 헤이오더</span>
+        </div>
+        <!-- 사이드바 바텀 -->
+      </aside>
+
+       <!-- 전체영역 -->
+    <div class="wrap">
+        <!-- 메인 -->
+        <div class="main">
+            <!-- 컨텐츠 표시 영역 -->
+            <div class="page-container">
+              
+                <!-- 상단 메세지 -->
+                <div class="message">
+                    <svg viewBox="0 0 24 24" focusable="false" width="24" height="24" aria-hidden="true" class="svg-icon hnf-svg-icon hnf-inline-message__icon" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 16h2V8h-2v8zm4.25-2.75c.6904 0 1.25-.5596 1.25-1.25s-.5596-1.25-1.25-1.25S14 11.3096 14 12s.5596 1.25 1.25 1.25zM10 12c0 .6904-.5596 1.25-1.25 1.25S7.5 12.6904 7.5 12s.5596-1.25 1.25-1.25S10 11.3096 10 12z"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M23 13.0533 11.9467 2l-8.289 1.6578L2 11.9467 13.0533 23 23 13.0533zM4.1206 11.3047 5.318 5.3179l5.9867-1.1973 8.9326 8.9327-7.184 7.184-8.9327-8.9326z"></path>
+                    </svg>
+                    <div>
+                        <span class="message_text">
+                            <a href="https://www.ikea.com/kr/ko/offers/family-offers/?filters=f-subcategories%3A18730" style="color: rgb(72, 72, 72);">
+                                포근한 겨울을 위한 필수템, 최대 20% 할인 중인 어린이 텍스타일 제품을 바로 확인해보세요!</a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 서브 그리드 : 그리드로 같은 갭 주기 -->
+                <div class="sub-grid">
+                    <!-- 왼쪽 상단 -->
+                    <div class="left-top-container">
+                        <div class="product-gallery">
+                            <!-- 썸네일 -->
+                            <div class="thumbnails-wrapper">
+                                <div class="thumbnails">
+                                    <button class="thumbnail">
+                                        <img class="t-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1298838_pe936323_s5.jpg?f=u" alt="">
+                                    </button>
+                                    <button class="thumbnail">
+                                        <img class="t-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372229_ph200408_s5.jpg?f=u" alt="">
+                                    </button>
+                                    <button class="thumbnail">
+                                        <img class="t-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372231_ph200451_s5.jpg?f=u" alt="">
+                                    </button>
+                                    <button class="thumbnail">
+                                        <img class="t-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372234_ph200452_s5.jpg?f=u" alt="">
+                                    </button>
+                                    <button class="thumbnail">
+                                        <img class="t-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372236_ph200470_s5.jpg?f=u" alt="">
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- 큰 이미지 -->
+                            <div class="layout">
+                                <!-- 슬라이더 -->
+                                <div class="slider-wrapper">
+                                    <div class="slide-container">
+                                        <div class="slide active">
+                                            <img id="m-image" class="m-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1298838_pe936323_s5.jpg?f=xl" alt="Slide 1">
+                                        </div>
+                                        <div class="slide">
+                                            <img class="m-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372229_ph200408_s5.jpg?f=xl" alt="Slide 2">
+                                        </div>
+                                        <div class="slide">
+                                            <img class="m-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372231_ph200451_s5.jpg?f=xl" alt="Slide 2">
+                                        </div>
+                                        <div class="slide">
+                                            <img class="m-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372234_ph200452_s5.jpg?f=xl" alt="Slide 2">
+                                        </div>
+                                        <div class="slide">
+                                            <img class="m-image" src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372236_ph200470_s5.jpg?f=xl" alt="Slide 2">
+                                        </div>
+                                    </div>
+                            
+                                    <!-- 좌우 버튼 -->
+                                    <button class="btn-left" id="btn-left" style="display: none;">
+                                        <svg style="fill: white;" viewBox="0 0 24 24" focusable="false" width="24" height="24" aria-hidden="true" class="pip-svg-icon pip-btn__icon"><path fill-rule="evenodd" clip-rule="evenodd" d="m7 12.0009 8.0012-8.0007 1.4142 1.4142-6.587 6.5866 6.5859 6.5868L15 20.002l-8-8.0011z"></path></svg>
+                                    </button>
+                                    <button class="btn-right" id="btn-right">
+                                        <svg style="fill: white;" viewBox="0 0 24 24" focusable="false" width="24" height="24" aria-hidden="true" class="pip-svg-icon pip-btn__icon"><path fill-rule="evenodd" clip-rule="evenodd" d="m16.415 12.0011-8.0012 8.0007-1.4141-1.4143 6.587-6.5866-6.586-6.5868L8.415 4l8 8.0011z"></path></svg>
+                                    </button>
+                                </div>
+
+                                    <!-- 전체 보기 버튼 -->
+                                    <div class="all-media-button">
+                                        <button id="modalOpenButton">
+                                            <span class="btn__inner">
+                                                <svg style="fill: white;" viewBox="0 0 24 24" focusable="false" width="24" height="24" aria-hidden="true" class="pip-svg-icon pip-btn__icon"><path d="M11.5 7.75c0 .6904.5596 1.25 1.25 1.25S14 8.4404 14 7.75s-.5596-1.25-1.25-1.25-1.25.5596-1.25 1.25zM5 13l3.5-5 2.875 4.1071 1.3594-1.9421 1.9844 2.8349L5 13z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M2 3h16v14H2V3zm2 2v10h12V5H4z"></path><path d="M22 21H5v-2h15V6h2v15z"></path></svg>
+                                                <span class="btn__label">전체 보기</span>
+                                            </span>
+                                        </button>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <!-- 오른쪽 상단 -->
+                    <div class="right-top-container">
+                        <div class="right-top-content">
+                            <div class="title-price-wrapper">
+                                <div class="title">
+                                    <div class="status">
+                                        <span class="status-new" style="color: rgb(202, 80, 8);" >New</span>
+                                    </div>
+                                    <div class="name-decorator" style="display: flex; flex-direction: column;">
+                                        <span class="name">SKOGSDUVA 스콕스두바</span>
+                                        <span class="description">인형2종, 어른수달과 아기수달/브라운 베이지, <u>45 cm</u></span>
+                                    </div>
+                                </div>
+                            <div class="price">₩19,900</div>
+                            </div>
+                    
+                            <div class="buy-module">
+                                <div class="quanity-stepper">
+                                    <button class="minus" disabled>-</button>
+                                    <input type="number" class="quantity-input" value="1" min="1" />
+                                    <button class="plus">+</button>
+                                </div>
+                                <button class="cart">장바구니에 담기</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                      <!-- 장바구니 패널 -->
+                    <div class="cart-panel" id="cartPanel">
+                        <button class="close-panel" id="closePanel">&times;</button>
+                            <div class="cart-items" id="cartItems"></div>
+                    </div>
+                
+                    <!-- 왼쪽 하단 추천 액세서리 전까지 -->
+                    <div class="left-bottom-container">
+                        <div class="key-facts">
+                            <span class="machine">
+                                <svg viewBox="0 0 24 24" focusable="false" width="24" height="24" aria-hidden="true" class="pip-svg-icon pip-key-facts__icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8c-2.7614 0-5 2.2386-5 5s2.2386 5 5 5 5-2.2386 5-5-2.2386-5-5-5zm-3 5c0-1.6569 1.3431-3 3-3 1.3062 0 2.4175.8348 2.8293 2H12v2h2.8293c-.4118 1.1652-1.5231 2-2.8293 2-1.6569 0-3-1.3431-3-3z"></path><path d="M14.5 5.5c0 .5523-.4477 1-1 1s-1-.4477-1-1 .4477-1 1-1 1 .4477 1 1zm2 1c.5523 0 1-.4477 1-1s-.4477-1-1-1-1 .4477-1 1 .4477 1 1 1z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M21 1.5H3v20h2v1h2v-1h10v1h2v-1h2v-20zm-16 18V7h5V3.5h9v16H5zM8 5H5V3.5h3V5z"></path></svg>
+                                <span>세탁기 사용 가능</span>
+                            </span>
+                        </div>
+                    
+                    
+                        <!-- 제품 요약 -->
+                        <div class="summary-container">
+                            <div class="product-summary">
+                                <p class="product-summary__description">
+                                    수달은 어떤 계절이든 물을 좋아해요. 가족과 함께 있을 때
+                                    행복해하며, 따뜻한 사랑과 보살핌을 나눕니다. 
+                                    이 인형 둘은 떼어놓을 수 있으며, 한 마리씩 껴안을 수 있어요.
+                                </p>
+                                <div class="product-info-container">
+                                    <span class="product-identifier">
+                                        <span class="product-identifier__label">제품 번호</span>
+                                        <span class="product-identifier__value">505.769.00</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 제품 상세 -->
+                        <div class="list-container">
+                            <div class="list-item">
+                                <span class="list-text">제품 설명</span>
+                                <span class="list-icon">
+                                    <svg viewBox="0 0 24 24" focusable="false" width="24" height="24" aria-hidden="true" class="pip-svg-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z"></path></svg>
+                                </span>
+                            </div>
+                            <div class="list-item">
+                                <span class="list-text">치수</span>
+                                <span class="list-icon">
+                                    <svg viewBox="0 0 24 24" focusable="false" width="24" height="24" aria-hidden="true" class="pip-svg-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z"></path></svg>
+                                </span>
+                            </div>
+                            <div class="list-item">
+                                <span class="list-text-label">
+                                    <span class="list-text">상품평</span>
+                                    <span class="stars">★★★★★ (1)</span> 
+                                </span>
+                                <span class="list-icon">
+                                    <svg viewBox="0 0 24 24" focusable="false" width="24" height="24" aria-hidden="true" class="pip-svg-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z"></path></svg>
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <!-- 제품 스토리 -->
+                        <div class="product-story-wrapper">
+                            <div class="product-story">
+                                <div class="product-story-image-wrapper">
+                                    <span class="image-box">
+                                        <img
+                                        src="https://www.ikea.com/kr/ko/images/products/skogsduva-soft-toy-set-of-2-otter-with-baby-brown-beige__1372229_ph200408_s5.jpg?f=s"
+                                        alt=""
+                                        />
+                                    </span>
+                                </div>
+                            <div class="product-story-text-wrapper product-story-text-wrapper-expanded">
+                                
+                                <div class="product-story-label">제품 스토리</div>
+                                <h2>마법의 숲으로 들어가 보세요</h2>
+                                <div class="title-introduction">
+                                    <p>
+                                        고요한 숲속 깊은 곳에서는 비밀스러운 삶이 이어지고
+                                        있어요. 나무 그루터기에 살고 있는 고슴도치 가족은
+                                        올빼미와 토끼, 다른 친구들을 초대해 차를 마셔요. 밖에는
+                                        달이 빛나고, 나무들 사이로 갑자기 초록빛으로 일렁이는
+                                        오로라가 하늘을 밝히는 것을 볼 수 있어요.
+                                    </p>
+                                </div>
+                                <div class="additional-text">
+                                    <div class="story-text">
+                                        <p>
+                                            "SKOGSDUVA 스콕스두바는 우리를 마법의 숲으로
+                                            데려다주는 컬렉션이에요. IKEA에서 스칸디나비아 뿌리의
+                                            큰 부분을 차지하죠."라고 제품 개발자 Anna Edlundh는
+                                            말합니다. "숲은 고요하고 비어 있는 것처럼 보이지만,
+                                            조금 더 자세히 들여다보면 흥미로운 동물과 식물이
+                                            가득한 삶으로 가득 차 있어요. 추운 겨울에도요."
+                                         </p>
+                                    </div>
+                                <h3 class="sub-header">환상의 세계</h3>
+                                <div class="story__text">
+                                    <p>
+                                        침대 텍스타일, 장난감, 액세서리 컬렉션에서
+                                        스칸디나비아의 전형적인 동물들을 만날 수 있어요.
+                                        고슴도치 가족과 친구들 외에도, 흰 북극여우, 수달,
+                                        스라소니 등 많은 동물이 있어요. "Malin Gyllensvaan
+                                        디자이너는 일러스트레이션에 흥미로운 디테일을 더해
+                                        멋진 세상을 창조했어요. 해먹에서 자는 쥐, 나비넥타이를
+                                        매고 차려입은 쥐도 있어요. 이들은 모두 사람처럼 살고
+                                        있고, 어린이와 어른 모두에게 자신만의 이야기를 떠올릴
+                                        수 있도록 영감을 주기를 바랍니다." 봉제인형으로 이야기
+                                        속 캐릭터 놀이를 해보세요. "어린이들은 사실적 인형을
+                                        좋아하죠. 적절한 표정과 감정을 찾기 위해 엄청나게
+                                        노력했어요."
+                                    </p>
+                                </div>
+                                <h3 class="sub-header">이끼처럼 부드러운</h3>
+                                <div class="story__text">
+                                    <p>
+                                        Anna가 개인적으로 가장 좋아하는 것은 그린 러그예요.
+                                        "부드럽고 근사하죠. 숲속 이끼처럼요. 위에서 놀기 딱
+                                        좋아요. 컬렉션의 쿠션은 러그에서 튀어나온 부드러운
+                                        꽃과 버섯 같아요." Anna는 이 컬렉션이 숲에 대한 관심과
+                                        이해에 도움이 되기를 바랍니다. "숲은 결국 동물과
+                                        식물들의 집이에요. 그렇기 때문에 숲을 보존하도록 돕는
+                                        것이 중요해요."
+                                    </p>
+                                </div>
+                                  
+                                </div>
+                                <div class="detail-wrap">
+                                    <div class="detail-btn" data-val="0">자세히 보기</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+
+                
+               
+                <!-- 모달 -->
+                <div id="modalContainer" class="hidden">
+                    <div id="modalContent">
+                        <div class="close">
+                            <button id="modalCloseButton">&times;</button>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+        <script src="product.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>

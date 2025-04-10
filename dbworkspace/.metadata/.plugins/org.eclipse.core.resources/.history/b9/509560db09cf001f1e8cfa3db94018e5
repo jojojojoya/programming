@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Page</title>
+<style>
+/* 공통 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5F7FA; /* 부드러운 배경색 */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #4A6585; /* 어두운 대표 컬러 */
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* 헤더, 푸터 스타일 */
+.header, .footer {
+    background-color: #7193BD; /* 대표 컬러 */
+    color: white;
+    text-align: center;
+    line-height: 100px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav {
+    background-color: #4A6585; /* 대표 컬러의 어두운 톤 */
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    font-size: 18px;
+}
+
+/* 콘텐츠 스타일 */
+.content {
+    margin: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-field {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #C3D2E8; /* 밝은 대표 컬러 */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.profile-circle img {
+    border-radius: 50%;
+    border: 4px solid #7193BD; /* 대표 컬러로 강조 */
+    width: 150px;
+    height: 150px;
+}
+
+button {
+    background-color: #7193BD; /* 대표 컬러 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #4A6585; /* 어두운 톤으로 변경 */
+}
+
+/* 리스트 제목 스타일 */
+.review-list, .reservation-list, .like-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.review-list h2, .reservation-list h2, .like-list h2 {
+    color: #7193BD; /* 대표 컬러 */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.review-comment, .reserv-place-list, .like-place-list {
+    margin-top: 20px;
+}
+
+.review-comment {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.review-comment span {
+    color: #7193BD; /* 대표 컬러로 강조 */
+    font-size: 20px;
+}
+
+.reserv-place-list img, .like-place-list img {
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 가로 리스트 정렬 */
+.reserv-place-list-field, .like-place-list-field {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+/* 스크롤바 숨기기 (필요 시 활성화 가능) */
+.reserv-place-list-field::-webkit-scrollbar,
+.like-place-list-field::-webkit-scrollbar {
+    display: none;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">My Page Header</div>
+        <div class="nav">Navigation Bar</div>
+        <div class="content">
+            <div class="mypage">
+                <h1>MyPage</h1>
+                <h2>내 프로필</h2>
+            </div>
+            <hr>
+
+            <!-- 프로필 섹션 -->
+            <div class="profile">
+                <div class="profile-field">
+                    <div class="profile-circle">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpgDevrlkGRc_wQ5fcoY3WZPh42yBUJhVPNA&s" alt="profile-img">
+                    </div>
+                    <span>
+                        <h2>대식가 비숑(ID) 님 (🖐🏻'-' )</h2>
+                        00 러버 비숑 님, 오늘은 어떤 맛집을 찾아볼까요? 🍫͜ (ᵔ ̮ ᵔ)›
+                    </span>
+                    <div>
+                        <button>내 프로필 수정</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 리뷰 리스트 -->
+            <div class="review-list">
+                <h2>작성한 맛리뷰</h2>
+                <div>
+                    <h3>더보기 ></h3>
+                </div>
+            </div>
+            <hr>
+
+            <div class="review-comment">
+                <span>🦀🍴</span> [ 맛리뷰 예시 ] 가게명 / 제목 or 텍스트 일부 / 게시일
+            </div>
+            <div class="review-comment">
+                <span>🦀🍴</span> 홋카이도넘버원 (北海道ナンバーワン) | 찾았습니다. 존맛탱 홍게집....! 홍게 속살이 꽉 차있는 숨은 골목 .. | 2025.01.10
+            </div>
+
+            <!-- 예약 리스트 -->
+            <div class="reservation-list">
+                <h2>예약한 가게</h2>
+                <div>
+                    <h3>더보기 ></h3>
+                </div>
+            </div>
+            <hr>
+
+            <div class="reserv-place-list-field">
+                <div class="reserv-place-list">
+                    <img src="https://mblogthumb-phinf.pstatic.net/MjAxODA3MDVfNDAg/MDAxNTMwNzU3MjEyNjQ0.RNprD67cJ2AOWI2GmRVprWVv7qtNI-d3WsN-XhRLTLIg.hpd6lxFA6mkoZ-78fN-zmiLtxAv9H3iP_Jxs6bF7XCEg.PNG.witchstudio/image.png?type=w800" alt="place-name">
+                    <h2>예약한 가게명</h2>
+                    <h3>예약일시 / 예약 인원</h3>
+                </div>
+            </div>
+
+            <!-- 좋아요 리스트 -->
+            <div class="like-list">
+                <h2>좋아요한 가게</h2>
+                <div>
+                    <h3>더보기 ></h3>
+                </div>
+            </div>
+            <hr>
+
+            <div class="like-place-list-field">
+                <div class="like-place-list">
+                    <img src="https://kr.savorjapan.com/gg/content_image/t0283_017.jpg" alt="place-name">
+                    <h2><span>🍴</span> 무라카미 하코다테 본점</h2>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Footer</div>
+    </div>
+</body>
+</html>

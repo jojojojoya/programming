@@ -1,0 +1,12 @@
+
+public class UMain {
+	public static void main(String[] args) {
+		
+		String s = "안녕";
+		System.out.println(s);
+		String s2 = "안녕";
+		System.out.println(s.equals(s2));
+
+		
+	}
+}
