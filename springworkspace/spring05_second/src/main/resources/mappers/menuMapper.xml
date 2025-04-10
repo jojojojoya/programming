@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sj.spring05_second.MenuMapper">
+    <select id="getAllMenu" resultType="com.sj.spring05_second.MenuDTO">
+        select * from menu_test
+    </select>
+
+    <delete id="deleteMenu">
+        delete menu_test where m_no = #{no}
+    </delete>
+
+<!--    <update id="updateMenu">-->
+<!--        update menu_test-->
+<!--        set m_name= #{m_name},-->
+<!--        m_price = #{m_price}-->
+<!--        where m_no = #{m_no}-->
+<!--    </update>-->
+
+    <select id="getMenu2" resultType="com.sj.spring05_second.MenuDTO">
+        select * from menu_test where m_no = #{no}
+    </select>
+
+    <select id="getMenu" resultType="com.sj.spring05_second.MenuDTO">
+        select * from menu_test where m_no = #{m_no}
+    </select>
+
+    <update id="upMenu">
+
+        update menu_test
+        <set>
+
+    <if test="m_name!=null">
+            m_name= #{m_name},
+
+    </if>
+            m_price = #{m_price}
+        </set>
+   where m_no = #{m_no}
+    </update>
+
+
+    <insert id="regMenu" parameterType="com.sj.spring05_second.MenuDTO">
+        INSERT INTO menu_test VALUES (menu_test_seq.nextval, #{m_name}, #{m_price})
+    </insert>
+
+
+</mapper>

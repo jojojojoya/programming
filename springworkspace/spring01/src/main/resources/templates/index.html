@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1>-- Index --</h1>
+
+<h1 th:text="${str}"></h1>
+<h1 th:text="${str2}"></h1>
+
+<!--thymeleaf 기본-->
+<h1 th:text="${a}"> </h1>
+<h1 th:utext="${a}"> </h1>
+
+<span th:text="${b}"> </span>
+<span>[(${b})]</span>
+
+
+<!-- 두개는 같은 코드다-->
+<h1 th:text="리터럴테스트"></h1>
+<h1> 리터럴테스트</h1>
+<h1 th:text="'리터럴 테스트'"> </h1>
+<h1 th:text="|리터럴 테스트|"> </h1>
+
+<a href="/test">원래방식</a>
+<h1><a th:href="@{/test}">리프 문법</a> </h1>
+
+<hr>
+${name}, ${age}
+
+<h1><a th:href="@{/test(name=${name}, age=${age})}">parameter</a></h1>
+
+<h1><a th:href="@{/test/{name}/{age}(name=${name}, age=${age})}">path variable</a></h1>
+
+<h1><a th:href="@{/test/{name}(name=${name},age=${age})}">두개 합친거</a></h1>
+
+</body>
+</html>

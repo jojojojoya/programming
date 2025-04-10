@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sj.spring06.mapper.ProductMapper">
+
+    <select id="getProducts" resultType="com.sj.spring06.vo.ProductVO">
+        select * from product_test2
+    </select>
+
+
+<insert id="addProduct" >
+    insert into product_test2 values (product_test2_seq.nextval, #{p_name}, #{p_price})
+</insert>
+
+    <delete id="deleteProduct">
+        delete product_test2 where p_no = #{p_no}
+    </delete>
+
+
+    <update id="updateProduct">
+        update product_test2
+        set p_name = #{p_name}, p_price = #{p_price}
+        where p_no = #{p_no}
+    </update>
+</mapper>

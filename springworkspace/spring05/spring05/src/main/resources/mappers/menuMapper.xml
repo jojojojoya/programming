@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.spring05.MenuMapper">
+    <select id="getAllMenu" resultType="com.hy.spring05.MenuDTO">
+        select * from menu_test
+    </select>
+
+    <delete id="deleteMenu">
+        delete menu_test where m_no = #{no}
+    </delete>
+
+    <update id="updateMenu">
+        update menu_test set m_price = #{m_price} where m_no = #{m_no}
+    </update>
+
+    <select id="getMenu2" resultType="com.hy.spring05.MenuDTO">
+        select * from menu_test where m_no = #{no}
+    </select>
+
+    <select id="getMenu" resultType="com.hy.spring05.MenuDTO">
+        select * from menu_test where m_no = #{m_no}
+    </select>
+
+    <update id="upMenu">
+        update menu_test set m_name= #{m_name}, m_price = #{m_price} where m_no = #{m_no}
+    </update>
+
+</mapper>

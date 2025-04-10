@@ -1,0 +1,49 @@
+/* 전체 컨테이너 스타일 */
+.item {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 스타일 */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+/* 리뷰 정보 정렬 */
+.item div {
+    padding: 10px;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 마지막 div는 아래 선 없애기 */
+.item div:last-child {
+    border-bottom: none;
+}
+
+/* 버튼 컨테이너 */
+.item .buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 버튼 스타일 */
+.item button {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: darkblue;
+    color: darkorange;
+}
+
