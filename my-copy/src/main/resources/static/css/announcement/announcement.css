@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
+
+.table-title {
+    color: #3F2E29;
+}
+
+.announcement-board {
+    width: 100%;
+    background: linear-gradient(145deg, #fefaf6, #f2e9e4);
+    border-radius: 12px;
+    border: 1px solid #e0d8cc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.announcement-board-header {
+    display: flex;
+    background-color: #EDE0D4;
+    font-weight: bold;
+    padding: 14px 10px;
+    border-bottom: 1px solid #d7ccc8;
+    color: #3f2e29;
+}
+
+.announcement-row {
+    display: flex;
+    padding: 14px 10px;
+    align-items: center;
+    border-bottom: 1px solid #f0e6de;
+    transition: background 0.2s;
+}
+
+.announcement-row:hover {
+    background-color: #f9f5f2;
+    cursor: pointer;
+}
+
+.col, .cell {
+    flex: 1;
+    text-align: center;
+    word-break: break-word;
+    color: #5d4037;
+    font-size: 0.95rem;
+}
+
+.col-announcement-num     { flex: 0 0 50px; max-width: 50px; }
+.col-announcement-title      { flex: 2; }
+.col-announcement-id    { flex: 1; }
+.col-announcement-created   { flex: 1; }
+
+.col-announcement-title {
+    flex: 2;
+    text-align: left;
+    padding-left: 20px;
+}
+
+/* 마지막 행 구분선 제거 */
+.announcement-board .announcement-row:last-child {
+    border-bottom: none;
+}
+
+.announcement-row:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.announcement-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #5D4037;
+}
+
+.field .value {
+    padding: 8px 12px;
+    background-color: #f5f0ea;
+    border-radius: 5px;
+    color: #3D2C2E;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-group input {
+    flex: 1;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.action-buttons button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.edit-btn {
+    background-color: #9A6E50;
+    color: #fff;
+}
+
+.delete-btn {
+    background-color: #D2C4D6;
+    color: #fff;
+}
+
+button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    padding: 8px 14px;
+    border: 1px solid #d7ccc8;
+    background-color: #fff8f2;
+    color: #6d4c41;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    margin: 0 4px;
+}
+
+.page-btn.active {
+    background-color: #9A6E50;
+    color: white;
+    border: none;
+}
+
+.page-btn.move-prev,
+.page-btn.move-next {
+    border: 1px solid #d7ccc8;
+    background-color: #fff8f2;
+    color: #6d4c41;
+}
+.page-btn.move-prev:hover,
+.page-btn.move-next:hover {
+    background-color: #9A6E50;
+}
+
+.page-btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}

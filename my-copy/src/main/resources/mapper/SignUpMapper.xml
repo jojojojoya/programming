@@ -1,0 +1,30 @@
+<!--<?xml version="1.0" encoding="UTF-8" ?>-->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
+<!--        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+
+<!--<mapper namespace="com.koyoi.main.mapper.SignUpMapper">-->
+
+<!--    &lt;!&ndash; 회원가입 INSERT &ndash;&gt;-->
+<!--    <insert id="insertUser">-->
+<!--        INSERT INTO TEST_USER (-->
+<!--            user_id,-->
+<!--            user_type,-->
+<!--            user_name,-->
+<!--            user_nickname,-->
+<!--            user_email,-->
+<!--            user_password,-->
+<!--            user_img,-->
+<!--            created_at-->
+<!--        ) VALUES (-->
+<!--                     #{userId},-->
+<!--                     #{userType},-->
+<!--                     #{userName},-->
+<!--                     #{userNickname},-->
+<!--                     #{userEmail},-->
+<!--                     #{userPassword},-->
+<!--                     #{userImg},-->
+<!--                     SYSDATE-->
+<!--                 )-->
+<!--    </insert>-->
+
+<!--</mapper>-->
