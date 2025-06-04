@@ -1,0 +1,475 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+
+
+.adminmp-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	/* ✅ 핵심 */
+	background-color: white;
+}
+
+.adminmp-header {
+	margin-top: 80px;
+	margin-bottom: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: black;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	color: black;
+	display: flex;
+	flex: 1;
+	margin-left: 78px;
+}
+
+.adminmp-order-header {
+	margin-bottom: 20px;
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: black;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	color: black;
+	display: flex;
+	font-size: 18px;
+	width: 100%;
+}
+
+.adminmp-order-header-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	/* ← 세로 가운데 정렬 추가해주면 더 좋아 */
+	width: 90%;
+	/* 혹시라도 안 벌어지면 폭도 지정해줘 */
+}
+
+.adminmp-qnalist-header {
+	margin-bottom: 90px;
+	margin-top: 20px;
+	font-size: 12px;
+	color: black;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	color: black;
+	display: flex;
+	width: 100%;
+}
+
+
+.userinsert-btn {
+	background-color: black;
+	color: white;
+	font-size: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	cursor: pointer;
+}
+
+.userdelete-btn {
+	background-color: black;
+	color: white;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+.userPwinput,
+.userIdinput,
+.userNickinput{
+	width: 115px;
+	margin-right: 10px;
+}
+
+
+.useradd-btn {
+	background-color: black;
+	color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+.useraddment {
+	margin-bottom: 10px;
+}
+
+.adminmp-qnalist-hhd {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 90%;
+}
+
+.adminmp-qnalist-item {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    width: 91%;
+    background-color: white;
+    font-size: 12px;
+    gap: 8px;
+}
+
+.adminmp-qnalist-info {
+	flex: 1;
+	/* ✅ 왼쪽이 최대한 공간 차지하게 */
+	display: flex;
+	flex-direction: column;
+}
+
+
+.section-divider {
+	border-top: 2px solid gray;
+	width: 90%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.adminmp-qna-header {
+	margin-bottom: 90px;
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: black;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	color: black;
+	display: flex;
+	width: 100%;
+}
+
+
+.adminmp-profile-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	gap: 5px;
+	flex-direction: column;
+}
+
+.adminmp-profile-box button {
+	background-color: black;
+	color: white;
+	margin-left: 50px;
+	font-size: 12px;
+	width: 120px;
+}
+
+.adminmp-welcome-text {
+	font-size: 16px;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+
+
+.adminmp-subpage-header {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	padding-top: 20px;
+
+	font-size: 16px;
+	font-weight: normal;
+	color: black;
+
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+
+	margin-left: 78px;
+}
+
+
+
+.adminmp-textbox {
+    font-size: 12px;
+    margin-bottom: 30px;
+    font-weight: normal;
+    border: solid 21px darkgray;
+    padding: 33px;
+	}
+
+.adminmp-sidebar-container {
+	width: 130px;
+	background-color: black;
+	color: white;
+	padding: 20px;
+	border-top: 1px solid;
+	font-size: 14px;
+	justify-content: center;
+	display: inline-flex;
+}
+
+.adminmp-orderlist {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 150px;
+	gap: 5px;
+}
+
+.adminmp-qnalist {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 150px;
+	gap: 5px;
+}
+
+.adminmp-qnalist {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 150px;
+	gap: 5px;
+}
+
+
+.adminmp-orderlist-detail {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 300px;
+	gap: 5px;
+}
+
+.adminmp-qnalist-detail {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 300px;
+	gap: 5px;
+}
+
+.adminmp-qnalist-detail {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 300px;
+	gap: 5px;
+}
+
+
+.adminmp-sidebar-list {
+	margin-top: 10px;
+	cursor: pointer;
+}
+.adminmp-qnalist-info {
+  display: flex;
+  flex-direction: row; /* 수평으로 정렬 */
+  justify-content: space-between; /* 여백 균등 배치 */
+  align-items: center; /* 세로 가운데 정렬 */
+  gap: 20px; /* 항목 간격 */
+  width: 100%;
+}
+
+.answer-status {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.answer-complete {
+  color: green;
+}
+
+.answer-pending {
+  color: red;
+}
+
+
+
+.adminmp-qnalist-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+}
+
+
+.adminmp-qnalist-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: black;
+}
+
+.adminmp-qnalist-prname {
+  font-weight: bold;
+}
+
+.adminmp-qnalist-iddate {
+  color: #888;
+}
+
+.adminmp-qnalist-right {
+  font-size: 12px;
+}
+
+.qna-status {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.qna-complete {
+  color: green;
+}
+
+.qna-pending {
+  color: red;
+}
+
+
+.qna-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.qna-title {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.qna-status {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.qna-complete {
+  color: green;
+}
+
+.qna-pending {
+  color: red;
+}
+
+.qna-meta {
+  color: #888;
+  font-size: 12px;
+}
+
+.qna-divider {
+  border-top: 1px solid #ccc;
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.qna-text {
+    color: #222;
+    margin-bottom: 20px;
+    height: 100%;
+}
+
+.qna-answer-box {
+  margin-top: 4px;
+  color: black;
+}
+
+.qna-answer-box.qna-pending {
+  color: red;
+  font-weight: bold;
+}
+.answer-insert-confirm-btn,
+.answer-insert-cancel-btn {
+  display: none;
+  background-color: black;
+  color: white;
+  font-size: 12px;
+      width: 43px;
+}
+
+.answer-insert-form-buttons {
+  display: flex;     /* ✅ 반드시 있어야 gap 적용됨 */
+  gap: 8px;         /* 버튼 간 간격 조절 */
+  margin-top: 8px;  /* 위 요소와 간격 */
+}
+.answer-insert-text {
+	width: 1100px;
+	height: 100px;
+}
+
+
+.answer-insert-btn,
+.answer-update-btn,
+.answer-delete-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 3px 12px;
+  margin-right: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.answer-insert-btn:hover,
+.answer-update-btn:hover,
+.answer-delete-btn:hover {
+  background-color: #333; 
+
+  }
+  .answerbtn-class {
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+  }

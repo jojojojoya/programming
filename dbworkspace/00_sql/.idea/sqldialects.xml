@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/.idea/xdg.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/dbmemo.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/sql01.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/sql02.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/sql03.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/sql04.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/sql05.sql" dialect="Oracle" />
+  </component>
+</project>
