@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&display=swap');
+
+/* 전체 배경 */
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #f5f0ea;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff3e7;
+    /*border-radius: 30px;*/
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.left-container {
+    width: 60px;
+    background-color: #FFF3E7; /* 오른쪽과 동일 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+    position: relative;
+    border-right: 1px solid #f4dfcd; /* 경계선 */
+    z-index: 100;
+}
+
+.sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* 상단 정렬 */
+    gap: 15px;
+}
+
+
+.sidebar-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    text-decoration: none;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 36px 0; /* 위아래 간격 조정 */
+}
+
+
+.sidebar-btn::before {
+    content: "...";
+    font-size: 11px;
+    font-weight: bold;
+    color: black;
+    position: absolute;
+    top: -20px; /* 기존 -42px → -30px으로 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+/* 버튼 내부 아이콘 */
+.sidebar-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.sidebar-btn:hover {
+    transform: scale(1.1);
+}
+
+.right-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.header-bar {
+    width: 100%;
+    height: 10vh;
+    background-color: #ede0d4;
+    display: flex; /* 🔹 flexbox 적용 */
+    align-items: center; /* 🔹 세로 중앙 정렬 */
+    justify-content: center; /* 🔹 가로 중앙 정렬 */
+    padding: 0 30px;
+    border-radius: 0px 0px 0 0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.brand-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px; /* 🔹 적절한 너비 설정 */
+    height: 100px; /* 🔹 적절한 높이 설정 */
+}
+
+.brand-title img {
+    width: 200px; /* 🔹 부모 요소에 맞게 조정 */
+    height: 200px;
+}
+
+.header-icons {
+    position: absolute;
+    right: 90px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+
+.header-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.header-btn:hover {
+    transform: scale(1.1);
+}
+
+
+/* 프로필 이미지 */
+.profile-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    overflow: scroll;
+}
+
+.chatbotlogo {
+    position: fixed;
+    bottom: 12px;
+    left: 51px;
+    transform: translateX(-50%);
+    width: 99px;
+    height: 99px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-sizing: border-box;
+    z-index: 21;
+    overflow: hidden;
+}
+.chatbotlogo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.announcement-view .content {
+    overflow: unset !important;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f0ea;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d2c4d6;
+    border-radius: 10px;
+    border: 2px solid #f5f0ea;
+}
