@@ -1,0 +1,403 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+
+
+.adminmp-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	/* ✅ 핵심 */
+	background-color: white;
+}
+
+.adminmp-header {
+	margin-top: 80px;
+	margin-bottom: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: black;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	color: black;
+	display: flex;
+	flex: 1;
+	margin-left: 78px;
+}
+
+.adminmp-order-header {
+	margin-bottom: 20px;
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: black;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	color: black;
+	display: flex;
+	font-size: 18px;
+	width: 100%;
+}
+
+.adminmp-order-header-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	/* ← 세로 가운데 정렬 추가해주면 더 좋아 */
+	width: 90%;
+	/* 혹시라도 안 벌어지면 폭도 지정해줘 */
+}
+
+.adminmp-orderlist-header {
+	margin-bottom: 90px;
+	margin-top: 20px;
+	font-size: 12px;
+	color: black;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	color: black;
+	display: flex;
+	width: 100%;
+}
+
+
+.userinsert-btn {
+	background-color: black;
+	color: white;
+	font-size: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	cursor: pointer;
+}
+
+.userdelete-btn {
+	background-color: black;
+	color: white;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+.userPwinput,
+.userIdinput,
+.userNickinput {
+	width: 115px;
+	margin-right: 10px;
+}
+
+
+.useradd-btn {
+	background-color: black;
+	color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+.useraddment {
+	margin-bottom: 10px;
+}
+
+.adminmp-orderlist-hhd {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 90%;
+}
+
+.adminmp-orderlist-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #e6e6e6;
+	padding: 10px;
+	width: 90%;
+
+}
+
+.adminmp-orderlist-info {
+	flex: 1;
+	/* ✅ 왼쪽이 최대한 공간 차지하게 */
+	display: flex;
+	flex-direction: column;
+}
+
+
+.section-divider {
+	border-top: 2px solid gray;
+	width: 90%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.adminmp-order-header {
+	margin-bottom: 90px;
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: black;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	color: black;
+	display: flex;
+	width: 100%;
+}
+
+
+.adminmp-profile-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	gap: 5px;
+	flex-direction: column;
+}
+
+.adminmp-profile-box button {
+	background-color: black;
+	color: white;
+	margin-left: 50px;
+	font-size: 12px;
+	width: 120px;
+}
+
+.adminmp-welcome-text {
+	font-size: 16px;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+
+
+.adminmp-subpage-header {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	padding-top: 20px;
+
+	font-size: 16px;
+	font-weight: normal;
+	color: black;
+
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+
+	margin-left: 78px;
+}
+
+/* adminorders.css 파일 상단 or 하단에 추가 */
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+
+.adminmp-textbox {
+	font-size: 12px;
+	margin-bottom: 30px;
+	font-weight: normal;
+	border: solid 21px darkgray;
+	padding: 33px;
+}
+
+.adminmp-sidebar-container {
+	width: 130px;
+	background-color: black;
+	color: white;
+	padding: 20px;
+	border-top: 1px solid;
+	font-size: 14px;
+	justify-content: center;
+	display: inline-flex;
+}
+
+
+.adminmp-orderlist {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 150px;
+	gap: 5px;
+}
+
+
+.adminmp-orderlist-detail {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 300px;
+	gap: 5px;
+}
+
+
+
+.adminmp-orderlist-detail {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 300px;
+	gap: 5px;
+}
+
+
+.adminmp-sidebar-list {
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.adminmp-orderlist-info {
+	display: flex;
+	flex-direction: row;
+	/* 수평으로 정렬 */
+	justify-content: space-between;
+	/* 여백 균등 배치 */
+	align-items: center;
+	/* 세로 가운데 정렬 */
+	gap: 20px;
+	/* 항목 간격 */
+	width: 100%;
+}
+
+.answer-status {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 4px 8px;
+	border-radius: 4px;
+}
+
+.answer-complete {
+	color: green;
+}
+
+.answer-pending {
+	color: red;
+}
+
+.order-status {
+	color: red;
+	/* 글자색 빨간색 */
+	font-weight: bold;
+	/* 굵게 */
+}
+
+
+.adminmp-null-notice {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	margin-top: 20px;
+	height: 150px;
+	width: 100%;
+	gap: 5px;
+}
+
+
+.adminmp-orderlist {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 150px;
+	gap: 5px;
+}
+
+.adminmp-orderlist-detail {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	border-top: 2px solid grey;
+	margin-top: 20px;
+	width: 90%;
+	height: 300px;
+	gap: 5px;
+}
+
+.adminmp-orderlistbox {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 92%;
+	font-size: 12px;
+}
+
+.adminmp-orderlist-item {
+	background-color: #ffffff;
+	border-bottom: 2px solid #e6e6e6;
+	padding: 10px;
+	width: 97%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: normal;
+}
+
+.adminmp-orderlist-iddate {
+	display: flex;
+}
+
+.adminmp-orderlist-text {
+	display: flex;
+	width: 100%;
+	height: 400px;
+	padding: 10px;
+	flex-direction: column;
+	border-bottom: solid 1px #e6e6e6;
+	margin-bottom: 14px;
+	font-weight: normal;
+}
+
+.adminmp-orderlist-btn {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 20px;
+	width: 100%;
+}
+
+.adminmp-orderlist-btn button {
+	font-size: 10px;
+	background-color: black;
+	color: white;
+	border: none;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}

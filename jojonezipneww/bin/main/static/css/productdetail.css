@@ -1,0 +1,415 @@
+@charset "UTF-8";
+
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+
+.mainpage-container {
+	width: 100%;
+	min-height: 800px;
+	background-color: white;
+}
+
+.product-container {
+	width: 80%;
+	display: flex;
+	gap: 30px;
+	padding: 30px 0;
+
+}
+
+.product-thumb-container {
+	display: flex;
+	flex-wrap: nowrap;
+	padding: 55px 50px;
+}
+
+.show-qna-form {
+	display: flex;
+	justify-content: end;
+}
+
+#show-qna-form-btn {
+	background-color: black;
+	color: white;
+	width: 76px;
+	padding: 3px;
+	cursor: pointer;
+}
+
+
+.show-review-form {
+	display: flex;
+	justify-content: end;
+}
+
+#show-review-form-btn {
+	background-color: black;
+	color: white;
+	width: 76px;
+	padding: 3px;
+	cursor: pointer;
+}
+
+.product-info-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	gap: 13px;
+}
+
+.product-amount-input-container {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 7px;
+}
+
+.product-act-container {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 30px;
+	padding: 20px 0;
+	margin-top: -10px;
+}
+
+.product-img {
+	width: 350px;
+	height: 350px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	overflow: hidden;
+}
+
+.amount-input {
+	width: 20px;
+	text-align: center;
+}
+
+.minus-amount-btn {
+	text-align: center;
+	background-color: #dedddd;
+	width: 22px;
+	border: none;
+	color: #787875;
+	cursor: pointer;
+}
+
+.plus-amount-btn {
+	text-align: center;
+	background-color: #dedddd;
+	width: 22px;
+	border: none;
+	color: #787875;
+	cursor: pointer;
+}
+
+.product-name {
+	font-size: 20px;
+	font-weight: bold;
+	text-align: left;
+	width: 255px;
+	margin-top: 31px;
+}
+
+.product-link {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
+
+.price-cart-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 170px;
+	margin-top: 5px;
+}
+
+.cart-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background: none; 
+  border: none;       
+  padding: 0;   
+  margin: 0;          
+}
+
+.product-price {
+	font-size: 17px;
+	color: black;
+	text-align: center;
+}
+
+.product-detail-text {
+	font-size: 17px;
+	color: #8f8282;
+	text-align: center;
+	margin-bottom: 81px;
+}
+
+.product-amount-input {
+	margin-top: 10px;
+	font-size: 18px;
+	color: black;
+	text-align: center;
+}
+
+.cart-icon img {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
+
+#buy-product-btn {
+	background-color: black;
+	color: #fffefd;
+	width: 129px;
+	cursor: pointer;
+}
+
+.product-detail-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	gap: 40px;
+	padding: 20px 0;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #eee;
+	cursor: pointer;
+}
+
+.product-detail-header div {
+	padding: 10px 20px;
+	cursor: pointer;
+}
+
+.product-detail-header div:hover {
+	color: black;
+	border-bottom: 2px solid black;
+}
+
+.product-tab-content {
+	width: 80%;
+	margin: 0 auto;
+	padding: 30px 0;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #444;
+	display: none;
+}
+
+.product-tab-content.active {
+	display: block;
+}
+
+.product-container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+
+.product-tab-container {
+	width: 90%;
+	margin: 0 auto;
+}
+
+
+
+.tab-btn {
+	color: inherit;
+	/* 글자색 상속 (파란색 제거) */
+	text-decoration: none;
+	/* 밑줄 제거 */
+	padding: 10px;
+	font-weight: bold;
+}
+
+.tab-btn.active {
+	border-bottom: 2px solid black;
+}
+
+
+.product-tab-header {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	gap: 290px;
+}
+
+.review-list {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.review-item {
+	padding: 20px;
+	border-bottom: 1px solid #ccc;
+	background-color: rgb(255, 255, 255);
+}
+
+.review-title {
+	font-size: 17px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.review-text {
+	margin-bottom: 10px;
+}
+
+.review-answer {
+	margin-bottom: 10px;
+}
+
+.review-meta {
+	font-size: 12px;
+	color: #888;
+}
+
+
+
+.qna-list {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.qna-item {
+	padding: 20px;
+	border-bottom: 1px solid #ccc;
+	background-color: rgb(255, 255, 255);
+}
+
+.qna-title {
+	font-size: 17px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.qna-text {
+	margin-bottom: 10px;
+}
+
+
+.qna-answer {
+	margin-bottom: 10px;
+}
+
+.qna-meta {
+	font-size: 12px;
+	color: #888;
+}
+
+
+/* 리뷰 작성 폼 전체 래퍼 */
+#review-form-container {
+	background-color: #f9f9f9;
+	padding: 20px;
+	border: 1px solid #ccc;
+	margin-bottom: 20px;
+}
+
+/* 제목/내용 라벨 공통 */
+#review-form-container label {
+	font-weight: bold;
+	display: block;
+	margin-bottom: 6px;
+	margin-top: 10px;
+}
+
+/* 제목 input, 내용 textarea 공통 */
+#review-form-container input[type="text"],
+#review-form-container textarea {
+	width: 100%;
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+}
+
+/* 버튼 컨테이너 */
+.review-form-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+/* 버튼 공통 스타일 */
+.review-form-buttons button {
+	padding: 6px 14px;
+	font-size: 14px;
+	background-color: black;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.review-form-buttons button:hover {
+	background-color: #333;
+}
+
+/* Q&A 작성 폼 컨테이너 */
+#qna-form-container {
+	background-color: #f9f9f9;
+	padding: 20px;
+	border: 1px solid #ccc;
+	margin-bottom: 20px;
+}
+
+/* 제목, 내용 라벨 스타일 */
+#qna-form-container label {
+	font-weight: bold;
+	display: block;
+	margin-bottom: 6px;
+	margin-top: 10px;
+}
+
+/* 인풋, 텍스트영역 스타일 */
+#qna-form-container input[type="text"],
+#qna-form-container textarea {
+	width: 100%;
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+}
+
+/* 버튼 그룹 */
+.qna-form-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+/* 버튼 공통 */
+.qna-form-buttons button {
+	padding: 6px 14px;
+	font-size: 14px;
+	background-color: black;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.qna-form-buttons button:hover {
+	background-color: #333;
+}
