@@ -21,7 +21,7 @@ public class Model {
 				int age = Integer.parseInt(request.getParameter("age"));
 				String gen = request.getParameter("gen");
 				String[] inter = request.getParameterValues("inter");
-		//2. 로직처리
+		//2. 로직처리 VO 객체에 정보를 담아서 set(입력)
 				Bean b = new Bean(name,age,gen,inter);
 						request.setAttribute("bb", b);
 	}
